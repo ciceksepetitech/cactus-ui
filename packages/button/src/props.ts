@@ -1,5 +1,5 @@
 interface IProps {
-    label?: string
+  label?: string;
 }
 
 export default IProps;
