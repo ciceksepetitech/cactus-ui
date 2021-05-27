@@ -1,6 +1,6 @@
 {
   "name": "@cs/components",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Cicek Sepeti Component Button",
   "author": "cs",
   "main": "dist/src/index.js",
@@ -20,6 +20,6 @@
     "compile": "tsc"
   },
   "dependencies": {
-    "@cs/component-button": "0.0.0"
+    "@cs/component-button": "^0.0.1"
   }
 }
