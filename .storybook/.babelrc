@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-modules-commonjs",
+    ["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
+  ]
+}

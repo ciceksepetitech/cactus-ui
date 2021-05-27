@@ -1,0 +1,10 @@
+**/tests/fixtures/**/*
+**/dist
+**/coverage
+**/.vscode
+.github
+package.json 
+lerna.json
+.prettierrc.json
+
+CHANGELOG.md

@@ -1,0 +1,23 @@
+{
+  "name": "@cs/component-button",
+  "version": "0.0.0",
+  "description": "Cicek Sepeti Component Button",
+  "author": "cs",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://sonatype-nexus.test.svc.techcs.io/repository/cs-packages/"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rimraf ./dist && mkdirp ./dist",
+    "compile": "tsc"
+  }
+}
