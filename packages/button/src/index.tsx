@@ -1,15 +1,10 @@
-import React, { FC } from "react";
-import IProps from "./props";
-
+import React, { FC } from 'react';
+import IProps from './props';
 
 const Component: FC<IProps> = (props: IProps) => {
-  console.log(props);
+  const { variant, onClick } = props;
 
-  return (
-    <div>
-      Button
-    </div>
-  );
+  return <button onClick={onClick}>Button ({variant})</button>;
 };
 
 export default Component;

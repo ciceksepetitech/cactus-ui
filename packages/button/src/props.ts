@@ -1,5 +1,6 @@
 interface IProps {
-  label?: string;
+  variant: 'primary' | 'secondary';
+  onClick?(event: React.MouseEvent<HTMLButtonElement>): void;
 }
 
 export default IProps;
