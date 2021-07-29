@@ -1,0 +1,26 @@
+{
+  "name": "@cs/component-visually-hidden",
+  "version": "0.0.1",
+  "description": "Cicek Sepeti Component Visually Hidden",
+  "author": "cs",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://sonatype-nexus.test.svc.techcs.io/repository/cs-packages/"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "dependencies": {
+    "@cs/component-utils": "^0.0.1"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rimraf ./dist && mkdirp ./dist",
+    "compile": "tsc"
+  }
+}
