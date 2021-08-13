@@ -18,8 +18,5 @@
     "build": "npm run clean && npm run compile",
     "clean": "rimraf ./dist && mkdirp ./dist",
     "compile": "tsc"
-  },
-  "dependencies": {
-    "@cs/component-button": "^0.0.1"
   }
 }

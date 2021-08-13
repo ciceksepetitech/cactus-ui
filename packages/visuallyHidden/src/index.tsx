@@ -1,10 +1,14 @@
 import React from 'react';
-import IProps from './props';
 import PropTypes from 'prop-types';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
+/**
+ * hides the children visually
+ * @param props
+ * @returns
+ */
 const VisuallyHidden = <C extends React.ElementType = 'div'>(
-  props: PolymorphicComponentProps<C, IProps>
+  props: PolymorphicComponentProps<C, IVisuallyHiddenProps>
 ) => {
   const { as: Component = 'div', style, children, ...rest } = props;
 
@@ -32,6 +36,14 @@ const VisuallyHidden = <C extends React.ElementType = 'div'>(
     </Component>
   );
 };
+
+/** Types and Interfaces */
+
+interface IVisuallyHiddenProps {
+  children: React.ReactNode;
+}
+
+/** Prop Types */
 
 if (process.env.NODE_ENV === 'development') {
   VisuallyHidden.displayName = 'VisuallyHidden';

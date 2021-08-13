@@ -50,4 +50,5 @@ Thumbs.db
 
 # Jest
 .jest-cache
+.jest-coverage
 

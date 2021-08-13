@@ -5,40 +5,64 @@ import React, {
   forwardRef,
   cloneElement
 } from 'react';
-import IProps from './props';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import VisuallyHidden from '@cs/component-visually-hidden';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
+/**
+ * for multiple alerts in a same liveRegionType,
+ * holds key number to have unique index in liveRegionContainerElements
+ */
 const liveRegionCount: LiveRegionKeys = {
   off: 0,
   polite: 0,
   assertive: 0
 };
 
+/**
+ * holds references to each created alert by its liveRegionType
+ */
 const liveRegionContainerElements: LiveRegionElements = {
   off: {},
   polite: {},
   assertive: {}
 };
 
+/**
+ * holds references to created live region containers for each liveRegionType
+ */
 const liveRegionContainers: LiveRegionElementTypes = {
   off: null,
   polite: null,
   assertive: null
 };
 
+/**
+ * creates functions for a created alert
+ * @param liveRegionType
+ * @returns CloneRef
+ */
 const createCloneFunctions = (liveRegionType: LiveRegionType): CloneRef => {
   const key = ++liveRegionCount[liveRegionType];
+  const regionElements = liveRegionContainerElements[liveRegionType];
 
+  /**
+   * adds alert to liveRegionContainerElements by its liveRegionType,
+   * than re-renders alerts
+   * @param element
+   */
   const addToLiveRegion = (element: JSX.Element) => {
-    liveRegionContainerElements[liveRegionType][key] = element;
-    renderAlerts();
+    regionElements[key] = element;
+    renderAlertsToRegions();
   };
 
+  /**
+   * clones the children to specified live region
+   * @param element
+   * @returns
+   */
   const clone = (element: JSX.Element) => {
-    if (liveRegionContainerElements[liveRegionType]) {
+    if (liveRegionContainers[liveRegionType]) {
       addToLiveRegion(element);
       return;
     }
@@ -51,40 +75,53 @@ const createCloneFunctions = (liveRegionType: LiveRegionType): CloneRef => {
     addToLiveRegion(element);
   };
 
+  /**
+   * removes alert from live region when it is unmounted
+   */
   const remove = () => {
-    delete liveRegionContainers[liveRegionType][key];
-    renderAlerts();
+    delete regionElements[key];
+    renderAlertsToRegions();
   };
 
   return { clone, remove };
 };
 
-const renderAlerts = () => {
+/**
+ * renders all alerts in liveRegionContainerElements
+ * by alerts liveRegionType as visually hidden
+ */
+const renderAlertsToRegions = () => {
   Object.keys(liveRegionContainerElements).forEach((elementType) => {
     const liveRegionType: LiveRegionType = elementType as LiveRegionType;
     const container = liveRegionContainers[liveRegionType]!;
+    const regionElements = liveRegionContainerElements[liveRegionType];
 
     if (container) {
       ReactDOM.render(
         <VisuallyHidden as="div">
           <div
             aria-live={liveRegionType}
+            aria-roledescription="alert box"
             role={liveRegionType === 'assertive' ? 'alert' : 'status'}
           >
-            {Object.keys(liveRegionContainerElements[liveRegionType]).map(
-              (key) =>
-                cloneElement(liveRegionContainerElements[liveRegionType][key], {
-                  key
-                })
+            {Object.keys(regionElements).map((key) =>
+              cloneElement(regionElements[key], { key })
             )}
           </div>
         </VisuallyHidden>,
-        liveRegionContainers[liveRegionType]
+        container
       );
     }
   });
 };
 
+/**
+ * creates a ref and holds createCloneFunctions inside of the ref
+ * to manage cloning and removing of the alert from liveRegionContainerElements
+ * @param element
+ * @param liveRegionType
+ * @param ref
+ */
 const useLiveRegionClone = (
   element: JSX.Element,
   liveRegionType: LiveRegionType,
@@ -93,25 +130,28 @@ const useLiveRegionClone = (
   const cloneRef = React.useRef<CloneRef | null>(null);
 
   useEffect(() => {
-    cloneRef.current && cloneRef.current.remove();
+    cloneRef.current?.remove();
     cloneRef.current = createCloneFunctions(liveRegionType);
     cloneRef.current.clone(element);
-  }, [element, liveRegionType, ref]);
 
-  useEffect(() => {
-    return () => cloneRef.current && cloneRef.current.remove();
-  }, []);
+    return () => cloneRef.current?.remove();
+  }, [element, liveRegionType, ref]);
 };
 
+/**
+ * alert component
+ * returns alert component and manages all accessibility features
+ * by using useLiveRegionClone
+ */
 const Alert = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IProps>,
+    props: PolymorphicComponentProps<C, IAlertProps>,
     ref
   ) => {
     const { as: Component = 'div', children, type = 'polite', ...rest } = props;
 
-    const alertRef = useRef(null);
-    ref = ref || alertRef;
+    const internalRef = useRef(null);
+    ref = ref || internalRef;
 
     const component = useMemo(
       () => (
@@ -127,6 +167,8 @@ const Alert = forwardRef(
     return component;
   }
 );
+
+/** Types and Interfaces */
 
 type LiveRegionType = 'assertive' | 'polite' | 'off';
 
@@ -149,12 +191,9 @@ type LiveRegionKeys = {
   [key in LiveRegionType]: number;
 };
 
-if (process.env.NODE_ENV === 'development') {
-  Alert.displayName = 'Alert';
-  Alert.propTypes = {
-    children: PropTypes.node,
-    type: PropTypes.oneOf(['assertive', 'polite'])
-  };
+interface IAlertProps {
+  type?: LiveRegionType;
+  children: React.ReactNode;
 }
 
 export default Alert;
