@@ -1,8 +1,8 @@
 {
   "name": "@cs/component-visually-hidden",
   "version": "0.0.1",
-  "description": "Cicek Sepeti Component Visually Hidden",
-  "author": "cs",
+  "description": "Cicek Sepeti Visually Hidden Component",
+  "author": "ciceksepeti",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",

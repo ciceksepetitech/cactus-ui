@@ -17,6 +17,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "eslintIgnore": [
+    "node_modules",
+    "packages/*/**/dist"
+  ],
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.14.5",

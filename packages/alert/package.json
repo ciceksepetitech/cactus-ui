@@ -1,9 +1,10 @@
 {
   "name": "@cs/component-alert",
   "version": "0.0.1",
-  "description": "Cicek Sepeti Component Alert",
-  "author": "cs",
+  "description": "Cicek Sepeti Accessible Alert Component",
+  "author": "ciceksepeti",
   "main": "dist/src/index.js",
+  "sideEffects": ["*.css"],
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "private": false,
@@ -19,6 +20,7 @@
     "@cs/component-utils": "^0.0.1",
     "@cs/component-visually-hidden": "^0.0.1"
   },
+  "files": ["styles.css"],
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rimraf ./dist && mkdirp ./dist",
