@@ -139,9 +139,7 @@ const useLiveRegionClone = (
 };
 
 /**
- * alert component
- * returns alert component and manages all accessibility features
- * by using useLiveRegionClone
+ * An alert component displays an important/unimportant message to get the user's attention without interrupting the user. @ciceksepeti/alert is mainly focused on web accessibility. Thus, with aria-live and role attributes, we try to ensure that many assistive technologies announce the message to users according to the notification level specified by the developer. Rendered alert component HTML tag can be decided by the developer so developers can decide correct semantic for their application
  */
 const Alert = forwardRef(
   <C extends React.ElementType = 'div'>(
@@ -197,3 +195,5 @@ interface IAlertProps {
 }
 
 export default Alert;
+
+Alert.displayName = 'Alert';

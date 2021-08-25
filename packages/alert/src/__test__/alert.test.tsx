@@ -2,7 +2,7 @@ import React from 'react';
 import Alert from '..';
 import { axe } from 'jest-axe';
 import userEvents from '@testing-library/user-event';
-import { AlertAsync } from '../stories/Alert.stories';
+import { RenderAsync as AlertRenderAsync } from '../stories/Alert.stories';
 import { render, screen, cleanup, waitFor } from '@testing-library/react';
 
 describe('alert component tests', () => {
@@ -34,7 +34,7 @@ describe('alert component tests', () => {
   test('async alerts should be mount/unmount properly', async () => {
     jest.useFakeTimers();
 
-    render(<AlertAsync />);
+    render(<AlertRenderAsync />);
 
     userEvents.click(screen.getByText(/add alert/i));
     await waitFor(() => screen.getAllByText('I am an alert (1)'));

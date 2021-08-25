@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 /**
- * hides the children visually
- * @param props
- * @returns
+ * VisuallyHidden component visually hides its children from UI. @ciceksepeti/visuallyHidden is developed to increase web accessibility. So, assistive technologies can still attract with the element but it will not take any space at the DOM. Rendered visuallyhidden component HTML tag can be decided by the developer so developers can decide correct semantic for their application. VisuallyHidden component can have styles and correct other attributes according to the rendered tag
  */
 const VisuallyHidden = <C extends React.ElementType = 'div'>(
   props: PolymorphicComponentProps<C, IVisuallyHiddenProps>
@@ -53,3 +51,5 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default VisuallyHidden;
+
+VisuallyHidden.displayName = 'VisuallyHidden';

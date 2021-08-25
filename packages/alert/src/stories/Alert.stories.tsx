@@ -2,38 +2,108 @@ import React, { useState } from 'react';
 import Alert from '..';
 import '../../styles.css';
 
+/**
+ * Setup
+ */
+
 export default {
   title: 'Components/Alert',
-  component: Alert
+  component: Alert,
+  argTypes: {
+    as: {
+      defaultValue: 'div',
+      control: { type: 'text' },
+      description:
+        'enables changing the tag of alert component which will render to DOM',
+      table: {
+        type: { summary: 'html Tag' },
+        defaultValue: { summary: 'div' }
+      }
+    },
+    type: {
+      defaultValue: 'polite',
+      control: { type: 'select' },
+      description: 'type for accessibility',
+      options: ['polite', 'assertive', 'off'],
+      table: {
+        type: { summary: 'aria-live values' },
+        defaultValue: { summary: 'polite' }
+      }
+    }
+  }
 };
 
-export const AlertComponent = () => {
-  return <Alert>I am an alert</Alert>;
+const Template = (args) => <Alert {...args} />;
+
+/**
+ * Default
+ */
+
+export const Default = Template.bind({});
+
+Default.args = {
+  children: 'I am an alert'
 };
 
-export const AlertAsSpan = () => {
-  return <Alert as="span">I am an alert as a span tag</Alert>;
+Default.parameters = {
+  docs: {
+    source: {
+      state: 'open'
+    }
+  }
 };
 
-export const AlertWithStylesAttribute = () => {
-  return (
-    <Alert
-      style={{
-        color: 'steelblue',
-        fontStyle: 'italic',
-        borderColor: 'steelblue'
-      }}
-    >
-      I am an alert with styles attribute
-    </Alert>
-  );
+/**
+ * As Span
+ */
+
+export const AsSpan = Template.bind({});
+
+AsSpan.args = {
+  as: 'span',
+  children: 'I am an alert as a span tag'
 };
 
-export const AlertGenerate = () => {
+AsSpan.parameters = {
+  docs: {
+    source: {
+      state: 'open'
+    }
+  }
+};
+
+/**
+ * With Styles Attribute
+ */
+
+export const WithStylesAttribute = Template.bind({});
+
+WithStylesAttribute.args = {
+  children: 'I am an alert with styles attribute',
+  style: {
+    color: 'firebrick',
+    fontStyle: 'italic',
+    borderColor: 'firebrick'
+  }
+};
+
+WithStylesAttribute.parameters = {
+  docs: {
+    source: {
+      state: 'open'
+    }
+  }
+};
+
+/**
+ * Render Manually
+ */
+
+export const RenderManually = () => {
   const [rerender, setRerender] = useState(0);
 
   return (
-    <div aria-label="alert component manually mounted">
+    <section aria-label="alert component manually mounted">
       <button
         style={{ marginBottom: 10, padding: 5, width: '100%' }}
         onClick={() => setRerender(rerender + 1)}
@@ -41,11 +111,23 @@ export const AlertGenerate = () => {
         Add Alert
       </button>
       {rerender > 0 && <Alert>{`I am an alert! (${rerender})`}</Alert>}
-    </div>
+    </section>
   );
 };
 
-export const AlertAsync = () => {
+RenderManually.parameters = {
+  docs: {
+    source: {
+      state: 'open'
+    }
+  }
+};
+
+/**
+ * Render Async
+ */
+
+export const RenderAsync = () => {
   const [alerts, setAlerts] = useState([]);
 
   const onAddAlert = () => {
@@ -69,7 +151,7 @@ export const AlertAsync = () => {
   };
 
   return (
-    <div aria-label="alert component mounted with setTimeout, async">
+    <section aria-label="alert component mounted with setTimeout, async">
       <div style={{ display: 'flex', marginBottom: 10 }}>
         <button
           onClick={onAddAlert}
@@ -86,6 +168,14 @@ export const AlertAsync = () => {
           {each}
         </Alert>
       ))}
-    </div>
+    </section>
   );
+};
+
+RenderAsync.parameters = {
+  docs: {
+    source: {
+      state: 'open'
+    }
+  }
 };
