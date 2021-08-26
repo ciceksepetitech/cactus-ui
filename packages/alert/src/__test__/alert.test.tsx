@@ -2,8 +2,8 @@ import React from 'react';
 import Alert from '..';
 import { axe } from 'jest-axe';
 import userEvents from '@testing-library/user-event';
+import { render, screen, cleanup, waitFor } from '@cs/component-utils';
 import { RenderAsync as AlertRenderAsync } from '../stories/Alert.stories';
-import { render, screen, cleanup, waitFor } from '@testing-library/react';
 
 describe('alert component tests', () => {
   afterEach(() => {
