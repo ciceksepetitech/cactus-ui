@@ -16,7 +16,7 @@ export default {
       description:
         'enables changing the tag of alert component which will render to DOM',
       table: {
-        type: { summary: 'html Tag' },
+        type: { summary: 'html tag' },
         defaultValue: { summary: 'div' }
       }
     },
@@ -74,7 +74,8 @@ WithStylesAttribute.args = {
   style: {
     color: 'firebrick',
     fontStyle: 'italic',
-    borderColor: 'firebrick'
+    borderColor: 'firebrick',
+    border: '2px solid firebrick'
   }
 };
 
