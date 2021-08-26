@@ -2,17 +2,20 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "jest --watch --watchAll",
-    "test:coverage": "jest --coverage",
-    "build": "lerna run build",
-    "publish-lerna": "lerna publish --no-git-tag-version",
-    "lint": "eslint . --ext .js,.ts",
-    "lint:fix": "eslint . --ext .js,.ts --fix",
-    "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
-    "up": "yarn upgrade-interactive --latest",
-    "storybook": "start-storybook -p 6006 -c .storybook",
-    "build:storybook": "build-storybook",
-    "prepare": "husky install"
+    "test": "scripty",
+    "build": "scripty",
+    "up": "scripty",
+    "publish-lerna": "scripty",
+    "lint": "scripty",
+    "lint-fix": "scripty",
+    "format": "scripty",
+    "storybook": "scripty",
+    "build-storybook": "scripty",
+    "prepare": "scripty",
+    "commit": "scripty"
+  },
+  "scripty": {
+    "path": "./scripts/workspace"
   },
   "workspaces": [
     "packages/*"
@@ -43,6 +46,11 @@
     "eslint": "^7.32.0",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "3.3.0",
+    "scripty": "^2.0.0",
     "lerna": "^4.0.0",
     "mkdirp": "^1.0.4",
     "msw": "^0.34.0",
@@ -62,5 +70,10 @@
     "jest-axe": "^5.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

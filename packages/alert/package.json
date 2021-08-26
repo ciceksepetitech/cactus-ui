@@ -22,8 +22,11 @@
   },
   "files": ["styles.css"],
   "scripts": {
-    "build": "npm run clean && npm run compile",
-    "clean": "rimraf ./dist && mkdirp ./dist",
-    "compile": "tsc"
+    "build": "scripty",
+    "clean": "scripty",
+    "compile": "scripty"
+  },
+  "scripty": {
+    "path": "../../scripts/packages"
   }
 }
