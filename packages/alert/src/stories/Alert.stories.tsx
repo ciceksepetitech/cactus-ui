@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Alert from '..';
 import '../../styles.css';
+import { Meta } from '@storybook/react';
 
 /**
  * Setup
  */
-
 export default {
   title: 'Components/Alert',
   component: Alert,
@@ -38,14 +38,13 @@ export default {
       }
     }
   }
-};
+} as Meta;
 
 const Template = (args) => <Alert {...args} />;
 
 /**
  * Default
  */
-
 export const Default = Template.bind({});
 
 Default.args = {
@@ -55,7 +54,6 @@ Default.args = {
 /**
  * As Span
  */
-
 export const AsSpan = Template.bind({});
 
 AsSpan.args = {
@@ -66,7 +64,6 @@ AsSpan.args = {
 /**
  * With Styles Attribute
  */
-
 export const WithStylesAttribute = Template.bind({});
 
 WithStylesAttribute.args = {
@@ -82,7 +79,6 @@ WithStylesAttribute.args = {
 /**
  * Render Manually
  */
-
 export const RenderManually = () => {
   const [rerender, setRerender] = useState(0);
 
@@ -102,7 +98,6 @@ export const RenderManually = () => {
 /**
  * Render Async
  */
-
 export const RenderAsync = () => {
   const [alerts, setAlerts] = useState([]);
 
