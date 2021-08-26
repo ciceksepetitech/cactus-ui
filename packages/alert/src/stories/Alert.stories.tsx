@@ -14,7 +14,7 @@ export default {
       defaultValue: 'div',
       control: { type: 'text' },
       description:
-        'enables changing the tag of alert component which will render to DOM',
+        'enables changing the html tag of alert component which will render to DOM',
       table: {
         type: { summary: 'html tag' },
         defaultValue: { summary: 'div' }

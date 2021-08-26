@@ -191,10 +191,6 @@ type LiveRegionKeys = {
 };
 
 interface IAlertProps {
-  /**
-   * type is used to determine which aria-live section should contain the alert
-   * @default div
-   */
   type?: LiveRegionType;
   children: React.ReactNode;
 }
