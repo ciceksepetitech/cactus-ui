@@ -30,6 +30,13 @@ export default {
         defaultValue: { summary: 'polite' }
       }
     }
+  },
+  parameters: {
+    docs: {
+      source: {
+        state: 'open'
+      }
+    }
   }
 };
 
@@ -45,14 +52,6 @@ Default.args = {
   children: 'I am an alert'
 };
 
-Default.parameters = {
-  docs: {
-    source: {
-      state: 'open'
-    }
-  }
-};
-
 /**
  * As Span
  */
@@ -62,14 +61,6 @@ export const AsSpan = Template.bind({});
 AsSpan.args = {
   as: 'span',
   children: 'I am an alert as a span tag'
-};
-
-AsSpan.parameters = {
-  docs: {
-    source: {
-      state: 'open'
-    }
-  }
 };
 
 /**
@@ -84,14 +75,6 @@ WithStylesAttribute.args = {
     color: 'firebrick',
     fontStyle: 'italic',
     borderColor: 'firebrick'
-  }
-};
-
-WithStylesAttribute.parameters = {
-  docs: {
-    source: {
-      state: 'open'
-    }
   }
 };
 
@@ -113,14 +96,6 @@ export const RenderManually = () => {
       {rerender > 0 && <Alert>{`I am an alert! (${rerender})`}</Alert>}
     </section>
   );
-};
-
-RenderManually.parameters = {
-  docs: {
-    source: {
-      state: 'open'
-    }
-  }
 };
 
 /**
@@ -170,12 +145,4 @@ export const RenderAsync = () => {
       ))}
     </section>
   );
-};
-
-RenderAsync.parameters = {
-  docs: {
-    source: {
-      state: 'open'
-    }
-  }
 };

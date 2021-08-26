@@ -157,12 +157,13 @@ const Alert = forwardRef(
           {children}
         </Component>
       ),
-      [children, rest]
+      [children, rest, Component]
     );
 
-    useLiveRegionClone(component, type, ref);
+    const element: JSX.Element = component.type ? component : <></>;
+    useLiveRegionClone(element, type, ref);
 
-    return component;
+    return element;
   }
 );
 
