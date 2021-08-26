@@ -21,8 +21,5 @@
   },
   "scripty": {
     "path": "../../scripts/packages"
-  },
-  "dependencies": {
-    "@cs/component-button": "^0.0.1"
   }
 }
