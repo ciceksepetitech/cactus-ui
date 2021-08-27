@@ -21,6 +21,7 @@ const VisuallyHidden = <C extends React.ElementType = 'div'>(
         height: '1px',
         margin: '-1px',
         overflow: 'hidden',
+        visibility: 'hidden',
         position: 'absolute',
         clip: 'rect(0 0 0 0)',
 

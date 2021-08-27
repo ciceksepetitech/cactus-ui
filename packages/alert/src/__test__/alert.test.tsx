@@ -15,10 +15,24 @@ describe('alert component tests', () => {
     screen.getAllByText(/test alert/i);
   });
 
+  test('expect alert message to be rendered twice', () => {
+    render(<Alert>Test alert</Alert>);
+    const alert = screen.getAllByText(/test alert/i);
+    expect(alert).toHaveLength(2);
+  });
+
   test('alert should pass a11y', async () => {
     const { container } = render(<Alert>Test alert</Alert>);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  test('expect alert to be rendered with specified tag', () => {
+    render(<Alert as="span">Test Alert</Alert>);
+
+    const alert = screen.getAllByText(/test alert/i);
+    expect(alert[0].tagName).toBe('SPAN');
+    expect(alert[1].tagName).toBe('SPAN');
   });
 
   test('alert should be rendered by default role as status', async () => {
