@@ -31,7 +31,7 @@ export default create({
   inputTextColor: 'black',
   inputBorderRadius: 4,
 
-  brandTitle: 'Çiçeksepeti',
+  brandTitle: 'ÇiçekSepeti',
   brandUrl: 'https://www.ciceksepeti.com/',
   brandImage:
     'https://cdn03.ciceksepeti.com/Themes/Ciceksepeti/Assets/images/logo-new-ciceksepeti.png?v=3.1.1.34146'

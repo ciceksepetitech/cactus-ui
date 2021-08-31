@@ -1,7 +1,7 @@
 {
   "name": "@cs/component-utils",
   "version": "0.0.1",
-  "description": "Cicek Sepeti Component Utils",
+  "description": "ÇiçekSepeti Component Utils",
   "author": "cs",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",

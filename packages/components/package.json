@@ -1,7 +1,7 @@
 {
   "name": "@cs/components",
   "version": "0.0.1",
-  "description": "Cicek Sepeti Component Button",
+  "description": "ÇiçekSepeti Component Button",
   "author": "cs",
   "main": "dist/src/index.js",
   "license": "MIT",

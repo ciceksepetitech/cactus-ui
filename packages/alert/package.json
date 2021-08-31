@@ -1,7 +1,7 @@
 {
   "name": "@cs/component-alert",
   "version": "0.0.1",
-  "description": "Cicek Sepeti Accessible Alert Component",
+  "description": "ÇiçekSepeti Accessible Alert Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
   "sideEffects": ["*.css"],
