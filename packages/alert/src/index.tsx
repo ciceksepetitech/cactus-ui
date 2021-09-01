@@ -144,12 +144,12 @@ const useLiveRegionClone = (
 const Alert = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IAlertProps>,
-    ref
+    forwardedRef: React.RefObject<C>
   ) => {
     const { as: Component = 'div', children, type = 'polite', ...rest } = props;
 
     const internalRef = useRef(null);
-    ref = ref || internalRef;
+    const ref = forwardedRef || internalRef;
 
     const component = useMemo(
       () => (

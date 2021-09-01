@@ -80,17 +80,17 @@ WithStylesAttribute.args = {
  * Render Manually
  */
 export const RenderManually = () => {
-  const [rerender, setRerender] = useState(0);
+  const [reRender, setReRender] = useState(0);
 
   return (
     <section aria-label="alert component manually mounted">
       <button
         style={{ marginBottom: 10, padding: 5, width: '100%' }}
-        onClick={() => setRerender(rerender + 1)}
+        onClick={() => setReRender(reRender + 1)}
       >
         Add Alert
       </button>
-      {rerender > 0 && <Alert>{`I am an alert! (${rerender})`}</Alert>}
+      {reRender > 0 && <Alert>{`I am an alert! (${reRender})`}</Alert>}
     </section>
   );
 };
