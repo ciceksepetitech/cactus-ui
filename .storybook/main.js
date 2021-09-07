@@ -1,4 +1,9 @@
 module.exports = {
   stories: ['../packages/**/*.stories.@(tsx|mdx)'],
-  addons: ['@storybook/addon-controls', '@storybook/addon-actions']
+  addons: [
+    '@storybook/addon-a11y',
+    '@storybook/addon-actions',
+    '@storybook/addon-viewport',
+    '@storybook/addon-essentials'
+  ]
 };
