@@ -1,3 +1,4 @@
+export * from './platform';
 export * from './testSetup';
-export * from './checkIsCSR';
 export * from './polymorphic';
+export * from './setRevertableStyle';

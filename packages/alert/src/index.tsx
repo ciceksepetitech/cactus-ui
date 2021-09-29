@@ -160,7 +160,7 @@ const Alert = forwardRef(
       [children, rest, Component]
     );
 
-    const element: JSX.Element = component.type ? component : <></>;
+    const element: JSX.Element = component.type ? component : <></>; // to avoid test crushing!
     useLiveRegionClone(element, type, ref);
 
     return element;
