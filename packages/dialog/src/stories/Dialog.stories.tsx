@@ -1,7 +1,35 @@
 import React from 'react';
-import '../../styles.css';
+import Dialog from '..';
+import { Meta } from '@storybook/react';
 
-const Template = (args) => <div {...args} />;
+/**
+ * Setup
+ */
+export default {
+  title: 'Components/Dialog',
+  component: Dialog,
+  argTypes: {
+    as: {
+      defaultValue: 'div',
+      control: { type: 'text' },
+      description:
+        'enables changing the html tag of dialog component which will render to DOM',
+      table: {
+        type: { summary: 'html tag' },
+        defaultValue: { summary: 'div' }
+      }
+    }
+  },
+  parameters: {
+    docs: {
+      source: {
+        state: 'open'
+      }
+    }
+  }
+} as Meta;
+
+const Template = (args) => <Dialog {...args} />;
 
 /**
  * Default
@@ -9,5 +37,5 @@ const Template = (args) => <div {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  children: 'I am an dialog'
+  children: 'I am a dialog'
 };
