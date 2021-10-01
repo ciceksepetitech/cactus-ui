@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useRef } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { PolymorphicComponentProps } from '@cs/component-utils';
@@ -9,15 +9,12 @@ const Portal = <C extends React.ElementType = 'div'>(
   const { as = 'div', containerRef, containerId, children } = props;
 
   const [portalNode, setPortalNode] = useState<HTMLElement>(null);
-  const ownerDocumentDetectRef = useRef<HTMLSpanElement | null>(null);
 
   useLayoutEffect(() => {
-    if (!ownerDocumentDetectRef.current) return;
-
     const container =
       document.getElementById(containerId) ||
       containerRef?.current ||
-      ownerDocumentDetectRef.current.ownerDocument.body;
+      document.body;
 
     const elementType = as as keyof HTMLElementTagNameMap;
     const portalNode = document.createElement(elementType);
@@ -32,13 +29,7 @@ const Portal = <C extends React.ElementType = 'div'>(
   }, [as, containerId, containerRef]);
 
   const element = portalNode ? createPortal(children, portalNode) : null;
-  console.log(element, children, portalNode, ownerDocumentDetectRef);
-
-  // trick for detecting ownerDocument of the current tree to append it to correction document object
-  // for example, iframe
-  const ownerDocumentDetect = <span ref={ownerDocumentDetectRef}></span>;
-
-  return element || ownerDocumentDetect;
+  return element || <span></span>;
 };
 
 /** Types and Interfaces */
