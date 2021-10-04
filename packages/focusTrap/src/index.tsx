@@ -14,7 +14,7 @@ export const FocusTrap = forwardRef(
     const {
       children,
       disabled = false,
-      focusToLast = true,
+      focusToLast = false,
       focusToFirst = true,
       as: Component = 'div',
       restoreFocusOnUnmount = true,
