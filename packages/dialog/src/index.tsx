@@ -6,7 +6,6 @@
  */
 
 import React, { forwardRef } from 'react';
-import { FocusOn } from 'react-focus-on';
 import Portal from '@cs/component-portal';
 import FocusTrap from '@cs/component-focus-trap';
 import { PolymorphicComponentProps } from '@cs/component-utils';
