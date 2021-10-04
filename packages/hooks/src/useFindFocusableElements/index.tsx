@@ -28,7 +28,7 @@ export function useFindFocusableElements(
 
     const nodeList = nodeRef.current.querySelectorAll(focusableDOMElementsStr);
     setFocusableElements(Array.prototype.slice.call(nodeList));
-  }, []);
+  }, [nodeRef?.current]);
 
   return { focusableElements };
 }

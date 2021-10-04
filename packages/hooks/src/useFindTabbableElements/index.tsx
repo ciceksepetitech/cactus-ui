@@ -30,7 +30,7 @@ export function useFindTabbableElements(nodeRef: React.RefObject<HTMLElement>) {
     const _tabbableElements = iteratableNodeList.filter(isElementVisible);
 
     setTabbableElements(_tabbableElements);
-  }, []);
+  }, [nodeRef?.current]);
 
   return { tabbableElements };
 }

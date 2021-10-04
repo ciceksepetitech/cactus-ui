@@ -1,9 +1,9 @@
 import React from 'react';
-import FocusWrapper from '..';
+import FocusTrap from '..';
 
 export default {
-  title: 'Components/FocusWrapper',
-  component: FocusWrapper,
+  title: 'Components/FocusTrap',
+  component: FocusTrap,
   argTypes: {
     as: {
       defaultValue: 'div',
@@ -31,7 +31,7 @@ export const Default = () => {
   const buttonStyles = { margin: '3px 5px', padding: '5px', cursor: 'pointer' };
 
   return (
-    <FocusWrapper>
+    <FocusTrap>
       <div>
         <button style={buttonStyles}>focusable button</button>
         <button style={buttonStyles}>focusable button</button>
@@ -47,6 +47,6 @@ export const Default = () => {
         </button>
         <button style={buttonStyles}>focusable button</button>
       </div>
-    </FocusWrapper>
+    </FocusTrap>
   );
 };

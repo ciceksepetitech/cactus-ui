@@ -8,7 +8,7 @@
 import React, { forwardRef } from 'react';
 import { FocusOn } from 'react-focus-on';
 import Portal from '@cs/component-portal';
-import FocusWrapper from '@cs/component-focus-wrapper';
+import FocusTrap from '@cs/component-focus-trap';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 export const DialogOverlay = forwardRef(
@@ -36,7 +36,7 @@ export const DialogInner = forwardRef(
     const { as: Component = 'div', children, style, ...rest } = props;
 
     return (
-      <FocusWrapper>
+      <FocusTrap>
         <Component
           role="dialog"
           style={style}
@@ -46,7 +46,7 @@ export const DialogInner = forwardRef(
         >
           {children}
         </Component>
-      </FocusWrapper>
+      </FocusTrap>
     );
   }
 );

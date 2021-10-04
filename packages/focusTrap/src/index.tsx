@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { useFindTabbableElements } from '@cs/component-hooks';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
-export const FocusWrapper = forwardRef(
+export const FocusTrap = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IFocusWrapperProps>,
+    props: PolymorphicComponentProps<C, IFocusTrapProps>,
     forwardedRef
   ) => {
     const { as: Component = 'div', children, ...rest } = props;
@@ -22,12 +22,49 @@ export const FocusWrapper = forwardRef(
       element.focus();
     }, []);
 
+    const checkIfElementInTrap = useCallback(
+      (element: HTMLElement) => {
+        const index = tabbableElements.findIndex((each) => each === element);
+        return index >= 0;
+      },
+      [tabbableElements]
+    );
+
+    const getElementIndex = useCallback(
+      (element: HTMLElement) => {
+        const index = tabbableElements.findIndex((each) => each === element);
+        return index;
+      },
+      [tabbableElements]
+    );
+
+    const focusInListener = useCallback(
+      (event) => {
+        const element = event.target;
+
+        const inTrap = checkIfElementInTrap(element);
+        if (!inTrap) return;
+
+        currentFocusedElementIndex.current = getElementIndex(element);
+      },
+      [tabbableElements, checkIfElementInTrap]
+    );
+
     useLayoutEffect(() => {
       const parentActiveElement = document.activeElement as HTMLElement;
       parentActiveElementRef.current = parentActiveElement;
 
       return () => focusToElement(parentActiveElementRef.current);
     }, [focusToElement]);
+
+    /**
+     *
+     */
+    useLayoutEffect(() => {
+      document.addEventListener('click', focusInListener, false);
+      return () =>
+        document.removeEventListener('click', focusInListener, false);
+    }, [focusInListener]);
 
     const focusNextFocusableElement = () => {
       const nextFocusableElement =
@@ -109,23 +146,23 @@ export const FocusWrapper = forwardRef(
   }
 );
 
-export default FocusWrapper;
+export default FocusTrap;
 
 /** Types and Interfaces */
 
-interface IFocusWrapperProps {
+interface IFocusTrapProps {
   children: React.ReactNode;
 }
 
 /** Prop Types */
 
 if (process.env.NODE_ENV === 'development') {
-  FocusWrapper.displayName = 'FocusWrapper';
-  FocusWrapper.propTypes = {
+  FocusTrap.displayName = 'FocusTrap';
+  FocusTrap.propTypes = {
     children: PropTypes.node
   };
 }
 
 /** Display Names */
 
-FocusWrapper.displayName = 'FocusWrapper';
+FocusTrap.displayName = 'FocusTrap';
