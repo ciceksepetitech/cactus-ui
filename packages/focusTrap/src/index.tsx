@@ -14,8 +14,8 @@ export const FocusTrap = forwardRef(
     const {
       children,
       disabled = false,
-      focusToLast = false,
-      focusToFirst = true,
+      autoFocusToLast = false,
+      autoFocusToFirst = true,
       as: Component = 'div',
       restoreFocusOnUnmount = true,
       ...rest
@@ -155,20 +155,20 @@ export const FocusTrap = forwardRef(
     };
 
     /**
-     * focuses to first element on mount if focusToFirst is true
+     * focuses to first element on mount if autoFocusToFirst is true
      */
     useLayoutEffect(() => {
-      if (!focusToFirst) return;
+      if (!autoFocusToFirst) return;
       focusFirstFocusableElement();
-    }, [focusToFirst, focusFirstFocusableElement]);
+    }, [autoFocusToFirst, focusFirstFocusableElement]);
 
     /**
-     * focuses to last element on mount if focusToLast is true
+     * focuses to last element on mount if autoFocusToLast is true
      */
     useLayoutEffect(() => {
-      if (!focusToLast) return;
+      if (!autoFocusToLast) return;
       focusLastFocusableElement();
-    }, [focusToLast, focusLastFocusableElement]);
+    }, [autoFocusToLast, focusLastFocusableElement]);
 
     /**
      * handles tab key down event
@@ -224,8 +224,8 @@ export default FocusTrap;
 
 interface IFocusTrapProps {
   disabled?: boolean;
-  focusToLast?: boolean;
-  focusToFirst?: boolean;
+  autoFocusToLast?: boolean;
+  autoFocusToFirst?: boolean;
   children: React.ReactNode;
   restoreFocusOnUnmount?: boolean;
 }
@@ -237,8 +237,8 @@ if (process.env.NODE_ENV === 'development') {
   FocusTrap.propTypes = {
     disabled: PropTypes.bool,
     children: PropTypes.node,
-    focusToLast: PropTypes.bool,
-    focusToFirst: PropTypes.bool,
+    autoFocusToLast: PropTypes.bool,
+    autoFocusToFirst: PropTypes.bool,
     restoreFocusOnUnmount: PropTypes.bool
   };
 }
