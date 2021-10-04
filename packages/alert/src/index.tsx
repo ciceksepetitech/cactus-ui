@@ -149,7 +149,7 @@ const useLiveRegionClone = (
 export const Alert = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IAlertProps>,
-    forwardedRef: React.RefObject<C>
+    forwardedRef
   ) => {
     const { as: Component = 'div', children, type = 'polite', ...rest } = props;
 

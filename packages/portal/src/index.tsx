@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
-const Portal = <C extends React.ElementType = 'div'>(
+export const Portal = <C extends React.ElementType = 'div'>(
   props: PolymorphicComponentProps<C, IPortalProps>
 ) => {
   const { as = 'div', containerRef, containerId, children } = props;

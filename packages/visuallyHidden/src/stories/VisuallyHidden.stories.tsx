@@ -15,6 +15,13 @@ export default {
         defaultValue: { summary: 'div' }
       }
     }
+  },
+  parameters: {
+    docs: {
+      source: {
+        state: 'open'
+      }
+    }
   }
 };
 
@@ -28,12 +35,4 @@ export const Default = () => {
       <VisuallyHidden>Should not be seen!</VisuallyHidden>
     </>
   );
-};
-
-Default.parameters = {
-  docs: {
-    source: {
-      state: 'open'
-    }
-  }
 };

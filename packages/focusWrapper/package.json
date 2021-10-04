@@ -1,10 +1,9 @@
 {
-  "name": "@cs/component-dialog",
+  "name": "@cs/component-focus-wrapper",
   "version": "0.0.1",
-  "description": "ÇiçekSepeti Accessible Dialog Component",
+  "description": "ÇiçekSepeti Focus Wrapper Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
-  "sideEffects": ["*.css"],
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "private": false,
@@ -17,13 +16,9 @@
     "url": ""
   },
   "dependencies": {
-    "@cs/component-hooks": "^0.0.1",
     "@cs/component-utils": "^0.0.1",
-    "@cs/component-portal": "^0.0.1",
-    "@cs/component-focus-wrapper": "^0.0.1",
-    "@cs/component-visually-hidden": "^0.0.1"
+    "@cs/component-hooks": "^0.0.1"
   },
-  "files": ["styles.css"],
   "scripts": {
     "build": "scripty",
     "clean": "scripty",

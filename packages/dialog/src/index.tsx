@@ -8,17 +8,15 @@
 import React, { forwardRef } from 'react';
 import { FocusOn } from 'react-focus-on';
 import Portal from '@cs/component-portal';
+import FocusWrapper from '@cs/component-focus-wrapper';
 import { PolymorphicComponentProps } from '@cs/component-utils';
-import { ReactFocusOnSideProps } from 'react-focus-on/dist/es2015/types';
 
 export const DialogOverlay = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IDialogOverlayProps>,
-    forwardedRef: React.RefObject<C>
+    props: PolymorphicComponentProps<C, IDialogProps>,
+    forwardedRef
   ) => {
-    const { as: Component = 'div', open, children, ...rest } = props;
-
-    if (!open) return null;
+    const { as: Component = 'div', children, open, ...rest } = props;
 
     return (
       <Portal>
@@ -33,12 +31,12 @@ export const DialogOverlay = forwardRef(
 export const DialogInner = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IDialogInnerProps>,
-    forwardedRef: React.RefObject<C>
+    forwardedRef
   ) => {
     const { as: Component = 'div', children, style, ...rest } = props;
 
     return (
-      <FocusOn {...rest}>
+      <FocusWrapper>
         <Component
           role="dialog"
           style={style}
@@ -48,7 +46,7 @@ export const DialogInner = forwardRef(
         >
           {children}
         </Component>
-      </FocusOn>
+      </FocusWrapper>
     );
   }
 );
@@ -56,7 +54,7 @@ export const DialogInner = forwardRef(
 export const Dialog = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IDialogProps>,
-    forwardedRef: React.RefObject<C>
+    forwardedRef
   ) => {
     const { as = 'div', children, open, style, ...rest } = props;
 
@@ -74,14 +72,13 @@ export default Dialog;
 
 /** Types and Interfaces */
 
-export interface IDialogOverlayProps extends IDialogProps {}
-
 export interface IDialogInnerProps {
   children: React.ReactNode;
 }
-export interface IDialogProps extends ReactFocusOnSideProps {
+export interface IDialogProps {
   open: boolean;
   onClose: () => void;
+  children: React.ReactNode;
 }
 
 /** Display Names */
