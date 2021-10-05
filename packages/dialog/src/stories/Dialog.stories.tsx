@@ -80,10 +80,12 @@ export const FocusPreview = () => {
 
   return (
     <div>
-      <button style={buttonStyles}>unfocusable while modal is shown</button>
-      <button style={buttonStyles} onClick={() => setShowDialog(!showDialog)}>
-        show dialog
-      </button>
+      <div style={{ height: '200vh' }}>
+        <button style={buttonStyles}>unfocusable while modal is shown</button>
+        <button style={buttonStyles} onClick={() => setShowDialog(!showDialog)}>
+          show dialog
+        </button>
+      </div>
       <Dialog
         open={showDialog}
         style={dialogStyles}

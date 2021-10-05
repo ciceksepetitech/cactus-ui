@@ -14,9 +14,9 @@ export const FocusTrap = forwardRef(
     const {
       children,
       disabled = false,
+      as: Component = 'div',
       autoFocusToLast = false,
       autoFocusToFirst = true,
-      as: Component = 'div',
       restoreFocusOnUnmount = true,
       ...rest
     } = props;
@@ -27,6 +27,8 @@ export const FocusTrap = forwardRef(
     const currentFocusedElementIndex = useRef(0);
     const parentActiveElementRef = useRef<HTMLElement>(null);
     const { tabbableElements } = useFindTabbableElements(ref);
+
+    const shouldAutoFocusToFirst = !autoFocusToLast ? autoFocusToFirst : false;
 
     /**
      * checks existance of element and focuses if exists
@@ -158,9 +160,9 @@ export const FocusTrap = forwardRef(
      * focuses to first element on mount if autoFocusToFirst is true
      */
     useLayoutEffect(() => {
-      if (!autoFocusToFirst) return;
+      if (!shouldAutoFocusToFirst) return;
       focusFirstFocusableElement();
-    }, [autoFocusToFirst, focusFirstFocusableElement]);
+    }, [shouldAutoFocusToFirst, focusFirstFocusableElement]);
 
     /**
      * focuses to last element on mount if autoFocusToLast is true

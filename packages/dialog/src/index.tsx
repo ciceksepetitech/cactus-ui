@@ -5,9 +5,10 @@
  * @see https://github.com/theKashey/react-focus-on
  */
 
-import React, { forwardRef } from 'react';
+import React, { isValidElement, cloneElement, forwardRef } from 'react';
 import Portal from '@cs/component-portal';
 import FocusTrap from '@cs/component-focus-trap';
+import { RemoveScroll } from 'react-remove-scroll';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 export const DialogOverlay = forwardRef(
@@ -17,11 +18,15 @@ export const DialogOverlay = forwardRef(
   ) => {
     const { as: Component = 'div', children, open, ...rest } = props;
 
+    if (!open) return null;
+
+    const _children = isValidElement(children)
+      ? cloneElement(children, { ref: forwardedRef, ...rest })
+      : null;
+
     return (
       <Portal>
-        <Component {...rest} ref={forwardedRef} data-cs-dialog-overlay>
-          {children}
-        </Component>
+        <Component data-cs-dialog-overlay>{_children}</Component>
       </Portal>
     );
   }
@@ -32,19 +37,39 @@ export const DialogInner = forwardRef(
     props: PolymorphicComponentProps<C, IDialogInnerProps>,
     forwardedRef
   ) => {
-    const { as: Component = 'div', children, style, ...rest } = props;
+    const {
+      style,
+      children,
+      as: Component = 'div',
+      removeScrollBar = true,
+      autoFocusToFirst = true,
+      autoFocusToLast = false,
+      disableFocusTrap = false,
+      enableRemoveScroll = true,
+      restoreFocusOnUnmount = true
+    } = props;
 
     return (
-      <FocusTrap>
-        <Component
-          role="dialog"
-          style={style}
-          aria-modal="true"
-          ref={forwardedRef}
-          data-cs-dialog-inner
+      <FocusTrap
+        disabled={disableFocusTrap}
+        autoFocusToLast={autoFocusToLast}
+        autoFocusToFirst={autoFocusToFirst}
+        restoreFocusOnUnmount={restoreFocusOnUnmount}
+      >
+        <RemoveScroll
+          enabled={enableRemoveScroll}
+          removeScrollBar={removeScrollBar}
         >
-          {children}
-        </Component>
+          <Component
+            role="dialog"
+            style={style}
+            aria-modal="true"
+            ref={forwardedRef}
+            data-cs-dialog-inner
+          >
+            {children}
+          </Component>
+        </RemoveScroll>
       </FocusTrap>
     );
   }
@@ -77,7 +102,13 @@ export interface IDialogInnerProps {
 export interface IDialogProps {
   open: boolean;
   onClose: () => void;
+  removeScrollBar?: boolean;
   children: React.ReactNode;
+  autoFocusToLast?: boolean;
+  autoFocusToFirst?: boolean;
+  disableFocusTrap?: boolean;
+  enableRemoveScroll?: boolean;
+  restoreFocusOnUnmount?: boolean;
 }
 
 /** Display Names */
