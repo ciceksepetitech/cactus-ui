@@ -39,12 +39,16 @@ export const Default = () => {
         <button style={buttonStyles} disabled>
           cant focus disabled
         </button>
-        <button style={{ ...buttonStyles, visibility: 'hidden' }}>
-          cant focus hidden
-        </button>
-        <button style={buttonStyles} tabIndex={-1}>
-          cant focus tabindex -1
-        </button>
+        <section>
+          <div>
+            <button style={{ ...buttonStyles, visibility: 'hidden' }}>
+              cant focus hidden
+            </button>
+            <button style={buttonStyles} tabIndex={-1}>
+              cant focus tabindex -1
+            </button>
+          </div>
+        </section>
         <button style={buttonStyles}>focusable button</button>
       </div>
     </FocusTrap>
