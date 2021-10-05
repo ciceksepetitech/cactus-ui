@@ -73,7 +73,10 @@ export const FocusTrap = forwardRef(
         const element = event.target;
 
         const inTrap = checkIfElementInTrap(element);
-        if (!inTrap) return;
+        if (!inTrap) {
+          currentFocusedElementIndex.current = 0;
+          return;
+        }
 
         currentFocusedElementIndex.current = getElementIndex(element);
       },
@@ -96,7 +99,7 @@ export const FocusTrap = forwardRef(
      * listens for click events to correctly update currentFocusedElementIndex.current
      */
     useLayoutEffect(() => {
-      if (!disabled) return;
+      if (disabled) return;
 
       document.addEventListener('click', clickListener, false);
       return () => document.removeEventListener('click', clickListener, false);

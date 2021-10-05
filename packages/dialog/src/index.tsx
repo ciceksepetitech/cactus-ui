@@ -5,7 +5,7 @@
  * @see https://github.com/theKashey/react-focus-on
  */
 
-import React, { isValidElement, cloneElement, forwardRef } from 'react';
+import React, { useRef, isValidElement, cloneElement, forwardRef } from 'react';
 import Portal from '@cs/component-portal';
 import FocusTrap from '@cs/component-focus-trap';
 import { RemoveScroll } from 'react-remove-scroll';
@@ -16,31 +16,64 @@ export const DialogOverlay = forwardRef(
     props: PolymorphicComponentProps<C, IDialogProps>,
     forwardedRef
   ) => {
-    const { as: Component = 'div', children, open, ...rest } = props;
+    const {
+      open,
+      children,
+      onEscapeKey,
+      onClickOutside,
+      as: Component = 'div',
+      ...rest
+    } = props;
 
     if (!open) return null;
 
+    const ref = useRef(null) || forwardedRef;
+
     const _children = isValidElement(children)
-      ? cloneElement(children, { ref: forwardedRef, ...rest })
+      ? cloneElement(children, { ref, ...rest })
       : null;
+
+    const handleEscapeKeyDown = (event) => {
+      if (event.key === 'Escape' || event.key === 'Esc') {
+        event.stopPropagation();
+        onEscapeKey?.(event);
+      }
+    };
+
+    const handleKeyDown = (event) => {
+      handleEscapeKeyDown(event);
+    };
+
+    const handleOnClick = (event) => {
+      if (!ref.current?.contains(event.target)) {
+        event.stopPropagation();
+        onClickOutside?.(event);
+      }
+    };
 
     return (
       <Portal>
-        <Component data-cs-dialog-overlay>{_children}</Component>
+        <Component
+          data-cs-dialog-overlay
+          onClick={handleOnClick}
+          onKeyDown={handleKeyDown}
+        >
+          {_children}
+        </Component>
       </Portal>
     );
   }
 );
 
-export const DialogInner = forwardRef(
+export const DialogContentWrapper = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IDialogInnerProps>,
+    props: PolymorphicComponentProps<C, IDialogContentProps>,
     forwardedRef
   ) => {
     const {
       style,
       children,
-      as: Component = 'div',
+      as = 'div',
       removeScrollBar = true,
       autoFocusToFirst = true,
       autoFocusToLast = false,
@@ -60,17 +93,32 @@ export const DialogInner = forwardRef(
           enabled={enableRemoveScroll}
           removeScrollBar={removeScrollBar}
         >
-          <Component
-            role="dialog"
-            style={style}
-            aria-modal="true"
-            ref={forwardedRef}
-            data-cs-dialog-inner
-          >
+          <DialogContent as={as} style={style} ref={forwardedRef}>
             {children}
-          </Component>
+          </DialogContent>
         </RemoveScroll>
       </FocusTrap>
+    );
+  }
+);
+
+export const DialogContent = forwardRef(
+  <C extends React.ElementType = 'div'>(
+    props: PolymorphicComponentProps<C, IDialogContentProps>,
+    forwardedRef
+  ) => {
+    const { children, as: Component = 'div', ...rest } = props;
+
+    return (
+      <Component
+        role="dialog"
+        aria-modal="true"
+        ref={forwardedRef}
+        data-cs-dialog-inner
+        {...rest}
+      >
+        {children}
+      </Component>
     );
   }
 );
@@ -83,10 +131,10 @@ export const Dialog = forwardRef(
     const { as = 'div', children, open, style, ...rest } = props;
 
     return (
-      <DialogOverlay open={open} {...rest}>
-        <DialogInner as={as} style={style} ref={forwardedRef}>
+      <DialogOverlay open={open} {...rest} ref={forwardedRef}>
+        <DialogContentWrapper as={as} style={style}>
           {children}
-        </DialogInner>
+        </DialogContentWrapper>
       </DialogOverlay>
     );
   }
@@ -96,12 +144,11 @@ export default Dialog;
 
 /** Types and Interfaces */
 
-export interface IDialogInnerProps {
+export interface IDialogContentProps {
   children: React.ReactNode;
 }
 export interface IDialogProps {
   open: boolean;
-  onClose: () => void;
   removeScrollBar?: boolean;
   children: React.ReactNode;
   autoFocusToLast?: boolean;
@@ -109,10 +156,13 @@ export interface IDialogProps {
   disableFocusTrap?: boolean;
   enableRemoveScroll?: boolean;
   restoreFocusOnUnmount?: boolean;
+  onEscapeKey?: (event: KeyboardEvent) => void;
+  onClickOutside?: (event: MouseEvent | TouchEvent) => void;
 }
 
 /** Display Names */
 
 Dialog.displayName = 'Dialog';
-DialogInner.displayName = 'DialogInner';
+DialogContent.displayName = 'DialogContent';
 DialogOverlay.displayName = 'DialogOverlay';
+DialogContentWrapper.displayName = 'DialogContentWrapper';
