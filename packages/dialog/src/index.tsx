@@ -1,10 +1,6 @@
 /**
  * Dialog
- * uses react-focus-on to control scroll and focus trap behavior
- * @2021
- * @see https://github.com/theKashey/react-focus-on
  */
-
 import React, { useRef, isValidElement, cloneElement, forwardRef } from 'react';
 import Portal from '@cs/component-portal';
 import FocusTrap from '@cs/component-focus-trap';
@@ -33,7 +29,7 @@ export const DialogOverlay = forwardRef(
       ? cloneElement(children, { ref, ...rest })
       : null;
 
-    const handleEscapeKeyDown = (event) => {
+    const handleEscapeKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
       if (event.key === 'Escape' || event.key === 'Esc') {
         event.stopPropagation();
         onEscapeKey?.(event);
@@ -44,7 +40,9 @@ export const DialogOverlay = forwardRef(
       handleEscapeKeyDown(event);
     };
 
-    const handleOnClick = (event) => {
+    const handleOnClick = (
+      event: React.MouseEvent<HTMLElement, MouseEvent | TouchEvent>
+    ) => {
       if (!ref.current?.contains(event.target)) {
         event.stopPropagation();
         onClickOutside?.(event);
@@ -156,8 +154,10 @@ export interface IDialogProps {
   disableFocusTrap?: boolean;
   enableRemoveScroll?: boolean;
   restoreFocusOnUnmount?: boolean;
-  onEscapeKey?: (event: KeyboardEvent) => void;
-  onClickOutside?: (event: MouseEvent | TouchEvent) => void;
+  onEscapeKey?: (event: React.KeyboardEvent<HTMLElement>) => void;
+  onClickOutside?: (
+    event: React.MouseEvent<HTMLElement, MouseEvent | TouchEvent>
+  ) => void;
 }
 
 /** Display Names */
