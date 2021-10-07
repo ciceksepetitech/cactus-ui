@@ -1,7 +1,13 @@
 /**
  * Dialog
  */
-import React, { useRef, isValidElement, cloneElement, forwardRef } from 'react';
+import React, {
+  useRef,
+  forwardRef,
+  cloneElement,
+  isValidElement,
+  FunctionComponent
+} from 'react';
 import Portal from '@cs/component-portal';
 import FocusTrap from '@cs/component-focus-trap';
 import { RemoveScroll } from 'react-remove-scroll';
@@ -9,7 +15,7 @@ import { PolymorphicComponentProps } from '@cs/component-utils';
 
 export const DialogOverlay = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IDialogProps>,
+    props: PolymorphicComponentProps<C, Omit<IDialogProps, 'as'>>,
     forwardedRef
   ) => {
     const {
@@ -69,15 +75,14 @@ export const DialogContentWrapper = forwardRef(
     forwardedRef
   ) => {
     const {
-      style,
       children,
-      as = 'div',
       removeScrollBar = true,
       autoFocusToFirst = true,
       autoFocusToLast = false,
       disableFocusTrap = false,
       enableRemoveScroll = true,
-      restoreFocusOnUnmount = true
+      restoreFocusOnUnmount = true,
+      ...rest
     } = props;
 
     return (
@@ -91,7 +96,7 @@ export const DialogContentWrapper = forwardRef(
           enabled={enableRemoveScroll}
           removeScrollBar={removeScrollBar}
         >
-          <DialogContent as={as} style={style} ref={forwardedRef}>
+          <DialogContent ref={forwardedRef} {...rest}>
             {children}
           </DialogContent>
         </RemoveScroll>
@@ -107,6 +112,8 @@ export const DialogContent = forwardRef(
   ) => {
     const { children, as: Component = 'div', ...rest } = props;
 
+    showContentWarnings(DialogContent.displayName, props);
+
     return (
       <Component
         role="dialog"
@@ -121,24 +128,39 @@ export const DialogContent = forwardRef(
   }
 );
 
-export const Dialog = forwardRef(
-  <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IDialogProps>,
-    forwardedRef
-  ) => {
-    const { as = 'div', children, open, style, ...rest } = props;
+export const Dialog: FunctionComponent<IDialogProps> = (props) => {
+  const { children, open, ...rest } = props;
 
-    return (
-      <DialogOverlay open={open} {...rest} ref={forwardedRef}>
-        <DialogContentWrapper as={as} style={style}>
-          {children}
-        </DialogContentWrapper>
-      </DialogOverlay>
-    );
-  }
-);
+  return (
+    <DialogOverlay open={open} {...rest}>
+      <DialogContentWrapper>{children}</DialogContentWrapper>
+    </DialogOverlay>
+  );
+};
 
 export default Dialog;
+
+/** Warnings */
+
+const showContentWarnings = (
+  componentName: string,
+  props: IDialogContentProps
+) => {
+  if (process.env.NODE_ENV !== 'development') return;
+
+  if (props['aria-labelledby'] && props['aria-label']) {
+    const warning = `@cs/component-dialog - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label. @see: https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html`;
+
+    console.warn(warning);
+    return;
+  }
+
+  if (props['aria-labelledby'] || props['aria-label']) return;
+
+  const warning = `@cs/component-dialog - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe content of dialog. @see: https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html`;
+
+  console.warn(warning);
+};
 
 /** Types and Interfaces */
 
@@ -147,11 +169,12 @@ export interface IDialogContentProps {
 }
 export interface IDialogProps {
   open: boolean;
+  as?: React.ElementType;
   removeScrollBar?: boolean;
-  children: React.ReactNode;
   autoFocusToLast?: boolean;
   autoFocusToFirst?: boolean;
   disableFocusTrap?: boolean;
+  style?: React.CSSProperties;
   enableRemoveScroll?: boolean;
   restoreFocusOnUnmount?: boolean;
   onEscapeKey?: (event: React.KeyboardEvent<HTMLElement>) => void;

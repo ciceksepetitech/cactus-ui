@@ -46,8 +46,12 @@ Default.args = {
  * FocusTrap
  */
 export const FocusTrap = () => {
-  const buttonStyles = { margin: '3px 5px', padding: '5px', cursor: 'pointer' };
-  const dialogStyles = {
+  const buttonStyles: React.CSSProperties = {
+    margin: '3px 5px',
+    padding: '5px',
+    cursor: 'pointer'
+  };
+  const dialogStyles: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column'
   };
@@ -72,8 +76,12 @@ export const FocusTrap = () => {
 export const FocusPreview = () => {
   const [showDialog, setShowDialog] = useState(false);
 
-  const buttonStyles = { margin: '3px 5px', padding: '5px', cursor: 'pointer' };
-  const dialogStyles = {
+  const buttonStyles: React.CSSProperties = {
+    margin: '3px 5px',
+    padding: '5px',
+    cursor: 'pointer'
+  };
+  const dialogStyles: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column'
   };
@@ -89,6 +97,7 @@ export const FocusPreview = () => {
       <Dialog
         open={showDialog}
         style={dialogStyles}
+        aria-label="some desc"
         onEscapeKey={() => setShowDialog(false)}
         onClickOutside={() => setShowDialog(false)}
       >
