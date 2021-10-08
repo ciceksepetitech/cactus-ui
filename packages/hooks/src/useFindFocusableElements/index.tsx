@@ -3,7 +3,8 @@ import { focusableDOMElements } from '../constants/focusableDOMElements';
 
 /**
  * gets focusable elements inside of passed nodeRef
- * the element can be focused by script (element.focus()) and possibly the mouse (or pointer), but not the keyboard.
+ * the element can be focused by script (element.focus()) and possibly the mouse (or pointer), but not the keyboard
+ *
  * @returns Array<DOMNode>
  */
 export function useFindFocusableElements(
@@ -13,6 +14,9 @@ export function useFindFocusableElements(
     Array<HTMLElement>
   >([]);
 
+  /**
+   * handles warnings and creates node list
+   */
   useEffect(() => {
     if (!nodeRef)
       console.warn('useFindFocusableElements: nodeRef is a required field!');

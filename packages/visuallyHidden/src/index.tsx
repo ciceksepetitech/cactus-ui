@@ -1,9 +1,19 @@
-import React, { forwardRef, useRef } from 'react';
+/**
+ * @cs/component-visually-hidden
+ *
+ * VisuallyHidden Component
+ *
+ * visually hides its content from ui without removing it from dom
+ * assistive technologies can still attract with the element but it will not take any space at the dom
+ */
+
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 /**
- * VisuallyHidden component visually hides its children from UI. @ciceksepeti/visuallyHidden is developed to increase web accessibility. So, assistive technologies can still attract with the element but it will not take any space at the DOM. Rendered visuallyhidden component HTML tag can be decided by the developer so developers can decide correct semantic for their application. VisuallyHidden component can have styles and correct other attributes according to the rendered tag
+ * visually hidden component
+ * visually hides its content from ui
  */
 export const VisuallyHidden = forwardRef(
   <C extends React.ElementType = 'div'>(

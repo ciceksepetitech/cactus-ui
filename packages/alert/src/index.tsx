@@ -1,6 +1,11 @@
 /**
- * Alert
- * @2021
+ * @cs/component-alert
+ *
+ * Accessible Alert Component
+ *
+ * Clones components to specific aria-live regions to make it possible to announce alert with appropriate attributes
+ *
+ * @see https://www.w3.org/TR/wai-aria-practices-1.2/#alert
  */
 
 import React, {

@@ -1,8 +1,20 @@
+/**
+ * @cs/component-portal
+ *
+ * React Portal Component
+ *
+ * mounts its content in a specific area of the dom
+ */
+
 import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
+/**
+ * portal component
+ * mounts its content in a specific area of the dom
+ */
 export const Portal = <C extends React.ElementType = 'div'>(
   props: PolymorphicComponentProps<C, IPortalProps>
 ) => {
@@ -10,6 +22,10 @@ export const Portal = <C extends React.ElementType = 'div'>(
 
   const [portalNode, setPortalNode] = useState<HTMLElement>(null);
 
+  /**
+   * handles mounting/unmounting of its content
+   * creates a portal node and mounts the content to the container (by default document.body)
+   */
   useLayoutEffect(() => {
     const container =
       document.getElementById(containerId) ||

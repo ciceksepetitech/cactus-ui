@@ -1,5 +1,6 @@
 /**
  * checks platform according to provided regexp
+ *
  * @param regExp
  * @returns boolean
  */
@@ -11,6 +12,7 @@ const checkPlatform = (regExp: RegExp) => {
 
 /**
  * checks user agent according to provided regexp
+ *
  * @param regExp
  * @returns boolean
  */
@@ -22,6 +24,7 @@ function checkUserAgent(regExp: RegExp) {
 
 /**
  * checks if platform is mac or not
+ *
  * @returns boolean
  */
 export const isMac = () => {
@@ -30,6 +33,7 @@ export const isMac = () => {
 
 /**
  * checks if platform is iphone or not
+ *
  * @returns boolean
  */
 export const isIPhone = () => {
@@ -38,6 +42,7 @@ export const isIPhone = () => {
 
 /**
  * checks if user-agent is chrome or not
+ *
  * @returns boolean
  */
 export const isChrome = () => {
@@ -46,6 +51,7 @@ export const isChrome = () => {
 
 /**
  * checks if platform is apple device or not
+ *
  * @returns boolean
  */
 export const isAppleDevice = () => {
@@ -54,6 +60,7 @@ export const isAppleDevice = () => {
 
 /**
  * checks if user-agent is android or not
+ *
  * @returns boolean
  */
 export const isAndroid = () => {
@@ -62,6 +69,7 @@ export const isAndroid = () => {
 
 /**
  * checks if platform is ipad or not
+ *
  * @returns boolean
  */
 export const isIPad = () => {
@@ -70,6 +78,7 @@ export const isIPad = () => {
 
 /**
  * checks if platform is ios or not
+ *
  * @returns boolean
  */
 export const isIOS = () => {

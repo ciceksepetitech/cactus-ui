@@ -1,3 +1,9 @@
+/**
+ * checks the visibility of element by using computed style on it
+ *
+ * @param element
+ * @returns boolean
+ */
 export const checkStyleVisibility = (element: Element) => {
   if (!(element instanceof HTMLElement)) return false;
 
@@ -9,6 +15,12 @@ export const checkStyleVisibility = (element: Element) => {
   return isVisible;
 };
 
+/**
+ * checks if element is visible on UI
+ *
+ * @param element
+ * @returns boolean
+ */
 export const isElementVisible = (element: Element) => {
   return (
     element.nodeName !== '#comment' &&

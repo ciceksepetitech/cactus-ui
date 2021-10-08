@@ -1,6 +1,13 @@
 /**
- * Dialog
+ * @cs/component-dialog
+ *
+ * Accessible Dialog (Modal) Component
+ *
+ * shows the relevant content in a dialog in accordance with accessibility rules
+ *
+ * @see https://www.w3.org/TR/wai-aria-practices-1.2/#dialog_modal
  */
+
 import React, {
   useRef,
   forwardRef,
@@ -13,6 +20,10 @@ import FocusTrap from '@cs/component-focus-trap';
 import { RemoveScroll } from 'react-remove-scroll';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
+/**
+ * dialog overlay component
+ * handles escape and outside click of the dialog
+ */
 export const DialogOverlay = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, Omit<IDialogProps, 'as'>>,
@@ -69,6 +80,10 @@ export const DialogOverlay = forwardRef(
   }
 );
 
+/**
+ * dialog content wrapper component
+ * handles focus trapping and scroll blocking
+ */
 export const DialogContentWrapper = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IDialogContentProps>,
@@ -105,6 +120,10 @@ export const DialogContentWrapper = forwardRef(
   }
 );
 
+/**
+ * dialog content component
+ * handles accessibility features of dialog
+ */
 export const DialogContent = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IDialogContentProps>,
@@ -119,7 +138,7 @@ export const DialogContent = forwardRef(
         role="dialog"
         aria-modal="true"
         ref={forwardedRef}
-        data-cs-dialog-inner
+        data-cs-dialog-content
         {...rest}
       >
         {children}
@@ -128,6 +147,10 @@ export const DialogContent = forwardRef(
   }
 );
 
+/**
+ * dialog component
+ * exposes dialog overlay and dialog content wrapper
+ */
 export const Dialog: FunctionComponent<IDialogProps> = (props) => {
   const { children, open, ...rest } = props;
 
@@ -142,6 +165,12 @@ export default Dialog;
 
 /** Warnings */
 
+/**
+ * handles development environment warning messages
+ * @param componentName
+ * @param props
+ * @returns
+ */
 const showContentWarnings = (
   componentName: string,
   props: IDialogContentProps

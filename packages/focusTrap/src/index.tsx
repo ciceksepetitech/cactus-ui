@@ -1,10 +1,19 @@
+/**
+ * @cs/component-focus-trap
+ *
+ * Focus Trap Component
+ *
+ * focusTrap component traps focus events inside of its boundries. It is developed according to the accessibility rules. User cannot leave the trap boundries unless disables it. Great match for components like Modals, Dialogs and etc.
+ */
+
 import React, { forwardRef, useLayoutEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useFindTabbableElements } from '@cs/component-hooks';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 /**
- * FocusTrap component traps focus events inside of its boundries. It is developed according to the accessibility rules. User cannot leave the trap boundries unless disables it. Great match for components like Modals, Dialogs and etc.
+ * focus trap component
+ * traps focus events inside of its boundries
  */
 export const FocusTrap = forwardRef(
   <C extends React.ElementType = 'div'>(
@@ -205,6 +214,9 @@ export const FocusTrap = forwardRef(
       focusPrevFocusableElement();
     };
 
+    /**
+     * handles key events
+     */
     const handleKeyDown = (event) => {
       handleTabKeyDown(event);
       handleShiftTabKeyDown(event);

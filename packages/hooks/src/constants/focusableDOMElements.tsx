@@ -1,5 +1,5 @@
 /**
- * list of focusable DOM elements
+ * list of focusable dom elements
  */
 export const focusableDOMElements = [
   'embed',

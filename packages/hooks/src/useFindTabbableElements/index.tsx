@@ -4,7 +4,8 @@ import { focusableDOMElements } from '../constants/focusableDOMElements';
 
 /**
  * gets tabbable elements inside of passed nodeRef
- * the element is keyboard focusable ("tabbable"), as it is part of the document's sequential focus navigation order. The element is also focusable by script and possibly the mouse (or pointer).
+ * the element is keyboard focusable ("tabbable"), as it is part of the document's sequential focus navigation order. The element is also focusable by script and possibly the mouse (or pointer)
+ *
  * @returns Array<DOMNode>
  */
 export function useFindTabbableElements(nodeRef: React.RefObject<HTMLElement>) {
@@ -12,6 +13,9 @@ export function useFindTabbableElements(nodeRef: React.RefObject<HTMLElement>) {
     []
   );
 
+  /**
+   * handles warnings and creates node list
+   */
   useEffect(() => {
     if (!nodeRef)
       console.warn('useFindTabbableElements: nodeRef is a required field!');
