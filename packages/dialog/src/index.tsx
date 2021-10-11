@@ -29,14 +29,7 @@ export const DialogOverlay = forwardRef(
     props: PolymorphicComponentProps<C, Omit<IDialogProps, 'as'>>,
     forwardedRef
   ) => {
-    const {
-      open,
-      children,
-      onEscapeKey,
-      onClickOutside,
-      as: Component = 'div',
-      ...rest
-    } = props;
+    const { open, children, onEscapeKey, onClickOutside, ...rest } = props;
 
     if (!open) return null;
 
@@ -68,13 +61,13 @@ export const DialogOverlay = forwardRef(
 
     return (
       <Portal>
-        <Component
+        <div
           data-cs-dialog-overlay
           onClick={handleOnClick}
           onKeyDown={handleKeyDown}
         >
           {_children}
-        </Component>
+        </div>
       </Portal>
     );
   }
@@ -129,9 +122,11 @@ export const DialogContent = forwardRef(
     props: PolymorphicComponentProps<C, IDialogContentProps>,
     forwardedRef
   ) => {
-    const { children, as: Component = 'div', ...rest } = props;
-
     showContentWarnings(DialogContent.displayName, props);
+
+    const { children, as, ...rest } = props;
+
+    const Component = as || 'div';
 
     return (
       <Component

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dialog from '..';
 import '../../styles.css';
 import { Meta } from '@storybook/react';
@@ -82,6 +82,10 @@ FocusTrap.args = {};
 
 const FocusTrapPreviewTemplate = (args) => {
   const [showDialog, setShowDialog] = useState(args.open);
+
+  useEffect(() => {
+    setShowDialog(args.open);
+  }, [args.open]);
 
   const buttonStyles: React.CSSProperties = {
     margin: '3px 5px',

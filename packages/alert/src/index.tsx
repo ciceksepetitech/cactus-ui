@@ -156,8 +156,9 @@ export const Alert = forwardRef(
     props: PolymorphicComponentProps<C, IAlertProps>,
     forwardedRef
   ) => {
-    const { as: Component = 'div', children, type = 'polite', ...rest } = props;
+    const { as, children, type = 'polite', ...rest } = props;
 
+    const Component = as || 'div';
     const internalRef = useRef(null);
     const ref = forwardedRef || internalRef;
 

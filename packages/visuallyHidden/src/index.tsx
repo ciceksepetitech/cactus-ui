@@ -20,7 +20,9 @@ export const VisuallyHidden = forwardRef(
     props: PolymorphicComponentProps<C, IVisuallyHiddenProps>,
     forwardedRef
   ) => {
-    const { as: Component = 'div', style, children, ...rest } = props;
+    const { as, style, children, ...rest } = props;
+
+    const Component = as || 'div';
 
     return (
       <Component

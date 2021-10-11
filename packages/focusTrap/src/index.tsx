@@ -21,15 +21,16 @@ export const FocusTrap = forwardRef(
     forwardedRef
   ) => {
     const {
+      as,
       children,
       disabled = false,
-      as: Component = 'div',
       autoFocusToLast = false,
       autoFocusToFirst = true,
       restoreFocusOnUnmount = true,
       ...rest
     } = props;
 
+    const Component = as || 'div';
     const internalRef = useRef(null);
     const ref = forwardedRef || internalRef;
 

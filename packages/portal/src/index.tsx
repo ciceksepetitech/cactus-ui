@@ -18,7 +18,7 @@ import { PolymorphicComponentProps } from '@cs/component-utils';
 export const Portal = <C extends React.ElementType = 'div'>(
   props: PolymorphicComponentProps<C, IPortalProps>
 ) => {
-  const { as = 'div', containerRef, containerId, children } = props;
+  const { as = 'div', containerRef, containerId, children, ...rest } = props;
 
   const [portalNode, setPortalNode] = useState<HTMLElement>(null);
 
@@ -32,7 +32,8 @@ export const Portal = <C extends React.ElementType = 'div'>(
       containerRef?.current ||
       document.body;
 
-    const elementType = as as keyof HTMLElementTagNameMap;
+    const component = as || 'div';
+    const elementType = component as keyof HTMLElementTagNameMap;
     const portalNode = document.createElement(elementType);
 
     setPortalNode(portalNode);
