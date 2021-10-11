@@ -167,7 +167,7 @@ export const Alert = forwardRef(
           {children}
         </Component>
       ),
-      [children, rest, Component]
+      [children, rest, Component, ref?.current]
     );
 
     const element: JSX.Element = component.type ? component : <></>; // to avoid test crushing!
