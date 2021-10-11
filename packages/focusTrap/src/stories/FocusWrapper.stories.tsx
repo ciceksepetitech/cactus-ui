@@ -27,11 +27,11 @@ export default {
 /**
  * Default
  */
-export const Default = () => {
+const DefaultTemplate = (args) => {
   const buttonStyles = { margin: '3px 5px', padding: '5px', cursor: 'pointer' };
 
   return (
-    <FocusTrap>
+    <FocusTrap {...args}>
       <div>
         <button style={buttonStyles}>focusable button</button>
         <button style={buttonStyles}>focusable button</button>
@@ -54,3 +54,7 @@ export const Default = () => {
     </FocusTrap>
   );
 };
+
+export const Default = DefaultTemplate.bind({});
+
+Default.args = {};

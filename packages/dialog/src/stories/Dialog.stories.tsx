@@ -45,12 +45,14 @@ Default.args = {
 /**
  * FocusTrap
  */
-export const FocusTrap = () => {
+
+const FocusTrapTemplate = (args) => {
   const buttonStyles: React.CSSProperties = {
     margin: '3px 5px',
     padding: '5px',
     cursor: 'pointer'
   };
+
   const dialogStyles: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column'
@@ -60,7 +62,7 @@ export const FocusTrap = () => {
     <div>
       <button style={buttonStyles}>unfocusable button1</button>
       <button style={buttonStyles}>unfocusable button2</button>
-      <Dialog open={true} style={dialogStyles}>
+      <Dialog {...args} open={true} style={dialogStyles}>
         <p>focusing with tab should not leave the dialog!</p>
         <button style={buttonStyles}>should be auto focused</button>
         <button style={buttonStyles}>second button</button>
@@ -70,17 +72,23 @@ export const FocusTrap = () => {
   );
 };
 
+export const FocusTrap = FocusTrapTemplate.bind({});
+
+FocusTrap.args = {};
+
 /**
- * FocusTrap
+ * FocusTrapPreview
  */
-export const FocusPreview = () => {
-  const [showDialog, setShowDialog] = useState(false);
+
+const FocusTrapPreviewTemplate = (args) => {
+  const [showDialog, setShowDialog] = useState(args.open);
 
   const buttonStyles: React.CSSProperties = {
     margin: '3px 5px',
     padding: '5px',
     cursor: 'pointer'
   };
+
   const dialogStyles: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column'
@@ -95,6 +103,7 @@ export const FocusPreview = () => {
         </button>
       </div>
       <Dialog
+        {...args}
         open={showDialog}
         style={dialogStyles}
         aria-label="some desc"
@@ -109,4 +118,10 @@ export const FocusPreview = () => {
       </Dialog>
     </div>
   );
+};
+
+export const FocusTrapPreview = FocusTrapPreviewTemplate.bind({});
+
+FocusTrapPreview.args = {
+  open: false
 };

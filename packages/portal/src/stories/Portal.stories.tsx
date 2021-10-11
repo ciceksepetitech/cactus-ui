@@ -36,21 +36,25 @@ const styles = {
 /**
  * Default
  */
-export const Default = () => {
+const DefaultTemplate = (args) => {
   return (
     <div>
       <div style={styles}>
         <span>Some Container</span>
       </div>
-      <Portal>I am in a portal appended to body</Portal>
+      <Portal {...args}>I am in a portal appended to body</Portal>
     </div>
   );
 };
 
+export const Default = DefaultTemplate.bind({});
+
+Default.args = {};
+
 /**
  * Appends portal to another element by ref
  */
-export const AppendToElementByRef = () => {
+const AppendToElementByRefTemplate = (args) => {
   const ref = useRef(null);
 
   return (
@@ -58,25 +62,33 @@ export const AppendToElementByRef = () => {
       <div ref={ref} style={styles}>
         Some Container
       </div>
-      <Portal containerRef={ref}>
+      <Portal {...args} containerRef={ref}>
         I am in a portal appended next to Some Container by ref
       </Portal>
     </div>
   );
 };
 
+export const AppendToElementByRef = AppendToElementByRefTemplate.bind({});
+
+AppendToElementByRef.args = {};
+
 /**
  * Appends portal to another element by id
  */
-export const AppendToElementById = () => {
+const AppendToElementByIdTemplate = (args) => {
   return (
     <div>
       <div id="my-container" style={styles}>
         <span>Some Container</span>
       </div>
-      <Portal containerId="my-container">
+      <Portal {...args} containerId="my-container">
         I am in a portal appended next to Some Container by id
       </Portal>
     </div>
   );
 };
+
+export const AppendToElementById = AppendToElementByIdTemplate.bind({});
+
+AppendToElementById.args = {};

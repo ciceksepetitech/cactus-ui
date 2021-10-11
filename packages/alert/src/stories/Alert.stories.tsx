@@ -79,7 +79,7 @@ WithStylesAttribute.args = {
 /**
  * Render Manually
  */
-export const RenderManually = () => {
+const RenderManuallyTemplate = (args) => {
   const [reRender, setReRender] = useState(0);
 
   return (
@@ -90,15 +90,21 @@ export const RenderManually = () => {
       >
         Add Alert
       </button>
-      {reRender > 0 && <Alert>{`I am an alert! (${reRender})`}</Alert>}
+      {reRender > 0 && (
+        <Alert {...args}>{`I am an alert! (${reRender})`}</Alert>
+      )}
     </section>
   );
 };
 
+export const RenderManually = RenderManuallyTemplate.bind({});
+
+RenderManually.args = {};
+
 /**
  * Render Async
  */
-export const RenderAsync = () => {
+const RenderAsyncTemplate = (args) => {
   const [alerts, setAlerts] = useState([]);
 
   const onAddAlert = () => {
@@ -135,10 +141,14 @@ export const RenderAsync = () => {
         </button>
       </div>
       {alerts.map((each, index) => (
-        <Alert key={each + index} style={{ marginBottom: 5 }}>
+        <Alert {...args} key={each + index} style={{ marginBottom: 5 }}>
           {each}
         </Alert>
       ))}
     </section>
   );
 };
+
+export const RenderAsync = RenderAsyncTemplate.bind({});
+
+RenderAsync.args = {};

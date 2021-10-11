@@ -28,11 +28,15 @@ export default {
 /**
  * Default
  */
-export const Default = () => {
+const DefaultTemplate = (args) => {
   return (
     <>
       <p>"Should not be seen!" should not be seen below 😊</p>
-      <VisuallyHidden>Should not be seen!</VisuallyHidden>
+      <VisuallyHidden {...args}>Should not be seen!</VisuallyHidden>
     </>
   );
 };
+
+export const Default = DefaultTemplate.bind({});
+
+Default.args = {};
