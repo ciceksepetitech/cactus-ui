@@ -1,0 +1,146 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs/blocks';
+import Portal from '..';
+import { useRef } from 'react';
+
+<Meta
+  title="Components/Portal"
+  component={Portal}
+  argTypes={{
+    as: {
+      name: 'as',
+      defaultValue: 'div',
+      control: { type: 'text' },
+      description: 'changes html tag of portal component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    },
+    containerRef: {
+      name: 'containerRef',
+      description: 'reference to a container element'
+    },
+    containerId: {
+      name: 'containerId',
+      control: { type: 'text' },
+      description: 'element id of a container element'
+    }
+  }}
+/>
+
+## Portal
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  Portal component mounts its content in a specific area of the DOM. Default
+  renders to end of the body tag. But the render area can be determined by ref
+  or id. Portal is a polymorphic component. That's why can be rendered as any
+  valid HTML tag
+</p>
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => (
+      <div>
+        <div
+          style={{
+            padding: '10px',
+            borderRadius: '6px',
+            border: '3px solid #52AD36'
+          }}
+        >
+          <span>Container</span>
+        </div>
+        <Portal {...args}>I am in a portal appended to body</Portal>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of Portal component. Renders as 'div' by default
+</Description>
+
+<ArgsTable story="Default" />
+
+##### Reference
+
+<Canvas>
+  <Story name="Reference" inline={false}>
+    {(args) => {
+      const ref = useRef(null);
+      return (
+        <div>
+          <div
+            ref={ref}
+            style={{
+              padding: '10px',
+              borderRadius: '6px',
+              border: '3px solid #52AD36'
+            }}
+          >
+            Container
+          </div>
+          <Portal {...args} containerRef={ref}>
+            I am in a portal appended next to Container by ref
+          </Portal>
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Description story="Reference">
+  Example rendering portal into a specified container by reference
+</Description>
+
+<ArgsTable story="Reference" />
+
+##### Id
+
+<Canvas>
+  <Story name="Id" inline={false}>
+    {(args) => (
+      <div>
+        <div
+          id="my-container"
+          style={{
+            padding: '10px',
+            borderRadius: '6px',
+            border: '3px solid #52AD36'
+          }}
+        >
+          <span>Container</span>
+        </div>
+        <Portal {...args} containerId="my-container">
+          I am in a portal appended next to Container by id
+        </Portal>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+<Description story="Id">
+  Example rendering portal into a specified container by element id
+</Description>
+
+<ArgsTable story="Id" />
