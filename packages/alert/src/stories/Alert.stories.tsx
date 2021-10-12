@@ -30,13 +30,6 @@ export default {
         defaultValue: { summary: 'polite' }
       }
     }
-  },
-  parameters: {
-    docs: {
-      source: {
-        state: 'open'
-      }
-    }
   }
 } as Meta;
 

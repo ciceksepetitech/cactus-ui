@@ -16,13 +16,6 @@ export default {
         defaultValue: { summary: 'div' }
       }
     }
-  },
-  parameters: {
-    docs: {
-      source: {
-        state: 'open'
-      }
-    }
   }
 } as Meta;
 

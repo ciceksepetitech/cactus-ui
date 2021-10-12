@@ -20,13 +20,6 @@ export default {
         defaultValue: { summary: 'div' }
       }
     }
-  },
-  parameters: {
-    docs: {
-      source: {
-        state: 'open'
-      }
-    }
   }
 } as Meta;
 
@@ -38,7 +31,7 @@ const Template = (args) => <Dialog {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
-  open: true,
+  open: false,
   children: 'I am a dialog'
 };
 
@@ -62,7 +55,7 @@ const FocusTrapTemplate = (args) => {
     <div>
       <button style={buttonStyles}>unfocusable button1</button>
       <button style={buttonStyles}>unfocusable button2</button>
-      <Dialog {...args} open={true} style={dialogStyles}>
+      <Dialog {...args} open={false} style={dialogStyles}>
         <p>focusing with tab should not leave the dialog!</p>
         <button style={buttonStyles}>should be auto focused</button>
         <button style={buttonStyles}>second button</button>
