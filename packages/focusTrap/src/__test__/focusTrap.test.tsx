@@ -1,5 +1,6 @@
 import React from 'react';
 import FocusTrap from '..';
+import { axe } from 'jest-axe';
 import userEvents from '@testing-library/user-event';
 import { render, cleanup, screen } from '@cs/component-utils';
 
@@ -41,6 +42,12 @@ describe('focusTrap component tests', () => {
 
     userEvents.tab({ shift: true });
     expect(document.activeElement).toEqual(lastButton);
+  });
+
+  test('focusTrap should pass a11y', async () => {
+    const { container } = render(<Component />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });
 
