@@ -109,12 +109,24 @@ import { useState } from 'react';
 
 <Canvas>
   <Story name="Default" inline={false}>
-    {(args) => (
-      <>
-        <p>open dialog via controls</p>
-        <Dialog {...args}>I am a dialog</Dialog>
-      </>
-    )}
+    {(args) => {
+      const [open, setOpen] = useState(args.open);
+      const buttonStyles = {
+        margin: '3px 5px',
+        padding: '5px',
+        cursor: 'pointer'
+      };
+      return (
+        <>
+          <button style={buttonStyles} onClick={() => setOpen(true)}>
+            show dialog
+          </button>
+          <Dialog {...args} open={open}>
+            I am a dialog
+          </Dialog>
+        </>
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -129,6 +141,7 @@ import { useState } from 'react';
 <Canvas>
   <Story name="Trapped" inline={false}>
     {(args) => {
+      const [open, setOpen] = useState(args.open);
       const buttonStyles = {
         margin: '3px 5px',
         padding: '5px',
@@ -141,12 +154,16 @@ import { useState } from 'react';
       return (
         <div style={{ minHeight: '150vh' }}>
           <button style={buttonStyles}>unfocusable button1</button>
-          <button style={buttonStyles}>unfocusable button2</button>
-          <Dialog {...args} style={dialogStyles}>
+          <button style={buttonStyles} onClick={() => setOpen(true)}>
+            show dialog
+          </button>
+          <Dialog {...args} style={dialogStyles} open={open}>
             <p>focusing with tab should not leave the dialog!</p>
             <button style={buttonStyles}>should be auto focused</button>
             <button style={buttonStyles}>second button</button>
-            <button style={buttonStyles}>third button</button>
+            <button style={buttonStyles} onClick={() => setOpen(false)}>
+              close button
+            </button>
           </Dialog>
         </div>
       );
@@ -155,7 +172,8 @@ import { useState } from 'react';
 </Canvas>
 
 <Description story="Trapped">
-  Example of rendering Focus Trapped Dialog component
+  Example of rendering Focus Trapped Dialog component and large height to
+  demonstrate scroll behavior when Dialog is open
 </Description>
 
 <ArgsTable story="Trapped" />
