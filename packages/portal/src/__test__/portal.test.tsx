@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Portal from '..';
 import { render, cleanup, within } from '@cs/component-utils';
 
-describe('Portal component tests', () => {
+describe('portal component tests', () => {
   afterEach(() => {
     cleanup();
   });
