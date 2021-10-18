@@ -163,3 +163,25 @@ export const buttonStyles = {
 </Description>
 
 <ArgsTable story="Refocus On Unmount" />
+
+##### Auto Focuses to Element with autoFocus Attribute
+
+<Canvas>
+  <Story name="autoFocus Attribute" inline={false}>
+    {(args) => (
+      <FocusTrap {...args}>
+        <button style={buttonStyles}>focusable</button>
+        <button style={buttonStyles} autoFocus>
+          autoFocus
+        </button>
+        <button style={buttonStyles}>focusable</button>
+      </FocusTrap>
+    )}
+  </Story>
+</Canvas>
+
+<Description story="autoFocus Attribute">
+  Example of auto focusing to element with autoFocus attribute
+</Description>
+
+<ArgsTable story="autoFocus Attribute" />

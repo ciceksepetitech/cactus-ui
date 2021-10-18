@@ -28,6 +28,18 @@ describe('dialog component tests', () => {
     expect(screen.queryByText(/i am a dialog/i)).toBe(null);
   });
 
+  test('dialog component autofocuses to element that has autoFocus inside', () => {
+    render(
+      <Dialog open>
+        <input data-testid="input1" />
+        <input data-testid="input2" autoFocus />
+      </Dialog>
+    );
+
+    const input2 = screen.getByTestId('input2');
+    expect(document.activeElement).toBe(input2);
+  });
+
   test('dialog should pass a11y', async () => {
     const { container } = render(<Component />);
     const results = await axe(container);

@@ -51,6 +51,21 @@ export const FocusTrap = forwardRef(
     }, []);
 
     /**
+     * check auto focus attribute among tabbable elements
+     * react pollyfills autofocus attribute to handle cross-browser problems
+     * elements rendered via react will not have autofocus attribute when you inspect them
+     * to get the element with autofocus, we need to check if any tabbable element has focused already
+     * @returns element with autoFocus attribute
+     */
+    const checkAutoFocusAttribute = useCallback(() => {
+      const [focusedElement] = tabbableElements.filter(
+        (element) => document.activeElement === element
+      );
+
+      return !!focusedElement;
+    }, [tabbableElements]);
+
+    /**
      * checks existance of element in trap
      * @returns boolean
      */
@@ -173,15 +188,19 @@ export const FocusTrap = forwardRef(
      * focuses to first element on mount if autoFocusToFirst is true
      */
     useLayoutEffect(() => {
-      if (!shouldAutoFocusToFirst) return;
+      if (!shouldAutoFocusToFirst || checkAutoFocusAttribute()) return;
       focusFirstFocusableElement();
-    }, [shouldAutoFocusToFirst, focusFirstFocusableElement]);
+    }, [
+      shouldAutoFocusToFirst,
+      checkAutoFocusAttribute,
+      focusFirstFocusableElement
+    ]);
 
     /**
      * focuses to last element on mount if autoFocusToLast is true
      */
     useLayoutEffect(() => {
-      if (!autoFocusToLast) return;
+      if (!autoFocusToLast || checkAutoFocusAttribute()) return;
       focusLastFocusableElement();
     }, [autoFocusToLast, focusLastFocusableElement]);
 
