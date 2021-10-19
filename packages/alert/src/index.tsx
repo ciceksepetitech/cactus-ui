@@ -103,7 +103,7 @@ const createCloneFunctions = (liveRegionType: LiveRegionType): CloneRef => {
 const renderAlertsToRegions = () => {
   Object.keys(liveRegionContainerElements).forEach((elementType) => {
     const liveRegionType: LiveRegionType = elementType as LiveRegionType;
-    const container = liveRegionContainers[liveRegionType]!;
+    const container = liveRegionContainers[liveRegionType];
     const regionElements = liveRegionContainerElements[liveRegionType];
 
     if (container) {

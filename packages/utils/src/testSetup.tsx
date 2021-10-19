@@ -1,5 +1,5 @@
-import React from 'react';
-import { render, RenderOptions } from '@testing-library/react';
+import React, { FC } from 'react';
+import { render, RenderOptions, RenderResult } from '@testing-library/react';
 
 /**
  * wrapper for test environment
@@ -21,9 +21,9 @@ const Wrapper = ({ children }) => {
  * @returns
  */
 const customRender = (
-  ui: React.ReactElement<any, string | React.JSXElementConstructor<any>>,
+  ui: React.ReactElement,
   options?: RenderOptions
-) => render(ui, { wrapper: Wrapper, ...options });
+): RenderResult => render(ui, { wrapper: Wrapper, ...options });
 
 export * from '@testing-library/react';
 export { customRender as render };
