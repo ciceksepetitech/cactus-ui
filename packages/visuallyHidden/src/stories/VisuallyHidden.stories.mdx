@@ -50,10 +50,10 @@ import VisuallyHidden from '..';
 <Canvas>
   <Story name="Default" inline={false}>
     {(args) => (
-      <p>
-        <p>The text "Should not be seen!" should not be seen below 😊</p>
+      <div>
+        <span>The text "Should not be seen!" should not be seen below 😊</span>
         <VisuallyHidden {...args}>Should not be seen!</VisuallyHidden>
-      </p>
+      </div>
     )}
   </Story>
 </Canvas>

@@ -9,16 +9,13 @@
 import React, { FC, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
-import { PolymorphicComponentProps } from '@cs/component-utils';
 
 /**
  * portal component
  * mounts its content in a specific area of the dom
  */
-export const Portal: FC = <C extends React.ElementType = 'div'>(
-  props: PolymorphicComponentProps<C, IPortalProps>
-) => {
-  const { as = 'div', containerRef, containerId, children } = props;
+export const Portal: FC<IPortalProps> = (props) => {
+  const { containerRef, containerId, children } = props;
 
   const [portalNode, setPortalNode] = useState<HTMLElement>(null);
 
@@ -32,9 +29,7 @@ export const Portal: FC = <C extends React.ElementType = 'div'>(
       containerRef?.current ||
       document.body;
 
-    const component = as || 'div';
-    const elementType = component as keyof HTMLElementTagNameMap;
-    const portalNode = document.createElement(elementType);
+    const portalNode = document.createElement('div');
 
     setPortalNode(portalNode);
     container.appendChild(portalNode);
@@ -43,7 +38,7 @@ export const Portal: FC = <C extends React.ElementType = 'div'>(
       if (!container || portalNode) return;
       container.removeChild(portalNode);
     };
-  }, [as, containerId, containerRef]);
+  }, [containerId, containerRef]);
 
   const element = portalNode ? createPortal(children, portalNode) : null;
   return element || <span></span>;
