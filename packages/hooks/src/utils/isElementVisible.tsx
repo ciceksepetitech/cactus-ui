@@ -4,7 +4,7 @@
  * @param element
  * @returns boolean
  */
-export const checkStyleVisibility = (element: Element) => {
+export const checkStyleVisibility = (element: Element): boolean => {
   if (!(element instanceof HTMLElement)) return false;
 
   const { display, visibility } = window.getComputedStyle(element);
@@ -21,7 +21,7 @@ export const checkStyleVisibility = (element: Element) => {
  * @param element
  * @returns boolean
  */
-export const isElementVisible = (element: Element) => {
+export const isElementVisible = (element: Element): boolean => {
   return (
     element.nodeName !== '#comment' &&
     checkStyleVisibility(element) &&

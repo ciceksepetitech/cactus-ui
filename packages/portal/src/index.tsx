@@ -6,7 +6,7 @@
  * mounts its content in a specific area of the dom
  */
 
-import React, { useLayoutEffect, useState } from 'react';
+import React, { FC, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import { PolymorphicComponentProps } from '@cs/component-utils';
@@ -15,7 +15,7 @@ import { PolymorphicComponentProps } from '@cs/component-utils';
  * portal component
  * mounts its content in a specific area of the dom
  */
-export const Portal = <C extends React.ElementType = 'div'>(
+export const Portal: FC = <C extends React.ElementType = 'div'>(
   props: PolymorphicComponentProps<C, IPortalProps>
 ) => {
   const { as = 'div', containerRef, containerId, children } = props;

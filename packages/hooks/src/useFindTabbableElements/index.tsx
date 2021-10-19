@@ -8,7 +8,9 @@ import { focusableDOMElements } from '../constants/focusableDOMElements';
  *
  * @returns Array<DOMNode>
  */
-export function useFindTabbableElements(nodeRef: React.RefObject<HTMLElement>) {
+export function useFindTabbableElements(
+  nodeRef: React.RefObject<HTMLElement>
+): { tabbableElements: HTMLElement[] } {
   const [tabbableElements, setTabbableElements] = useState<Array<HTMLElement>>(
     []
   );

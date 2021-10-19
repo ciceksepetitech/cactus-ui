@@ -6,7 +6,7 @@ import { useState, useCallback } from 'react';
  *
  * @returns function
  */
-export function useForceUpdate() {
+export function useForceUpdate(): () => void {
   const [, setState] = useState();
 
   const forceUpdate = useCallback(() => {

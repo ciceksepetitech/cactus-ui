@@ -62,6 +62,8 @@ export const DialogOverlay = forwardRef(
     return (
       <Portal>
         <div
+          role="button"
+          tabIndex={-1}
           data-cs-dialog-overlay
           onClick={handleOnClick}
           onKeyDown={handleKeyDown}

@@ -9,7 +9,7 @@ import { focusableDOMElements } from '../constants/focusableDOMElements';
  */
 export function useFindFocusableElements(
   nodeRef: React.RefObject<HTMLElement>
-) {
+): { focusableElements: HTMLElement[] } {
   const [focusableElements, setFocusableElements] = useState<
     Array<HTMLElement>
   >([]);
