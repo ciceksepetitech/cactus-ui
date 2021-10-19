@@ -33,14 +33,14 @@ jobs:
           node-version: ${{ matrix.node }}
           registry-url: https://registry.npmjs.org
 
+      - name: ⬇️ Install Dependencies
+        run: yarn --frozen-lockfile
+
       - name: 📋 Format Check
         run: yarn format --check
 
       - name: 📋 Eslint
         run: yarn lint
-
-      - name: ⬇️ Install Dependencies
-        run: yarn --frozen-lockfile
 
       - name: 🏗 Build
         run: yarn build
