@@ -3,7 +3,7 @@ import { PolymorphicComponentProps } from '@cs/component-utils';
 
 const Dialog = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, {}>,
+    props: PolymorphicComponentProps<C, Record<string, unknown>>,
     forwardedRef: React.RefObject<C>
   ) => {
     const { as: Component = 'div', children } = props;

@@ -10,7 +10,7 @@ export const setRevertableStyle = (
   element: HTMLElement,
   style: string,
   value: string
-) => {
+): (() => void) => {
   const prevStyle = element.style[style];
   element.style[style] = value;
   return () => (element.style[style] = prevStyle);

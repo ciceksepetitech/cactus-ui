@@ -52,3 +52,5 @@ Thumbs.db
 .jest-cache
 .jest-coverage
 
+# storybook
+storybook-static

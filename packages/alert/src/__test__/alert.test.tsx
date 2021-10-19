@@ -37,12 +37,12 @@ describe('alert component tests', () => {
 
   test('alert should be rendered by default role as status', async () => {
     render(<Alert>Test alert</Alert>);
-    screen.getByRole('status');
+    screen.getByRole('status', { hidden: true });
   });
 
   test('alert should be rendered as alert role when type is assertive', async () => {
     render(<Alert type="assertive">Test alert</Alert>);
-    screen.getByRole('alert');
+    screen.getByRole('alert', { hidden: true });
   });
 
   test('async alerts should be mount/unmount properly', async () => {

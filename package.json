@@ -2,17 +2,17 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "up": "scripty",
-    "lint": "scripty",
-    "test": "scripty",
-    "build": "scripty",
-    "commit": "scripty",
-    "format": "scripty",
-    "prepare": "scripty",
-    "lint-fix": "scripty",
-    "storybook": "scripty",
-    "publish-lerna": "scripty",
-    "build-storybook": "scripty"
+    "test": "jest",
+    "commit": "npx git-cz",
+    "prepare": "husky install",
+    "build": "lerna run build",
+    "build:storybook": "build-storybook",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "test:watch": "jest --watch --watchAll",
+    "up": "yarn upgrade-interactive --latest",
+    "publish": "lerna publish --no-git-tag-version",
+    "format": "prettier \"./**/*.{ts,tsx,js,json,md}\"",
+    "storybook": "start-storybook -p 6006 -c .storybook"
   },
   "scripty": {
     "path": "./scripts/workspace"
