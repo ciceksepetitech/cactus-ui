@@ -13,7 +13,6 @@ on:
 jobs:
 
   main:
-    name: ⚙️ Build Packages
     strategy:
       matrix:
         # TODO: relax `'16.9.1'` to `16` once GitHub has 16.9.1 cached. 16.9.0 is broken due to https://github.com/nodejs/node/issues/40030
