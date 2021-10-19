@@ -33,8 +33,11 @@ jobs:
           node-version: ${{ matrix.node }}
           registry-url: https://registry.npmjs.org
 
-      - name: ⬇️ Format Check
+      - name: 📋 Format Check
         run: yarn format --check
+
+      - name: 📋 Eslint
+        run: yarn lint
 
       - name: ⬇️ Install Dependencies
         run: yarn --frozen-lockfile
@@ -48,4 +51,5 @@ jobs:
       - name: 📗 Build Storybook
         run: yarn build-storybook
       
-      - name: 🚀 Deploy
+      # - name: 🚀 Deploy
+      # will be implemented in future

@@ -3,7 +3,7 @@
  * @param regExp
  * @returns boolean
  */
-const checkPlatform = (regExp: RegExp) => {
+const checkPlatform = (regExp: RegExp): boolean => {
   return typeof window !== 'undefined' && window.navigator != null
     ? regExp.test(window.navigator.platform) // browsers still support navigator.platform but need to be careful about deprecation!
     : false;
@@ -14,7 +14,7 @@ const checkPlatform = (regExp: RegExp) => {
  * @param regExp
  * @returns boolean
  */
-function checkUserAgent(regExp: RegExp) {
+function checkUserAgent(regExp: RegExp): boolean {
   return typeof window !== 'undefined' && window.navigator != null
     ? regExp.test(window.navigator.userAgent)
     : false;
@@ -24,7 +24,7 @@ function checkUserAgent(regExp: RegExp) {
  * checks if platform is mac or not
  * @returns boolean
  */
-export const isMac = () => {
+export const isMac = (): boolean => {
   return checkPlatform(/^Mac/);
 };
 
@@ -32,7 +32,7 @@ export const isMac = () => {
  * checks if platform is iphone or not
  * @returns boolean
  */
-export const isIPhone = () => {
+export const isIPhone = (): boolean => {
   return checkPlatform(/^iPhone/);
 };
 
@@ -40,7 +40,7 @@ export const isIPhone = () => {
  * checks if user-agent is chrome or not
  * @returns boolean
  */
-export const isChrome = () => {
+export const isChrome = (): boolean => {
   return checkUserAgent(/Chrome/);
 };
 
@@ -48,7 +48,7 @@ export const isChrome = () => {
  * checks if platform is apple device or not
  * @returns boolean
  */
-export const isAppleDevice = () => {
+export const isAppleDevice = (): boolean => {
   return isIOS() || isMac();
 };
 
@@ -56,7 +56,7 @@ export const isAppleDevice = () => {
  * checks if user-agent is android or not
  * @returns boolean
  */
-export const isAndroid = () => {
+export const isAndroid = (): boolean => {
   return checkUserAgent(/Android/);
 };
 
@@ -64,7 +64,7 @@ export const isAndroid = () => {
  * checks if platform is ipad or not
  * @returns boolean
  */
-export const isIPad = () => {
+export const isIPad = (): boolean => {
   return checkPlatform(/^iPad/) || (isMac() && navigator.maxTouchPoints > 1); // maxTouchPoints check is for iPadOS 13
 };
 
@@ -72,6 +72,6 @@ export const isIPad = () => {
  * checks if platform is ios or not
  * @returns boolean
  */
-export const isIOS = () => {
+export const isIOS = (): boolean => {
   return isIPhone() || isIPad();
 };
