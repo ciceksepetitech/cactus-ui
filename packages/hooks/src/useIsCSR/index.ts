@@ -3,7 +3,7 @@
  * if returns true, it is client-side otherwise server-side
  * @returns boolean
  */
-export function useIsCSR() {
+export function useIsCSR(): boolean {
   return !!(
     typeof window !== 'undefined' &&
     window.document &&
