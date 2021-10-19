@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+
+  main:
+    strategy:
+      matrix:
+        node-version: [12, 14, 16]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.0
+
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v2
+
+      - name: ⎔ Use Node 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org
+
+      - name: ⬇️ Install Dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+
+      - name: 📋 Format Check
+        run: yarn format --check
+
+      - name: ⬣ Eslint
+        run: yarn lint
+
+      - name: ⚙️ Build
+        run: yarn build
+
+      - name: 🧪 Run Tests
+        run: yarn test
+
+      - name: 📗 Build Storybook
+        run: yarn build-storybook
+      
+      # - name: 🚀 Deploy
+      # will be implemented in future
