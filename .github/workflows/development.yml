@@ -1,4 +1,4 @@
-name: CI
+name: Development
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
   main:
     strategy:
       matrix:
-        node-version: [12, 14, 16]
+        node-version: [12.x, 14.x, 16.x]
     runs-on: ubuntu-latest
 
     steps:
@@ -47,9 +47,3 @@ jobs:
 
       - name: 🧪 Run Tests
         run: yarn test
-
-      - name: 📗 Build Storybook
-        run: yarn build-storybook
-      
-      # - name: 🚀 Deploy
-      # will be implemented in future

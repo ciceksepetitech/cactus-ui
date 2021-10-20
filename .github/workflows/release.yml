@@ -1,12 +1,8 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
 
@@ -29,9 +25,9 @@ jobs:
       - name: ⎔ Use Node 14
         uses: actions/setup-node@v1
         with:
+          scope: '@ciceksepeti'
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
-          scope: '@ciceksepeti'
 
       - name: ⬇️ Install Dependencies
         uses: bahmutov/npm-install@v1
@@ -53,5 +49,13 @@ jobs:
       - run: echo "Publishing packages to npm..."
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > "$HOME/.npmrc"
       
-      - name: Publish Packages
-        run: yarn publish from-git --yes
+      # - name: Publish Packages
+      #   run: yarn publish from-git --yes
+
+      - name: 📗 Build Storybook
+        run: yarn build-storybook
+
+      # - run: echo "Deploying storybook static web-app to..."
+
+      # - name: 🚀 Deploy
+      # will be implemented in future
