@@ -22,7 +22,7 @@ jobs:
       - name: ⬇️ Checkout
         uses: actions/checkout@v2
 
-      - name: ⎔ Use Node 14
+      - name: ⎔ Use Node Matrix Versions
         uses: actions/setup-node@v1
         with:
           scope: '@ciceksepeti'
