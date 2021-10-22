@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  release:
+    strategy:
+      matrix:
+        node-version: [14.x]
+    runs-on: ubuntu-latest
+
+    env:
+      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.0
+
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v2
+        with:
+          # https://github.com/lerna/lerna/issues/2542
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: "0"
+
+      - name: ⎔ Use Node Matrix Versions
+        uses: actions/setup-node@v1
+        with:
+          scope: '@ciceksepeti'
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org
+
+      - name: ⬇️ Install Dependencies
+        run: yarn --frozen-lockfile
+
+      - name: 📋 Format Check
+        run: yarn format --check
+
+      - name: ⬣ Eslint
+        run: yarn lint
+
+      - name: ⚙️ Build
+        run: yarn lerna:build
+
+      - name: 🧪 Run Tests
+        run: yarn test
+
+      - name: 📗 Build Storybook
+        run: yarn storybook:build
+
+      # - run: echo "Deploying storybook static web-app to..."
+
+      # - name: 🚀  Deploy Storybook
+      # will be implemented in future
+
+      - run: echo "Publishing packages to npm..."
+
+      # - name: Publish Packages
+      #   run: |
+      #     echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      #     yarn lerna:publish from-package --yes
+
+      - run: echo "✅ Release workflow completed successfully"

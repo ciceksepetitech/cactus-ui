@@ -1,4 +1,4 @@
-name: CI
+name: Development
 
 on:
   push:
@@ -6,18 +6,18 @@ on:
       - main
       - develop
   pull_request:
-    branches:
-      - main
-      - develop
+    types: [ assigned, opened, synchronize, reopened, labeled ]
 
 jobs:
 
   main:
     strategy:
       matrix:
-        # TODO: relax `'16.9.1'` to `16` once GitHub has 16.9.1 cached. 16.9.0 is broken due to https://github.com/nodejs/node/issues/40030
-        node: [12, 14, '16.9.1']
+        node-version: [12.x, 14.x, 16.x]
     runs-on: ubuntu-latest
+
+    env:
+      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
     steps:
       - name: 🛑 Cancel Previous Runs
@@ -25,11 +25,15 @@ jobs:
 
       - name: ⬇️ Checkout
         uses: actions/checkout@v2
+        with:
+          # https://github.com/lerna/lerna/issues/2542
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: "0"
 
-      - name: ⎔ Use Node 14
+      - name: ⎔ Use Node Matrix Versions
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
 
       - name: ⬇️ Install Dependencies
@@ -38,17 +42,13 @@ jobs:
       - name: 📋 Format Check
         run: yarn format --check
 
-      - name: 📋 Eslint
+      - name: ⬣ Eslint
         run: yarn lint
 
-      - name: 🏗 Build
-        run: yarn build
+      - name: ⚙️ Build
+        run: yarn lerna:build
 
       - name: 🧪 Run Tests
         run: yarn test
 
-      - name: 📗 Build Storybook
-        run: yarn build-storybook
-      
-      # - name: 🚀 Deploy
-      # will be implemented in future
+      - run: echo "✅ Development workflow completed successfully"
