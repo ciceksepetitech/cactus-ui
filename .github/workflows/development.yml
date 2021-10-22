@@ -30,9 +30,6 @@ jobs:
           # pulls all commits (needed for lerna / semantic release to correctly version)
           fetch-depth: "0"
 
-      - name: 🛑 Pull All Tags for Lerna / Semantic Release to Correctly Version
-        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-
       - name: ⎔ Use Node Matrix Versions
         uses: actions/setup-node@v1
         with:
