@@ -1,19 +1,21 @@
 {
   "name": "root",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "test": "jest",
     "commit": "npx git-cz",
     "prepare": "husky install",
-    "build": "lerna run build",
-    "build:storybook": "build-storybook",
+    "lerna:link": "lerna bootstrap",
+    "lerna:build": "lerna run build",
+    "storybook:build": "build-storybook",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "test:watch": "jest --watch --watchAll",
     "up": "yarn upgrade-interactive --latest",
-    "version": "lerna version --no-push --exact",
-    "publish": "lerna publish --no-git-tag-version",
+    "lerna:version": "lerna version --no-push --exact",
     "format": "prettier \"./**/*.{ts,tsx,js,json,md}\"",
-    "storybook": "start-storybook -p 6006 -c .storybook"
+    "lerna:publish": "lerna publish --no-git-tag-version",
+    "storybook:start": "start-storybook -p 6006 -c .storybook"
   },
   "scripty": {
     "path": "./scripts/workspace"

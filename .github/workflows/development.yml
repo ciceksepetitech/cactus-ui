@@ -6,9 +6,7 @@ on:
       - main
       - develop
   pull_request:
-    branches:
-      - main
-      - develop
+    types: [ assigned, opened, synchronize, reopened, labeled ]
 
 jobs:
 
@@ -18,12 +16,22 @@ jobs:
         node-version: [12.x, 14.x, 16.x]
     runs-on: ubuntu-latest
 
+    env:
+      NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.0
 
       - name: ⬇️ Checkout
         uses: actions/checkout@v2
+        with:
+          # https://github.com/lerna/lerna/issues/2542
+          # pulls all commits (needed for lerna / semantic release to correctly version)
+          fetch-depth: "0"
+
+      - name: 🛑 Pull All Tags for Lerna / Semantic Release to Correctly Version
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: ⎔ Use Node Matrix Versions
         uses: actions/setup-node@v1
@@ -31,17 +39,19 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
 
-      - name: ⬇️ Install Dependencies
-        run: yarn --frozen-lockfile
-
       - name: 📋 Format Check
         run: yarn format --check
 
       - name: ⬣ Eslint
         run: yarn lint
 
+      - name: ⬇️ Install Dependencies
+        run: yarn --frozen-lockfile
+
       - name: ⚙️ Build
-        run: yarn build
+        run: yarn lerna:build
 
       - name: 🧪 Run Tests
         run: yarn test
+
+      - run: echo "✅ Development workflow completed successfully"
