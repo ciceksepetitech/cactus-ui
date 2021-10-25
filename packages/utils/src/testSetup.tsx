@@ -1,11 +1,25 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 
-const Wrapper: FC = ({ children }) => {
+/**
+ * wrapper for test environment
+ * might contain some providers etc
+ *
+ * @param param0
+ * @returns
+ */
+const Wrapper = ({ children }) => {
   // Providers or other kind of wrappers might be needed
   return <>{children}</>;
 };
 
+/**
+ * extends default render function of @testing-library/react
+ *
+ * @param ui
+ * @param options
+ * @returns
+ */
 const customRender = (
   ui: React.ReactElement,
   options?: RenderOptions

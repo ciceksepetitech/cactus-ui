@@ -1,3 +1,13 @@
+/**
+ * @cs/component-alert
+ *
+ * Accessible Alert Component
+ *
+ * Clones components to specific aria-live regions to make it possible to announce alert with appropriate attributes
+ *
+ * @see https://www.w3.org/TR/wai-aria-practices-1.2/#alert
+ */
+
 import React, {
   useRef,
   useMemo,
@@ -141,13 +151,14 @@ const useLiveRegionClone = (
 /**
  * An alert component displays an important/unimportant message to get the user's attention without interrupting the user. @ciceksepeti/alert is mainly focused on web accessibility. Thus, with aria-live and role attributes, we try to ensure that many assistive technologies announce the message to users according to the notification level specified by the developer. Rendered alert component HTML tag can be decided by the developer so developers can decide correct semantic for their application
  */
-const Alert = forwardRef(
+export const Alert = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IAlertProps>,
-    forwardedRef: React.RefObject<C>
+    forwardedRef
   ) => {
-    const { as: Component = 'div', children, type = 'polite', ...rest } = props;
+    const { as, children, type = 'polite', ...rest } = props;
 
+    const Component = as || 'div';
     const internalRef = useRef(null);
     const ref = forwardedRef || internalRef;
 
@@ -157,7 +168,7 @@ const Alert = forwardRef(
           {children}
         </Component>
       ),
-      [children, rest, Component]
+      [children, rest, Component, ref?.current]
     );
 
     const element: JSX.Element = component.type ? component : <></>; // to avoid test crushing!
@@ -196,5 +207,7 @@ interface IAlertProps {
 }
 
 export default Alert;
+
+/** Display Names */
 
 Alert.displayName = 'Alert';

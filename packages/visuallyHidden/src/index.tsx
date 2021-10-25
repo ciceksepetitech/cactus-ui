@@ -1,26 +1,33 @@
-import React, { useRef, forwardRef } from 'react';
+/**
+ * @cs/component-visually-hidden
+ *
+ * VisuallyHidden Component
+ *
+ * visually hides its content from ui without removing it from dom
+ * assistive technologies can still attract with the element but it will not take any space at the dom
+ */
+
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 /**
- * VisuallyHidden component visually hides its children from UI. @ciceksepeti/visuallyHidden is developed to increase web accessibility. So, assistive technologies can still attract with the element but it will not take any space at the DOM. Rendered visuallyhidden component HTML tag can be decided by the developer so developers can decide correct semantic for their application. VisuallyHidden component can have styles and correct other attributes according to the rendered tag
+ * visually hidden component
+ * visually hides its content from ui
  */
-const VisuallyHidden = forwardRef(
+export const VisuallyHidden = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IVisuallyHiddenProps>,
-    forwardedRef: React.RefObject<C>
+    forwardedRef
   ) => {
     const { as, style, children, ...rest } = props;
 
     const Component = as || 'div';
 
-    const internalRef = useRef(null);
-    const ref = forwardedRef || internalRef;
-
     return (
       <Component
         {...rest}
-        ref={ref}
+        ref={forwardedRef}
         data-cs-visually-hidden
         style={{
           border: 0,
@@ -45,6 +52,8 @@ const VisuallyHidden = forwardRef(
   }
 );
 
+export default VisuallyHidden;
+
 /** Types and Interfaces */
 
 interface IVisuallyHiddenProps {
@@ -60,6 +69,6 @@ if (process.env.NODE_ENV === 'development') {
   };
 }
 
-export default VisuallyHidden;
+/** Display Names */
 
 VisuallyHidden.displayName = 'VisuallyHidden';

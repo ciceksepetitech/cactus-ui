@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Alert from '..';
 import { axe } from 'jest-axe';
 import userEvents from '@testing-library/user-event';
 import { render, screen, cleanup, waitFor } from '@cs/component-utils';
-import { RenderAsync as AlertRenderAsync } from '../stories/Alert.stories';
 
 describe('alert component tests', () => {
   afterEach(() => {
@@ -17,8 +16,8 @@ describe('alert component tests', () => {
 
   test('expect alert message to be rendered twice', () => {
     render(<Alert>Test alert</Alert>);
-    const alert = screen.getAllByText(/test alert/i);
-    expect(alert).toHaveLength(2);
+    const alerts = screen.getAllByText(/test alert/i);
+    expect(alerts).toHaveLength(2);
   });
 
   test('alert should pass a11y', async () => {
@@ -64,3 +63,38 @@ describe('alert component tests', () => {
     jest.useRealTimers();
   });
 });
+
+const AlertRenderAsync = () => {
+  const [alerts, setAlerts] = useState([]);
+
+  const onAddAlert = () => {
+    setTimeout(() => {
+      setAlerts((oldAlerts) => {
+        const updatedAlerts = [
+          ...oldAlerts,
+          `I am an alert (${oldAlerts.length + 1})`
+        ];
+        return updatedAlerts;
+      });
+    }, 100);
+  };
+
+  const onRemoveAlert = () => {
+    setAlerts((oldAlerts) => {
+      const [, ...rest] = oldAlerts;
+      return rest;
+    });
+  };
+
+  return (
+    <section aria-label="alert component mounted with setTimeout, async">
+      <div>
+        <button onClick={onAddAlert}>Add Alert</button>
+        <button onClick={onRemoveAlert}>Remove Alert</button>
+      </div>
+      {alerts.map((each, index) => (
+        <Alert key={each + index}>{each}</Alert>
+      ))}
+    </section>
+  );
+};

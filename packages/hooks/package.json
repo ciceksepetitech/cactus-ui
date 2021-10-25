@@ -15,9 +15,6 @@
     "type": "",
     "url": ""
   },
-  "dependencies": {
-    "@cs/component-utils": "^0.0.1"
-  },
   "scripts": {
     "build": "scripty",
     "clean": "scripty",

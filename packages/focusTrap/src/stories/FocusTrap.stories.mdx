@@ -1,0 +1,187 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs/blocks';
+import FocusTrap from '..';
+import { useState } from 'react';
+
+<Meta
+  title="Components/Focus Trap"
+  component={FocusTrap}
+  argTypes={{
+    as: {
+      name: 'as',
+      defaultValue: 'div',
+      control: { type: 'text' },
+      description:
+        'changes html tag of focus trap component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    },
+    disabled: {
+      name: 'disabled',
+      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'disables all trap features',
+      table: { defaultValue: { summary: false } }
+    },
+    autoFocusToFirst: {
+      name: 'autoFocusToFirst',
+      defaultValue: true,
+      control: { type: 'boolean' },
+      description: 'auto focuses to first focusable child of focus trap',
+      table: { defaultValue: { summary: true } }
+    },
+    autoFocusToLast: {
+      name: 'autoFocusToLast',
+      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'auto focuses to last focusable child of focus trap',
+      table: { defaultValue: { summary: false } }
+    },
+    restoreFocusOnUnmount: {
+      name: 'restoreFocusOnUnmount',
+      defaultValue: true,
+      control: { type: 'boolean' },
+      description:
+        'refocuses to last focused element when focust trap is unmounted',
+      table: { defaultValue: { summary: true } }
+    }
+  }}
+/>
+
+## Focus Trap
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  FocusTrap component traps focus events inside of its boundries. It is
+  developed according to the accessibility rules. User cannot leave the trap
+  boundries unless disables it. Great match for components like Modals, Dialogs
+  and etc. FocusTrap is a polymorphic component. That's why can be rendered as
+  any valid HTML tag
+</p>
+
+export const buttonStyles = {
+  padding: '5px',
+  margin: '3px 5px',
+  cursor: 'pointer'
+};
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => (
+      <div>
+        <FocusTrap {...args}>
+          <div>
+            <button style={buttonStyles}>focusable</button>
+            <button style={buttonStyles}>focusable</button>
+            <button style={buttonStyles}>focusable</button>
+            <button disabled style={buttonStyles}>
+              disabled
+            </button>
+            <span>
+              <button style={{ ...buttonStyles, visibility: 'hidden' }}>
+                hidden
+              </button>
+              <button style={buttonStyles} tabIndex={-1}>
+                tabindex -1
+              </button>
+            </span>
+            <button style={buttonStyles}>focusable</button>
+          </div>
+        </FocusTrap>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of FocusTrap component. Renders as 'div' by
+  default
+</Description>
+
+<ArgsTable story="Default" />
+
+##### Refocus On Unmount
+
+<Canvas>
+  <Story name="Refocus On Unmount" inline={false}>
+    {(args) => {
+      const [open, setOpen] = useState(false);
+      return (
+        <div>
+          <button style={buttonStyles}>some button</button>
+          <button style={buttonStyles} onClick={() => setOpen(true)}>
+            show panel
+          </button>
+          <button style={buttonStyles}>some button</button>
+          {open && (
+            <div
+              style={{
+                padding: 10,
+                borderRadius: 4,
+                margin: '10px 5px',
+                border: '1px solid red'
+              }}
+            >
+              <FocusTrap {...args}>
+                <h3 style={{ marginTop: 0 }}>Trapped Panel</h3>
+                <button style={buttonStyles}>focusable</button>
+                <button style={buttonStyles}>focusable</button>
+                <button style={buttonStyles} onClick={() => setOpen(false)}>
+                  close panel
+                </button>
+              </FocusTrap>
+            </div>
+          )}
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Description story="Refocus On Unmount">
+  Example of refocusing the last focused element when FocusTrap unmounts
+</Description>
+
+<ArgsTable story="Refocus On Unmount" />
+
+##### Auto Focuses to Element with autoFocus Attribute
+
+<Canvas>
+  <Story name="autoFocus Attribute" inline={false}>
+    {(args) => (
+      <FocusTrap {...args}>
+        <button style={buttonStyles}>focusable</button>
+        <button style={buttonStyles} autoFocus>
+          autoFocus
+        </button>
+        <button style={buttonStyles}>focusable</button>
+      </FocusTrap>
+    )}
+  </Story>
+</Canvas>
+
+<Description story="autoFocus Attribute">
+  Example of auto focusing to element with autoFocus attribute
+</Description>
+
+<ArgsTable story="autoFocus Attribute" />
