@@ -1,9 +1,8 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
 
@@ -52,16 +51,10 @@ jobs:
       - name: 📗 Build Storybook
         run: yarn storybook:build
 
-      # - run: echo "Deploying storybook static web-app to..."
-
       # - name: 🚀  Deploy Storybook
       # will be implemented in future
 
-      - run: echo "Publishing packages to npm..."
-
       # - name: Publish Packages
       #   run: |
-      #     echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      #     npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
       #     yarn lerna:publish from-package --yes
-
-      - run: echo "✅ Release workflow completed successfully"
