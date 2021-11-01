@@ -50,3 +50,6 @@ jobs:
 
       - name: 🧪 Run Tests
         run: yarn test
+
+      - name: 🧪 Run Test Coverage
+        run: yarn test:coverage:summary

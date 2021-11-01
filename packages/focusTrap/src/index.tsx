@@ -7,7 +7,6 @@
  */
 
 import React, { forwardRef, useLayoutEffect, useRef, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { useFindTabbableElements } from '@cs/component-hooks';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
@@ -58,11 +57,12 @@ export const FocusTrap = forwardRef(
      * @returns element with autoFocus attribute
      */
     const checkAutoFocusAttribute = useCallback(() => {
-      const [focusedElement] = tabbableElements.filter(
+      const focusedElementIndex = tabbableElements.findIndex(
         (element) => document.activeElement === element
       );
 
-      return !!focusedElement;
+      currentFocusedElementIndex.current = focusedElementIndex;
+      return focusedElementIndex >= 0;
     }, [tabbableElements]);
 
     /**
@@ -202,7 +202,7 @@ export const FocusTrap = forwardRef(
     useLayoutEffect(() => {
       if (!autoFocusToLast || checkAutoFocusAttribute()) return;
       focusLastFocusableElement();
-    }, [autoFocusToLast, focusLastFocusableElement]);
+    }, [autoFocusToLast, checkAutoFocusAttribute, focusLastFocusableElement]);
 
     /**
      * handles tab key down event
@@ -265,19 +265,6 @@ interface IFocusTrapProps {
   autoFocusToFirst?: boolean;
   children: React.ReactNode;
   restoreFocusOnUnmount?: boolean;
-}
-
-/** Prop Types */
-
-if (process.env.NODE_ENV === 'development') {
-  FocusTrap.displayName = 'FocusTrap';
-  FocusTrap.propTypes = {
-    disabled: PropTypes.bool,
-    children: PropTypes.node,
-    autoFocusToLast: PropTypes.bool,
-    autoFocusToFirst: PropTypes.bool,
-    restoreFocusOnUnmount: PropTypes.bool
-  };
 }
 
 /** Display Names */

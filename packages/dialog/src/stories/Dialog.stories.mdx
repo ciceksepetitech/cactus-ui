@@ -136,6 +136,41 @@ import { useState } from 'react';
 
 <ArgsTable story="Default" />
 
+##### Escape
+
+<Canvas>
+  <Story name="Escape" inline={false}>
+    {(args) => {
+      const [open, setOpen] = useState(args.open);
+      const buttonStyles = {
+        margin: '3px 5px',
+        padding: '5px',
+        cursor: 'pointer'
+      };
+      const onEscapeKey = () => {
+        setOpen(false);
+      };
+      return (
+        <>
+          <button style={buttonStyles} onClick={() => setOpen(true)}>
+            show dialog
+          </button>
+          <Dialog {...args} open={open} onEscapeKey={onEscapeKey}>
+            <p>I am a dialog</p>
+          </Dialog>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Description story="Escape">
+  Example of when escape is pressed, it should close dialog if onEscapeKey is
+  provided
+</Description>
+
+<ArgsTable story="Escape" />
+
 ##### Trapped
 
 <Canvas>

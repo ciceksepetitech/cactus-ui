@@ -6,6 +6,11 @@ describe('isElementVisible utility tests', () => {
     cleanup();
   });
 
+  test('expect isElementVisible to return false if element is not instance of HTMLElement', () => {
+    const p = '<p>some text</p>' as unknown as HTMLElement;
+    expect(isElementVisible(p)).toBe(false);
+  });
+
   test('expect isElementVisible to return boolean for visibility of an element', () => {
     const p = document.createElement('p');
 

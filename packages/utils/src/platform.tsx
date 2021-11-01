@@ -73,7 +73,10 @@ export const isAndroid = (): boolean => {
  * @returns boolean
  */
 export const isIPad = (): boolean => {
-  return checkPlatform(/^iPad/) || (isMac() && navigator.maxTouchPoints > 1); // maxTouchPoints check is for iPadOS 13
+  return (
+    checkPlatform(/^iPad/) ||
+    (isMac() && 'ontouchstart' in document.documentElement)
+  );
 };
 
 /**

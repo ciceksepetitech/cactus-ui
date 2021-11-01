@@ -18,13 +18,18 @@ export function useFindFocusableElements(
    * handles warnings and creates node list
    */
   useEffect(() => {
-    if (!nodeRef)
+    if (!nodeRef) {
       console.warn('useFindFocusableElements: nodeRef is a required field!');
+      return;
+    }
 
-    if (!nodeRef.current)
+    if (!nodeRef.current) {
       console.warn(
         'useFindFocusableElements: nodeRef.current is null or undefined!'
       );
+
+      return;
+    }
 
     const focusableDOMElementsStr =
       focusableDOMElements.join(':not([hidden]),') +

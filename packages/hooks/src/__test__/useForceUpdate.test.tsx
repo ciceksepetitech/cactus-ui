@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useForceUpdate } from '..';
-import userEvents from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { render, screen, cleanup } from '@cs/component-utils';
 
 describe('useForceUpdate hook tests', () => {
@@ -12,10 +12,10 @@ describe('useForceUpdate hook tests', () => {
     render(<Component />);
 
     screen.getByText(/count: 0/i);
-    userEvents.click(screen.getByText(/increment/i));
+    userEvent.click(screen.getByText(/increment/i));
     screen.getByText(/count: 0/i);
 
-    userEvents.click(screen.getByText(/force update/i));
+    userEvent.click(screen.getByText(/force update/i));
     screen.getByText(/count: 1/i);
   });
 });
