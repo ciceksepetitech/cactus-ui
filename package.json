@@ -7,15 +7,18 @@
     "commit": "npx git-cz",
     "prepare": "husky install",
     "lerna:link": "lerna bootstrap",
+    "lerna:changed": "lerna changed",
     "lerna:build": "lerna run build",
+    "test:coverage": "jest --coverage",
     "storybook:build": "build-storybook",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "test:watch": "jest --watch --watchAll",
     "up": "yarn upgrade-interactive --latest",
-    "lerna:version": "lerna version --no-push --exact",
     "format": "prettier \"./**/*.{ts,tsx,js,json,md}\"",
     "lerna:publish": "lerna publish --no-git-tag-version",
-    "storybook:start": "start-storybook -p 6006 -c .storybook"
+    "storybook:start": "start-storybook -p 6006 -c .storybook",
+    "lerna:version": "lerna version --conventional-commits --no-push --exact",
+    "test:coverage:summary": "jest --coverage --coverageReporters='text-summary'"
   },
   "scripty": {
     "path": "./scripts/workspace"

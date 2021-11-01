@@ -7,7 +7,6 @@
  */
 
 import React, { FC, useLayoutEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 
 /**
@@ -35,7 +34,6 @@ export const Portal: FC<IPortalProps> = (props) => {
     container.appendChild(portalNode);
 
     return () => {
-      if (!container || portalNode) return;
       container.removeChild(portalNode);
     };
   }, [containerId, containerRef]);
@@ -50,15 +48,6 @@ interface IPortalProps {
   containerId?: string;
   children: React.ReactNode;
   containerRef?: React.RefObject<Node>;
-}
-
-/** Prop Types */
-
-if (process.env.NODE_ENV === 'development') {
-  Portal.displayName = 'Portal';
-  Portal.propTypes = {
-    children: PropTypes.node
-  };
 }
 
 export default Portal;

@@ -8,7 +8,6 @@
  */
 
 import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 /**
@@ -58,15 +57,6 @@ export default VisuallyHidden;
 
 interface IVisuallyHiddenProps {
   children: React.ReactNode;
-}
-
-/** Prop Types */
-
-if (process.env.NODE_ENV === 'development') {
-  VisuallyHidden.displayName = 'VisuallyHidden';
-  VisuallyHidden.propTypes = {
-    children: PropTypes.node
-  };
 }
 
 /** Display Names */

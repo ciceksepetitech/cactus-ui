@@ -18,5 +18,12 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': '<rootDir>/__test__/jest/__mocks__/styleMock.js'
   },
-  coverageThreshold: null
+  coverageThreshold: {
+    global: {
+      lines: 100,
+      branches: 100,
+      functions: 100,
+      statements: 100
+    }
+  }
 };

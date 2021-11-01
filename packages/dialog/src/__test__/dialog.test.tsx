@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dialog from '..';
 import { axe } from 'jest-axe';
+import userEvent from '@testing-library/user-event';
 import { render, cleanup, screen } from '@cs/component-utils';
+
+let consoleWarn;
+let consoleError;
 
 describe('dialog component tests', () => {
   afterEach(() => {
+    jest.restoreAllMocks();
     cleanup();
+  });
+
+  beforeEach(() => {
+    consoleWarn = jest.spyOn(global.console, 'warn').mockImplementation();
+    consoleError = jest.spyOn(global.console, 'error').mockImplementation();
   });
 
   test('dialog component can have a11y attributes', () => {
     render(
-      <Dialog open aria-labelledby="title">
+      <Component open aria-labelledby="title">
         <h1 data-testid="title" id="title">
           I am a title
         </h1>
-      </Dialog>
+      </Component>
     );
 
     const dialog = screen.getByRole('dialog');
@@ -24,27 +34,127 @@ describe('dialog component tests', () => {
   });
 
   test('dialog component should not render children when closed', () => {
-    render(<Component open={false} />);
+    render(<Component open={false}>I am a dialog</Component>);
     expect(screen.queryByText(/i am a dialog/i)).toBe(null);
   });
 
-  test('dialog component autofocuses to element that has autoFocus inside', () => {
+  test('dialog component should warn when aria attributes are not provided', () => {
+    render(<Component open>I am a dialog</Component>);
+    expect(consoleWarn).toBeCalled();
+  });
+
+  test('dialog component should not warn in production', () => {
+    process.env.NODE_ENV = 'production';
+    render(<Component open>I am a dialog</Component>);
+    expect(consoleWarn).not.toBeCalled();
+    process.env.NODE_ENV = 'test';
+  });
+
+  test('dialog component should warn when aria-label and aria-labelledby provided at the same time', () => {
     render(
-      <Dialog open>
-        <input data-testid="input1" />
-        <input data-testid="input2" autoFocus />
-      </Dialog>
+      <Component open aria-labelledby="some label" aria-label="some labe">
+        I am a dialog
+      </Component>
     );
 
-    const input2 = screen.getByTestId('input2');
-    expect(document.activeElement).toBe(input2);
+    expect(consoleWarn).toBeCalled();
   });
 
   test('dialog should pass a11y', async () => {
-    const { container } = render(<Component />);
+    const { container } = render(<Component open>I am a dialog</Component>);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+
+  test('dialog should unmount when escape is pressed', async () => {
+    render(<Component open>I am a dialog</Component>);
+    screen.getByText(/i am a dialog/i);
+    userEvent.keyboard('{esc}');
+    expect(screen.queryByText(/i am a dialog/i)).not.toBeInTheDocument();
+  });
+
+  test('dialog should not unmount when other then escape button is pressed', async () => {
+    render(<Component open>I am a dialog</Component>);
+    screen.getByText(/i am a dialog/i);
+    userEvent.keyboard('{space}');
+    expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
+  });
+
+  test('dialog should not unmount when escape is pressed if onEscapeKey is not provided', async () => {
+    render(
+      <Component open onEscapeKey={undefined}>
+        I am a dialog
+      </Component>
+    );
+
+    screen.getByText(/i am a dialog/i);
+    userEvent.keyboard('{esc}');
+    expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
+  });
+
+  test('dialog should unmount when overlay is clicked', async () => {
+    render(<Component open>I am a dialog</Component>);
+    screen.getByText(/i am a dialog/i);
+    const overlay = document.querySelector("[data-cs-dialog-overlay='true']");
+    userEvent.click(overlay);
+    expect(screen.queryByText(/i am a dialog/i)).not.toBeInTheDocument();
+  });
+
+  test('dialog should not unmount when other then overlay is clicked', async () => {
+    render(<Component open>I am a dialog</Component>);
+    screen.getByText(/i am a dialog/i);
+    const content = document.querySelector("[data-cs-dialog-content='true']");
+    userEvent.click(content);
+    expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
+  });
+
+  test('dialog should not mount when invalid children is provided', async () => {
+    render(
+      <Component open>
+        {function invalid() {
+          <span>I am a dialog</span>;
+        }}
+      </Component>
+    );
+
+    const children = screen.queryByText(/i am a dialog/i);
+    expect(children).not.toBeInTheDocument();
+    expect(consoleError).toBeCalled();
+  });
+
+  test('dialog should not unmount when overlay is clicked if onClickOutside not provided', async () => {
+    render(
+      <Component open onClickOutside={undefined}>
+        I am a dialog
+      </Component>
+    );
+
+    screen.getByText(/i am a dialog/i);
+    const overlay = document.querySelector("[data-cs-dialog-overlay='true']");
+    userEvent.click(overlay);
+    expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
+  });
 });
 
-const Component = (props) => <Dialog {...props}>I am a dialog</Dialog>;
+const Component = ({ open, children, ...rest }) => {
+  const [isOpen, setIsOpen] = useState(open);
+
+  const onEscapeKey = () => {
+    setIsOpen(false);
+  };
+
+  const onClickOutside = () => {
+    setIsOpen(false);
+  };
+
+  return (
+    <Dialog
+      open={isOpen}
+      onEscapeKey={onEscapeKey}
+      onClickOutside={onClickOutside}
+      {...rest}
+    >
+      {children}
+    </Dialog>
+  );
+};

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import React from 'react';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 

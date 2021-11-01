@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 /**
  * @cs/component-dialog
  *
@@ -12,7 +14,6 @@ import React, {
   useRef,
   forwardRef,
   cloneElement,
-  isValidElement,
   FunctionComponent
 } from 'react';
 import Portal from '@cs/component-portal';
@@ -33,11 +34,10 @@ export const DialogOverlay = forwardRef(
 
     if (!open) return null;
 
-    const ref = useRef(null) || forwardedRef;
+    const internalRef = useRef(null);
+    const ref = forwardedRef || internalRef;
 
-    const _children = isValidElement(children)
-      ? cloneElement(children, { ref, ...rest })
-      : null;
+    const clonedChildren = cloneElement(children, { ref, ...rest });
 
     const handleEscapeKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
       if (event.key === 'Escape' || event.key === 'Esc') {
@@ -53,7 +53,7 @@ export const DialogOverlay = forwardRef(
     const handleOnClick = (
       event: React.MouseEvent<HTMLElement, MouseEvent | TouchEvent>
     ) => {
-      if (!ref.current?.contains(event.target)) {
+      if (!ref.current.contains(event.target)) {
         event.stopPropagation();
         onClickOutside?.(event);
       }
@@ -62,13 +62,13 @@ export const DialogOverlay = forwardRef(
     return (
       <Portal>
         <div
-          role="button"
           tabIndex={-1}
           data-cs-dialog-overlay
           onClick={handleOnClick}
           onKeyDown={handleKeyDown}
+          ref={(element) => element?.focus()}
         >
-          {_children}
+          {clonedChildren}
         </div>
       </Portal>
     );
@@ -96,21 +96,21 @@ export const DialogContentWrapper = forwardRef(
     } = props;
 
     return (
-      <FocusTrap
-        disabled={disableFocusTrap}
-        autoFocusToLast={autoFocusToLast}
-        autoFocusToFirst={autoFocusToFirst}
-        restoreFocusOnUnmount={restoreFocusOnUnmount}
+      <RemoveScroll
+        enabled={enableRemoveScroll}
+        removeScrollBar={removeScrollBar}
       >
-        <RemoveScroll
-          enabled={enableRemoveScroll}
-          removeScrollBar={removeScrollBar}
+        <FocusTrap
+          disabled={disableFocusTrap}
+          autoFocusToLast={autoFocusToLast}
+          autoFocusToFirst={autoFocusToFirst}
+          restoreFocusOnUnmount={restoreFocusOnUnmount}
         >
           <DialogContent ref={forwardedRef} {...rest}>
             {children}
           </DialogContent>
-        </RemoveScroll>
-      </FocusTrap>
+        </FocusTrap>
+      </RemoveScroll>
     );
   }
 );
@@ -172,7 +172,7 @@ const showContentWarnings = (
   componentName: string,
   props: IDialogContentProps
 ) => {
-  if (process.env.NODE_ENV !== 'development') return;
+  if (process.env.NODE_ENV === 'production') return;
 
   if (props['aria-labelledby'] && props['aria-label']) {
     const warning = `@cs/component-dialog - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label. @see: https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html`;

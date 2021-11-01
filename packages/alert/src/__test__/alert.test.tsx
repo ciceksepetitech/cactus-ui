@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Alert from '..';
 import { axe } from 'jest-axe';
-import userEvents from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { render, screen, cleanup, waitFor } from '@cs/component-utils';
 
 describe('alert component tests', () => {
@@ -44,18 +44,24 @@ describe('alert component tests', () => {
     screen.getByRole('alert', { hidden: true });
   });
 
+  test('alert should be unmounted without a problem', async () => {
+    const { unmount } = render(<Alert type="assertive">Test alert</Alert>);
+    unmount();
+    expect(screen.queryByRole('alert')).toBe(null);
+  });
+
   test('async alerts should be mount/unmount properly', async () => {
     jest.useFakeTimers();
 
     render(<AlertRenderAsync />);
 
-    userEvents.click(screen.getByText(/add alert/i));
+    userEvent.click(screen.getByText(/add alert/i));
     await waitFor(() => screen.getAllByText('I am an alert (1)'));
 
-    userEvents.click(screen.getByText(/add alert/i));
+    userEvent.click(screen.getByText(/add alert/i));
     await waitFor(() => screen.getAllByText('I am an alert (2)'));
 
-    userEvents.click(screen.getByText(/remove alert/i));
+    userEvent.click(screen.getByText(/remove alert/i));
     expect(screen.queryAllByText(/i am an alert (1)/i)).toHaveLength(0);
     await waitFor(() => screen.getAllByText('I am an alert (2)'));
 

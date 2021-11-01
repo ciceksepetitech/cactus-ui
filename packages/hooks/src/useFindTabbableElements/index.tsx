@@ -19,13 +19,18 @@ export function useFindTabbableElements(
    * handles warnings and creates node list
    */
   useEffect(() => {
-    if (!nodeRef)
+    if (!nodeRef) {
       console.warn('useFindTabbableElements: nodeRef is a required field!');
+      return;
+    }
 
-    if (!nodeRef.current)
+    if (!nodeRef.current) {
       console.warn(
         'useFindTabbableElements: nodeRef.current is null or undefined!'
       );
+
+      return;
+    }
 
     const tabbableDOMElementsStr = focusableDOMElements.join(
       ':not([hidden]):not([tabindex="-1"]),'

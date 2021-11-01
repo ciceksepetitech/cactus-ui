@@ -144,7 +144,7 @@ const useLiveRegionClone = (
     cloneRef.current = createCloneFunctions(liveRegionType);
     cloneRef.current.clone(element);
 
-    return () => cloneRef.current?.remove();
+    return () => cloneRef.current.remove();
   }, [element, liveRegionType, ref]);
 };
 
@@ -168,13 +168,12 @@ export const Alert = forwardRef(
           {children}
         </Component>
       ),
-      [children, rest, Component, ref?.current]
+      [children, rest, Component, ref.current]
     );
 
-    const element: JSX.Element = component.type ? component : <></>; // to avoid test crushing!
-    useLiveRegionClone(element, type, ref);
+    useLiveRegionClone(component, type, ref);
 
-    return element;
+    return component;
   }
 );
 
