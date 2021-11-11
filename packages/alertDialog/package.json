@@ -16,6 +16,7 @@
     "url": ""
   },
   "dependencies": {
+    "@cs/component-utils": "^0.0.1",
     "@cs/component-hooks": "^0.0.1",
     "@cs/component-dialog": "^0.0.1"
   },

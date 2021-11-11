@@ -4,17 +4,19 @@ import {
   Canvas,
   ArgsTable,
   Description
-} from '@storybook/addon-docs/blocks';
+} from '@storybook/addon-docs';
 import Portal from '..';
 import { useRef } from 'react';
 
 <Meta
   title="Components/Portal"
   component={Portal}
+  args={{
+    as: 'div'
+  }}
   argTypes={{
     as: {
       name: 'as',
-      defaultValue: 'div',
       control: { type: 'text' },
       description: 'changes html tag of portal component which renders to DOM',
       table: {

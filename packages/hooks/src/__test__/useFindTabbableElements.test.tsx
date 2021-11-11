@@ -60,7 +60,7 @@ const ui = ({ ref, tabbableElements }: any) => (
     <span data-testid="unfocusable">text</span>
 
     <ul>
-      {tabbableElements.map((each, index) => (
+      {tabbableElements?.map((each, index) => (
         <li key={index}>{each.dataset.testid}</li>
       ))}
     </ul>

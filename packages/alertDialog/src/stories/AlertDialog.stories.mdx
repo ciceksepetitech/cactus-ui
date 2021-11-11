@@ -4,16 +4,26 @@ import {
   Canvas,
   ArgsTable,
   Description
-} from '@storybook/addon-docs/blocks';
+} from '@storybook/addon-docs';
+import '../../styles.css';
 import AlertDialog from '..';
 
 <Meta
   title="Components/Alert Dialog"
   component={AlertDialog}
+  args={{
+    as: 'div',
+    open: true,
+    removeScrollBar: true,
+    autoFocusToLast: false,
+    autoFocusToFirst: true,
+    disableFocusTrap: false,
+    enableRemoveScroll: true,
+    restoreFocusOnUnmount: true
+  }}
   argTypes={{
     as: {
       name: 'as',
-      defaultValue: 'div',
       control: { type: 'text' },
       description: 'changes html tag of dialog component which renders to DOM',
       table: {
@@ -23,49 +33,42 @@ import AlertDialog from '..';
     },
     open: {
       name: 'open',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'show/hide dialog component',
       table: { defaultValue: { summary: false } }
     },
     removeScrollBar: {
       name: 'removeScrollBar',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'removes scroll bar from UI',
       table: { defaultValue: { summary: true } }
     },
     autoFocusToLast: {
       name: 'autoFocusToLast',
-      defaultValue: false,
       control: { type: 'boolean' },
       description: 'auto focus to last element of dialog',
       table: { defaultValue: { summary: false } }
     },
     autoFocusToFirst: {
       name: 'autoFocusToFirst',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'auto focus to first element of dialog',
       table: { defaultValue: { summary: true } }
     },
     disableFocusTrap: {
       name: 'disableFocusTrap',
-      defaultValue: false,
       control: { type: 'boolean' },
       description: 'disables focus trap functionality',
       table: { defaultValue: { summary: false } }
     },
     enableRemoveScroll: {
       name: 'enableRemoveScroll',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'enables disabling scroll events when dialog is mounted',
       table: { defaultValue: { summary: true } }
     },
     restoreFocusOnUnmount: {
       name: 'restoreFocusOnUnmount',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'enables restoring of focus when dialog is unmounted',
       table: { defaultValue: { summary: true } }
@@ -108,14 +111,19 @@ import AlertDialog from '..';
   <Story name="Default" inline={false}>
     {(args) => {
       return (
-        <AlertDialog {...args}>
-          <p>
+        <AlertDialog
+          aria-label="alert-dialog"
+          aria-describedby="alert-desc"
+          {...args}
+        >
+          <p id="alert-desc">
             Lorem incididunt ipsum in nostrud. Nisi commodo aliqua magna
             exercitation exercitation dolore minim commodo adipisicing veniam
             eiusmod ut aute ad. Consectetur consectetur enim nostrud duis
             laboris ex fugiat consequat veniam excepteur quis. Aute veniam
             voluptate deserunt commodo aliquip amet enim cillum magna proident.
           </p>
+          <button>Confirm</button>
         </AlertDialog>
       );
     }}

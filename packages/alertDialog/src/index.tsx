@@ -6,8 +6,9 @@
  * provides accessible alert dialog for situations like user confirmation is needed
  */
 
-import React, { forwardRef, useEffect, useRef } from 'react';
+import React, { useRef, forwardRef, useLayoutEffect } from 'react';
 import { useFindTabbableElements } from '@cs/component-hooks';
+import { PolymorphicComponentProps } from '@cs/component-utils';
 import {
   IDialogProps,
   DialogOverlay,
@@ -24,7 +25,7 @@ export const AlertDialogOverlay = forwardRef(
     const { children, ...rest } = props;
 
     return (
-      <DialogOverlay data-cs-alert-dialog-overlay ref={forwardedRef} {...rest}>
+      <DialogOverlay ref={forwardedRef} {...rest}>
         {children}
       </DialogOverlay>
     );
@@ -40,12 +41,7 @@ export const AlertDialogContentWrapper = forwardRef(
     const { children, ...rest } = props;
 
     return (
-      <DialogContentWrapper
-        ref={forwardedRef}
-        role="alertdialog"
-        data-cs-alert-dialog-content-wrapper
-        {...rest}
-      >
+      <DialogContentWrapper ref={forwardedRef} role="alertdialog" {...rest}>
         {children}
       </DialogContentWrapper>
     );
@@ -57,23 +53,25 @@ export const AlertDialogContentWrapper = forwardRef(
  * handles accessibility features of dialog
  */
 export const AlertDialogContent = forwardRef(
-  (
-    props: IAlertDialogContentProps,
-    forwardedRef: React.MutableRefObject<any>
+  <C extends React.ElementType = 'div'>(
+    props: PolymorphicComponentProps<C, IAlertDialogContentProps>,
+    forwardedRef
   ) => {
-    showContentWarnings(DialogContent.displayName, props);
+    const { children, as, ...rest } = props;
 
-    const { children, ...rest } = props;
+    showContentWarnings(AlertDialogContent.displayName, props);
+
+    const Component = as || 'div';
 
     const internalRef = useRef(null);
     const ref = forwardedRef || internalRef;
 
     const { tabbableElements } = useFindTabbableElements(ref);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       if (process.env.NODE_ENV === 'production') return;
 
-      if (tabbableElements.length === 0) {
+      if (tabbableElements?.length === 0) {
         const error = `@cs/component-alert-dialog-content: at least one focusable element should be provided for role=alertdialog. Ensure you have one focusable element added. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
 
         console.error(error);
@@ -81,14 +79,15 @@ export const AlertDialogContent = forwardRef(
     }, [tabbableElements]);
 
     return (
-      <DialogContent
+      <Component
         ref={ref}
+        aria-modal="true"
         role="alertdialog"
         data-cs-alert-dialog-content
         {...rest}
       >
         {children}
-      </DialogContent>
+      </Component>
     );
   }
 );
@@ -102,7 +101,7 @@ export const AlertDialog = forwardRef(
     const { children, ...rest } = props;
 
     return (
-      <AlertDialogOverlay ref={forwardedRef} data-cs-alert-dialog {...rest}>
+      <AlertDialogOverlay ref={forwardedRef} {...rest}>
         <AlertDialogContentWrapper>
           <AlertDialogContent>{children}</AlertDialogContent>
         </AlertDialogContentWrapper>
@@ -134,7 +133,7 @@ const showContentWarnings = (
     return;
   }
 
-  if (props['aria-describedby']) {
+  if (!props['aria-describedby']) {
     const warning = `@cs/component-alert-dialog - ${componentName}: aria-describedby is not provided. Content of alert dialog should have an description and aria-describedby should be provided. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
 
     console.warn(warning);

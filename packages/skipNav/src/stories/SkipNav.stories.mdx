@@ -4,16 +4,18 @@ import {
   Canvas,
   ArgsTable,
   Description
-} from '@storybook/addon-docs/blocks';
+} from '@storybook/addon-docs';
 import SkipNav from '..';
 
 <Meta
   title="Components/Skip Nav"
   component={SkipNav}
+  args={{
+    as: 'div'
+  }}
   argTypes={{
     as: {
       name: 'as',
-      defaultValue: 'div',
       control: { type: 'text' },
       description:
         'changes html tag of skip nav component which renders to DOM',

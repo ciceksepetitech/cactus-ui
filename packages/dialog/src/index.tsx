@@ -102,7 +102,10 @@ export const DialogContentWrapper = forwardRef(
       ...rest
     } = props;
 
-    const clonedChildren = cloneElement(children, { ...rest });
+    const clonedChildren = cloneElement(children, {
+      ref: forwardedRef,
+      ...rest
+    });
 
     return (
       <RemoveScroll
@@ -110,7 +113,6 @@ export const DialogContentWrapper = forwardRef(
         removeScrollBar={removeScrollBar}
       >
         <FocusTrap
-          ref={forwardedRef}
           disabled={disableFocusTrap}
           autoFocusToLast={autoFocusToLast}
           autoFocusToFirst={autoFocusToFirst}

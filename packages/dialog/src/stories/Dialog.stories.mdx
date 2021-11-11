@@ -4,7 +4,7 @@ import {
   Canvas,
   ArgsTable,
   Description
-} from '@storybook/addon-docs/blocks';
+} from '@storybook/addon-docs';
 import Dialog from '..';
 import '../../styles.css';
 import { useState } from 'react';
@@ -12,10 +12,19 @@ import { useState } from 'react';
 <Meta
   title="Components/Dialog"
   component={Dialog}
+  args={{
+    as: 'div',
+    open: true,
+    removeScrollBar: true,
+    autoFocusToLast: false,
+    autoFocusToFirst: true,
+    disableFocusTrap: false,
+    enableRemoveScroll: true,
+    restoreFocusOnUnmount: true
+  }}
   argTypes={{
     as: {
       name: 'as',
-      defaultValue: 'div',
       control: { type: 'text' },
       description: 'changes html tag of dialog component which renders to DOM',
       table: {
@@ -25,49 +34,42 @@ import { useState } from 'react';
     },
     open: {
       name: 'open',
-      defaultValue: false,
       control: { type: 'boolean' },
       description: 'show/hide dialog component',
       table: { defaultValue: { summary: false } }
     },
     removeScrollBar: {
       name: 'removeScrollBar',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'removes scroll bar from UI',
       table: { defaultValue: { summary: true } }
     },
     autoFocusToLast: {
       name: 'autoFocusToLast',
-      defaultValue: false,
       control: { type: 'boolean' },
       description: 'auto focus to last element of dialog',
       table: { defaultValue: { summary: false } }
     },
     autoFocusToFirst: {
       name: 'autoFocusToFirst',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'auto focus to first element of dialog',
       table: { defaultValue: { summary: true } }
     },
     disableFocusTrap: {
       name: 'disableFocusTrap',
-      defaultValue: false,
       control: { type: 'boolean' },
       description: 'disables focus trap functionality',
       table: { defaultValue: { summary: false } }
     },
     enableRemoveScroll: {
       name: 'enableRemoveScroll',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'enables disabling scroll events when dialog is mounted',
       table: { defaultValue: { summary: true } }
     },
     restoreFocusOnUnmount: {
       name: 'restoreFocusOnUnmount',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'enables restoring of focus when dialog is unmounted',
       table: { defaultValue: { summary: true } }

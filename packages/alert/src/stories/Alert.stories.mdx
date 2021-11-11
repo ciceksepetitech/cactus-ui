@@ -4,17 +4,20 @@ import {
   Canvas,
   ArgsTable,
   Description
-} from '@storybook/addon-docs/blocks';
+} from '@storybook/addon-docs';
 import Alert from '..';
 import { useState } from 'react';
 
 <Meta
   title="Components/Alert"
   component={Alert}
+  args={{
+    as: 'div',
+    type: 'polite'
+  }}
   argTypes={{
     as: {
       name: 'as',
-      defaultValue: 'div',
       control: { type: 'text' },
       description: 'changes html tag of portal component which renders to DOM',
       table: {
@@ -24,7 +27,6 @@ import { useState } from 'react';
     },
     type: {
       name: 'type',
-      defaultValue: 'polite',
       control: { type: 'select' },
       description: 'type for accessibility',
       options: ['polite', 'assertive', 'off'],
