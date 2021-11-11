@@ -150,12 +150,20 @@ import { useState } from 'react';
       const onEscapeKey = () => {
         setOpen(false);
       };
+      const onClickOutside = () => {
+        setOpen(false);
+      };
       return (
         <>
           <button style={buttonStyles} onClick={() => setOpen(true)}>
             show dialog
           </button>
-          <Dialog {...args} open={open} onEscapeKey={onEscapeKey}>
+          <Dialog
+            {...args}
+            open={open}
+            onEscapeKey={onEscapeKey}
+            onClickOutside={onClickOutside}
+          >
             <p>I am a dialog</p>
           </Dialog>
         </>

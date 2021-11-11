@@ -1,0 +1,130 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs/blocks';
+import AlertDialog from '..';
+
+<Meta
+  title="Components/Alert Dialog"
+  component={AlertDialog}
+  argTypes={{
+    as: {
+      name: 'as',
+      defaultValue: 'div',
+      control: { type: 'text' },
+      description: 'changes html tag of dialog component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    },
+    open: {
+      name: 'open',
+      defaultValue: true,
+      control: { type: 'boolean' },
+      description: 'show/hide dialog component',
+      table: { defaultValue: { summary: false } }
+    },
+    removeScrollBar: {
+      name: 'removeScrollBar',
+      defaultValue: true,
+      control: { type: 'boolean' },
+      description: 'removes scroll bar from UI',
+      table: { defaultValue: { summary: true } }
+    },
+    autoFocusToLast: {
+      name: 'autoFocusToLast',
+      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'auto focus to last element of dialog',
+      table: { defaultValue: { summary: false } }
+    },
+    autoFocusToFirst: {
+      name: 'autoFocusToFirst',
+      defaultValue: true,
+      control: { type: 'boolean' },
+      description: 'auto focus to first element of dialog',
+      table: { defaultValue: { summary: true } }
+    },
+    disableFocusTrap: {
+      name: 'disableFocusTrap',
+      defaultValue: false,
+      control: { type: 'boolean' },
+      description: 'disables focus trap functionality',
+      table: { defaultValue: { summary: false } }
+    },
+    enableRemoveScroll: {
+      name: 'enableRemoveScroll',
+      defaultValue: true,
+      control: { type: 'boolean' },
+      description: 'enables disabling scroll events when dialog is mounted',
+      table: { defaultValue: { summary: true } }
+    },
+    restoreFocusOnUnmount: {
+      name: 'restoreFocusOnUnmount',
+      defaultValue: true,
+      control: { type: 'boolean' },
+      description: 'enables restoring of focus when dialog is unmounted',
+      table: { defaultValue: { summary: true } }
+    },
+    onEscapeKey: {
+      name: 'onEscapeKey',
+      control: { type: 'function' },
+      description: 'gets called when escape button is pressed'
+    },
+    onClickOutside: {
+      name: 'onClickOutside',
+      control: { type: 'function' },
+      description: 'gets called when outside of dialog is clicked'
+    }
+  }}
+/>
+
+## Alert Dialog
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  Provides accessible alert dialog for situations like user confirmation is
+  needed
+</p>
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => {
+      return (
+        <AlertDialog {...args}>
+          <p>
+            Lorem incididunt ipsum in nostrud. Nisi commodo aliqua magna
+            exercitation exercitation dolore minim commodo adipisicing veniam
+            eiusmod ut aute ad. Consectetur consectetur enim nostrud duis
+            laboris ex fugiat consequat veniam excepteur quis. Aute veniam
+            voluptate deserunt commodo aliquip amet enim cillum magna proident.
+          </p>
+        </AlertDialog>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of AlertDialog component. Renders as 'div' by
+  default
+</Description>
+
+<ArgsTable story="Default" />

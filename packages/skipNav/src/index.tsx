@@ -3,8 +3,7 @@
  *
  * SkipNav Component
  *
- * visually hides its content from ui without removing it from dom
- * assistive technologies can still attract with the element but it will not take any space at the dom
+ * enables skipping some area of the dom. usually used before large amount of navigation items
  */
 
 import React, { forwardRef } from 'react';
