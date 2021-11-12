@@ -44,7 +44,7 @@ export const DialogOverlay = forwardRef(
       (event: KeyboardEvent) => {
         if (event.key === 'Escape' || event.key === 'Esc') {
           event.stopPropagation();
-          onEscapeKey?.(event);
+          onEscapeKey(event);
         }
       },
       [onEscapeKey]
@@ -199,7 +199,6 @@ const showContentWarnings = (
     const warning = `@cs/component-dialog - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label. @see: https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html`;
 
     console.warn(warning);
-    return;
   }
 
   if (props['aria-labelledby'] || props['aria-label']) return;

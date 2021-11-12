@@ -12,7 +12,7 @@ export function useFindTabbableElements(
   nodeRef: React.RefObject<HTMLElement>
 ): { tabbableElements: HTMLElement[] } {
   const [tabbableElements, setTabbableElements] =
-    useState<Array<HTMLElement>>(null);
+    useState<Array<HTMLElement>>();
 
   /**
    * handles warnings and creates node list

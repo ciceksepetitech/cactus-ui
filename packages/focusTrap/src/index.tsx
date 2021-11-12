@@ -35,7 +35,7 @@ export const FocusTrap = forwardRef(
 
     const currentFocusedElementIndex = useRef(0);
     const parentActiveElementRef = useRef<HTMLElement>(null);
-    const { tabbableElements } = useFindTabbableElements(ref);
+    const { tabbableElements = [] } = useFindTabbableElements(ref);
 
     const shouldAutoFocusToFirst = !autoFocusToLast ? autoFocusToFirst : false;
 
@@ -58,7 +58,7 @@ export const FocusTrap = forwardRef(
      * @returns element with autoFocus attribute
      */
     const checkForAlreadyFocusedElement = useCallback(() => {
-      const focusedElementIndex = tabbableElements?.findIndex(
+      const focusedElementIndex = tabbableElements.findIndex(
         (element) => document.activeElement === element
       );
 
@@ -72,7 +72,7 @@ export const FocusTrap = forwardRef(
      */
     const checkIfElementInTrap = useCallback(
       (element: HTMLElement) => {
-        const index = tabbableElements?.findIndex((each) => each === element);
+        const index = tabbableElements.findIndex((each) => each === element);
         return index >= 0;
       },
       [tabbableElements]
@@ -84,7 +84,7 @@ export const FocusTrap = forwardRef(
      */
     const getElementIndex = useCallback(
       (element: HTMLElement) => {
-        const index = tabbableElements?.findIndex((each) => each === element);
+        const index = tabbableElements.findIndex((each) => each === element);
         return index;
       },
       [tabbableElements]
@@ -137,7 +137,7 @@ export const FocusTrap = forwardRef(
      */
     const focusNextFocusableElement = () => {
       const nextFocusableElement =
-        tabbableElements?.[currentFocusedElementIndex.current + 1];
+        tabbableElements[currentFocusedElementIndex.current + 1];
 
       if (!nextFocusableElement) {
         focusFirstFocusableElement();
@@ -154,7 +154,7 @@ export const FocusTrap = forwardRef(
      */
     const focusPrevFocusableElement = () => {
       const prevFocusableElement =
-        tabbableElements?.[currentFocusedElementIndex.current - 1];
+        tabbableElements[currentFocusedElementIndex.current - 1];
 
       if (!prevFocusableElement) {
         focusLastFocusableElement();
@@ -169,7 +169,7 @@ export const FocusTrap = forwardRef(
      * directly focuses on first element in trap
      */
     const focusFirstFocusableElement = () => {
-      const firstElement = tabbableElements?.[0];
+      const firstElement = tabbableElements[0];
 
       currentFocusedElementIndex.current = 0;
       focusToElement(firstElement);
@@ -179,8 +179,8 @@ export const FocusTrap = forwardRef(
      * directly focuses on last element in trap
      */
     const focusLastFocusableElement = () => {
-      const lastElement = tabbableElements?.[tabbableElements?.length - 1];
-      currentFocusedElementIndex.current = tabbableElements?.length - 1;
+      const lastElement = tabbableElements[tabbableElements.length - 1];
+      currentFocusedElementIndex.current = tabbableElements.length - 1;
 
       focusToElement(lastElement);
     };

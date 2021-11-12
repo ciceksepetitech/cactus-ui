@@ -6,13 +6,12 @@
  * provides accessible alert dialog for situations like user confirmation is needed
  */
 
-import React, { useRef, forwardRef, useLayoutEffect } from 'react';
+import React, { forwardRef, useLayoutEffect } from 'react';
 import { useFindTabbableElements } from '@cs/component-hooks';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 import {
   IDialogProps,
   DialogOverlay,
-  DialogContent,
   DialogContentWrapper
 } from '@cs/component-dialog';
 
@@ -62,11 +61,7 @@ export const AlertDialogContent = forwardRef(
     showContentWarnings(AlertDialogContent.displayName, props);
 
     const Component = as || 'div';
-
-    const internalRef = useRef(null);
-    const ref = forwardedRef || internalRef;
-
-    const { tabbableElements } = useFindTabbableElements(ref);
+    const { tabbableElements } = useFindTabbableElements(forwardedRef);
 
     useLayoutEffect(() => {
       if (process.env.NODE_ENV === 'production') return;
@@ -80,7 +75,7 @@ export const AlertDialogContent = forwardRef(
 
     return (
       <Component
-        ref={ref}
+        ref={forwardedRef}
         aria-modal="true"
         role="alertdialog"
         data-cs-alert-dialog-content
@@ -128,16 +123,13 @@ const showContentWarnings = (
 
   if (props['aria-labelledby'] && props['aria-label']) {
     const warning = `@cs/component-alert-dialog - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
-
     console.warn(warning);
-    return;
   }
 
   if (!props['aria-describedby']) {
     const warning = `@cs/component-alert-dialog - ${componentName}: aria-describedby is not provided. Content of alert dialog should have an description and aria-describedby should be provided. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
 
     console.warn(warning);
-    return;
   }
 
   if (props['aria-labelledby'] || props['aria-label']) return;
