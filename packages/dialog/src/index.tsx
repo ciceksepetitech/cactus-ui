@@ -41,8 +41,8 @@ export const DialogOverlay = forwardRef(
     const ref = forwardedRef || internalRef;
 
     const handleEscapeKeyDown = useCallback(
-      (event: KeyboardEvent) => {
-        if (event.key === 'Escape' || event.key === 'Esc') {
+      (event: KeyboardEvent | React.KeyboardEvent<HTMLElement>) => {
+        if ((event.key === 'Escape' || event.key === 'Esc') && onEscapeKey) {
           event.stopPropagation();
           onEscapeKey(event);
         }
@@ -78,6 +78,7 @@ export const DialogOverlay = forwardRef(
           tabIndex={-1}
           data-cs-dialog-overlay
           onClick={handleOnClick}
+          onKeyDown={handleEscapeKeyDown}
         >
           {clonedChildren}
         </div>
@@ -220,7 +221,9 @@ export interface IDialogProps {
   style?: React.CSSProperties;
   enableRemoveScroll?: boolean;
   restoreFocusOnUnmount?: boolean;
-  onEscapeKey?: (event: KeyboardEvent) => void;
+  onEscapeKey?: (
+    event: KeyboardEvent | React.KeyboardEvent<HTMLElement>
+  ) => void;
   onClickOutside?: (
     event: React.MouseEvent<HTMLElement, MouseEvent | TouchEvent>
   ) => void;
