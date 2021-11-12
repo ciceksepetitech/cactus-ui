@@ -101,6 +101,12 @@ import AlertDialog from '..';
   needed
 </p>
 
+export const buttonStyles = {
+  padding: '5px',
+  margin: '3px 5px',
+  cursor: 'pointer'
+};
+
 #### Stories
 
 <hr />
@@ -123,7 +129,10 @@ import AlertDialog from '..';
             laboris ex fugiat consequat veniam excepteur quis. Aute veniam
             voluptate deserunt commodo aliquip amet enim cillum magna proident.
           </p>
-          <button>Confirm</button>
+          <button style={buttonStyles}>Confirm</button>
+          <button style={buttonStyles} ref={(element) => element.focus()}>
+            Focused
+          </button>
         </AlertDialog>
       );
     }}

@@ -12,7 +12,9 @@
 
 import React, {
   useRef,
+  useEffect,
   forwardRef,
+  useCallback,
   cloneElement,
   FunctionComponent
 } from 'react';
@@ -38,16 +40,22 @@ export const DialogOverlay = forwardRef(
     const internalRef = useRef(null);
     const ref = forwardedRef || internalRef;
 
-    const handleEscapeKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-      if (event.key === 'Escape' || event.key === 'Esc') {
-        event.stopPropagation();
-        onEscapeKey?.(event);
-      }
-    };
+    const handleEscapeKeyDown = useCallback(
+      (event: KeyboardEvent) => {
+        if (event.key === 'Escape' || event.key === 'Esc') {
+          event.stopPropagation();
+          onEscapeKey?.(event);
+        }
+      },
+      [onEscapeKey]
+    );
 
-    const handleKeyDown = (event) => {
-      handleEscapeKeyDown(event);
-    };
+    useEffect(() => {
+      if (!onEscapeKey) return;
+
+      document.addEventListener('keydown', handleEscapeKeyDown);
+      return () => document.removeEventListener('keydown', handleEscapeKeyDown);
+    }, [handleEscapeKeyDown, onEscapeKey]);
 
     const handleOnClick = (
       event: React.MouseEvent<HTMLElement, MouseEvent | TouchEvent>
@@ -66,14 +74,10 @@ export const DialogOverlay = forwardRef(
     return (
       <Portal>
         <div
+          ref={ref}
           tabIndex={-1}
           data-cs-dialog-overlay
           onClick={handleOnClick}
-          onKeyDown={handleKeyDown}
-          ref={(element) => {
-            element?.focus();
-            ref.current = element;
-          }}
         >
           {clonedChildren}
         </div>
@@ -217,7 +221,7 @@ export interface IDialogProps {
   style?: React.CSSProperties;
   enableRemoveScroll?: boolean;
   restoreFocusOnUnmount?: boolean;
-  onEscapeKey?: (event: React.KeyboardEvent<HTMLElement>) => void;
+  onEscapeKey?: (event: KeyboardEvent) => void;
   onClickOutside?: (
     event: React.MouseEvent<HTMLElement, MouseEvent | TouchEvent>
   ) => void;

@@ -72,7 +72,7 @@ export const AlertDialogContent = forwardRef(
       if (process.env.NODE_ENV === 'production') return;
 
       if (tabbableElements?.length === 0) {
-        const error = `@cs/component-alert-dialog-content: at least one focusable element should be provided for role=alertdialog. Ensure you have one focusable element added. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
+        const error = `@cs/component-alert-dialog-content: at least one focusable element should be provided for role=alertdialog. Ensure you have one focusable element added. @see: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alertdialog_role`;
 
         console.error(error);
       }
