@@ -35,7 +35,7 @@ export const FocusTrap = forwardRef(
 
     const currentFocusedElementIndex = useRef(0);
     const parentActiveElementRef = useRef<HTMLElement>(null);
-    const { tabbableElements } = useFindTabbableElements(ref);
+    const { tabbableElements = [] } = useFindTabbableElements(ref);
 
     const shouldAutoFocusToFirst = !autoFocusToLast ? autoFocusToFirst : false;
 
@@ -50,13 +50,14 @@ export const FocusTrap = forwardRef(
     }, []);
 
     /**
-     * check auto focus attribute among tabbable elements
+     * check if any element is alreay focused among tabbable elements, e.g with refs or autofocus
      * react pollyfills autofocus attribute to handle cross-browser problems
      * elements rendered via react will not have autofocus attribute when you inspect them
-     * to get the element with autofocus, we need to check if any tabbable element has focused already
+     * to get the element with autofocus, we need to check if any tabbable element has focused already.
+     * also an element can be focused with refs, so if it is the case, we should not change it!
      * @returns element with autoFocus attribute
      */
-    const checkAutoFocusAttribute = useCallback(() => {
+    const checkForAlreadyFocusedElement = useCallback(() => {
       const focusedElementIndex = tabbableElements.findIndex(
         (element) => document.activeElement === element
       );
@@ -188,21 +189,25 @@ export const FocusTrap = forwardRef(
      * focuses to first element on mount if autoFocusToFirst is true
      */
     useLayoutEffect(() => {
-      if (!shouldAutoFocusToFirst || checkAutoFocusAttribute()) return;
+      if (!shouldAutoFocusToFirst || checkForAlreadyFocusedElement()) return;
       focusFirstFocusableElement();
     }, [
       shouldAutoFocusToFirst,
-      checkAutoFocusAttribute,
-      focusFirstFocusableElement
+      focusFirstFocusableElement,
+      checkForAlreadyFocusedElement
     ]);
 
     /**
      * focuses to last element on mount if autoFocusToLast is true
      */
     useLayoutEffect(() => {
-      if (!autoFocusToLast || checkAutoFocusAttribute()) return;
+      if (!autoFocusToLast || checkForAlreadyFocusedElement()) return;
       focusLastFocusableElement();
-    }, [autoFocusToLast, checkAutoFocusAttribute, focusLastFocusableElement]);
+    }, [
+      autoFocusToLast,
+      focusLastFocusableElement,
+      checkForAlreadyFocusedElement
+    ]);
 
     /**
      * handles tab key down event

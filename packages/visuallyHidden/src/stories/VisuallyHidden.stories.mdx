@@ -4,16 +4,19 @@ import {
   Canvas,
   ArgsTable,
   Description
-} from '@storybook/addon-docs/blocks';
+} from '@storybook/addon-docs';
 import VisuallyHidden from '..';
 
 <Meta
   title="Components/Visually Hidden"
   component={VisuallyHidden}
+  args={{
+    as: 'div',
+    disabled: false
+  }}
   argTypes={{
     as: {
       name: 'as',
-      defaultValue: 'div',
       control: { type: 'text' },
       description:
         'changes html tag of visually hidden component which renders to DOM',
@@ -21,6 +24,12 @@ import VisuallyHidden from '..';
         defaultValue: { summary: 'div' },
         type: { summary: 'Values', detail: 'Valid HTML Tags' }
       }
+    },
+    disabled: {
+      name: 'disabled',
+      control: { type: 'boolean' },
+      table: { defaultValue: { summary: false } },
+      description: 'enables disabling behavior of visually hidden component'
     }
   }}
 />

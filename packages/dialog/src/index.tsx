@@ -12,7 +12,9 @@
 
 import React, {
   useRef,
+  useEffect,
   forwardRef,
+  useCallback,
   cloneElement,
   FunctionComponent
 } from 'react';
@@ -34,39 +36,49 @@ export const DialogOverlay = forwardRef(
 
     if (!open) return null;
 
+    const childrenRef = useRef(null);
     const internalRef = useRef(null);
     const ref = forwardedRef || internalRef;
 
-    const clonedChildren = cloneElement(children, { ref, ...rest });
+    const handleEscapeKeyDown = useCallback(
+      (event: KeyboardEvent | React.KeyboardEvent<HTMLElement>) => {
+        if ((event.key === 'Escape' || event.key === 'Esc') && onEscapeKey) {
+          event.stopPropagation();
+          onEscapeKey(event);
+        }
+      },
+      [onEscapeKey]
+    );
 
-    const handleEscapeKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-      if (event.key === 'Escape' || event.key === 'Esc') {
-        event.stopPropagation();
-        onEscapeKey?.(event);
-      }
-    };
+    useEffect(() => {
+      if (!onEscapeKey) return;
 
-    const handleKeyDown = (event) => {
-      handleEscapeKeyDown(event);
-    };
+      document.addEventListener('keydown', handleEscapeKeyDown);
+      return () => document.removeEventListener('keydown', handleEscapeKeyDown);
+    }, [handleEscapeKeyDown, onEscapeKey]);
 
     const handleOnClick = (
       event: React.MouseEvent<HTMLElement, MouseEvent | TouchEvent>
     ) => {
-      if (!ref.current.contains(event.target)) {
+      if (!childrenRef.current.contains(event.target)) {
         event.stopPropagation();
         onClickOutside?.(event);
       }
     };
 
+    const clonedChildren = cloneElement(children, {
+      ref: childrenRef,
+      ...rest
+    });
+
     return (
       <Portal>
         <div
+          ref={ref}
           tabIndex={-1}
           data-cs-dialog-overlay
           onClick={handleOnClick}
-          onKeyDown={handleKeyDown}
-          ref={(element) => element?.focus()}
+          onKeyDown={handleEscapeKeyDown}
         >
           {clonedChildren}
         </div>
@@ -81,7 +93,7 @@ export const DialogOverlay = forwardRef(
  */
 export const DialogContentWrapper = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IDialogContentProps>,
+    props: PolymorphicComponentProps<C, FunctionComponent>,
     forwardedRef
   ) => {
     const {
@@ -95,6 +107,11 @@ export const DialogContentWrapper = forwardRef(
       ...rest
     } = props;
 
+    const clonedChildren = cloneElement(children, {
+      ref: forwardedRef,
+      ...rest
+    });
+
     return (
       <RemoveScroll
         enabled={enableRemoveScroll}
@@ -106,9 +123,7 @@ export const DialogContentWrapper = forwardRef(
           autoFocusToFirst={autoFocusToFirst}
           restoreFocusOnUnmount={restoreFocusOnUnmount}
         >
-          <DialogContent ref={forwardedRef} {...rest}>
-            {children}
-          </DialogContent>
+          {clonedChildren}
         </FocusTrap>
       </RemoveScroll>
     );
@@ -121,7 +136,7 @@ export const DialogContentWrapper = forwardRef(
  */
 export const DialogContent = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IDialogContentProps>,
+    props: PolymorphicComponentProps<C, FunctionComponent>,
     forwardedRef
   ) => {
     showContentWarnings(DialogContent.displayName, props);
@@ -148,15 +163,22 @@ export const DialogContent = forwardRef(
  * dialog component
  * exposes dialog overlay and dialog content wrapper
  */
-export const Dialog: FunctionComponent<IDialogProps> = (props) => {
-  const { children, open, ...rest } = props;
+export const Dialog = forwardRef(
+  <C extends React.ElementType = 'div'>(
+    props: PolymorphicComponentProps<C, Omit<IDialogProps, 'as'>>,
+    forwardedRef
+  ) => {
+    const { children, ...rest } = props;
 
-  return (
-    <DialogOverlay open={open} {...rest}>
-      <DialogContentWrapper>{children}</DialogContentWrapper>
-    </DialogOverlay>
-  );
-};
+    return (
+      <DialogOverlay ref={forwardedRef} {...rest}>
+        <DialogContentWrapper>
+          <DialogContent>{children}</DialogContent>
+        </DialogContentWrapper>
+      </DialogOverlay>
+    );
+  }
+);
 
 export default Dialog;
 
@@ -170,7 +192,7 @@ export default Dialog;
  */
 const showContentWarnings = (
   componentName: string,
-  props: IDialogContentProps
+  props: FunctionComponent
 ) => {
   if (process.env.NODE_ENV === 'production') return;
 
@@ -178,7 +200,6 @@ const showContentWarnings = (
     const warning = `@cs/component-dialog - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label. @see: https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html`;
 
     console.warn(warning);
-    return;
   }
 
   if (props['aria-labelledby'] || props['aria-label']) return;
@@ -190,9 +211,6 @@ const showContentWarnings = (
 
 /** Types and Interfaces */
 
-export interface IDialogContentProps {
-  children: React.ReactNode;
-}
 export interface IDialogProps {
   open: boolean;
   as?: React.ElementType;
@@ -203,7 +221,9 @@ export interface IDialogProps {
   style?: React.CSSProperties;
   enableRemoveScroll?: boolean;
   restoreFocusOnUnmount?: boolean;
-  onEscapeKey?: (event: React.KeyboardEvent<HTMLElement>) => void;
+  onEscapeKey?: (
+    event: KeyboardEvent | React.KeyboardEvent<HTMLElement>
+  ) => void;
   onClickOutside?: (
     event: React.MouseEvent<HTMLElement, MouseEvent | TouchEvent>
   ) => void;

@@ -23,6 +23,16 @@ describe('visuallyHidden component tests', () => {
     expect(screen.getByTestId('hidden-text')).not.toBeVisible();
   });
 
+  test('expect visuallyHidden child element to be visible when disabled', () => {
+    render(
+      <VisuallyHidden disabled>
+        <p data-testid="hidden-text">Hidden Text</p>
+      </VisuallyHidden>
+    );
+
+    expect(screen.getByTestId('hidden-text')).toBeVisible();
+  });
+
   test('expect visuallyHidden to be rendered with specified tag', () => {
     render(<VisuallyHidden as="span">Hidden Text</VisuallyHidden>);
 

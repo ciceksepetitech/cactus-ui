@@ -1,0 +1,31 @@
+{
+  "name": "@cs/component-alert-dialog",
+  "version": "0.0.1",
+  "description": "ÇiçekSepeti Alert Dialog Component",
+  "author": "ciceksepeti",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://sonatype-nexus.test.svc.techcs.io/repository/cs-packages/"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "dependencies": {
+    "@cs/component-utils": "^0.0.1",
+    "@cs/component-hooks": "^0.0.1",
+    "@cs/component-dialog": "^0.0.1"
+  },
+  "scripts": {
+    "build": "scripty",
+    "clean": "scripty",
+    "compile": "scripty"
+  },
+  "scripty": {
+    "path": "../../scripts/packages"
+  }
+}

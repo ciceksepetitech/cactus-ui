@@ -4,17 +4,23 @@ import {
   Canvas,
   ArgsTable,
   Description
-} from '@storybook/addon-docs/blocks';
+} from '@storybook/addon-docs';
 import FocusTrap from '..';
 import { useState } from 'react';
 
 <Meta
   title="Components/Focus Trap"
   component={FocusTrap}
+  args={{
+    as: 'div',
+    disabled: false,
+    autoFocusToFirst: true,
+    autoFocusToLast: false,
+    restoreFocusOnUnmount: true
+  }}
   argTypes={{
     as: {
       name: 'as',
-      defaultValue: 'div',
       control: { type: 'text' },
       description:
         'changes html tag of focus trap component which renders to DOM',
@@ -25,28 +31,24 @@ import { useState } from 'react';
     },
     disabled: {
       name: 'disabled',
-      defaultValue: false,
       control: { type: 'boolean' },
       description: 'disables all trap features',
       table: { defaultValue: { summary: false } }
     },
     autoFocusToFirst: {
       name: 'autoFocusToFirst',
-      defaultValue: true,
       control: { type: 'boolean' },
       description: 'auto focuses to first focusable child of focus trap',
       table: { defaultValue: { summary: true } }
     },
     autoFocusToLast: {
       name: 'autoFocusToLast',
-      defaultValue: false,
       control: { type: 'boolean' },
       description: 'auto focuses to last focusable child of focus trap',
       table: { defaultValue: { summary: false } }
     },
     restoreFocusOnUnmount: {
       name: 'restoreFocusOnUnmount',
-      defaultValue: true,
       control: { type: 'boolean' },
       description:
         'refocuses to last focused element when focust trap is unmounted',

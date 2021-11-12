@@ -19,16 +19,13 @@ export const VisuallyHidden = forwardRef(
     props: PolymorphicComponentProps<C, IVisuallyHiddenProps>,
     forwardedRef
   ) => {
-    const { as, style, children, ...rest } = props;
+    const { as, style, children, disabled, ...rest } = props;
 
     const Component = as || 'div';
 
-    return (
-      <Component
-        {...rest}
-        ref={forwardedRef}
-        data-cs-visually-hidden
-        style={{
+    const _style = disabled
+      ? style
+      : {
           border: 0,
           padding: 0,
           width: '1px',
@@ -38,12 +35,20 @@ export const VisuallyHidden = forwardRef(
           visibility: 'hidden',
           position: 'absolute',
           clip: 'rect(0 0 0 0)',
+          transform: 'translate(-100%, -100%)',
 
           // https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
           wordWrap: 'normal',
           whiteSpace: 'nowrap',
           ...style
-        }}
+        };
+
+    return (
+      <Component
+        {...rest}
+        style={_style}
+        ref={forwardedRef}
+        data-cs-visually-hidden
       >
         {children}
       </Component>
@@ -56,6 +61,7 @@ export default VisuallyHidden;
 /** Types and Interfaces */
 
 interface IVisuallyHiddenProps {
+  disabled?: boolean;
   children: React.ReactNode;
 }
 

@@ -52,7 +52,7 @@ describe('dialog component tests', () => {
 
   test('dialog component should warn when aria-label and aria-labelledby provided at the same time', () => {
     render(
-      <Component open aria-labelledby="some label" aria-label="some labe">
+      <Component open aria-labelledby="some label" aria-label="some label">
         I am a dialog
       </Component>
     );
