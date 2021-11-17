@@ -1,0 +1,34 @@
+[data-cs-checkbox-label] {
+  align-items: center;
+  display: inline-flex;
+}
+
+[data-cs-checkbox-icon] {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  margin: 3px 3px 3px 4px;
+  background: rgba(240, 240, 250, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+[data-cs-checkbox-status='true'] + [data-cs-checkbox-icon]::after {
+  width: 25%;
+  height: 60%;
+  content: '';
+  margin-bottom: 22%;
+  transform: rotate(45deg);
+  border-right: 3px solid #78b13f;
+  border-bottom: 3px solid #78b13f;
+}
+
+[data-cs-checkbox-status='mixed'] + [data-cs-checkbox-icon]::after {
+  width: 60%;
+  height: 10%;
+  content: '';
+  display: inline-block;
+  background-color: red;
+}

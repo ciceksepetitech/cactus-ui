@@ -1,0 +1,61 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs';
+import '../../styles.css';
+import Checkbox from '..';
+
+<Meta title="Components/Checkbox" component={Checkbox} />
+
+## Checkbox
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  checkbox components allow a user to input a simple boolean true/false
+  selection
+</p>
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => {
+      return (
+        <div style={{ display: 'flex' }}>
+          <Checkbox style={{ color: 'red' }}>
+            Orange
+            <span aria-hidden>🍊</span>
+          </Checkbox>
+          <Checkbox indeterminate style={{ color: 'red' }}>
+            Banana
+            <span aria-hidden>🍌</span>
+          </Checkbox>
+          <Checkbox indeterminate>
+            Apple
+            <span aria-hidden>🍎</span>
+          </Checkbox>
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of Checkbox component
+</Description>
+
+<ArgsTable story="Default" />
