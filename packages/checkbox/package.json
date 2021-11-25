@@ -15,7 +15,8 @@
     "url": ""
   },
   "dependencies": {
-    "@cs/component-visually-hidden": "^0.0.1"
+    "@cs/component-hooks": "^0.0.1",
+    "@cs/component-utils": "^0.0.1"
   },
   "scripts": {
     "build": "scripty",

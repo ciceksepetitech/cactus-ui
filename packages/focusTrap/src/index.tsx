@@ -7,8 +7,8 @@
  */
 
 import React, { forwardRef, useLayoutEffect, useRef, useCallback } from 'react';
-import { useFindTabbableElements } from '@cs/component-hooks';
 import { PolymorphicComponentProps } from '@cs/component-utils';
+import { useFindTabbableElements, useCombinedRefs } from '@cs/component-hooks';
 
 /**
  * focus trap component
@@ -31,7 +31,7 @@ export const FocusTrap = forwardRef(
 
     const Component = as || 'div';
     const internalRef = useRef(null);
-    const ref = forwardedRef || internalRef;
+    const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const currentFocusedElementIndex = useRef(0);
     const parentActiveElementRef = useRef<HTMLElement>(null);

@@ -5,6 +5,7 @@ import {
   ArgsTable,
   Description
 } from '@storybook/addon-docs';
+import { useState } from 'react';
 import '../../styles.css';
 import Checkbox from '..';
 
@@ -34,20 +35,27 @@ import Checkbox from '..';
 <Canvas>
   <Story name="Default" inline={false}>
     {(args) => {
+      const [checked, setChecked] = useState(false);
       return (
-        <div style={{ display: 'flex' }}>
-          <Checkbox style={{ color: 'red' }}>
-            Orange
-            <span aria-hidden>🍊</span>
-          </Checkbox>
-          <Checkbox indeterminate style={{ color: 'red' }}>
-            Banana
-            <span aria-hidden>🍌</span>
-          </Checkbox>
-          <Checkbox indeterminate>
-            Apple
-            <span aria-hidden>🍎</span>
-          </Checkbox>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <label
+            style={{
+              display: 'flex',
+              marginRight: '10px',
+              alignItems: 'center'
+            }}
+          >
+            <Checkbox
+              value="orange"
+              checked={checked}
+              onChange={() => setChecked(!checked)}
+            />
+            orange
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center' }}>
+            <Checkbox value="apple" indeterminate />
+            apple
+          </label>
         </div>
       );
     }}
