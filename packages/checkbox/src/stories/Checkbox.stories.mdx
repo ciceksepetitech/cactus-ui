@@ -35,26 +35,59 @@ import Checkbox from '..';
 <Canvas>
   <Story name="Default" inline={false}>
     {(args) => {
-      const [checked, setChecked] = useState(false);
+      const [checked, setChecked] = useState(true);
+      const [cactusChecked, setCactusChecked] = useState(false);
       return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <label
-            style={{
-              display: 'flex',
-              marginRight: '10px',
-              alignItems: 'center'
-            }}
-          >
-            <Checkbox
-              value="orange"
-              checked={checked}
-              onChange={() => setChecked(!checked)}
-            />
-            orange
+          <Checkbox
+            id="rose"
+            name="rose"
+            value="rose"
+            checked={checked}
+            onChange={() => setChecked(!checked)}
+          />
+          <label style={{ marginRight: '10px' }} htmlFor="rose">
+            rose
           </label>
-          <label style={{ display: 'flex', alignItems: 'center' }}>
-            <Checkbox value="apple" indeterminate />
-            apple
+          <Checkbox
+            id="cactus"
+            name="cactus"
+            value="cactus"
+            checked={cactusChecked}
+            onChange={() => setCactusChecked(!cactusChecked)}
+          />
+          <label style={{ marginRight: '10px' }} htmlFor="cactus">
+            cactus
+          </label>
+          <Checkbox id="daisy" name="daisy" value="daisy" indeterminate />
+          <label style={{ marginRight: '10px' }} htmlFor="daisy">
+            daisy
+          </label>
+          <Checkbox
+            id="uncontrolled"
+            name="uncontrolled"
+            value="uncontrolled"
+          />
+          <label style={{ marginRight: '10px' }} htmlFor="uncontrolled">
+            uncontrolled
+          </label>
+          <Checkbox
+            id="disabled"
+            disabled={true}
+            name="disabled"
+            value="disabled"
+          />
+          <label style={{ marginRight: '10px' }} htmlFor="disabled">
+            disabled
+          </label>
+          <Checkbox
+            defaultChecked
+            id="defaultChecked"
+            name="defaultChecked"
+            value="defaultChecked"
+          />
+          <label style={{ marginRight: '10px' }} htmlFor="defaultChecked">
+            defaultChecked
           </label>
         </div>
       );

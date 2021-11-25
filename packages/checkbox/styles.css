@@ -10,6 +10,10 @@
   border: 2px solid #52ad36;
 }
 
+[data-cs-checkbox-disabled='true'] {
+  opacity: 0.5;
+}
+
 [data-cs-checkbox-keyboard-focus='true'] {
   box-shadow: 0 0 1px 3px cornflowerblue;
   outline: #52ad36 auto 2px;

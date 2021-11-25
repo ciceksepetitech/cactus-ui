@@ -18,13 +18,19 @@ import { useCombinedRefs } from '@cs/component-hooks';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
-  const { setChecked, checked = false, indeterminate = false, ...rest } = args;
+  const {
+    disabled = false,
+    indeterminate = false,
+    defaultChecked = false,
+    checked: controlledCheck = false,
+    ...rest
+  } = args;
 
   const [focused, setFocused] = useState(false);
   const [checkboxProps, setCheckboxProps] = useState({ ...rest });
+  const [checked, setChecked] = useState(defaultChecked || controlledCheck);
 
   useEffect(() => {
-    if (!inputRef.current) return;
     inputRef.current.indeterminate = indeterminate;
 
     setCheckboxProps((prev) => {
@@ -45,19 +51,41 @@ const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
     [checked, setChecked]
   );
 
+  const onClickHandler = useCallback(() => {
+    inputRef.current.focus();
+
+    if (!disabled) {
+      inputRef.current.checked = !checked;
+      setChecked(!checked);
+    }
+  }, [checked, setChecked, disabled]);
+
   const onKeyUpHandler = useCallback((event) => {
-    if (event.key === ' ' || event.key === 'Tab') setFocused(true);
+    /* istanbul ignore next */
+    if (event.key === 'Spacebar' || event.key === ' ' || event.key === 'Tab') {
+      // @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values#whitespace_keys
+      setFocused(true);
+    }
   }, []);
 
   const onBlurHandler = useCallback(() => {
     setFocused(false);
   }, []);
 
+  const status = useMemo(
+    () => (indeterminate ? 'mixed' : checked),
+    [indeterminate, checked]
+  );
+
   return {
     ...checkboxProps,
+    status,
     focused,
+    disabled,
+    defaultChecked,
     onBlur: onBlurHandler,
     onKeyUp: onKeyUpHandler,
+    onClick: onClickHandler,
     onChange: onChangeHandler
   };
 };
@@ -72,46 +100,49 @@ export const Checkbox = forwardRef(
   ) => {
     const {
       as,
-      children,
+      id,
+      name,
+      value,
+      disabled,
       indeterminate,
-      checked: controlledChecked,
+      defaultChecked,
+      checked: controlledCheck,
       ...rest
     } = props;
 
     const Component = as || 'span';
 
     const internalRef = useRef<HTMLInputElement>(null);
-
-    const [checked, setChecked] = useState(controlledChecked);
-
     const inputRef = useCombinedRefs<HTMLInputElement>(
       forwardedRef,
       internalRef
     );
 
-    const { focused, ...checkboxArgs } = useCheckbox(inputRef, {
-      checked,
-      setChecked,
-      indeterminate,
-      ...rest
-    });
-
-    const status = useMemo(
-      () => (indeterminate ? 'mixed' : checked),
-      [indeterminate, checked]
+    const { focused, status, onClick, ...checkboxArgs } = useCheckbox(
+      inputRef,
+      {
+        id,
+        name,
+        value,
+        disabled,
+        indeterminate,
+        defaultChecked,
+        checked: controlledCheck
+      }
     );
 
     return (
       <Component
         data-cs-checkbox
+        onClick={onClick}
         data-cs-checkbox-status={status}
+        data-cs-checkbox-disabled={disabled}
         data-cs-checkbox-keyboard-focus={focused}
         {...rest}
       >
         <input
           ref={inputRef}
           type="checkbox"
-          checked={checked}
           data-cs-checkbox-input
           {...checkboxArgs}
         />
@@ -126,7 +157,6 @@ export default Checkbox;
 
 interface ICheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   indeterminate?: boolean;
-  children: React.ReactNode;
 }
 
 /** Display Names */
