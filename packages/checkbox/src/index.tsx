@@ -7,6 +7,7 @@
 
 import React, {
   useRef,
+  useMemo,
   useState,
   useEffect,
   forwardRef,
@@ -19,6 +20,7 @@ import { PolymorphicComponentProps } from '@cs/component-utils';
 const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
   const { setChecked, checked = false, indeterminate = false, ...rest } = args;
 
+  const [focused, setFocused] = useState(false);
   const [checkboxProps, setCheckboxProps] = useState({ ...rest });
 
   useEffect(() => {
@@ -43,8 +45,19 @@ const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
     [checked, setChecked]
   );
 
+  const onKeyUpHandler = useCallback((event) => {
+    if (event.key === ' ' || event.key === 'Tab') setFocused(true);
+  }, []);
+
+  const onBlurHandler = useCallback(() => {
+    setFocused(false);
+  }, []);
+
   return {
     ...checkboxProps,
+    focused,
+    onBlur: onBlurHandler,
+    onKeyUp: onKeyUpHandler,
     onChange: onChangeHandler
   };
 };
@@ -69,7 +82,6 @@ export const Checkbox = forwardRef(
 
     const internalRef = useRef<HTMLInputElement>(null);
 
-    const [focused, setFocused] = useState(false);
     const [checked, setChecked] = useState(controlledChecked);
 
     const inputRef = useCombinedRefs<HTMLInputElement>(
@@ -77,26 +89,23 @@ export const Checkbox = forwardRef(
       internalRef
     );
 
-    const { icon: checkboxIcon, ...checkboxArgs } = useCheckbox(inputRef, {
+    const { focused, ...checkboxArgs } = useCheckbox(inputRef, {
       checked,
       setChecked,
       indeterminate,
       ...rest
     });
 
-    const onKeyUpHandler = useCallback((event) => {
-      if (event.key === ' ' || event.key === 'Tab') setFocused(true);
-    }, []);
-
-    const onBlurHandler = useCallback(() => {
-      setFocused(false);
-    }, []);
+    const status = useMemo(
+      () => (indeterminate ? 'mixed' : checked),
+      [indeterminate, checked]
+    );
 
     return (
       <Component
         data-cs-checkbox
+        data-cs-checkbox-status={status}
         data-cs-checkbox-keyboard-focus={focused}
-        data-cs-checkbox-status={indeterminate ? 'mixed' : checked}
         {...rest}
       >
         <input
@@ -104,8 +113,6 @@ export const Checkbox = forwardRef(
           type="checkbox"
           checked={checked}
           data-cs-checkbox-input
-          onBlur={onBlurHandler}
-          onKeyUp={onKeyUpHandler}
           {...checkboxArgs}
         />
       </Component>
