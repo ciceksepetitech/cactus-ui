@@ -19,14 +19,14 @@ describe('checkbox component tests', () => {
   test('checkbox status change should respect to a11y', async () => {
     const { container } = render(<Component />);
 
-    const checkbox = screen.getByTestId(/rose/i);
-    userEvent.click(checkbox);
+    const checkboxWrapper = screen.getByTestId(/rose/i);
+    userEvent.click(checkboxWrapper);
 
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
-  test('checkbox indeterminate can be setted', async () => {
+  test('checkbox indeterminate can be set', async () => {
     render(<Component indeterminate />);
 
     const checkbox = screen.getByRole('checkbox');

@@ -5,11 +5,69 @@ import {
   ArgsTable,
   Description
 } from '@storybook/addon-docs';
-import { useState } from 'react';
 import '../../styles.css';
 import Checkbox from '..';
 
-<Meta title="Components/Checkbox" component={Checkbox} />
+<Meta
+  title="Components/Checkbox"
+  component={Checkbox}
+  args={{
+    as: 'div',
+    id: 'rose',
+    name: 'rose',
+    value: 'rose',
+    disabled: false,
+    checked: undefined,
+    indeterminate: false
+  }}
+  argTypes={{
+    as: {
+      name: 'as',
+      control: { type: 'text' },
+      description: 'changes html tag of portal component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    },
+    id: {
+      name: 'id',
+      control: { type: 'text' },
+      description: 'id of input element',
+      table: { defaultValue: { summary: 'rose' } }
+    },
+    name: {
+      name: 'name',
+      control: { type: 'text' },
+      description: 'name of input element',
+      table: { defaultValue: { summary: '' } }
+    },
+    value: {
+      name: 'value',
+      control: { type: 'text' },
+      description: 'value of input element',
+      table: { defaultValue: { summary: '' } }
+    },
+    indeterminate: {
+      name: 'indeterminate',
+      control: { type: 'boolean' },
+      description: 'sets the indeterminate state',
+      table: { defaultValue: { summary: false } }
+    },
+    disabled: {
+      name: 'disabled',
+      control: { type: 'boolean' },
+      description: 'sets the disabled state',
+      table: { defaultValue: { summary: false } }
+    },
+    checked: {
+      name: 'checked',
+      control: { type: 'boolean' },
+      description: 'sets the check state',
+      table: { defaultValue: { summary: undefined } }
+    }
+  }}
+/>
 
 ## Checkbox
 
@@ -22,8 +80,8 @@ import Checkbox from '..';
     backgroundColor: '#1B5193'
   }}
 >
-  checkbox components allow a user to input a simple boolean true/false
-  selection
+  tri-state checkbox components allow a user to input true/false/indeterminate
+  states
 </p>
 
 #### Stories
@@ -35,59 +93,11 @@ import Checkbox from '..';
 <Canvas>
   <Story name="Default" inline={false}>
     {(args) => {
-      const [checked, setChecked] = useState(true);
-      const [cactusChecked, setCactusChecked] = useState(false);
       return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Checkbox
-            id="rose"
-            name="rose"
-            value="rose"
-            checked={checked}
-            onChange={() => setChecked(!checked)}
-          />
+          <Checkbox {...args} />
           <label style={{ marginRight: '10px' }} htmlFor="rose">
             rose
-          </label>
-          <Checkbox
-            id="cactus"
-            name="cactus"
-            value="cactus"
-            checked={cactusChecked}
-            onChange={() => setCactusChecked(!cactusChecked)}
-          />
-          <label style={{ marginRight: '10px' }} htmlFor="cactus">
-            cactus
-          </label>
-          <Checkbox id="daisy" name="daisy" value="daisy" indeterminate />
-          <label style={{ marginRight: '10px' }} htmlFor="daisy">
-            daisy
-          </label>
-          <Checkbox
-            id="uncontrolled"
-            name="uncontrolled"
-            value="uncontrolled"
-          />
-          <label style={{ marginRight: '10px' }} htmlFor="uncontrolled">
-            uncontrolled
-          </label>
-          <Checkbox
-            id="disabled"
-            disabled={true}
-            name="disabled"
-            value="disabled"
-          />
-          <label style={{ marginRight: '10px' }} htmlFor="disabled">
-            disabled
-          </label>
-          <Checkbox
-            defaultChecked
-            id="defaultChecked"
-            name="defaultChecked"
-            value="defaultChecked"
-          />
-          <label style={{ marginRight: '10px' }} htmlFor="defaultChecked">
-            defaultChecked
           </label>
         </div>
       );

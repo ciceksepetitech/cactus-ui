@@ -19,46 +19,66 @@ import { PolymorphicComponentProps } from '@cs/component-utils';
 
 const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
   const {
+    defaultChecked,
     disabled = false,
     indeterminate = false,
-    defaultChecked = false,
-    checked: controlledCheck = false,
+    checked: controlledCheck,
     ...rest
   } = args;
 
+  const isMounted = useRef(false);
   const [focused, setFocused] = useState(false);
+  const [checked, setChecked] = useState(controlledCheck);
   const [checkboxProps, setCheckboxProps] = useState({ ...rest });
-  const [checked, setChecked] = useState(defaultChecked || controlledCheck);
+
+  const isControlled = useMemo(
+    () => controlledCheck !== undefined,
+    [controlledCheck]
+  );
 
   useEffect(() => {
     inputRef.current.indeterminate = indeterminate;
 
     setCheckboxProps((prev) => {
       const updated = { ...prev };
+      let ariaChecked = null;
 
-      if (indeterminate) {
-        updated['aria-checked'] = 'mixed';
-        return updated;
-      }
+      if (indeterminate) ariaChecked = 'mixed';
+      else if (isControlled) ariaChecked = checked;
+      else ariaChecked = inputRef.current.checked;
 
-      updated['aria-checked'] = checked;
+      updated['aria-checked'] = ariaChecked;
       return updated;
     });
-  }, [checked, indeterminate]);
+  }, [checked, isControlled, indeterminate]);
 
-  const onChangeHandler = useCallback(
-    () => setChecked(!checked),
-    [checked, setChecked]
-  );
+  useEffect(() => {
+    setChecked(controlledCheck);
+  }, [controlledCheck]);
+
+  const onChangeHandler = useCallback(() => {
+    if (isControlled) return;
+
+    const state = !inputRef.current.checked;
+    inputRef.current.checked = state;
+    setChecked(state);
+  }, [isControlled]);
 
   const onClickHandler = useCallback(() => {
     inputRef.current.focus();
 
-    if (!disabled) {
+    if (disabled) return;
+
+    if (isControlled) {
       inputRef.current.checked = !checked;
       setChecked(!checked);
+    } else {
+      const state = !inputRef.current.checked;
+
+      inputRef.current.checked = state;
+      setChecked(state);
     }
-  }, [checked, setChecked, disabled]);
+  }, [checked, isControlled, disabled]);
 
   const onKeyUpHandler = useCallback((event) => {
     /* istanbul ignore next */
@@ -72,10 +92,19 @@ const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
     setFocused(false);
   }, []);
 
-  const status = useMemo(
-    () => (indeterminate ? 'mixed' : checked),
-    [indeterminate, checked]
-  );
+  const status = useMemo(() => {
+    if (!isMounted.current && defaultChecked) {
+      isMounted.current = true;
+      return defaultChecked;
+    }
+
+    isMounted.current = true;
+
+    if (indeterminate) return 'mixed';
+
+    if (isControlled) return checked;
+    else return inputRef.current?.checked;
+  }, [indeterminate, defaultChecked, isControlled, checked]);
 
   return {
     ...checkboxProps,
@@ -86,7 +115,8 @@ const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
     onBlur: onBlurHandler,
     onKeyUp: onKeyUpHandler,
     onClick: onClickHandler,
-    onChange: onChangeHandler
+    onChange: onChangeHandler,
+    checked: !isControlled ? undefined : checked
   };
 };
 
@@ -100,9 +130,6 @@ export const Checkbox = forwardRef(
   ) => {
     const {
       as,
-      id,
-      name,
-      value,
       disabled,
       indeterminate,
       defaultChecked,
@@ -121,9 +148,6 @@ export const Checkbox = forwardRef(
     const { focused, status, onClick, ...checkboxArgs } = useCheckbox(
       inputRef,
       {
-        id,
-        name,
-        value,
         disabled,
         indeterminate,
         defaultChecked,
@@ -138,13 +162,13 @@ export const Checkbox = forwardRef(
         data-cs-checkbox-status={status}
         data-cs-checkbox-disabled={disabled}
         data-cs-checkbox-keyboard-focus={focused}
-        {...rest}
       >
         <input
           ref={inputRef}
           type="checkbox"
           data-cs-checkbox-input
           {...checkboxArgs}
+          {...rest}
         />
       </Component>
     );
