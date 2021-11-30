@@ -6,6 +6,7 @@ interface IUseArrayReturn<T> {
   isEmpty: () => boolean;
   push: (value: T) => void;
   map: (value: T) => any[];
+  set: (value: T[]) => void;
   filter: (value: T) => any[];
   includes: (value: T) => boolean;
   remove: (value: number) => void;
@@ -40,6 +41,8 @@ export function useArray<T>(initial: T[]): IUseArrayReturn<T> {
     [value]
   );
 
+  const set = useCallback((newArr) => setValue(newArr), []);
+
   const includes = useCallback((element) => value.includes(element), [value]);
 
   const find = useCallback((iterator) => value.find(iterator), [value]);
@@ -47,6 +50,7 @@ export function useArray<T>(initial: T[]): IUseArrayReturn<T> {
   const filter = useCallback((iterator) => value.map(iterator), [value]);
 
   return {
+    set,
     map,
     push,
     find,
