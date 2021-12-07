@@ -7,7 +7,6 @@
  */
 
 import React, { forwardRef } from 'react';
-import '../styles.css';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 /**

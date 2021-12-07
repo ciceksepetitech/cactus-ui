@@ -16,6 +16,7 @@ import React, {
   cloneElement
 } from 'react';
 import ReactDOM from 'react-dom';
+import { useCombinedRefs } from '@cs/component-hooks';
 import VisuallyHidden from '@cs/component-visually-hidden';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
@@ -160,7 +161,7 @@ export const Alert = forwardRef(
 
     const Component = as || 'div';
     const internalRef = useRef(null);
-    const ref = forwardedRef || internalRef;
+    const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const component = useMemo(
       () => (

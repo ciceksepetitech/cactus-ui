@@ -7,8 +7,7 @@
   "license": "MIT",
   "private": false,
   "publishConfig": {
-    "access": "public",
-    "registry": "http://sonatype-nexus.test.svc.techcs.io/repository/cs-packages/"
+    "access": "public"
   },
   "repository": {
     "type": "",

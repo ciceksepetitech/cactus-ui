@@ -1,0 +1,112 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs';
+import '../../styles.css';
+import Checkbox from '..';
+
+<Meta
+  title="Components/Checkbox"
+  component={Checkbox}
+  args={{
+    as: 'div',
+    id: 'rose',
+    name: 'rose',
+    value: 'rose',
+    disabled: false,
+    checked: undefined,
+    indeterminate: false
+  }}
+  argTypes={{
+    as: {
+      name: 'as',
+      control: { type: 'text' },
+      description: 'changes html tag of portal component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    },
+    id: {
+      name: 'id',
+      control: { type: 'text' },
+      description: 'id of input element',
+      table: { defaultValue: { summary: 'rose' } }
+    },
+    name: {
+      name: 'name',
+      control: { type: 'text' },
+      description: 'name of input element',
+      table: { defaultValue: { summary: '' } }
+    },
+    value: {
+      name: 'value',
+      control: { type: 'text' },
+      description: 'value of input element',
+      table: { defaultValue: { summary: '' } }
+    },
+    indeterminate: {
+      name: 'indeterminate',
+      control: { type: 'boolean' },
+      description: 'sets the indeterminate state',
+      table: { defaultValue: { summary: false } }
+    },
+    disabled: {
+      name: 'disabled',
+      control: { type: 'boolean' },
+      description: 'sets the disabled state',
+      table: { defaultValue: { summary: false } }
+    },
+    checked: {
+      name: 'checked',
+      control: { type: 'boolean' },
+      description: 'sets the check state',
+      table: { defaultValue: { summary: undefined } }
+    }
+  }}
+/>
+
+## Checkbox
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  tri-state checkbox components allow a user to input true/false/indeterminate
+  states
+</p>
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => {
+      return (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Checkbox {...args} />
+          <label style={{ marginRight: '10px' }} htmlFor="rose">
+            rose
+          </label>
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of Checkbox component
+</Description>
+
+<ArgsTable story="Default" />
