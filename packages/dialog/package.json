@@ -9,8 +9,7 @@
   "license": "MIT",
   "private": false,
   "publishConfig": {
-    "access": "public",
-    "registry": "http://sonatype-nexus.test.svc.techcs.io/repository/cs-packages/"
+    "access": "public"
   },
   "repository": {
     "type": "",
@@ -18,6 +17,7 @@
   },
   "dependencies": {
     "@cs/component-utils": "^0.0.1",
+    "@cs/component-hooks": "^0.0.1",
     "@cs/component-portal": "^0.0.1",
     "@cs/component-focus-trap": "^0.0.1",
     "@cs/component-visually-hidden": "^0.0.1"

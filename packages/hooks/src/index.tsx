@@ -5,6 +5,7 @@ export * from './usePrevious';
 export * from './useIsMounted';
 export * from './useLatestValue';
 export * from './useForceUpdate';
+export * from './useCombinedRefs';
 export * from './useLocalStorage';
 export * from './useEventListener';
 export * from './useOnClickOutside';

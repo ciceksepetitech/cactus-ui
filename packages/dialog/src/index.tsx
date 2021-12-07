@@ -21,6 +21,7 @@ import React, {
 import Portal from '@cs/component-portal';
 import FocusTrap from '@cs/component-focus-trap';
 import { RemoveScroll } from 'react-remove-scroll';
+import { useCombinedRefs } from '@cs/component-hooks';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 
 /**
@@ -38,7 +39,7 @@ export const DialogOverlay = forwardRef(
 
     const childrenRef = useRef(null);
     const internalRef = useRef(null);
-    const ref = forwardedRef || internalRef;
+    const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const handleEscapeKeyDown = useCallback(
       (event: KeyboardEvent | React.KeyboardEvent<HTMLElement>) => {
