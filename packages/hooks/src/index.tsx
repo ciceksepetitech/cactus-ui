@@ -5,6 +5,7 @@ export * from './usePrevious';
 export * from './useIsMounted';
 export * from './useLatestValue';
 export * from './useForceUpdate';
+export * from './useLocalStorage';
 export * from './useEventListener';
 export * from './useOnClickOutside';
 export * from './useFindTabbableElements';
