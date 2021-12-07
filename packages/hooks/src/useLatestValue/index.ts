@@ -10,7 +10,7 @@ export function useLatestValue<T>(value: T): MutableRefObject<T> {
 
   useIsomorphicLayoutEffect(() => {
     ref.current = value;
-  });
+  }, [value]);
 
   return ref;
 }
