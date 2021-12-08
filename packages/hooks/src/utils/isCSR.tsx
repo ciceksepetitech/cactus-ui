@@ -4,7 +4,7 @@
  *
  * @returns boolean
  */
-export const isCSR: boolean = !!(
+export const isCSR = !!(
   typeof window !== 'undefined' &&
   window.document &&
   window.document.createElement
