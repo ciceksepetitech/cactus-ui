@@ -7,8 +7,6 @@ import { render, RenderOptions, RenderResult } from '@testing-library/react';
  * wrapper for test environment
  * might contain some providers etc
  *
- * @param param0
- * @returns
  */
 const Wrapper = ({ children }) => {
   // Providers or other kind of wrappers might be needed
@@ -28,4 +26,6 @@ const customRender = (
 ): RenderResult => render(ui, { wrapper: Wrapper, ...options });
 
 export * from '@testing-library/react';
+export * as reactHooks from '@testing-library/react-hooks';
+
 export { customRender as render };
