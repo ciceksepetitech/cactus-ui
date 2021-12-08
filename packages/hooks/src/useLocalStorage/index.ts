@@ -5,15 +5,19 @@ import { useLatestValue } from '..';
  * handles localstorage interactions
  * supports server-side rendering
  */
-export function useLocalStorage(key: string, defaultValue: any) {
+export function useLocalStorage(key: string, defaultValue?: any) {
   const defaultValueRef = useLatestValue<any>(defaultValue);
 
   const initialize = useCallback(() => {
     try {
       const item = localStorage.getItem(key);
       if (item) return JSON.parse(item);
-      localStorage.setItem(key, JSON.stringify(defaultValueRef.current));
-    } finally {
+
+      defaultValueRef.current &&
+        localStorage.setItem(key, JSON.stringify(defaultValueRef.current));
+
+      return defaultValueRef.current;
+    } catch {
       return defaultValueRef.current;
     }
   }, [key]);

@@ -14,7 +14,7 @@ export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
     useLatestValue<(event: MouseEvent | TouchEvent) => void>(callback);
 
   const listener = useCallback((event: MouseEvent | TouchEvent) => {
-    const specifiedNode = specifiedNodeRef?.current;
+    const specifiedNode = specifiedNodeRef.current;
     const target = event.target as Node;
 
     if (!specifiedNode || specifiedNode.contains(target)) return;

@@ -1,4 +1,5 @@
 import { useEffect, MutableRefObject, RefObject } from 'react';
+import { isCSR } from '../utils';
 import { useLatestValue } from '../useLatestValue';
 
 interface IUseEventListener {
@@ -21,9 +22,9 @@ interface IUseEventListener {
  */
 export function useEventListener({
   name,
-  target,
   options,
-  listener
+  listener,
+  target = isCSR ? window : undefined
 }: IUseEventListener) {
   const listenerRef = useLatestValue<EventListener>(listener);
   const optionsRef = useLatestValue<EventListenerOptions>(options);

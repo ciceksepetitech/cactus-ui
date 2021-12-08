@@ -1,16 +1,17 @@
 import { useState, useCallback } from 'react';
 
 interface IUseArrayReturn<T> {
+  value: T[];
   clear: () => void;
-  find: (value: T) => T;
   isEmpty: () => boolean;
   push: (value: T) => void;
-  map: (value: T) => any[];
   set: (value: T[]) => void;
-  filter: (value: T) => any[];
   includes: (value: T) => boolean;
   remove: (value: number) => void;
-  findIndex: (value: T) => number;
+  map: (fn: (value: T) => any) => any;
+  find: (fn: (value: T) => any) => any;
+  filter: (fn: (value: T) => any) => any;
+  findIndex: (fn: (value: T) => any) => any;
 }
 
 /**
@@ -47,7 +48,7 @@ export function useArray<T>(initial: T[]): IUseArrayReturn<T> {
 
   const find = useCallback((iterator) => value.find(iterator), [value]);
 
-  const filter = useCallback((iterator) => value.map(iterator), [value]);
+  const filter = useCallback((iterator) => value.filter(iterator), [value]);
 
   return {
     set,
@@ -55,6 +56,7 @@ export function useArray<T>(initial: T[]): IUseArrayReturn<T> {
     push,
     find,
     clear,
+    value,
     remove,
     filter,
     isEmpty,
