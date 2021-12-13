@@ -1,0 +1,93 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs';
+import Popover from '..';
+import { useState, useRef } from 'react';
+
+<Meta
+  title="Components/Popover"
+  component={Popover}
+  args={{
+    as: 'div'
+  }}
+  argTypes={{
+    as: {
+      name: 'as',
+      control: { type: 'text' },
+      description: 'changes html tag of popover component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    }
+  }}
+/>
+
+## Popover
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  Popover
+</p>
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => {
+      const targetRef = useRef();
+      const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+      return (
+        <div>
+          <button
+            ref={targetRef}
+            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+          >
+            click me
+          </button>
+          {isPopoverOpen && (
+            <Popover
+              targetRef={targetRef}
+              style={{
+                padding: '5px 10px',
+                borderRadius: '4px',
+                border: '1px solid #eee'
+              }}
+            >
+              <p>
+                Aliqua consectetur non ut id nostrud sit ipsum consequat officia
+                adipisicing cillum aliquip ex. Ex est magna nostrud sit ad id
+                minim nulla. Culpa sunt dolore minim consequat consequat veniam
+                ut. Ex aliquip culpa aute sint consectetur ad. Quis nulla ad
+                amet velit consectetur velit cupidatat. Lorem eiusmod nulla ut
+                qui irure pariatur.
+              </p>
+            </Popover>
+          )}
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of Popover component. Renders as 'div' by
+  default
+</Description>
+
+<ArgsTable story="Default" />

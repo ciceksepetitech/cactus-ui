@@ -1,5 +1,5 @@
 import { useEffect, MutableRefObject, RefObject } from 'react';
-import { isCSR } from '../utils';
+import { isCSR } from '@cs/component-utils';
 import { useLatestValue } from '../useLatestValue';
 
 interface IUseEventListener {

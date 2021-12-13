@@ -29,6 +29,7 @@ export const Portal: FC<IPortalProps> = (props) => {
       document.body;
 
     const portalNode = document.createElement('div');
+    portalNode.setAttribute('data-cs-portal', 'true');
 
     setPortalNode(portalNode);
     container.appendChild(portalNode);
