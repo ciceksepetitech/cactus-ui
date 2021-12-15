@@ -113,6 +113,8 @@ const usePopover = ({
   );
 
   const getPopoverPosition = useCallback(() => {
+    // needed to be set in next loop,
+    // waiting Portal to be mounted!
     setTimeout(() => {
       const targetRect: DOMRect = targetRef.current.getBoundingClientRect();
       const popoverRect: DOMRect = popoverRef.current.getBoundingClientRect();
@@ -146,9 +148,15 @@ const usePopover = ({
     getPopoverPosition();
   }, [getPopoverPosition]);
 
-  useEventListener({ name: 'resize', listener: getPopoverPosition });
+  useEventListener({
+    name: 'resize',
+    listener: getPopoverPosition
+  });
 
-  useEventListener({ name: 'scroll', listener: getPopoverPosition });
+  useEventListener({
+    name: 'scroll',
+    listener: getPopoverPosition
+  });
 
   return {
     styles
