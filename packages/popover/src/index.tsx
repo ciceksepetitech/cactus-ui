@@ -26,7 +26,7 @@ const usePopover = ({
   placement,
   targetRef,
   popoverRef
-}: UsePopoverPropsType) => {
+}: IUsePopoverProps) => {
   const [styles, setStyles] = useState<CSSProperties>({
     position: 'absolute',
     visibility: 'hidden'
@@ -120,7 +120,6 @@ const usePopover = ({
       const targetRect: DOMRect = targetRef.current.getBoundingClientRect();
       const popoverRect: DOMRect = popoverRef.current.getBoundingClientRect();
 
-      const newPosition: CSSProperties = { visibility: 'visible' };
       const availableSpaces = getAvailableSpaces(targetRect, popoverRect);
 
       const shouldFlip =
@@ -133,10 +132,10 @@ const usePopover = ({
         : placement;
 
       const getPlacement = getPlacementGetter(certainPlacement);
-      const { left, top } = getPlacement(targetRect, popoverRect);
-
-      newPosition.top = top;
-      newPosition.left = left;
+      const newPosition: CSSProperties = {
+        visibility: 'visible',
+        ...getPlacement(targetRect, popoverRect)
+      };
 
       setStyles((prev) => ({
         ...prev,
@@ -176,7 +175,6 @@ const Popover = forwardRef(
       targetRef,
       portal = true,
       autoFlip = true,
-      reposition = true,
       placement = Placements.Bottom,
       ...rest
     } = props;
@@ -235,15 +233,14 @@ interface IPopoverProps {
   placement?: Placements;
   children: React.ReactNode;
   targetRef: MutableRefObject<any>;
-  popoverRef: MutableRefObject<any>;
 }
 
 type PlacementGetterType = Placements.Left | Placements.Top;
 
-type UsePopoverPropsType = Pick<
-  IPopoverProps,
-  'autoFlip' | 'placement' | 'targetRef' | 'popoverRef'
->;
+interface IUsePopoverProps
+  extends Pick<IPopoverProps, 'autoFlip' | 'placement' | 'targetRef'> {
+  popoverRef: MutableRefObject<any>;
+}
 
 /** Display Names */
 
