@@ -33,15 +33,15 @@ const usePopover = ({
   });
 
   const getAvailableSpaces = useCallback(
-    (targetNode: DOMRect, popoverNode: DOMRect): Record<string, boolean> => {
+    (targetRect: DOMRect, popoverRect: DOMRect): Record<string, boolean> => {
       const { innerWidth, innerHeight } = window;
-      const { width: pWidth, height: pHeight } = popoverNode;
+      const { width: pWidth, height: pHeight } = popoverRect;
       const {
         top: tTop,
         left: tLeft,
         width: tWidth,
         bottom: tBottom
-      } = targetNode;
+      } = targetRect;
 
       return {
         top: tTop - pHeight > 0,
@@ -55,36 +55,36 @@ const usePopover = ({
 
   const getPlacementLeft = useCallback(
     (
-      targetNode: DOMRect,
-      popoverNode: DOMRect
+      targetRect: DOMRect,
+      popoverRect: DOMRect
     ): Pick<DOMRect, 'left' | 'top'> => {
-      return { left: targetNode.x - popoverNode.width, top: targetNode.y };
+      return { left: targetRect.x - popoverRect.width, top: targetRect.y };
     },
     []
   );
 
   const getPlacementRight = useCallback(
-    (targetNode: DOMRect): Pick<DOMRect, 'left' | 'top'> => {
-      return { left: targetNode.x + targetNode.width, top: targetNode.y };
+    (targetRect: DOMRect): Pick<DOMRect, 'left' | 'top'> => {
+      return { left: targetRect.x + targetRect.width, top: targetRect.y };
     },
     []
   );
 
   const getPlacementBottom = useCallback(
-    (targetNode: DOMRect): Pick<DOMRect, 'left' | 'top'> => {
-      return { left: targetNode.x, top: targetNode.y + targetNode.height };
+    (targetRect: DOMRect): Pick<DOMRect, 'left' | 'top'> => {
+      return { left: targetRect.x, top: targetRect.y + targetRect.height };
     },
     []
   );
 
   const getPlacementTop = useCallback(
     (
-      targetNode: DOMRect,
-      popoverNode: DOMRect
+      targetRect: DOMRect,
+      popoverRect: DOMRect
     ): Pick<DOMRect, 'left' | 'top'> => {
       return {
-        left: targetNode.left,
-        top: targetNode.top - popoverNode.height
+        left: targetRect.left,
+        top: targetRect.top - popoverRect.height
       };
     },
     []
@@ -114,11 +114,11 @@ const usePopover = ({
 
   const getPopoverPosition = useCallback(() => {
     setTimeout(() => {
-      const targetNode: DOMRect = targetRef.current.getBoundingClientRect();
-      const popoverNode: DOMRect = popoverRef.current?.getBoundingClientRect();
+      const targetRect: DOMRect = targetRef.current.getBoundingClientRect();
+      const popoverRect: DOMRect = popoverRef.current.getBoundingClientRect();
 
       const newPosition: CSSProperties = { visibility: 'visible' };
-      const availableSpaces = getAvailableSpaces(targetNode, popoverNode);
+      const availableSpaces = getAvailableSpaces(targetRect, popoverRect);
 
       const shouldFlip =
         autoFlip &&
@@ -130,7 +130,7 @@ const usePopover = ({
         : placement;
 
       const getPlacement = getPlacementGetter(certainPlacement);
-      const { left, top } = getPlacement(targetNode, popoverNode);
+      const { left, top } = getPlacement(targetRect, popoverRect);
 
       newPosition.top = top;
       newPosition.left = left;
