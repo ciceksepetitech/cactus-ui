@@ -26,7 +26,7 @@ const usePopover = ({
   placement,
   targetRef,
   popoverRef
-}: IUsePopoverProps) => {
+}: UsePopoverPropsType) => {
   const [styles, setStyles] = useState<CSSProperties>({
     position: 'absolute',
     visibility: 'hidden'
@@ -57,21 +57,21 @@ const usePopover = ({
     (
       targetRect: DOMRect,
       popoverRect: DOMRect
-    ): Pick<DOMRect, 'left' | 'top'> => {
+    ): Pick<DOMRect, PlacementGetterType> => {
       return { left: targetRect.x - popoverRect.width, top: targetRect.y };
     },
     []
   );
 
   const getPlacementRight = useCallback(
-    (targetRect: DOMRect): Pick<DOMRect, 'left' | 'top'> => {
+    (targetRect: DOMRect): Pick<DOMRect, PlacementGetterType> => {
       return { left: targetRect.x + targetRect.width, top: targetRect.y };
     },
     []
   );
 
   const getPlacementBottom = useCallback(
-    (targetRect: DOMRect): Pick<DOMRect, 'left' | 'top'> => {
+    (targetRect: DOMRect): Pick<DOMRect, PlacementGetterType> => {
       return { left: targetRect.x, top: targetRect.y + targetRect.height };
     },
     []
@@ -81,7 +81,7 @@ const usePopover = ({
     (
       targetRect: DOMRect,
       popoverRect: DOMRect
-    ): Pick<DOMRect, 'left' | 'top'> => {
+    ): Pick<DOMRect, PlacementGetterType> => {
       return {
         left: targetRect.left,
         top: targetRect.top - popoverRect.height
@@ -229,7 +229,9 @@ interface IPopoverProps {
   popoverRef: MutableRefObject<any>;
 }
 
-type IUsePopoverProps = Pick<
+type PlacementGetterType = Placements.Left | Placements.Top;
+
+type UsePopoverPropsType = Pick<
   IPopoverProps,
   'autoFlip' | 'placement' | 'targetRef' | 'popoverRef'
 >;
