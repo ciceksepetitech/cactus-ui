@@ -57,23 +57,26 @@ const usePopover = ({
     (
       targetRect: DOMRect,
       popoverRect: DOMRect
-    ): Pick<DOMRect, PlacementGetterType> => {
-      return { left: targetRect.x - popoverRect.width, top: targetRect.y };
-    },
+    ): Pick<DOMRect, PlacementGetterType> => ({
+      left: targetRect.left - popoverRect.width,
+      top: targetRect.top + window.pageYOffset
+    }),
     []
   );
 
   const getPlacementRight = useCallback(
-    (targetRect: DOMRect): Pick<DOMRect, PlacementGetterType> => {
-      return { left: targetRect.x + targetRect.width, top: targetRect.y };
-    },
+    (targetRect: DOMRect): Pick<DOMRect, PlacementGetterType> => ({
+      left: targetRect.left + targetRect.width,
+      top: targetRect.top + window.pageYOffset
+    }),
     []
   );
 
   const getPlacementBottom = useCallback(
-    (targetRect: DOMRect): Pick<DOMRect, PlacementGetterType> => {
-      return { left: targetRect.x, top: targetRect.y + targetRect.height };
-    },
+    (targetRect: DOMRect): Pick<DOMRect, PlacementGetterType> => ({
+      left: targetRect.left,
+      top: targetRect.top + targetRect.height + window.pageYOffset
+    }),
     []
   );
 
@@ -81,12 +84,10 @@ const usePopover = ({
     (
       targetRect: DOMRect,
       popoverRect: DOMRect
-    ): Pick<DOMRect, PlacementGetterType> => {
-      return {
-        left: targetRect.left,
-        top: targetRect.top - popoverRect.height
-      };
-    },
+    ): Pick<DOMRect, PlacementGetterType> => ({
+      left: targetRect.left,
+      top: targetRect.top - popoverRect.height + window.pageYOffset
+    }),
     []
   );
 
@@ -115,7 +116,7 @@ const usePopover = ({
   const getPopoverPosition = useCallback(() => {
     // needed to be set in next loop,
     // waiting Portal to be mounted!
-    setTimeout(() => {
+    window.requestIdleCallback(() => {
       const targetRect: DOMRect = targetRef.current.getBoundingClientRect();
       const popoverRect: DOMRect = popoverRef.current.getBoundingClientRect();
 
@@ -141,8 +142,8 @@ const usePopover = ({
         ...prev,
         ...newPosition
       }));
-    }, 0);
-  }, [autoFlip, getAvailableSpaces, getPlacementGetter]);
+    });
+  }, [autoFlip, placement, getAvailableSpaces, getPlacementGetter]);
 
   useLayoutEffect(() => {
     getPopoverPosition();
