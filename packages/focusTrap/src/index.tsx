@@ -6,7 +6,7 @@
  * focusTrap component traps focus events inside of its boundries. It is developed according to the accessibility rules. User cannot leave the trap boundries unless disables it. Great match for components like Modals, Dialogs and etc.
  */
 
-import React, { forwardRef, useLayoutEffect, useRef, useCallback } from 'react';
+import React, { useRef, forwardRef, useCallback, useLayoutEffect } from 'react';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 import { useFindTabbableElements, useCombinedRefs } from '@cs/component-hooks';
 
@@ -35,7 +35,7 @@ export const FocusTrap = forwardRef(
 
     const currentFocusedElementIndex = useRef(0);
     const parentActiveElementRef = useRef<HTMLElement>(null);
-    const { tabbableElements = [] } = useFindTabbableElements(ref);
+    const { getTabbableElements } = useFindTabbableElements(ref);
 
     const shouldAutoFocusToFirst = !autoFocusToLast ? autoFocusToFirst : false;
 
@@ -58,13 +58,13 @@ export const FocusTrap = forwardRef(
      * @returns element with autoFocus attribute
      */
     const checkForAlreadyFocusedElement = useCallback(() => {
-      const focusedElementIndex = tabbableElements.findIndex(
+      const focusedElementIndex = getTabbableElements().findIndex(
         (element) => document.activeElement === element
       );
 
       currentFocusedElementIndex.current = focusedElementIndex;
       return focusedElementIndex >= 0;
-    }, [tabbableElements]);
+    }, [getTabbableElements]);
 
     /**
      * checks existance of element in trap
@@ -72,10 +72,12 @@ export const FocusTrap = forwardRef(
      */
     const checkIfElementInTrap = useCallback(
       (element: HTMLElement) => {
-        const index = tabbableElements.findIndex((each) => each === element);
+        const index = getTabbableElements().findIndex(
+          (each) => each === element
+        );
         return index >= 0;
       },
-      [tabbableElements]
+      [getTabbableElements]
     );
 
     /**
@@ -84,10 +86,12 @@ export const FocusTrap = forwardRef(
      */
     const getElementIndex = useCallback(
       (element: HTMLElement) => {
-        const index = tabbableElements.findIndex((each) => each === element);
+        const index = getTabbableElements().findIndex(
+          (each) => each === element
+        );
         return index;
       },
-      [tabbableElements]
+      [getTabbableElements]
     );
 
     /**
@@ -106,7 +110,7 @@ export const FocusTrap = forwardRef(
 
         currentFocusedElementIndex.current = getElementIndex(element);
       },
-      [tabbableElements, checkIfElementInTrap]
+      [checkIfElementInTrap]
     );
 
     /**
@@ -137,7 +141,7 @@ export const FocusTrap = forwardRef(
      */
     const focusNextFocusableElement = () => {
       const nextFocusableElement =
-        tabbableElements[currentFocusedElementIndex.current + 1];
+        getTabbableElements()[currentFocusedElementIndex.current + 1];
 
       if (!nextFocusableElement) {
         focusFirstFocusableElement();
@@ -154,7 +158,7 @@ export const FocusTrap = forwardRef(
      */
     const focusPrevFocusableElement = () => {
       const prevFocusableElement =
-        tabbableElements[currentFocusedElementIndex.current - 1];
+        getTabbableElements()[currentFocusedElementIndex.current - 1];
 
       if (!prevFocusableElement) {
         focusLastFocusableElement();
@@ -169,7 +173,7 @@ export const FocusTrap = forwardRef(
      * directly focuses on first element in trap
      */
     const focusFirstFocusableElement = () => {
-      const firstElement = tabbableElements[0];
+      const firstElement = getTabbableElements()[0];
 
       currentFocusedElementIndex.current = 0;
       focusToElement(firstElement);
@@ -179,6 +183,7 @@ export const FocusTrap = forwardRef(
      * directly focuses on last element in trap
      */
     const focusLastFocusableElement = () => {
+      const tabbableElements = getTabbableElements();
       const lastElement = tabbableElements[tabbableElements.length - 1];
       currentFocusedElementIndex.current = tabbableElements.length - 1;
 

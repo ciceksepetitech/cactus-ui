@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import isElementVisible from '../utils/isElementVisible';
 import { focusableDOMElements } from '../constants/focusableDOMElements';
 
@@ -10,10 +10,7 @@ import { focusableDOMElements } from '../constants/focusableDOMElements';
  */
 export function useFindTabbableElements(
   nodeRef: React.RefObject<HTMLElement>
-): { tabbableElements: HTMLElement[] } {
-  const [tabbableElements, setTabbableElements] =
-    useState<Array<HTMLElement>>();
-
+): { getTabbableElements: () => HTMLElement[] } {
   /**
    * handles warnings and creates node list
    */
@@ -27,9 +24,11 @@ export function useFindTabbableElements(
       console.warn(
         'useFindTabbableElements: nodeRef.current is null or undefined!'
       );
-
-      return;
     }
+  }, []);
+
+  const getTabbableElements = useCallback(() => {
+    if (!nodeRef || !nodeRef.current) return;
 
     const tabbableDOMElementsStr = focusableDOMElements.join(
       ':not([hidden]):not([tabindex="-1"]),'
@@ -37,10 +36,8 @@ export function useFindTabbableElements(
 
     const nodeList = nodeRef.current.querySelectorAll(tabbableDOMElementsStr);
     const iteratableNodeList = Array.prototype.slice.call(nodeList);
-    const _tabbableElements = iteratableNodeList.filter(isElementVisible);
+    return iteratableNodeList.filter(isElementVisible);
+  }, []);
 
-    setTabbableElements(_tabbableElements);
-  }, [nodeRef?.current]);
-
-  return { tabbableElements };
+  return { getTabbableElements };
 }

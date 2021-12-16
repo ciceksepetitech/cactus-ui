@@ -27,6 +27,7 @@ const usePopover = ({
   targetRef,
   popoverRef
 }: IUsePopoverProps) => {
+  const timeoutRef = useRef(null);
   const [styles, setStyles] = useState<CSSProperties>({
     position: 'absolute',
     visibility: 'hidden'
@@ -114,9 +115,11 @@ const usePopover = ({
   );
 
   const getPopoverPosition = useCallback(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
     // needed to be set in next loop,
     // waiting Portal to be mounted!
-    window.requestIdleCallback(() => {
+    const timeout = setTimeout(() => {
       const targetRect: DOMRect = targetRef.current.getBoundingClientRect();
       const popoverRect: DOMRect = popoverRef.current.getBoundingClientRect();
 
@@ -141,7 +144,9 @@ const usePopover = ({
         ...prev,
         ...newPosition
       }));
-    });
+    }, 0);
+
+    timeoutRef.current = timeout;
   }, [autoFlip, placement, getAvailableSpaces, getPlacementGetter]);
 
   useLayoutEffect(() => {

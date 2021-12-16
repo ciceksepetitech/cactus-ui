@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useCallback } from 'react';
 import { focusableDOMElements } from '../constants/focusableDOMElements';
 
 /**
@@ -9,10 +9,7 @@ import { focusableDOMElements } from '../constants/focusableDOMElements';
  */
 export function useFindFocusableElements(
   nodeRef: React.RefObject<HTMLElement>
-): { focusableElements: HTMLElement[] } {
-  const [focusableElements, setFocusableElements] =
-    useState<Array<HTMLElement>>();
-
+): { getFocusableElements: () => HTMLElement[] } {
   /**
    * handles warnings and creates node list
    */
@@ -26,17 +23,19 @@ export function useFindFocusableElements(
       console.warn(
         'useFindFocusableElements: nodeRef.current is null or undefined!'
       );
-
-      return;
     }
+  }, []);
+
+  const getFocusableElements = useCallback(() => {
+    if (!nodeRef || !nodeRef.current) return;
 
     const focusableDOMElementsStr =
       focusableDOMElements.join(':not([hidden]),') +
       ',[tabindex]:not([disabled]):not([hidden])';
 
     const nodeList = nodeRef.current.querySelectorAll(focusableDOMElementsStr);
-    setFocusableElements(Array.prototype.slice.call(nodeList));
-  }, [nodeRef?.current]);
+    return Array.prototype.slice.call(nodeList);
+  }, []);
 
-  return { focusableElements };
+  return { getFocusableElements };
 }
