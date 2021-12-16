@@ -6,7 +6,13 @@
  * focusTrap component traps focus events inside of its boundries. It is developed according to the accessibility rules. User cannot leave the trap boundries unless disables it. Great match for components like Modals, Dialogs and etc.
  */
 
-import React, { useRef, forwardRef, useCallback, useLayoutEffect } from 'react';
+import React, {
+  useRef,
+  useState,
+  forwardRef,
+  useCallback,
+  useLayoutEffect
+} from 'react';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 import { useFindTabbableElements, useCombinedRefs } from '@cs/component-hooks';
 
@@ -34,8 +40,9 @@ export const FocusTrap = forwardRef(
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const currentFocusedElementIndex = useRef(0);
+    const [refNode, setRefNode] = useState<HTMLElement>();
     const parentActiveElementRef = useRef<HTMLElement>(null);
-    const { getTabbableElements } = useFindTabbableElements(ref);
+    const { tabbableElements = [] } = useFindTabbableElements(refNode);
 
     const shouldAutoFocusToFirst = !autoFocusToLast ? autoFocusToFirst : false;
 
@@ -58,13 +65,13 @@ export const FocusTrap = forwardRef(
      * @returns element with autoFocus attribute
      */
     const checkForAlreadyFocusedElement = useCallback(() => {
-      const focusedElementIndex = getTabbableElements().findIndex(
+      const focusedElementIndex = tabbableElements.findIndex(
         (element) => document.activeElement === element
       );
 
       currentFocusedElementIndex.current = focusedElementIndex;
       return focusedElementIndex >= 0;
-    }, [getTabbableElements]);
+    }, [tabbableElements]);
 
     /**
      * checks existance of element in trap
@@ -72,12 +79,10 @@ export const FocusTrap = forwardRef(
      */
     const checkIfElementInTrap = useCallback(
       (element: HTMLElement) => {
-        const index = getTabbableElements().findIndex(
-          (each) => each === element
-        );
+        const index = tabbableElements.findIndex((each) => each === element);
         return index >= 0;
       },
-      [getTabbableElements]
+      [tabbableElements]
     );
 
     /**
@@ -86,12 +91,10 @@ export const FocusTrap = forwardRef(
      */
     const getElementIndex = useCallback(
       (element: HTMLElement) => {
-        const index = getTabbableElements().findIndex(
-          (each) => each === element
-        );
+        const index = tabbableElements.findIndex((each) => each === element);
         return index;
       },
-      [getTabbableElements]
+      [tabbableElements]
     );
 
     /**
@@ -141,7 +144,7 @@ export const FocusTrap = forwardRef(
      */
     const focusNextFocusableElement = () => {
       const nextFocusableElement =
-        getTabbableElements()[currentFocusedElementIndex.current + 1];
+        tabbableElements[currentFocusedElementIndex.current + 1];
 
       if (!nextFocusableElement) {
         focusFirstFocusableElement();
@@ -158,7 +161,7 @@ export const FocusTrap = forwardRef(
      */
     const focusPrevFocusableElement = () => {
       const prevFocusableElement =
-        getTabbableElements()[currentFocusedElementIndex.current - 1];
+        tabbableElements[currentFocusedElementIndex.current - 1];
 
       if (!prevFocusableElement) {
         focusLastFocusableElement();
@@ -173,7 +176,7 @@ export const FocusTrap = forwardRef(
      * directly focuses on first element in trap
      */
     const focusFirstFocusableElement = () => {
-      const firstElement = getTabbableElements()[0];
+      const firstElement = tabbableElements[0];
 
       currentFocusedElementIndex.current = 0;
       focusToElement(firstElement);
@@ -183,7 +186,6 @@ export const FocusTrap = forwardRef(
      * directly focuses on last element in trap
      */
     const focusLastFocusableElement = () => {
-      const tabbableElements = getTabbableElements();
       const lastElement = tabbableElements[tabbableElements.length - 1];
       currentFocusedElementIndex.current = tabbableElements.length - 1;
 
@@ -252,10 +254,15 @@ export const FocusTrap = forwardRef(
       handleShiftTabKeyDown(event);
     };
 
+    const refCallback = useCallback((node: any) => {
+      ref.current = node;
+      setRefNode(node);
+    }, []);
+
     return (
       <Component
         {...rest}
-        ref={ref}
+        ref={refCallback}
         data-cs-focus-wrapper
         onKeyDown={disabled ? undefined : handleKeyDown}
       >

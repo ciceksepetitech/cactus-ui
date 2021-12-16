@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { focusableDOMElements } from '../constants/focusableDOMElements';
 
 /**
@@ -7,35 +7,25 @@ import { focusableDOMElements } from '../constants/focusableDOMElements';
  *
  * @returns Array<DOMNode>
  */
-export function useFindFocusableElements(
-  nodeRef: React.RefObject<HTMLElement>
-): { getFocusableElements: () => HTMLElement[] } {
+export function useFindFocusableElements(node: HTMLElement): {
+  focusableElements: HTMLElement[];
+} {
+  const [focusableElements, setFocusableElements] =
+    useState<Array<HTMLElement>>();
+
   /**
-   * handles warnings and creates node list
+   * creates node list
    */
   useEffect(() => {
-    if (!nodeRef) {
-      console.warn('useFindFocusableElements: nodeRef is a required field!');
-      return;
-    }
-
-    if (!nodeRef.current) {
-      console.warn(
-        'useFindFocusableElements: nodeRef.current is null or undefined!'
-      );
-    }
-  }, []);
-
-  const getFocusableElements = useCallback(() => {
-    if (!nodeRef || !nodeRef.current) return;
+    if (!node) return;
 
     const focusableDOMElementsStr =
       focusableDOMElements.join(':not([hidden]),') +
       ',[tabindex]:not([disabled]):not([hidden])';
 
-    const nodeList = nodeRef.current.querySelectorAll(focusableDOMElementsStr);
-    return Array.prototype.slice.call(nodeList);
-  }, []);
+    const nodeList = node.querySelectorAll(focusableDOMElementsStr);
+    setFocusableElements(Array.prototype.slice.call(nodeList));
+  }, [node]);
 
-  return { getFocusableElements };
+  return { focusableElements };
 }

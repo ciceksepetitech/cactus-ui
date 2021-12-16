@@ -6,9 +6,15 @@
  * provides accessible alert dialog for situations like user confirmation is needed
  */
 
-import React, { forwardRef, useLayoutEffect } from 'react';
-import { useFindTabbableElements } from '@cs/component-hooks';
 import { PolymorphicComponentProps } from '@cs/component-utils';
+import { useFindTabbableElements, useCombinedRefs } from '@cs/component-hooks';
+import React, {
+  useRef,
+  useState,
+  forwardRef,
+  useCallback,
+  useLayoutEffect
+} from 'react';
 import {
   IDialogProps,
   DialogOverlay,
@@ -60,23 +66,32 @@ export const AlertDialogContent = forwardRef(
 
     showContentWarnings(AlertDialogContent.displayName, props);
 
+    const internalRef = useRef(null);
+    const ref = useCombinedRefs(forwardedRef, internalRef);
+
     const Component = as || 'div';
-    const { getTabbableElements } = useFindTabbableElements(forwardedRef);
+    const [refNode, setRefNode] = useState<HTMLElement>();
+    const { tabbableElements } = useFindTabbableElements(refNode);
 
     useLayoutEffect(() => {
       if (process.env.NODE_ENV === 'production') return;
 
-      if (getTabbableElements()?.length === 0) {
+      if (tabbableElements?.length === 0) {
         const error = `@cs/component-alert-dialog-content: at least one focusable element should be provided for role=alertdialog. Ensure you have one focusable element added. @see: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alertdialog_role`;
 
         console.error(error);
       }
-    }, [getTabbableElements]);
+    }, [tabbableElements]);
+
+    const refCallback = useCallback((node: HTMLElement) => {
+      ref.current = node;
+      setRefNode(node);
+    }, []);
 
     return (
       <Component
-        ref={forwardedRef}
         aria-modal="true"
+        ref={refCallback}
         role="alertdialog"
         data-cs-alert-dialog-content
         {...rest}

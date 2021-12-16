@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import isElementVisible from '../utils/isElementVisible';
 import { focusableDOMElements } from '../constants/focusableDOMElements';
 
@@ -8,36 +8,28 @@ import { focusableDOMElements } from '../constants/focusableDOMElements';
  *
  * @returns Array<DOMNode>
  */
-export function useFindTabbableElements(
-  nodeRef: React.RefObject<HTMLElement>
-): { getTabbableElements: () => HTMLElement[] } {
+export function useFindTabbableElements(node: HTMLElement): {
+  tabbableElements: HTMLElement[];
+} {
+  const [tabbableElements, setTabbableElements] =
+    useState<Array<HTMLElement>>();
+
   /**
-   * handles warnings and creates node list
+   * creates node list
    */
   useEffect(() => {
-    if (!nodeRef) {
-      console.warn('useFindTabbableElements: nodeRef is a required field!');
-      return;
-    }
-
-    if (!nodeRef.current) {
-      console.warn(
-        'useFindTabbableElements: nodeRef.current is null or undefined!'
-      );
-    }
-  }, []);
-
-  const getTabbableElements = useCallback(() => {
-    if (!nodeRef || !nodeRef.current) return;
+    if (!node) return;
 
     const tabbableDOMElementsStr = focusableDOMElements.join(
       ':not([hidden]):not([tabindex="-1"]),'
     );
 
-    const nodeList = nodeRef.current.querySelectorAll(tabbableDOMElementsStr);
+    const nodeList = node.querySelectorAll(tabbableDOMElementsStr);
     const iteratableNodeList = Array.prototype.slice.call(nodeList);
-    return iteratableNodeList.filter(isElementVisible);
-  }, []);
+    const _tabbableElements = iteratableNodeList.filter(isElementVisible);
 
-  return { getTabbableElements };
+    setTabbableElements(_tabbableElements);
+  }, [node]);
+
+  return { tabbableElements };
 }

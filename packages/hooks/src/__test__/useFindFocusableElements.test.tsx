@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useFindFocusableElements } from '..';
 import { render, screen, cleanup } from '@cs/component-utils';
 
@@ -17,11 +17,7 @@ describe('useFindFocusableElements hook tests', () => {
     expect(unfocusables).toHaveLength(0);
   });
 
-  test('expect useFindFocusableElements not to return focusable elements when ref is not provided', () => {
-    const consoleWarnMock = jest
-      .spyOn(global.console, 'warn')
-      .mockImplementation();
-
+  test('expect useFindFocusableElements not to return focusable elements when node is not provided', () => {
     render(<ComponentWithNoRef />);
 
     const focusables = screen.queryAllByText(/focusable/i);
@@ -29,30 +25,28 @@ describe('useFindFocusableElements hook tests', () => {
 
     expect(focusables).toHaveLength(0);
     expect(unfocusables).toHaveLength(0);
-    expect(consoleWarnMock).toBeCalled();
-
-    consoleWarnMock.mockRestore();
   });
 });
 
 const Component = () => {
   const ref = useRef(null);
-  const [focusableElements, setFocusableElements] = useState([]);
-  const { getFocusableElements } = useFindFocusableElements(ref);
+  const [refNode, setRefNode] = useState<HTMLElement>();
+  const { focusableElements } = useFindFocusableElements(refNode);
 
-  useEffect(() => {
-    setFocusableElements(getFocusableElements());
-  }, [getFocusableElements]);
+  const refCallback = useCallback((node: any) => {
+    ref.current = node;
+    setRefNode(node);
+  }, []);
 
   return (
-    <div ref={ref}>
+    <div ref={refCallback}>
       <button data-testid="focusable">button</button>
       <button data-testid="focusable">button</button>
       <p data-testid="unfocusable">text</p>
       <span data-testid="unfocusable">text</span>
 
       <ul>
-        {focusableElements.map((each, index) => (
+        {focusableElements?.map((each, index) => (
           <li key={index}>{each.dataset.testid}</li>
         ))}
       </ul>
@@ -61,8 +55,7 @@ const Component = () => {
 };
 
 const ComponentWithNoRef = () => {
-  const useFindFocusableElementsClone: any = useFindFocusableElements;
-  const { getFocusableElements } = useFindFocusableElementsClone();
+  const { focusableElements } = useFindFocusableElements(null);
 
   return (
     <div>
@@ -72,7 +65,7 @@ const ComponentWithNoRef = () => {
       <span data-testid="unfocusable">text</span>
 
       <ul>
-        {getFocusableElements()?.map((each, index) => (
+        {focusableElements?.map((each, index) => (
           <li key={index}>{each.dataset.testid}</li>
         ))}
       </ul>

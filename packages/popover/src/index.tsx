@@ -6,7 +6,11 @@
  */
 
 import Portal from '@cs/component-portal';
-import { useCombinedRefs, useEventListener } from '@cs/component-hooks';
+import {
+  useCombinedRefs,
+  useEventListener,
+  useFindTabbableElements
+} from '@cs/component-hooks';
 import React, {
   useRef,
   useState,
@@ -21,6 +25,12 @@ import {
   PolymorphicComponentProps
 } from '@cs/component-utils';
 
+const defaultPopoverStyles: CSSProperties = {
+  top: '-100%',
+  left: '-100%',
+  position: 'absolute'
+};
+
 const usePopover = ({
   autoFlip,
   placement,
@@ -28,10 +38,7 @@ const usePopover = ({
   popoverRef
 }: IUsePopoverProps) => {
   const timeoutRef = useRef(null);
-  const [styles, setStyles] = useState<CSSProperties>({
-    position: 'absolute',
-    visibility: 'hidden'
-  });
+  const [styles, setStyles] = useState<CSSProperties>(defaultPopoverStyles);
 
   const getAvailableSpaces = useCallback(
     (targetRect: DOMRect, popoverRect: DOMRect): Record<string, boolean> => {
@@ -136,7 +143,6 @@ const usePopover = ({
 
       const getPlacement = getPlacementGetter(certainPlacement);
       const newPosition: CSSProperties = {
-        visibility: 'visible',
         ...getPlacement(targetRect, popoverRect)
       };
 
@@ -189,12 +195,20 @@ const Popover = forwardRef(
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
+    const [refNode, setRefNode] = useState<HTMLElement>();
+    const { tabbableElements } = useFindTabbableElements(refNode);
+
     const { styles: popoverStyles } = usePopover({
       autoFlip,
       placement,
       targetRef,
       popoverRef: ref
     });
+
+    const refCallback = useCallback((node: HTMLElement) => {
+      ref.current = node;
+      setRefNode(node);
+    }, []);
 
     return (
       <ConditionalWrapper
@@ -203,8 +217,8 @@ const Popover = forwardRef(
       >
         <Component
           {...rest}
-          ref={ref}
           data-cs-popover
+          ref={refCallback}
           style={{ ...style, ...popoverStyles }}
         >
           {children}
