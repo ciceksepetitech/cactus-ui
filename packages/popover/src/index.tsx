@@ -303,7 +303,8 @@ const usePopoverTabIndexSyncing = (popoverNode: HTMLElement) => {
   useEventListener({
     name: 'focusin',
     target: popoverNode,
-    listener: enableTabIndexSyncing
+    listener: enableTabIndexSyncing,
+    condition: tabbableElements?.length > 0
   });
 
   return { handleKeyDown };
