@@ -9,6 +9,7 @@ import Portal from '@cs/component-portal';
 import {
   useCombinedRefs,
   useEventListener,
+  getTabbableElements,
   useFindTabbableElements
 } from '@cs/component-hooks';
 import React, {
@@ -166,12 +167,146 @@ const usePopover = ({
 
   useEventListener({
     name: 'scroll',
+    options: { passive: true },
     listener: getPopoverPosition
   });
 
   return {
     styles
   };
+};
+
+const usePopoverTabIndexSyncing = (popoverNode: HTMLElement) => {
+  const parentActiveElementRef = useRef<HTMLElement>(null);
+  const { tabbableElements } = useFindTabbableElements(popoverNode);
+
+  useLayoutEffect(() => {
+    const parentActiveElement = document.activeElement as HTMLElement;
+    parentActiveElementRef.current = parentActiveElement;
+  }, []);
+
+  const focusToElement = useCallback((element) => {
+    if (!document.contains(element)) return;
+    element.focus();
+  }, []);
+
+  const getFirstTabbableElement = useCallback(
+    () => tabbableElements?.[0],
+    [tabbableElements]
+  );
+
+  const getLastTabbableElement = useCallback(
+    () => tabbableElements?.[tabbableElements?.length - 1],
+    [tabbableElements]
+  );
+
+  const getNextNodeAfterTargetNode = useCallback(() => {
+    const tabbableElements = getTabbableElements(document.body);
+    const targetNodeIndex = tabbableElements?.findIndex(
+      (element) => element === parentActiveElementRef.current
+    );
+
+    return tabbableElements[targetNodeIndex + 1];
+  }, [tabbableElements]);
+
+  const enableTabIndexSyncing = useCallback(() => {
+    tabbableElements?.forEach((element) => (element.tabIndex = 0));
+  }, [tabbableElements]);
+
+  const disableTabIndexSyncing = useCallback(() => {
+    tabbableElements?.forEach((element) => (element.tabIndex = -1));
+  }, [tabbableElements]);
+
+  const handleTabKeyDown = useCallback(
+    (event) => {
+      const isTabKeyDown = !event.shiftKey && event.keyCode === 9;
+      if (!isTabKeyDown) return;
+
+      if (document.activeElement === parentActiveElementRef.current) {
+        event.preventDefault();
+
+        const firstTabbableElement = getFirstTabbableElement();
+        focusToElement(firstTabbableElement);
+        enableTabIndexSyncing();
+
+        return;
+      }
+
+      const lastTabbableElement = getLastTabbableElement();
+      if (document.activeElement === lastTabbableElement) {
+        event.preventDefault();
+
+        const nodeAfterTargetNode = getNextNodeAfterTargetNode();
+        focusToElement(nodeAfterTargetNode);
+        disableTabIndexSyncing();
+
+        event.preventDefault();
+      }
+    },
+    [
+      focusToElement,
+      enableTabIndexSyncing,
+      disableTabIndexSyncing,
+      getLastTabbableElement,
+      getFirstTabbableElement,
+      getNextNodeAfterTargetNode
+    ]
+  );
+
+  const handleShiftTabKeyDown = useCallback(
+    (event) => {
+      const isShiftTabKeyDown = event.shiftKey && event.keyCode === 9;
+      if (!isShiftTabKeyDown) return;
+
+      const firstTabbableElement = getFirstTabbableElement();
+      if (document.activeElement === firstTabbableElement) {
+        event.preventDefault();
+        enableTabIndexSyncing();
+
+        focusToElement(parentActiveElementRef.current);
+
+        return;
+      }
+
+      const nodeAfterTargetNode = getNextNodeAfterTargetNode();
+      if (document.activeElement === nodeAfterTargetNode) {
+        event.preventDefault();
+        enableTabIndexSyncing();
+
+        const lastTabbableElement = getLastTabbableElement();
+        focusToElement(lastTabbableElement);
+      }
+    },
+    [
+      focusToElement,
+      enableTabIndexSyncing,
+      getLastTabbableElement,
+      getFirstTabbableElement,
+      getNextNodeAfterTargetNode
+    ]
+  );
+
+  const handleKeyDown = useCallback(
+    (event) => {
+      handleTabKeyDown(event);
+      handleShiftTabKeyDown(event);
+    },
+    [handleTabKeyDown, handleShiftTabKeyDown]
+  );
+
+  useEventListener({
+    name: 'keydown',
+    listener: handleKeyDown,
+    condition: tabbableElements?.length > 0
+  });
+
+  useEventListener({
+    name: 'focusin',
+    target: popoverNode,
+    listener: enableTabIndexSyncing
+  });
+
+  return { handleKeyDown };
 };
 
 const Popover = forwardRef(
@@ -190,13 +325,12 @@ const Popover = forwardRef(
       ...rest
     } = props;
 
-    const Component = as || 'div';
+    const [refNode, setRefNode] = useState<HTMLElement>();
 
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
-    const [refNode, setRefNode] = useState<HTMLElement>();
-    const { tabbableElements } = useFindTabbableElements(refNode);
+    usePopoverTabIndexSyncing(refNode);
 
     const { styles: popoverStyles } = usePopover({
       autoFlip,
@@ -209,6 +343,8 @@ const Popover = forwardRef(
       ref.current = node;
       setRefNode(node);
     }, []);
+
+    const Component = as || 'div';
 
     return (
       <ConditionalWrapper

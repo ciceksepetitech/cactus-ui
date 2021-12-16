@@ -3,6 +3,7 @@ import { isCSR } from '@cs/component-utils';
 import { useLatestValue } from '../useLatestValue';
 
 interface IUseEventListener {
+  condition?: boolean;
   listener: EventListener;
   options?: AddEventListenerOptions;
   name: keyof HTMLElementEventMap | string; // string for custom events
@@ -24,13 +25,14 @@ export function useEventListener({
   name,
   options,
   listener,
+  condition = true,
   target = isCSR ? window : undefined
 }: IUseEventListener) {
   const listenerRef = useLatestValue<EventListener>(listener);
   const optionsRef = useLatestValue<EventListenerOptions>(options);
 
   useEffect(() => {
-    if (!target) return undefined;
+    if (!target || !condition) return undefined;
 
     const _options = optionsRef.current;
     const _target = 'current' in target ? target.current : target;
@@ -38,5 +40,5 @@ export function useEventListener({
     const eventListener = (event: Event) => listenerRef.current(event);
     _target.addEventListener(name, eventListener, _options);
     return () => _target.removeEventListener(name, eventListener, _options);
-  }, [name, target]);
+  }, [name, condition, target]);
 }

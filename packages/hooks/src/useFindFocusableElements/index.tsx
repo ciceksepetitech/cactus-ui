@@ -1,5 +1,5 @@
+import { getFocusableElements } from '..';
 import { useEffect, useState } from 'react';
-import { focusableDOMElements } from '../constants/focusableDOMElements';
 
 /**
  * gets focusable elements inside of passed nodeRef
@@ -18,13 +18,8 @@ export function useFindFocusableElements(node: HTMLElement): {
    */
   useEffect(() => {
     if (!node) return;
-
-    const focusableDOMElementsStr =
-      focusableDOMElements.join(':not([hidden]),') +
-      ',[tabindex]:not([disabled]):not([hidden])';
-
-    const nodeList = node.querySelectorAll(focusableDOMElementsStr);
-    setFocusableElements(Array.prototype.slice.call(nodeList));
+    const _focusableEleemnts = getFocusableElements(node);
+    setFocusableElements(Array.prototype.slice.call(_focusableEleemnts));
   }, [node]);
 
   return { focusableElements };

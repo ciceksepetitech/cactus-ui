@@ -1,6 +1,5 @@
+import { getTabbableElements } from '..';
 import { useEffect, useState } from 'react';
-import isElementVisible from '../utils/isElementVisible';
-import { focusableDOMElements } from '../constants/focusableDOMElements';
 
 /**
  * gets tabbable elements inside of passed nodeRef
@@ -19,15 +18,7 @@ export function useFindTabbableElements(node: HTMLElement): {
    */
   useEffect(() => {
     if (!node) return;
-
-    const tabbableDOMElementsStr = focusableDOMElements.join(
-      ':not([hidden]):not([tabindex="-1"]),'
-    );
-
-    const nodeList = node.querySelectorAll(tabbableDOMElementsStr);
-    const iteratableNodeList = Array.prototype.slice.call(nodeList);
-    const _tabbableElements = iteratableNodeList.filter(isElementVisible);
-
+    const _tabbableElements = getTabbableElements(node);
     setTabbableElements(_tabbableElements);
   }, [node]);
 

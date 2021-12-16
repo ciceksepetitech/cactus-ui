@@ -226,8 +226,6 @@ export const FocusTrap = forwardRef(
       if (!isTabKeyDown) return;
 
       event.preventDefault();
-      event.stopPropagation();
-
       focusNextFocusableElement();
     };
 
@@ -241,8 +239,6 @@ export const FocusTrap = forwardRef(
       if (!isShiftTabKeyDown) return;
 
       event.preventDefault();
-      event.stopPropagation();
-
       focusPrevFocusableElement();
     };
 
