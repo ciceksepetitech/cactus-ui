@@ -36,9 +36,8 @@ const usePopover = ({
   autoFlip,
   placement,
   targetRef,
-  popoverRef
+  popoverNode
 }: IUsePopoverProps) => {
-  const timeoutRef = useRef(null);
   const [styles, setStyles] = useState<CSSProperties>(defaultPopoverStyles);
 
   const getAvailableSpaces = useCallback(
@@ -116,45 +115,45 @@ const usePopover = ({
           return getPlacementRight;
 
         default:
-          break;
+          return getPlacementBottom;
       }
     },
     [getPlacementLeft, getPlacementRight, getPlacementBottom, getPlacementTop]
   );
 
   const getPopoverPosition = useCallback(() => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (!popoverNode) return;
 
-    // needed to be set in next loop,
-    // waiting Portal to be mounted!
-    const timeout = setTimeout(() => {
-      const targetRect: DOMRect = targetRef.current.getBoundingClientRect();
-      const popoverRect: DOMRect = popoverRef.current.getBoundingClientRect();
+    const targetRect: DOMRect = targetRef.current.getBoundingClientRect();
+    const popoverRect: DOMRect = popoverNode.getBoundingClientRect();
 
-      const availableSpaces = getAvailableSpaces(targetRect, popoverRect);
+    const availableSpaces = getAvailableSpaces(targetRect, popoverRect);
 
-      const shouldFlip =
-        autoFlip &&
-        !availableSpaces[placement] &&
-        availableSpaces[OppositePlacements[placement]];
+    const shouldFlip =
+      autoFlip &&
+      !availableSpaces[placement] &&
+      availableSpaces[OppositePlacements[placement]];
 
-      const certainPlacement = shouldFlip
-        ? OppositePlacements[placement]
-        : placement;
+    const certainPlacement = shouldFlip
+      ? OppositePlacements[placement]
+      : placement;
 
-      const getPlacement = getPlacementGetter(certainPlacement);
-      const newPosition: CSSProperties = {
-        ...getPlacement(targetRect, popoverRect)
-      };
+    const getPlacement = getPlacementGetter(certainPlacement);
+    const newPosition: CSSProperties = {
+      ...getPlacement(targetRect, popoverRect)
+    };
 
-      setStyles((prev) => ({
-        ...prev,
-        ...newPosition
-      }));
-    }, 0);
-
-    timeoutRef.current = timeout;
-  }, [autoFlip, placement, getAvailableSpaces, getPlacementGetter]);
+    setStyles((prev) => ({
+      ...prev,
+      ...newPosition
+    }));
+  }, [
+    autoFlip,
+    placement,
+    popoverNode,
+    getAvailableSpaces,
+    getPlacementGetter
+  ]);
 
   useLayoutEffect(() => {
     getPopoverPosition();
@@ -337,7 +336,7 @@ const Popover = forwardRef(
       autoFlip,
       placement,
       targetRef,
-      popoverRef: ref
+      popoverNode: refNode
     });
 
     const refCallback = useCallback((node: HTMLElement) => {
@@ -395,7 +394,7 @@ type PlacementGetterType = Placements.Left | Placements.Top;
 
 interface IUsePopoverProps
   extends Pick<IPopoverProps, 'autoFlip' | 'placement' | 'targetRef'> {
-  popoverRef: MutableRefObject<any>;
+  popoverNode: HTMLElement;
 }
 
 /** Display Names */
