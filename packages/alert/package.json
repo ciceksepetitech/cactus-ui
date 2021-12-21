@@ -20,7 +20,6 @@
     "@cs/component-hooks": "^0.0.1",
     "@cs/component-visually-hidden": "^0.0.1"
   },
-  "files": ["styles.css"],
   "scripts": {
     "build": "scripty",
     "clean": "scripty",

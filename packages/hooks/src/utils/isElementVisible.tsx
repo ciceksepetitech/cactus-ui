@@ -21,12 +21,9 @@ export const checkStyleVisibility = (element: Element): boolean => {
  * @param element
  * @returns boolean
  */
-export const isElementVisible = (element: Element): boolean => {
-  return (
-    element.nodeName !== '#comment' &&
-    checkStyleVisibility(element) &&
-    !element.hasAttribute('hidden')
-  );
-};
+export const isElementVisible = (element: Element): boolean =>
+  element.nodeName !== '#comment' &&
+  checkStyleVisibility(element) &&
+  !element.hasAttribute('hidden');
 
 export default isElementVisible;

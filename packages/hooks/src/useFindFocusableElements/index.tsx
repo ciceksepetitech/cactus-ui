@@ -1,5 +1,5 @@
+import { getFocusableElements } from '..';
 import { useEffect, useState } from 'react';
-import { focusableDOMElements } from '../constants/focusableDOMElements';
 
 /**
  * gets focusable elements inside of passed nodeRef
@@ -7,36 +7,20 @@ import { focusableDOMElements } from '../constants/focusableDOMElements';
  *
  * @returns Array<DOMNode>
  */
-export function useFindFocusableElements(
-  nodeRef: React.RefObject<HTMLElement>
-): { focusableElements: HTMLElement[] } {
+export function useFindFocusableElements(node: HTMLElement): {
+  focusableElements: HTMLElement[];
+} {
   const [focusableElements, setFocusableElements] =
     useState<Array<HTMLElement>>();
 
   /**
-   * handles warnings and creates node list
+   * creates node list
    */
   useEffect(() => {
-    if (!nodeRef) {
-      console.warn('useFindFocusableElements: nodeRef is a required field!');
-      return;
-    }
-
-    if (!nodeRef.current) {
-      console.warn(
-        'useFindFocusableElements: nodeRef.current is null or undefined!'
-      );
-
-      return;
-    }
-
-    const focusableDOMElementsStr =
-      focusableDOMElements.join(':not([hidden]),') +
-      ',[tabindex]:not([disabled]):not([hidden])';
-
-    const nodeList = nodeRef.current.querySelectorAll(focusableDOMElementsStr);
-    setFocusableElements(Array.prototype.slice.call(nodeList));
-  }, [nodeRef?.current]);
+    if (!node) return;
+    const _focusableEleemnts = getFocusableElements(node);
+    setFocusableElements(Array.prototype.slice.call(_focusableEleemnts));
+  }, [node]);
 
   return { focusableElements };
 }

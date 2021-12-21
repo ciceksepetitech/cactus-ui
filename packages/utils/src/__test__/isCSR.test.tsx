@@ -1,5 +1,5 @@
 import React from 'react';
-import { isCSR } from '../utils';
+import { isCSR } from '..';
 import { render, screen, cleanup } from '@cs/component-utils';
 
 describe('useIsCSR hook tests', () => {

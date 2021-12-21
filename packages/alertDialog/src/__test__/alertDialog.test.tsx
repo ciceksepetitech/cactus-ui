@@ -6,7 +6,7 @@ import { render, cleanup } from '@cs/component-utils';
 let consoleWarn;
 let consoleError;
 
-describe('skipNav component tests', () => {
+describe('alert dialog component tests', () => {
   afterEach(() => {
     jest.restoreAllMocks();
     cleanup();

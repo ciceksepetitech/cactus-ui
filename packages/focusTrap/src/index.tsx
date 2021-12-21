@@ -6,7 +6,13 @@
  * focusTrap component traps focus events inside of its boundries. It is developed according to the accessibility rules. User cannot leave the trap boundries unless disables it. Great match for components like Modals, Dialogs and etc.
  */
 
-import React, { forwardRef, useLayoutEffect, useRef, useCallback } from 'react';
+import React, {
+  useRef,
+  useState,
+  forwardRef,
+  useCallback,
+  useLayoutEffect
+} from 'react';
 import { PolymorphicComponentProps } from '@cs/component-utils';
 import { useFindTabbableElements, useCombinedRefs } from '@cs/component-hooks';
 
@@ -34,8 +40,9 @@ export const FocusTrap = forwardRef(
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const currentFocusedElementIndex = useRef(0);
+    const [refNode, setRefNode] = useState<HTMLElement>();
     const parentActiveElementRef = useRef<HTMLElement>(null);
-    const { tabbableElements = [] } = useFindTabbableElements(ref);
+    const { tabbableElements = [] } = useFindTabbableElements(refNode);
 
     const shouldAutoFocusToFirst = !autoFocusToLast ? autoFocusToFirst : false;
 
@@ -106,7 +113,7 @@ export const FocusTrap = forwardRef(
 
         currentFocusedElementIndex.current = getElementIndex(element);
       },
-      [tabbableElements, checkIfElementInTrap]
+      [checkIfElementInTrap]
     );
 
     /**
@@ -219,8 +226,6 @@ export const FocusTrap = forwardRef(
       if (!isTabKeyDown) return;
 
       event.preventDefault();
-      event.stopPropagation();
-
       focusNextFocusableElement();
     };
 
@@ -234,8 +239,6 @@ export const FocusTrap = forwardRef(
       if (!isShiftTabKeyDown) return;
 
       event.preventDefault();
-      event.stopPropagation();
-
       focusPrevFocusableElement();
     };
 
@@ -247,10 +250,15 @@ export const FocusTrap = forwardRef(
       handleShiftTabKeyDown(event);
     };
 
+    const refCallback = useCallback((node: any) => {
+      ref.current = node;
+      setRefNode(node);
+    }, []);
+
     return (
       <Component
         {...rest}
-        ref={ref}
+        ref={refCallback}
         data-cs-focus-wrapper
         onKeyDown={disabled ? undefined : handleKeyDown}
       >

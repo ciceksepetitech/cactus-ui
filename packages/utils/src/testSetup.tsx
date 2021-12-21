@@ -26,6 +26,6 @@ const customRender = (
 ): RenderResult => render(ui, { wrapper: Wrapper, ...options });
 
 export * from '@testing-library/react';
-export * as reactHooks from '@testing-library/react-hooks';
+export * as reactHooks from '@testing-library/react-hooks/dom';
 
 export { customRender as render };
