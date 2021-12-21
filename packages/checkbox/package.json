@@ -18,6 +18,7 @@
     "@cs/component-hooks": "^0.0.1",
     "@cs/component-utils": "^0.0.1"
   },
+  "files": ["styles.css"],
   "scripts": {
     "build": "scripty",
     "clean": "scripty",
