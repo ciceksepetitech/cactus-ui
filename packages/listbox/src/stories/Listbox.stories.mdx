@@ -1,0 +1,70 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs';
+import Listbox from '..';
+
+<Meta
+  title="Components/Listbox"
+  component={Listbox}
+  args={{
+    as: 'div',
+    disabled: false
+  }}
+  argTypes={{
+    as: {
+      name: 'as',
+      control: { type: 'text' },
+      description:
+        'changes html tag of visually hidden component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    }
+  }}
+/>
+
+## Listbox
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  Visually hides its content from UI without removing it from DOM. Assistive
+  technologies can still attract with the element but it will not take any space
+  at the DOM. VisuallyHidden is a polymorphic component. That's why can be
+  rendered as any valid HTML tag
+</p>
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => (
+      <div>
+        <span>The text "Should not be seen!" should not be seen below 😊</span>
+        <Listbox {...args}>Should not be seen!</Listbox>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of Listbox component. Renders as 'div' by
+  default
+</Description>
+
+<ArgsTable story="Default" />
