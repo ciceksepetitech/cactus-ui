@@ -5,13 +5,13 @@ import {
   ArgsTable,
   Description
 } from '@storybook/addon-docs';
-import Listbox from '..';
+import Listbox, { ListboxItem } from '..';
 
 <Meta
   title="Components/Listbox"
   component={Listbox}
   args={{
-    as: 'div',
+    as: 'button',
     disabled: false
   }}
   argTypes={{
@@ -54,10 +54,11 @@ import Listbox from '..';
 <Canvas>
   <Story name="Default" inline={false}>
     {(args) => (
-      <div>
-        <span>The text "Should not be seen!" should not be seen below 😊</span>
-        <Listbox {...args}>Should not be seen!</Listbox>
-      </div>
+      <Listbox {...args}>
+        <ListboxItem>item 1</ListboxItem>
+        <ListboxItem>item 2</ListboxItem>
+        <ListboxItem>item 3</ListboxItem>
+      </Listbox>
     )}
   </Story>
 </Canvas>

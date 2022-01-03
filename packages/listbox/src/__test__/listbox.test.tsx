@@ -9,7 +9,7 @@ describe('listbox component tests', () => {
   });
 
   test('visuallyHidden should pass a11y', async () => {
-    const { container } = render(<Listbox />);
+    const { container } = render(<Listbox>child</Listbox>);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
