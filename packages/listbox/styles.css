@@ -1,0 +1,41 @@
+[data-cs-listbox-popover][hidden] {
+  display: none;
+}
+
+[data-cs-listbox-button] {
+  color: black;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid #eee;
+}
+
+[data-cs-listbox-list] {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-cs-listbox-popover] {
+  margin: 5px 0px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  background-color: white;
+}
+
+[data-cs-listbox-arrow] {
+  padding: 3px;
+  margin: 0 0 3px 10px;
+  display: inline-block;
+  border: solid #6e6e6e;
+  transform: rotate(45deg);
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+}
+
+[data-cs-listbox-item] {
+  cursor: pointer;
+  padding: 5px 10px;
+  text-align: start;
+}

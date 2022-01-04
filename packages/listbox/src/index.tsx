@@ -8,6 +8,8 @@
 import React, {
   useRef,
   useState,
+  Children,
+  useEffect,
   forwardRef,
   useContext,
   useCallback,
@@ -33,20 +35,127 @@ export const useListboxContext = () => {
   return context;
 };
 
-const useListbox = () => {
-  const onKeyDown = useCallback(() => {}, []);
+const getLabel = (children: React.ReactNode) => {
+  let label = '';
+
+  const childrenArray = Children.toArray(children);
+
+  Children.map(childrenArray, (child: React.ReactElement) => {
+    if (typeof child === 'string') label += child;
+    if (typeof child === 'object') label += getLabel(child.props.children);
+  });
+
+  return label;
+};
+
+const useListbox = (props) => {
+  const {
+    options,
+    cursor,
+    setSelectedItem,
+    isExpanded,
+    setIsExpanded,
+    setCursor
+  } = props;
+
+  const getIndexOfOption = useCallback(
+    (cursor) => {
+      const index = options.findIndex((option) => option.value === cursor);
+      return index;
+    },
+    [options]
+  );
+
+  const onTargetKeyDown = useCallback((event) => {
+    switch (event.key) {
+      case ' ':
+      case 'Spacebar': {
+        setIsExpanded((prev) => !prev);
+        return;
+      }
+
+      case 'Enter': {
+        setIsExpanded((prev) => !prev);
+        return;
+      }
+
+      default:
+        break;
+    }
+  }, []);
+
+  const onKeyDown = useCallback(
+    (event) => {
+      const index = getIndexOfOption(cursor);
+      const item = options[index];
+
+      switch (event.key) {
+        case ' ':
+        case 'Spacebar': {
+          event.preventDefault();
+          if (item) setSelectedItem(item);
+          return;
+        }
+
+        case 'Enter': {
+          if (item) {
+            setSelectedItem(item);
+            setIsExpanded((prev) => !prev);
+          }
+          return;
+        }
+
+        case 'ArrowUp': {
+          const cursor = index - 1 >= 0 ? index - 1 : options.length - 1;
+          setCursor(options[cursor].value);
+          return;
+        }
+
+        case 'ArrowDown': {
+          const cursor = index + 1 <= options.length - 1 ? index + 1 : 0;
+          setCursor(options[cursor].value);
+          return;
+        }
+
+        case 'Escape': {
+          setIsExpanded(false);
+          return;
+        }
+
+        default:
+          break;
+      }
+    },
+    [cursor, options]
+  );
 
   return {
-    onKeyDown
+    onKeyDown,
+    onTargetKeyDown
   };
 };
 
-const useListboxItem = () => {
-  const onMouseEnter = useCallback(() => {}, []);
+const useListboxItem = (props) => {
+  const { options, setSelectedItem, setCursor } = props;
 
-  const onMouseLeave = useCallback(() => {}, []);
+  const onMouseEnter = useCallback((item) => {
+    setCursor(item);
+  }, []);
+
+  const onMouseLeave = useCallback(() => {
+    setCursor(null);
+  }, []);
+
+  const onItemClick = useCallback(
+    (value) => {
+      const item = options.find((option) => option.value === value);
+      setSelectedItem(item);
+    },
+    [options]
+  );
 
   return {
+    onItemClick,
     onMouseEnter,
     onMouseLeave
   };
@@ -55,14 +164,38 @@ const useListboxItem = () => {
 const ListboxProvider = (props) => {
   const { children, initialValues } = props;
 
-  const { targetRef } = initialValues;
+  const { value, targetRef } = initialValues;
 
   const popoverRef = useRef(null);
-  const [selectedItem, setSelectedItem] = useState();
+  const [cursor, setCursor] = useState({});
+  const [options, setOptions] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<any>({});
 
-  const { onKeyDown } = useListbox();
-  const { onMouseEnter, onMouseLeave } = useListboxItem();
+  useEffect(() => {
+    if (!selectedItem.value && options.length > 0) {
+      if (value) {
+        const item = options.find((option) => option.value === value);
+        setSelectedItem(item);
+      } else {
+        setSelectedItem(options[0]);
+      }
+    }
+  }, [value, options]);
+
+  const { onKeyDown, onTargetKeyDown } = useListbox({
+    cursor,
+    options,
+    setCursor,
+    setIsExpanded,
+    setSelectedItem
+  });
+
+  const { onMouseEnter, onMouseLeave, onItemClick } = useListboxItem({
+    options,
+    setCursor,
+    setSelectedItem
+  });
 
   const onTargetMousedown = useCallback(
     (event) => {
@@ -80,27 +213,34 @@ const ListboxProvider = (props) => {
     listener: onTargetMousedown
   });
 
-  const onSelectedItemChange = useCallback(
-    (item) => {
-      setSelectedItem(item);
-    },
-    [setSelectedItem]
-  );
+  useEventListener({
+    name: 'keydown',
+    target: targetRef,
+    listener: onTargetKeyDown
+  });
 
-  const value = {
+  const providerValue = {
+    cursor,
+    options,
     onKeyDown,
+    setOptions,
     isExpanded,
     popoverRef,
+    onItemClick,
     onMouseEnter,
     selectedItem,
     onMouseLeave,
     setIsExpanded,
-    onSelectedItemChange,
+    setSelectedItem,
     ...initialValues
   };
 
   return (
-    <ListboxContext.Provider value={value}>{children}</ListboxContext.Provider>
+    <ListboxContext.Provider value={providerValue}>
+      {typeof children === 'function'
+        ? children({ label: selectedItem.label })
+        : children}
+    </ListboxContext.Provider>
   );
 };
 
@@ -108,7 +248,16 @@ export const ListboxInput = forwardRef((props: any, forwardedRef) => {
   const internalRef = useRef(null);
   const ref = useCombinedRefs(forwardedRef, internalRef);
 
-  return <input ref={ref} type="hidden" data-cs-listbox-input {...props} />;
+  return (
+    <input
+      readOnly
+      ref={ref}
+      type="hidden"
+      tabIndex={-1}
+      data-cs-listbox-input
+      {...props}
+    />
+  );
 });
 
 export const ListboxButton = forwardRef(
@@ -122,18 +271,64 @@ export const ListboxButton = forwardRef(
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const Component = as || 'button';
-
-    const initialValues = {
-      targetRef: ref
-    };
+    const initialValues = { value, targetRef: ref };
 
     return (
       <Component ref={ref} role="button" data-cs-listbox-button {...rest}>
         <ListboxProvider initialValues={initialValues}>
-          Button
-          <ListboxArrow />
-          {children}
+          {({ label }) => (
+            <React.Fragment>
+              <span data-cs-listbox-label>{label}</span>
+              <ListboxArrow />
+              {children}
+            </React.Fragment>
+          )}
         </ListboxProvider>
+      </Component>
+    );
+  }
+);
+
+export const ListboxList = forwardRef(
+  <C extends React.ElementType = 'div'>(
+    props: PolymorphicComponentProps<C, IListboxProps>,
+    forwardedRef
+  ) => {
+    const { as, children, ...rest } = props;
+
+    const [refNode, setRefNode] = useState<HTMLElement>();
+    const { isExpanded, onKeyDown } = useListboxContext();
+
+    const internalRef = useRef(null);
+    const ref = useCombinedRefs(forwardedRef, internalRef);
+
+    const Component = as || 'ul';
+
+    useEffect(() => {
+      if (isExpanded) refNode.focus();
+    }, [isExpanded, refNode]);
+
+    useEventListener({
+      target: ref,
+      name: 'keydown',
+      listener: onKeyDown,
+      condition: isExpanded
+    });
+
+    const refCallback = useCallback((node: HTMLElement) => {
+      ref.current = node;
+      setRefNode(node);
+    }, []);
+
+    return (
+      <Component
+        tabIndex={-1}
+        role="listbox"
+        ref={refCallback}
+        data-cs-listbox-list
+        {...rest}
+      >
+        {children}
       </Component>
     );
   }
@@ -144,12 +339,43 @@ export const ListboxItem = forwardRef(
     props: PolymorphicComponentProps<C, IListboxProps>,
     forwardedRef
   ) => {
-    const { as, children, ...rest } = props;
+    const { as, children, value, ...rest } = props;
 
-    const Component = as || 'div';
+    const {
+      cursor,
+      options,
+      setOptions,
+      onItemClick,
+      selectedItem,
+      onMouseEnter,
+      onMouseLeave
+    } = useListboxContext();
+
+    useEffect(() => {
+      const isExist = options.find((option) => option.value === value);
+      if (isExist) return;
+
+      const label = getLabel(children);
+      const option = { label, value };
+      setOptions((prev) => [...prev, option]);
+    }, [options, children]);
+
+    const Component = as || 'li';
 
     return (
-      <Component {...rest} ref={forwardedRef} data-cs-listbox-item>
+      <Component
+        role="option"
+        ref={forwardedRef}
+        data-cs-listbox-item
+        onClick={() => onItemClick(value)}
+        onMouseLeave={() => onMouseLeave(null)}
+        onMouseEnter={() => onMouseEnter(value)}
+        style={{
+          backgroundColor: cursor === value ? 'steelblue' : '',
+          fontWeight: selectedItem.value === value ? 'bold' : 'unset'
+        }}
+        {...rest}
+      >
         {children}
       </Component>
     );
@@ -166,9 +392,12 @@ export const ListboxArrow = forwardRef(
     const Component = as || 'span';
 
     return (
-      <Component {...rest} ref={forwardedRef} data-cs-listbox-arrow>
-        ▼
-      </Component>
+      <Component
+        {...rest}
+        aria-hidden
+        ref={forwardedRef}
+        data-cs-listbox-arrow
+      ></Component>
     );
   }
 );
@@ -181,7 +410,8 @@ export const ListboxPopover = forwardRef(
     const { children, ...rest } = props;
 
     const context = useListboxContext();
-    const { targetRef, isExpanded, setIsExpanded, popoverRef } = context;
+    const { targetRef, selectedItem, isExpanded, setIsExpanded, popoverRef } =
+      context;
 
     const ref = useCombinedRefs(forwardedRef, popoverRef);
 
@@ -189,18 +419,24 @@ export const ListboxPopover = forwardRef(
       setIsExpanded(false);
     }, []);
 
-    useOnClickOutside(ref, onOutsideClick);
+    useEffect(() => {
+      if (popoverRef.current && targetRef.current) {
+        popoverRef.current.style.minWidth =
+          targetRef.current.clientWidth + 'px';
+      }
+    }, [selectedItem]);
 
-    if (!isExpanded) return null;
+    useOnClickOutside(ref, onOutsideClick);
 
     return (
       <Popover
         {...rest}
         ref={ref}
+        hidden={!isExpanded}
         targetRef={targetRef}
         data-cs-listbox-popover
       >
-        {children}
+        <ListboxList>{children}</ListboxList>
       </Popover>
     );
   }
@@ -215,16 +451,7 @@ export const Listbox = forwardRef((props: IListboxProps, forwardedRef) => {
   return (
     <ListboxButton {...rest} ref={forwardedRef}>
       <ListboxInput />
-      <ListboxPopover
-        style={{
-          padding: '5px 10px',
-          borderRadius: '4px',
-          background: 'white',
-          border: '1px solid #eee'
-        }}
-      >
-        {children}
-      </ListboxPopover>
+      <ListboxPopover>{children}</ListboxPopover>
     </ListboxButton>
   );
 });

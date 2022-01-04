@@ -6,6 +6,7 @@ import {
   Description
 } from '@storybook/addon-docs';
 import Listbox, { ListboxItem } from '..';
+import '../../styles.css';
 
 <Meta
   title="Components/Listbox"
@@ -55,9 +56,16 @@ import Listbox, { ListboxItem } from '..';
   <Story name="Default" inline={false}>
     {(args) => (
       <Listbox {...args}>
-        <ListboxItem>item 1</ListboxItem>
-        <ListboxItem>item 2</ListboxItem>
-        <ListboxItem>item 3</ListboxItem>
+        <ListboxItem value="item1">
+          <span>
+            <i>item 1</i>
+          </span>
+        </ListboxItem>
+        <ListboxItem value="item2">
+          <span>item 2</span>
+          <span>note!</span>
+        </ListboxItem>
+        <ListboxItem value="item3">item 3</ListboxItem>
       </Listbox>
     )}
   </Story>
