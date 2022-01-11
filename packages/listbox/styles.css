@@ -7,8 +7,11 @@
   cursor: pointer;
   padding: 10px 15px;
   border-radius: 4px;
+  align-items: center;
+  display: inline-flex;
   background-color: white;
   border: 1px solid #eee;
+  justify-content: space-between;
 }
 
 [data-cs-listbox-list] {
@@ -25,17 +28,35 @@
 }
 
 [data-cs-listbox-arrow] {
-  padding: 3px;
-  margin: 0 0 3px 10px;
+  color: #6e6e6e;
   display: inline-block;
-  border: solid #6e6e6e;
-  transform: rotate(45deg);
-  border-width: 0 2px 2px 0;
-  -webkit-transform: rotate(45deg);
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+}
+
+[data-cs-listbox-arrow][data-expanded='false']::before {
+  content: '\276F';
+}
+
+[data-cs-listbox-arrow][data-expanded='true']::before {
+  content: '\276E';
 }
 
 [data-cs-listbox-item] {
   cursor: pointer;
   padding: 5px 10px;
   text-align: start;
+}
+
+[data-cs-listbox-item][aria-selected='true'] {
+  background-color: steelblue;
+}
+
+[data-cs-listbox-item][aria-selected='true'] {
+  background-color: steelblue;
+}
+
+[data-cs-listbox-item][data-active='true'] {
+  font-weight: bold;
 }
