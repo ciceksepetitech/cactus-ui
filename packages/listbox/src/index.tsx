@@ -58,7 +58,10 @@ const useListbox = (props) => {
 
   const getIndexOfOption = useCallback(
     (cursor) => {
-      const index = options.findIndex((option) => option.value === cursor);
+      const index = options.findIndex(
+        (option) => option.value === cursor.value
+      );
+
       return index;
     },
     [options]
@@ -103,13 +106,13 @@ const useListbox = (props) => {
 
         case 'ArrowUp': {
           const cursor = index - 1 >= 0 ? index - 1 : options.length - 1;
-          setCursor(options[cursor].value);
+          setCursor(options[cursor]);
           return;
         }
 
         case 'ArrowDown': {
           const cursor = index + 1 <= options.length - 1 ? index + 1 : 0;
-          setCursor(options[cursor].value);
+          setCursor(options[cursor]);
           return;
         }
 
@@ -167,8 +170,8 @@ const ListboxProvider = (props) => {
   const popoverRef = useRef(null);
   const hiddenInputRef = useRef(null);
 
-  const [cursor, setCursor] = useState({});
   const [options, setOptions] = useState([]);
+  const [cursor, setCursor] = useState<any>({});
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>({});
 
@@ -181,17 +184,17 @@ const ListboxProvider = (props) => {
       if (value) {
         const item = options.find((option) => option.value === value);
 
+        setCursor(item);
         setSelectedItem(item);
-        setCursor(item.value);
       } else {
+        setCursor(options[0]);
         setSelectedItem(options[0]);
-        setCursor(options[0].value);
       }
     }
   }, [value, options]);
 
   useEffect(() => {
-    if (previousExpanded && !isExpanded) setCursor(selectedItem.value);
+    if (previousExpanded && !isExpanded) setCursor(selectedItem);
   }, [previousExpanded, selectedItem, isExpanded]);
 
   const { onKeyDown, onTargetKeyDown } = useListbox({
@@ -350,7 +353,7 @@ export const ListboxList = forwardRef(
         role="listbox"
         ref={refCallback}
         data-cs-listbox-list
-        aria-activedescendant={isExpanded ? cursor : undefined}
+        aria-activedescendant={isExpanded ? cursor.id : undefined}
         {...rest}
       >
         {children}
@@ -403,8 +406,8 @@ export const ListboxItem = forwardRef(
         data-cs-listbox-item
         aria-disabled={disabled}
         data-label={option.label}
-        aria-selected={cursor === value}
         onClick={() => onItemClick(value)}
+        aria-selected={cursor.value === value}
         onMouseLeave={() => onMouseLeave(null)}
         onMouseEnter={() => onMouseEnter(value)}
         data-active={selectedItem.value === value}
