@@ -230,12 +230,14 @@ const ListboxProvider = (props) => {
   useEventListener({
     name: 'mousedown',
     target: targetRef,
+    condition: !disabled,
     listener: onTargetMousedown
   });
 
   useEventListener({
     name: 'keydown',
     target: targetRef,
+    condition: !disabled,
     listener: onTargetKeyDown
   });
 
@@ -330,7 +332,7 @@ export const ListboxList = forwardRef(
     const { as, children, ...rest } = props;
 
     const [refNode, setRefNode] = useState<HTMLElement>();
-    const { isExpanded, cursor, onKeyDown } = useListboxContext();
+    const { providerId, isExpanded, cursor, onKeyDown } = useListboxContext();
 
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
@@ -359,6 +361,7 @@ export const ListboxList = forwardRef(
         role="listbox"
         ref={refCallback}
         data-cs-listbox-list
+        id={`listbox-${providerId}`}
         aria-activedescendant={isExpanded ? cursor.id : undefined}
         {...rest}
       >
