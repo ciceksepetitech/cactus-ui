@@ -70,12 +70,8 @@ const useListbox = (props) => {
   const onTargetKeyDown = useCallback((event) => {
     switch (event.key) {
       case ' ':
+      case 'Enter':
       case 'Spacebar': {
-        setIsExpanded((prev) => !prev);
-        return;
-      }
-
-      case 'Enter': {
         setIsExpanded((prev) => !prev);
         return;
       }
@@ -96,7 +92,7 @@ const useListbox = (props) => {
         case 'Spacebar': {
           event.preventDefault();
 
-          if (item) {
+          if (item && !item.disabled) {
             setSelectedItem(item);
             setIsExpanded((prev) => !prev);
           }
@@ -152,6 +148,7 @@ const useListboxItem = (props) => {
   const onItemClick = useCallback(
     (value) => {
       const item = options.find((option) => option.value === value);
+      if (item.disabled) return;
 
       setSelectedItem(item);
       setIsExpanded(false);
@@ -176,9 +173,11 @@ const ListboxProvider = (props) => {
   const hiddenInputRef = useRef(null);
 
   const [options, setOptions] = useState([]);
-  const [cursor, setCursor] = useState<any>({});
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<any>({});
+  const [cursor, setCursor] = useState<IListboxOptions>({} as IListboxOptions);
+  const [selectedItem, setSelectedItem] = useState<IListboxOptions>(
+    {} as IListboxOptions
+  );
 
   const previousExpanded = usePrevious(isExpanded);
 
@@ -376,11 +375,12 @@ export const ListboxItem = forwardRef(
   ) => {
     const { as, children, value, disabled, ...rest } = props;
 
-    const [option, setOption] = useState<any>({});
+    const [option, setOption] = useState<IListboxOptions>(
+      {} as IListboxOptions
+    );
 
     const {
       cursor,
-      options,
       providerId,
       setOptions,
       onItemClick,
@@ -391,17 +391,26 @@ export const ListboxItem = forwardRef(
     } = useListboxContext();
 
     useEffect(() => {
-      const isExist = options.find((option) => option.value === value);
-      if (isExist) return;
-
       const label = getLabel(children);
       const id = `option-${value}-listbox-${providerId}`;
-
-      const option = { id, label, value };
+      const option = { id, label, disabled, value };
 
       setOption(option);
-      setOptions((prev) => [...prev, option]);
-    }, [options, providerId, children]);
+
+      setOptions((previousOptions) => {
+        const index = previousOptions.findIndex(
+          (previous) => previous.value === option.value
+        );
+
+        if (index > -1) {
+          const updatedOptions = [...previousOptions];
+          updatedOptions[index] = option;
+          return updatedOptions;
+        } else {
+          return [...previousOptions, option];
+        }
+      });
+    }, [disabled, providerId]);
 
     const Component = as || 'li';
 
@@ -511,6 +520,13 @@ export default Listbox;
 
 interface IListboxProps {
   children: React.ReactNode;
+}
+
+interface IListboxOptions {
+  id: string;
+  label: string;
+  disabled: boolean;
+  value: string | number;
 }
 
 /** Display Names */
