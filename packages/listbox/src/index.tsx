@@ -141,8 +141,12 @@ const useListboxItem = (props) => {
     setCursor(item);
   }, []);
 
+  const onTouchStart = useCallback((item) => {
+    setCursor(item);
+  }, []);
+
   const onMouseLeave = useCallback(() => {
-    setCursor(null);
+    setCursor({});
   }, []);
 
   const onItemClick = useCallback(
@@ -158,7 +162,8 @@ const useListboxItem = (props) => {
   return {
     onItemClick,
     onMouseEnter,
-    onMouseLeave
+    onMouseLeave,
+    onTouchStart
   };
 };
 
@@ -205,12 +210,13 @@ const ListboxProvider = (props) => {
     setSelectedItem
   });
 
-  const { onMouseEnter, onMouseLeave, onItemClick } = useListboxItem({
-    options,
-    setCursor,
-    setIsExpanded,
-    setSelectedItem
-  });
+  const { onMouseEnter, onMouseLeave, onTouchStart, onItemClick } =
+    useListboxItem({
+      options,
+      setCursor,
+      setIsExpanded,
+      setSelectedItem
+    });
 
   const onTargetMousedown = useCallback(
     (event) => {
@@ -245,6 +251,7 @@ const ListboxProvider = (props) => {
     providerId,
     onItemClick,
     onMouseEnter,
+    onTouchStart,
     selectedItem,
     onMouseLeave,
     setIsExpanded,
@@ -379,7 +386,8 @@ export const ListboxItem = forwardRef(
       onItemClick,
       selectedItem,
       onMouseEnter,
-      onMouseLeave
+      onMouseLeave,
+      onTouchStart
     } = useListboxContext();
 
     useEffect(() => {
@@ -406,10 +414,11 @@ export const ListboxItem = forwardRef(
         data-cs-listbox-item
         aria-disabled={disabled}
         data-label={option.label}
+        onMouseLeave={onMouseLeave}
         onClick={() => onItemClick(value)}
         aria-selected={cursor.value === value}
-        onMouseLeave={() => onMouseLeave(null)}
-        onMouseEnter={() => onMouseEnter(value)}
+        onMouseEnter={() => onMouseEnter(option)}
+        onTouchStart={() => onTouchStart(option)}
         data-active={selectedItem.value === value}
         {...rest}
       >
