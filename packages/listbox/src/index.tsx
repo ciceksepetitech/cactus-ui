@@ -113,14 +113,18 @@ const useListbox = (props) => {
         }
 
         case 'ArrowUp': {
+          event.preventDefault();
           const cursor = index - 1 >= 0 ? index - 1 : options.length - 1;
           setCursor(options[cursor]);
+
           return;
         }
 
         case 'ArrowDown': {
+          event.preventDefault();
           const cursor = index + 1 <= options.length - 1 ? index + 1 : 0;
           setCursor(options[cursor]);
+
           return;
         }
 
