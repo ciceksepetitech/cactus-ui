@@ -328,6 +328,8 @@ export const ListboxButton = forwardRef(
       ...rest
     } = props;
 
+    showContentWarnings(Listbox.displayName, props);
+
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
@@ -576,6 +578,29 @@ export const Listbox = forwardRef((props: IListboxProps, forwardedRef) => {
 });
 
 export default Listbox;
+
+/** Warnings */
+
+/**
+ * handles development environment warning messages
+ * @param componentName
+ * @param props
+ * @returns
+ */
+const showContentWarnings = (componentName: string, props: IListboxProps) => {
+  if (process.env.NODE_ENV === 'production') return;
+
+  if (props['aria-labelledby'] && props['aria-label']) {
+    const warning = `@cs/component-listbox - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label.`;
+    console.warn(warning);
+  }
+
+  if (props['aria-labelledby'] || props['aria-label']) return;
+
+  const warning = `@cs/component-listbox - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe listbox`;
+
+  console.warn(warning);
+};
 
 /** Types and Interfaces */
 

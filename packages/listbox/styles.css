@@ -32,6 +32,7 @@
 }
 
 [data-cs-listbox-arrow] {
+  font-size: 12px;
   color: #6e6e6e;
   display: inline-block;
   transform: rotate(90deg);
