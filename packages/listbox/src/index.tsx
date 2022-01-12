@@ -2,6 +2,7 @@
  * @cs/component-listbox
  *
  * Listbox Component
+ * @see https://www.w3.org/TR/wai-aria-practices/#Listbox
  *
  */
 
