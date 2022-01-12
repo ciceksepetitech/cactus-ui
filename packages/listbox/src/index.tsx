@@ -22,10 +22,13 @@ import {
   useEventListener,
   useOnClickOutside
 } from '@cs/component-hooks';
-import Popover from '@cs/component-popover';
-import { PolymorphicComponentProps } from '@cs/component-utils';
+import Popover, { IPopoverProps } from '@cs/component-popover';
+import {
+  mergeEventHandlers,
+  PolymorphicComponentProps
+} from '@cs/component-utils';
 
-const initialValue = {} as any;
+const initialValue = {} as IListboxContext;
 const ListboxContext = createContext(initialValue);
 
 let _providerId = 0;
@@ -54,7 +57,14 @@ const getLabel = (children: React.ReactNode) => {
 };
 
 const useListbox = (props) => {
-  const { options, cursor, setSelectedItem, setIsExpanded, setCursor } = props;
+  const {
+    cursor,
+    options,
+    onChange,
+    setCursor,
+    setIsExpanded,
+    setSelectedItem
+  } = props;
 
   const getIndexOfOption = useCallback(
     (cursor) => {
@@ -91,9 +101,11 @@ const useListbox = (props) => {
         case 'Enter':
         case 'Spacebar': {
           event.preventDefault();
+          event.stopPropagation();
 
           if (item && !item.disabled) {
             setSelectedItem(item);
+            onChange?.(item.value);
             setIsExpanded((prev) => !prev);
           }
 
@@ -131,7 +143,8 @@ const useListbox = (props) => {
 };
 
 const useListboxItem = (props) => {
-  const { options, setSelectedItem, setCursor, setIsExpanded } = props;
+  const { options, onChange, setCursor, setIsExpanded, setSelectedItem } =
+    props;
 
   const onMouseEnter = useCallback((item) => {
     setCursor(item);
@@ -150,8 +163,9 @@ const useListboxItem = (props) => {
       const item = options.find((option) => option.value === value);
       if (item.disabled) return;
 
-      setSelectedItem(item);
       setIsExpanded(false);
+      setSelectedItem(item);
+      onChange?.(item.value);
     },
     [options]
   );
@@ -167,16 +181,16 @@ const useListboxItem = (props) => {
 const ListboxProvider = (props) => {
   const { children, initialValues } = props;
 
-  const { value, targetRef, disabled } = initialValues;
+  const { value, targetRef, defaultValue, onChange, disabled } =
+    initialValues as IListboxProviderProps;
 
   const popoverRef = useRef(null);
   const hiddenInputRef = useRef(null);
-
   const [options, setOptions] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [cursor, setCursor] = useState<IListboxOptions>({} as IListboxOptions);
-  const [selectedItem, setSelectedItem] = useState<IListboxOptions>(
-    {} as IListboxOptions
+  const [cursor, setCursor] = useState<IListboxOption>({} as IListboxOption);
+  const [selectedItem, setSelectedItem] = useState<IListboxOption>(
+    {} as IListboxOption
   );
 
   const previousExpanded = usePrevious(isExpanded);
@@ -185,17 +199,22 @@ const ListboxProvider = (props) => {
 
   useEffect(() => {
     if (!selectedItem.value && options.length > 0) {
-      if (value) {
-        const item = options.find((option) => option.value === value);
+      if (value || defaultValue) {
+        const _value = value || defaultValue;
+        const item = options.find((option) => option.value === _value);
 
         setCursor(item);
         setSelectedItem(item);
+        onChange?.(item.value);
       } else {
-        setCursor(options[0]);
-        setSelectedItem(options[0]);
+        const item = options[0];
+
+        setCursor(item);
+        setSelectedItem(item);
+        onChange?.(item.value);
       }
     }
-  }, [value, options]);
+  }, [value, defaultValue, options]);
 
   useEffect(() => {
     if (previousExpanded && !isExpanded) setCursor(selectedItem);
@@ -204,6 +223,7 @@ const ListboxProvider = (props) => {
   const { onKeyDown, onTargetKeyDown } = useListbox({
     cursor,
     options,
+    onChange,
     setCursor,
     setIsExpanded,
     setSelectedItem
@@ -212,6 +232,7 @@ const ListboxProvider = (props) => {
   const { onMouseEnter, onMouseLeave, onTouchStart, onItemClick } =
     useListboxItem({
       options,
+      onChange,
       setCursor,
       setIsExpanded,
       setSelectedItem
@@ -241,7 +262,7 @@ const ListboxProvider = (props) => {
     listener: onTargetKeyDown
   });
 
-  const providerValue = {
+  const providerValue: IListboxContext = {
     cursor,
     options,
     disabled,
@@ -270,34 +291,55 @@ const ListboxProvider = (props) => {
   );
 };
 
-export const ListboxInput = forwardRef((props: any, forwardedRef) => {
-  const internalRef = useRef(null);
-  const ref = useCombinedRefs(forwardedRef, internalRef);
+export const ListboxInput = forwardRef(
+  (props: React.ComponentProps<'input'>, forwardedRef) => {
+    const internalRef = useRef(null);
+    const ref = useCombinedRefs(forwardedRef, internalRef);
 
-  return (
-    <input
-      readOnly
-      ref={ref}
-      type="hidden"
-      tabIndex={-1}
-      data-cs-listbox-input
-      {...props}
-    />
-  );
-});
+    const { selectedItem } = useListboxContext();
+
+    return (
+      <input
+        readOnly
+        ref={ref}
+        type="hidden"
+        tabIndex={-1}
+        data-cs-listbox-input
+        value={selectedItem.value || ''}
+        {...props}
+      />
+    );
+  }
+);
 
 export const ListboxButton = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IListboxProps>,
     forwardedRef
   ) => {
-    const { as, children, value, disabled, ...rest } = props;
+    const {
+      as,
+      value,
+      arrow,
+      children,
+      onChange,
+      disabled,
+      defaultValue,
+      ...rest
+    } = props;
 
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const Component = as || 'button';
-    const initialValues = { value, disabled, targetRef: ref };
+
+    const initialValues: IListboxProviderProps = {
+      value,
+      disabled,
+      onChange,
+      defaultValue,
+      targetRef: ref
+    };
 
     return (
       <ListboxProvider initialValues={initialValues}>
@@ -314,7 +356,7 @@ export const ListboxButton = forwardRef(
           >
             <React.Fragment>
               <span data-cs-listbox-label>{label}</span>
-              <ListboxArrow />
+              {arrow ? arrow : <ListboxArrow />}
               {children}
             </React.Fragment>
           </Component>
@@ -373,14 +415,21 @@ export const ListboxList = forwardRef(
 
 export const ListboxItem = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IListboxProps>,
+    props: PolymorphicComponentProps<C, IListboxItemProps>,
     forwardedRef
   ) => {
-    const { as, children, value, disabled, ...rest } = props;
+    const {
+      as,
+      value,
+      children,
+      disabled,
+      onMouseLeave,
+      onMouseEnter,
+      onTouchStart,
+      ...rest
+    } = props;
 
-    const [option, setOption] = useState<IListboxOptions>(
-      {} as IListboxOptions
-    );
+    const [option, setOption] = useState<IListboxOption>({} as IListboxOption);
 
     const {
       cursor,
@@ -388,9 +437,9 @@ export const ListboxItem = forwardRef(
       setOptions,
       onItemClick,
       selectedItem,
-      onMouseEnter,
-      onMouseLeave,
-      onTouchStart
+      onMouseEnter: handleMouseEnter,
+      onMouseLeave: handleMouseLeave,
+      onTouchStart: handleTouchStart
     } = useListboxContext();
 
     useEffect(() => {
@@ -402,7 +451,7 @@ export const ListboxItem = forwardRef(
 
       setOptions((previousOptions) => {
         const index = previousOptions.findIndex(
-          (previous) => previous.value === option.value
+          ({ value }) => value === option.value
         );
 
         if (index > -1) {
@@ -413,6 +462,11 @@ export const ListboxItem = forwardRef(
           return [...previousOptions, option];
         }
       });
+
+      return () =>
+        setOptions((previousOptions) =>
+          previousOptions.filter(({ value }) => value !== option.value)
+        );
     }, [disabled, providerId]);
 
     const Component = as || 'li';
@@ -426,12 +480,16 @@ export const ListboxItem = forwardRef(
         data-cs-listbox-item
         aria-disabled={disabled}
         data-label={option.label}
-        onMouseLeave={onMouseLeave}
         onClick={() => onItemClick(value)}
         aria-selected={cursor.value === value}
-        onMouseEnter={() => onMouseEnter(option)}
-        onTouchStart={() => onTouchStart(option)}
         data-active={selectedItem.value === value}
+        onMouseLeave={mergeEventHandlers(onMouseLeave, handleMouseLeave)}
+        onMouseEnter={mergeEventHandlers(onMouseEnter, () =>
+          handleMouseEnter(option)
+        )}
+        onTouchStart={mergeEventHandlers(onTouchStart, () =>
+          handleTouchStart(option)
+        )}
         {...rest}
       >
         {children}
@@ -465,7 +523,7 @@ export const ListboxArrow = forwardRef(
 
 export const ListboxPopover = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IListboxProps>,
+    props: PolymorphicComponentProps<C, IPopoverProps>,
     forwardedRef
   ) => {
     const { children, ...rest } = props;
@@ -507,12 +565,12 @@ export const ListboxPopover = forwardRef(
  * listbox component
  */
 export const Listbox = forwardRef((props: IListboxProps, forwardedRef) => {
-  const { children, ...rest } = props;
+  const { children, portal, name, required, ...rest } = props;
 
   return (
     <ListboxButton {...rest} ref={forwardedRef}>
-      <ListboxInput />
-      <ListboxPopover>{children}</ListboxPopover>
+      <ListboxInput name={name} required={required} />
+      <ListboxPopover portal={portal}>{children}</ListboxPopover>
     </ListboxButton>
   );
 });
@@ -521,17 +579,67 @@ export default Listbox;
 
 /** Types and Interfaces */
 
-interface IListboxProps {
+export type ListboxValue = string | number | readonly string[];
+
+export interface IListboxProps extends React.ComponentProps<'select'> {
+  name?: string;
+  portal?: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  defaultValue?: string;
+  arrow?: React.ReactNode;
   children: React.ReactNode;
 }
 
-interface IListboxOptions {
+export interface IListboxItemProps {
+  disabled?: boolean;
+  value: ListboxValue;
+  children: React.ReactNode;
+  onMouseLeave: (event: React.SyntheticEvent) => any;
+  onMouseEnter: (event: React.SyntheticEvent) => any;
+  onTouchStart: (event: React.SyntheticEvent) => any;
+}
+
+export interface IListboxOption {
   id: string;
   label: string;
   disabled: boolean;
-  value: string | number;
+  value: ListboxValue;
+}
+
+export interface IListboxProviderProps {
+  disabled?: boolean;
+  value: ListboxValue;
+  defaultValue: string;
+  targetRef: React.MutableRefObject<any>;
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+}
+
+export interface IListboxContext {
+  disabled?: boolean;
+  providerId: number;
+  isExpanded: boolean;
+  onKeyDown: () => void;
+  cursor: IListboxOption;
+  onMouseLeave: () => void;
+  options: IListboxOption[];
+  selectedItem: IListboxOption;
+  targetRef: React.MutableRefObject<any>;
+  popoverRef: React.MutableRefObject<any>;
+  onItemClick: (value: ListboxValue) => void;
+  hiddenInputRef: React.MutableRefObject<any>;
+  onMouseEnter: (value: IListboxOption) => void;
+  onTouchStart: (value: IListboxOption) => void;
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  setOptions: React.Dispatch<React.SetStateAction<IListboxOption[]>>;
+  setSelectedItem: React.Dispatch<React.SetStateAction<IListboxOption>>;
 }
 
 /** Display Names */
 
 Listbox.displayName = 'Listbox';
+ListboxItem.displayName = 'ListboxItem';
+ListboxList.displayName = 'ListboxList';
+ListboxArrow.displayName = 'ListboxArrow';
+ListboxButton.displayName = 'ListboxButton';
+ListboxPopover.displayName = 'ListboxPopover';

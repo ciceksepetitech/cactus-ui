@@ -368,21 +368,21 @@ export default Popover;
 
 /** Types and Interfaces */
 
-enum Placements {
+export enum Placements {
   Top = 'top',
   Left = 'left',
   Right = 'right',
   Bottom = 'bottom'
 }
 
-enum OppositePlacements {
+export enum OppositePlacements {
   top = Placements.Bottom,
   left = Placements.Right,
   right = Placements.Left,
   bottom = Placements.Top
 }
 
-interface IPopoverProps {
+export interface IPopoverProps {
   portal?: boolean;
   autoFlip?: boolean;
   placement?: Placements;
@@ -390,9 +390,9 @@ interface IPopoverProps {
   targetRef: MutableRefObject<any>;
 }
 
-type PlacementGetterType = Placements.Left | Placements.Top;
+export type PlacementGetterType = Placements.Left | Placements.Top;
 
-interface IUsePopoverProps
+export interface IUsePopoverProps
   extends Pick<IPopoverProps, 'autoFlip' | 'placement' | 'targetRef'> {
   popoverNode: HTMLElement;
 }
