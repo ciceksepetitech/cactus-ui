@@ -321,6 +321,7 @@ export const ListboxButton = forwardRef(
       as,
       value,
       arrow,
+      prefix,
       children,
       onChange,
       disabled,
@@ -357,7 +358,10 @@ export const ListboxButton = forwardRef(
             {...rest}
           >
             <React.Fragment>
-              <span data-cs-listbox-label>{label}</span>
+              <span data-cs-listbox-label>
+                {prefix}
+                {label}
+              </span>
               {arrow ? arrow : <ListboxArrow />}
               {children}
             </React.Fragment>
@@ -606,13 +610,15 @@ const showContentWarnings = (componentName: string, props: IListboxProps) => {
 
 export type ListboxValue = string | number | readonly string[];
 
-export interface IListboxProps extends React.ComponentProps<'select'> {
+export interface IListboxProps
+  extends Omit<React.ComponentProps<'select'>, 'prefix'> {
   name?: string;
   portal?: boolean;
   required?: boolean;
   disabled?: boolean;
   defaultValue?: string;
   arrow?: React.ReactNode;
+  prefix?: React.ReactNode;
   children: React.ReactNode;
 }
 
