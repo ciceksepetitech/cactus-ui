@@ -459,20 +459,7 @@ export const ListboxItem = forwardRef(
       const option = { id, label, disabled, value };
 
       setOption(option);
-
-      setOptions((previousOptions) => {
-        const index = previousOptions.findIndex(
-          ({ value }) => value === option.value
-        );
-
-        if (index > -1) {
-          const updatedOptions = [...previousOptions];
-          updatedOptions[index] = option;
-          return updatedOptions;
-        } else {
-          return [...previousOptions, option];
-        }
-      });
+      setOptions((previousOptions) => [...previousOptions, option]);
 
       return () =>
         setOptions((previousOptions) =>
