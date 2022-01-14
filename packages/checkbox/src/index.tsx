@@ -14,8 +14,11 @@ import React, {
   useCallback,
   MutableRefObject
 } from 'react';
+import {
+  mergeEventHandlers,
+  PolymorphicComponentProps
+} from '@cs/component-utils';
 import { useCombinedRefs } from '@cs/component-hooks';
-import { PolymorphicComponentProps } from '@cs/component-utils';
 
 const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
   const {
@@ -130,7 +133,10 @@ export const Checkbox = forwardRef(
   ) => {
     const {
       as,
+      onBlur,
+      onKeyUp,
       disabled,
+      onChange,
       indeterminate,
       defaultChecked,
       checked: controlledCheck,
@@ -145,15 +151,20 @@ export const Checkbox = forwardRef(
       internalRef
     );
 
-    const { focused, status, onClick, ...checkboxArgs } = useCheckbox(
-      inputRef,
-      {
-        disabled,
-        indeterminate,
-        defaultChecked,
-        checked: controlledCheck
-      }
-    );
+    const {
+      status,
+      focused,
+      onClick,
+      onBlur: onBlurHandler,
+      onKeyUp: onKeyUpHandler,
+      onChange: onChangeHandler,
+      ...checkboxArgs
+    } = useCheckbox(inputRef, {
+      disabled,
+      indeterminate,
+      defaultChecked,
+      checked: controlledCheck
+    });
 
     return (
       <Component
@@ -164,11 +175,14 @@ export const Checkbox = forwardRef(
         data-cs-checkbox-keyboard-focus={focused}
       >
         <input
+          {...rest}
+          {...checkboxArgs}
           ref={inputRef}
           type="checkbox"
           data-cs-checkbox-input
-          {...checkboxArgs}
-          {...rest}
+          onBlur={mergeEventHandlers(onBlur, onBlurHandler)}
+          onKeyUp={mergeEventHandlers(onKeyUp, onKeyUpHandler)}
+          onChange={mergeEventHandlers(onChange, onChangeHandler)}
         />
       </Component>
     );
