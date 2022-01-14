@@ -7,6 +7,7 @@ import {
 } from '@storybook/addon-docs';
 import '../../styles.css';
 import Checkbox from '..';
+import { useState } from 'react';
 
 <Meta
   title="Components/Checkbox"
@@ -87,9 +88,14 @@ import Checkbox from '..';
 <Canvas>
   <Story name="Default" inline={false}>
     {(args) => {
+      const [checked, setChecked] = useState(false);
       return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Checkbox {...args} />
+          <Checkbox
+            {...args}
+            checked={checked}
+            onChange={(event) => setChecked(event.target.checked)}
+          />
           <label style={{ marginRight: '10px' }} htmlFor="rose">
             rose
           </label>
