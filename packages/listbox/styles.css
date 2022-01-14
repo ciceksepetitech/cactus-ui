@@ -1,0 +1,71 @@
+[data-cs-listbox-popover][hidden] {
+  display: none;
+}
+
+[data-cs-listbox-button] {
+  color: black;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 4px;
+  align-items: center;
+  display: inline-flex;
+  background-color: white;
+  border: 1px solid #eee;
+  justify-content: space-between;
+}
+
+[data-cs-listbox-button][aria-disabled='true'] {
+  opacity: 0.5;
+}
+
+[data-cs-listbox-list] {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-cs-listbox-popover] {
+  margin: 5px 0px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  background-color: white;
+}
+
+[data-cs-listbox-arrow] {
+  font-size: 12px;
+  color: #6e6e6e;
+  display: inline-block;
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+}
+
+[data-cs-listbox-arrow][data-expanded='false']::before {
+  content: '\276F';
+}
+
+[data-cs-listbox-arrow][data-expanded='true']::before {
+  content: '\276E';
+}
+
+[data-cs-listbox-item] {
+  cursor: pointer;
+  padding: 5px 10px;
+  text-align: start;
+}
+
+[data-cs-listbox-item][aria-disabled='true'] {
+  opacity: 0.5;
+}
+
+[data-cs-listbox-item][aria-selected='true'] {
+  background-color: steelblue;
+}
+
+[data-cs-listbox-item][aria-selected='true'] {
+  background-color: steelblue;
+}
+
+[data-cs-listbox-item][data-active='true'] {
+  font-weight: bold;
+}

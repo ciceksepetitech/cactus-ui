@@ -1,0 +1,30 @@
+{
+  "name": "@cs/component-listbox",
+  "version": "0.0.1",
+  "description": "ÇiçekSepeti Listbox Component",
+  "author": "ciceksepeti",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "dependencies": {
+    "@cs/component-utils": "^0.0.1",
+    "@cs/component-hooks": "^0.0.1",
+    "@cs/component-popover": "^0.0.1"
+  },
+  "scripts": {
+    "build": "scripty",
+    "clean": "scripty",
+    "compile": "scripty"
+  },
+  "scripty": {
+    "path": "../../scripts/packages"
+  }
+}
