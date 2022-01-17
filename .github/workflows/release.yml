@@ -57,7 +57,7 @@ jobs:
       # - name: 🚀  Deploy Storybook
       # will be implemented in future
 
-      # - name: Publish Packages
-      #   run: |
-      #     npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-      #     yarn lerna:publish from-package --yes
+      - name: Publish Packages
+        run: |
+          npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+          yarn lerna:publish from-package --yes
