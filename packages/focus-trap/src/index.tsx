@@ -13,8 +13,11 @@ import React, {
   useCallback,
   useLayoutEffect
 } from 'react';
+import {
+  useCombinedRefs,
+  useFindTabbableElements
+} from '@ciceksepeti/cui-hooks';
 import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
-import { useFindTabbableElements, useCombinedRefs } from '@ciceksepeti/cui-hooks';
 
 /**
  * focus trap component
