@@ -1,5 +1,5 @@
 /**
- * @cs/component-skip-nav
+ * @ciceksepeti/cui-skip-nav
  *
  * SkipNav Component
  *
@@ -7,7 +7,7 @@
  */
 
 import React, { forwardRef } from 'react';
-import { PolymorphicComponentProps } from '@cs/component-utils';
+import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
 
 /**
  * skip nav component

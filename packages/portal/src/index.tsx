@@ -1,5 +1,5 @@
 /**
- * @cs/component-portal
+ * @ciceksepeti/cui-portal
  *
  * React Portal Component
  *

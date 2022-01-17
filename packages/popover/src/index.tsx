@@ -1,17 +1,17 @@
 /**
- * @cs/component-popover
+ * @ciceksepeti/cui-popover
  *
  * Popover Component
  *
  */
 
-import Portal from '@cs/component-portal';
+import Portal from '@ciceksepeti/cui-portal';
 import {
   useCombinedRefs,
   useEventListener,
   getTabbableElements,
   useFindTabbableElements
-} from '@cs/component-hooks';
+} from '@ciceksepeti/cui-hooks';
 import React, {
   useRef,
   useState,
@@ -24,7 +24,7 @@ import React, {
 import {
   ConditionalWrapper,
   PolymorphicComponentProps
-} from '@cs/component-utils';
+} from '@ciceksepeti/cui-utils';
 
 const defaultPopoverStyles: CSSProperties = {
   top: '-100%',

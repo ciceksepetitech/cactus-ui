@@ -1,5 +1,5 @@
 {
-  "name": "@cs/component-checkbox",
+  "name": "@ciceksepeti/cui-checkbox",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Checkbox Component",
   "author": "ciceksepeti",
@@ -10,15 +10,20 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": ["*.css"],
+  "files": [
+    "dist",
+    "README.md",
+    "styles.css"
+  ],
   "repository": {
     "type": "",
     "url": ""
   },
   "dependencies": {
-    "@cs/component-hooks": "^0.0.1",
-    "@cs/component-utils": "^0.0.1"
+    "@ciceksepeti/cui-hooks": "^0.0.1",
+    "@ciceksepeti/cui-utils": "^0.0.1"
   },
-  "files": ["styles.css"],
   "scripts": {
     "build": "scripty",
     "clean": "scripty",

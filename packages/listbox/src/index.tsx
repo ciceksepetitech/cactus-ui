@@ -1,5 +1,5 @@
 /**
- * @cs/component-listbox
+ * @ciceksepeti/cui-listbox
  *
  * Listbox Component
  * @see https://www.w3.org/TR/wai-aria-practices/#Listbox
@@ -22,12 +22,12 @@ import {
   useCombinedRefs,
   useEventListener,
   useOnClickOutside
-} from '@cs/component-hooks';
-import Popover, { IPopoverProps } from '@cs/component-popover';
+} from '@ciceksepeti/cui-hooks';
+import Popover, { IPopoverProps } from '@ciceksepeti/cui-popover';
 import {
   mergeEventHandlers,
   PolymorphicComponentProps
-} from '@cs/component-utils';
+} from '@ciceksepeti/cui-utils';
 
 const initialValue = {} as IListboxContext;
 const ListboxContext = createContext(initialValue);
@@ -587,13 +587,13 @@ const showContentWarnings = (componentName: string, props: IListboxProps) => {
   if (process.env.NODE_ENV === 'production') return;
 
   if (props['aria-labelledby'] && props['aria-label']) {
-    const warning = `@cs/component-listbox - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label.`;
+    const warning = `@ciceksepeti/cui-listbox - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label.`;
     console.warn(warning);
   }
 
   if (props['aria-labelledby'] || props['aria-label']) return;
 
-  const warning = `@cs/component-listbox - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe listbox`;
+  const warning = `@ciceksepeti/cui-listbox - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe listbox`;
 
   console.warn(warning);
 };

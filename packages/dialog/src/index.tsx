@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 /**
- * @cs/component-dialog
+ * @ciceksepeti/cui-dialog
  *
  * Accessible Dialog (Modal) Component
  *
@@ -18,11 +18,11 @@ import React, {
   cloneElement,
   FunctionComponent
 } from 'react';
-import Portal from '@cs/component-portal';
-import FocusTrap from '@cs/component-focus-trap';
+import Portal from '@ciceksepeti/cui-portal';
+import FocusTrap from '@ciceksepeti/cui-focus-trap';
 import { RemoveScroll } from 'react-remove-scroll';
-import { useCombinedRefs } from '@cs/component-hooks';
-import { PolymorphicComponentProps } from '@cs/component-utils';
+import { useCombinedRefs } from '@ciceksepeti/cui-hooks';
+import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
 
 /**
  * dialog overlay component
@@ -198,14 +198,14 @@ const showContentWarnings = (
   if (process.env.NODE_ENV === 'production') return;
 
   if (props['aria-labelledby'] && props['aria-label']) {
-    const warning = `@cs/component-dialog - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label. @see: https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html`;
+    const warning = `@ciceksepeti/cui-dialog - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label. @see: https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html`;
 
     console.warn(warning);
   }
 
   if (props['aria-labelledby'] || props['aria-label']) return;
 
-  const warning = `@cs/component-dialog - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe content of dialog. @see: https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html`;
+  const warning = `@ciceksepeti/cui-dialog - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe content of dialog. @see: https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html`;
 
   console.warn(warning);
 };

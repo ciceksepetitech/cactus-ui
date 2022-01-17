@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Checkbox from '..';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import { render, screen, cleanup } from '@cs/component-utils';
+import { render, screen, cleanup } from '@ciceksepeti/cui-utils';
 
 describe('checkbox component tests', () => {
   afterEach(() => {

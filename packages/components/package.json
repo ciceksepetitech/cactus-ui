@@ -1,5 +1,5 @@
 {
-  "name": "@cs/components",
+  "name": "@ciceksepeti/cui",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Component Button",
   "author": "cs",
@@ -13,6 +13,10 @@
     "type": "",
     "url": ""
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "scripty",
     "clean": "scripty",

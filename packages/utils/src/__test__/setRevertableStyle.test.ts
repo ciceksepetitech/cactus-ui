@@ -1,5 +1,5 @@
 import { setRevertableStyle } from '..';
-import { cleanup } from '@cs/component-utils';
+import { cleanup } from '@ciceksepeti/cui-utils';
 
 describe('setRevertableStyle utility tests', () => {
   afterEach(() => {

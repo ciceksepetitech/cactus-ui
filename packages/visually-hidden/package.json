@@ -1,5 +1,5 @@
 {
-  "name": "@cs/component-visually-hidden",
+  "name": "@ciceksepeti/cui-visually-hidden",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Visually Hidden Component",
   "author": "ciceksepeti",
@@ -10,12 +10,16 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "repository": {
     "type": "",
     "url": ""
   },
   "dependencies": {
-    "@cs/component-utils": "^0.0.1"
+    "@ciceksepeti/cui-utils": "^0.0.1"
   },
   "scripts": {
     "build": "scripty",

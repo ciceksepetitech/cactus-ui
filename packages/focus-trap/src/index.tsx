@@ -1,5 +1,5 @@
 /**
- * @cs/component-focus-trap
+ * @ciceksepeti/cui-focus-trap
  *
  * Focus Trap Component
  *
@@ -13,8 +13,8 @@ import React, {
   useCallback,
   useLayoutEffect
 } from 'react';
-import { PolymorphicComponentProps } from '@cs/component-utils';
-import { useFindTabbableElements, useCombinedRefs } from '@cs/component-hooks';
+import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
+import { useFindTabbableElements, useCombinedRefs } from '@ciceksepeti/cui-hooks';
 
 /**
  * focus trap component

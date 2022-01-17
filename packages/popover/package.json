@@ -1,5 +1,5 @@
 {
-  "name": "@cs/component-popover",
+  "name": "@ciceksepeti/cui-popover",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Popover Component",
   "author": "ciceksepeti",
@@ -10,14 +10,18 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "repository": {
     "type": "",
     "url": ""
   },
   "dependencies": {
-    "@cs/component-hooks": "^0.0.1",
-    "@cs/component-utils": "^0.0.1",
-    "@cs/component-portal": "^0.0.1"
+    "@ciceksepeti/cui-hooks": "^0.0.1",
+    "@ciceksepeti/cui-utils": "^0.0.1",
+    "@ciceksepeti/cui-portal": "^0.0.1"
   },
   "scripts": {
     "build": "scripty",

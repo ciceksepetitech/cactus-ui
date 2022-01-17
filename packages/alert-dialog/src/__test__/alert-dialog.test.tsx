@@ -1,7 +1,7 @@
 import React from 'react';
 import { axe } from 'jest-axe';
 import AlertDialog from '..';
-import { render, cleanup } from '@cs/component-utils';
+import { render, cleanup } from '@ciceksepeti/cui-utils';
 
 let consoleWarn;
 let consoleError;

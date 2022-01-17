@@ -2,7 +2,7 @@ import React from 'react';
 import { axe } from 'jest-axe';
 import Listbox, { ListboxItem } from '..';
 import userEvent from '@testing-library/user-event';
-import { render, screen, cleanup, fireEvent } from '@cs/component-utils';
+import { render, screen, cleanup, fireEvent } from '@ciceksepeti/cui-utils';
 
 let consoleWarn;
 

@@ -1,13 +1,13 @@
 /**
- * @cs/component-alert-nav
+ * @ciceksepeti/cui-alert-nav
  *
  * AlertDialog Component
  *
  * provides accessible alert dialog for situations like user confirmation is needed
  */
 
-import { PolymorphicComponentProps } from '@cs/component-utils';
-import { useFindTabbableElements, useCombinedRefs } from '@cs/component-hooks';
+import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
+import { useFindTabbableElements, useCombinedRefs } from '@ciceksepeti/cui-hooks';
 import React, {
   useRef,
   useState,
@@ -19,7 +19,7 @@ import {
   IDialogProps,
   DialogOverlay,
   DialogContentWrapper
-} from '@cs/component-dialog';
+} from '@ciceksepeti/cui-dialog';
 
 /**
  * alert dialog overlay component
@@ -77,7 +77,7 @@ export const AlertDialogContent = forwardRef(
       if (process.env.NODE_ENV === 'production') return;
 
       if (tabbableElements?.length === 0) {
-        const error = `@cs/component-alert-dialog-content: at least one focusable element should be provided for role=alertdialog. Ensure you have one focusable element added. @see: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alertdialog_role`;
+        const error = `@ciceksepeti/cui-alert-dialog-content: at least one focusable element should be provided for role=alertdialog. Ensure you have one focusable element added. @see: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_alertdialog_role`;
 
         console.error(error);
       }
@@ -137,19 +137,19 @@ const showContentWarnings = (
   if (process.env.NODE_ENV === 'production') return;
 
   if (props['aria-labelledby'] && props['aria-label']) {
-    const warning = `@cs/component-alert-dialog - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
+    const warning = `@ciceksepeti/cui-alert-dialog - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
     console.warn(warning);
   }
 
   if (!props['aria-describedby']) {
-    const warning = `@cs/component-alert-dialog - ${componentName}: aria-describedby is not provided. Content of alert dialog should have an description and aria-describedby should be provided. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
+    const warning = `@ciceksepeti/cui-alert-dialog - ${componentName}: aria-describedby is not provided. Content of alert dialog should have an description and aria-describedby should be provided. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
 
     console.warn(warning);
   }
 
   if (props['aria-labelledby'] || props['aria-label']) return;
 
-  const warning = `@cs/component-alert-dialog - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe content of dialog. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
+  const warning = `@ciceksepeti/cui-alert-dialog - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe content of dialog. @see: https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/alertdialog.html`;
 
   console.warn(warning);
 };

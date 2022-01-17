@@ -1,5 +1,5 @@
 /**
- * @cs/component-checkbox
+ * @ciceksepeti/cui-checkbox
  *
  * Checkbox Component
  *
@@ -17,8 +17,8 @@ import React, {
 import {
   mergeEventHandlers,
   PolymorphicComponentProps
-} from '@cs/component-utils';
-import { useCombinedRefs } from '@cs/component-hooks';
+} from '@ciceksepeti/cui-utils';
+import { useCombinedRefs } from '@ciceksepeti/cui-hooks';
 
 const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
   const {

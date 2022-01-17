@@ -1,5 +1,5 @@
 /**
- * @cs/component-alert
+ * @ciceksepeti/cui-alert
  *
  * Accessible Alert Component
  *
@@ -16,9 +16,9 @@ import React, {
   cloneElement
 } from 'react';
 import ReactDOM from 'react-dom';
-import { useCombinedRefs } from '@cs/component-hooks';
-import VisuallyHidden from '@cs/component-visually-hidden';
-import { PolymorphicComponentProps } from '@cs/component-utils';
+import { useCombinedRefs } from '@ciceksepeti/cui-hooks';
+import VisuallyHidden from '@ciceksepeti/cui-visually-hidden';
+import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
 
 /**
  * for multiple alerts in a same liveRegionType,

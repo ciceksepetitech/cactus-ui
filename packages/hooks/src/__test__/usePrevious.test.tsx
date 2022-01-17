@@ -1,5 +1,5 @@
 import { usePrevious } from '..';
-import { cleanup, reactHooks } from '@cs/component-utils';
+import { cleanup, reactHooks } from '@ciceksepeti/cui-utils';
 
 const { renderHook } = reactHooks;
 
