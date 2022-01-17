@@ -1,8 +1,14 @@
 {
-  "name": "@cs/component-alert-dialog",
+  "name": "@ciceksepeti/cui-alert-dialog",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Alert Dialog Component",
   "author": "ciceksepeti",
+  "sideEffects": ["*.css"],
+  "files": [
+    "dist",
+    "README.md",
+    "styles.css"
+  ],
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -15,9 +21,9 @@
     "url": ""
   },
   "dependencies": {
-    "@cs/component-utils": "^0.0.1",
-    "@cs/component-hooks": "^0.0.1",
-    "@cs/component-dialog": "^0.0.1"
+    "@ciceksepeti/cui-utils": "^0.0.1",
+    "@ciceksepeti/cui-hooks": "^0.0.1",
+    "@ciceksepeti/cui-dialog": "^0.0.1"
   },
   "scripts": {
     "build": "scripty",

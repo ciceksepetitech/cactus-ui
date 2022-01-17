@@ -1,12 +1,24 @@
-# @cs/component-popover
+# @ciceksepeti/cui-popover
 
-[![Stable release](https://img.shields.io/npm/v/@ciceksepeti/cui/popover.svg)](https://npm.im/@ciceksepeti/cui/popover) ![MIT license](https://badgen.now.sh/badge/license/MIT)
+[![npm version](https://img.shields.io/npm/v/@ciceksepeti/cui-popover.svg?style=flat)](https://www.npmjs.com/package/@ciceksepeti/cui-popover) ![storybook](https://shields.io/badge/storybook-white?logo=storybook&style=flat) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ciceksepetitech/cactus-ui/blob/HEAD/LICENSE)
 
 Popovers are small overlays that open on demand. They let users access additional content and actions without cluttering the page.
 
+## Installing
+Using Npm:
+```bash
+$ npm install @ciceksepeti/cui-popover
+```
+Using Yarn:
+```bash
+$ yarn add @ciceksepeti/cui-popover
+```
+
+## Example
+
 ```jsx
 import React, { useRef, useState } from "react";
-import Popover from "@cs/component-popover";
+import Popover from "@ciceksepeti/cui-popover";
 
 function Demo() {
   const targetRef = useRef();

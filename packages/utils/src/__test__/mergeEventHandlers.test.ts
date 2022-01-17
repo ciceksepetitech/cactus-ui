@@ -1,6 +1,6 @@
 import { SyntheticEvent } from 'react';
 import { mergeEventHandlers } from '..';
-import { cleanup } from '@cs/component-utils';
+import { cleanup } from '@ciceksepeti/cui-utils';
 
 let userMockFn;
 let libraryMockFn;

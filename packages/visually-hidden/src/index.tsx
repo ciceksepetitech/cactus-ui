@@ -1,5 +1,5 @@
 /**
- * @cs/component-visually-hidden
+ * @ciceksepeti/cui-visually-hidden
  *
  * VisuallyHidden Component
  *
@@ -8,7 +8,7 @@
  */
 
 import React, { forwardRef } from 'react';
-import { PolymorphicComponentProps } from '@cs/component-utils';
+import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
 
 /**
  * visually hidden component
@@ -48,7 +48,7 @@ export const VisuallyHidden = forwardRef(
         {...rest}
         style={_style}
         ref={forwardedRef}
-        data-cs-visually-hidden
+        data-cui-visually-hidden
       >
         {children}
       </Component>

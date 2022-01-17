@@ -1,5 +1,5 @@
 /**
- * @cs/component-listbox
+ * @ciceksepeti/cui-listbox
  *
  * Listbox Component
  * @see https://www.w3.org/TR/wai-aria-practices/#Listbox
@@ -22,12 +22,12 @@ import {
   useCombinedRefs,
   useEventListener,
   useOnClickOutside
-} from '@cs/component-hooks';
-import Popover, { IPopoverProps } from '@cs/component-popover';
+} from '@ciceksepeti/cui-hooks';
+import Popover, { IPopoverProps } from '@ciceksepeti/cui-popover';
 import {
   mergeEventHandlers,
   PolymorphicComponentProps
-} from '@cs/component-utils';
+} from '@ciceksepeti/cui-utils';
 
 const initialValue = {} as IListboxContext;
 const ListboxContext = createContext(initialValue);
@@ -309,7 +309,7 @@ export const ListboxInput = forwardRef(
         ref={ref}
         type="hidden"
         tabIndex={-1}
-        data-cs-listbox-input
+        data-cui-listbox-input
         value={selectedItem.value || ''}
         {...props}
       />
@@ -355,7 +355,7 @@ export const ListboxButton = forwardRef(
           <Component
             ref={ref}
             role="button"
-            data-cs-listbox-button
+            data-cui-listbox-button
             aria-haspopup="listbox"
             aria-disabled={disabled}
             aria-expanded={isExpanded}
@@ -363,7 +363,7 @@ export const ListboxButton = forwardRef(
             {...rest}
           >
             <React.Fragment>
-              <span data-cs-listbox-label>
+              <span data-cui-listbox-label>
                 {prefix}
                 {label}
               </span>
@@ -413,7 +413,7 @@ export const ListboxList = forwardRef(
         tabIndex={-1}
         role="listbox"
         ref={refCallback}
-        data-cs-listbox-list
+        data-cui-listbox-list
         id={`listbox-${providerId}`}
         aria-activedescendant={isExpanded ? cursor.id : undefined}
         {...rest}
@@ -475,7 +475,7 @@ export const ListboxItem = forwardRef(
         id={option.id}
         ref={forwardedRef}
         data-value={value}
-        data-cs-listbox-item
+        data-cui-listbox-item
         aria-disabled={disabled}
         data-label={option.label}
         onClick={() => onItemClick(value)}
@@ -511,7 +511,7 @@ export const ListboxArrow = forwardRef(
       <Component
         aria-hidden
         ref={forwardedRef}
-        data-cs-listbox-arrow
+        data-cui-listbox-arrow
         data-expanded={isExpanded}
         {...rest}
       ></Component>
@@ -551,7 +551,7 @@ export const ListboxPopover = forwardRef(
         ref={ref}
         hidden={!isExpanded}
         targetRef={targetRef}
-        data-cs-listbox-popover
+        data-cui-listbox-popover
       >
         <ListboxList>{children}</ListboxList>
       </Popover>
@@ -587,13 +587,13 @@ const showContentWarnings = (componentName: string, props: IListboxProps) => {
   if (process.env.NODE_ENV === 'production') return;
 
   if (props['aria-labelledby'] && props['aria-label']) {
-    const warning = `@cs/component-listbox - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label.`;
+    const warning = `@ciceksepeti/cui-listbox - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label.`;
     console.warn(warning);
   }
 
   if (props['aria-labelledby'] || props['aria-label']) return;
 
-  const warning = `@cs/component-listbox - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe listbox`;
+  const warning = `@ciceksepeti/cui-listbox - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe listbox`;
 
   console.warn(warning);
 };

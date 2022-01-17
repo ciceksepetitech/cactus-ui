@@ -1,5 +1,5 @@
 /**
- * @cs/component-skip-nav
+ * @ciceksepeti/cui-skip-nav
  *
  * SkipNav Component
  *
@@ -7,7 +7,7 @@
  */
 
 import React, { forwardRef } from 'react';
-import { PolymorphicComponentProps } from '@cs/component-utils';
+import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
 
 /**
  * skip nav component
@@ -24,7 +24,7 @@ export const SkipNav = forwardRef(
 
     return (
       <Component
-        data-cs-skip-nav
+        data-cui-skip-nav
         ref={forwardedRef}
         href={`#${targetId}`}
         {...rest}

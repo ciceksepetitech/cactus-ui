@@ -1,5 +1,5 @@
 {
-  "name": "@cs/component-portal",
+  "name": "@ciceksepeti/cui-portal",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Portal Component",
   "author": "ciceksepeti",
@@ -14,8 +14,12 @@
     "type": "",
     "url": ""
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "dependencies": {
-    "@cs/component-utils": "^0.0.1"
+    "@ciceksepeti/cui-utils": "^0.0.1"
   },
   "scripts": {
     "build": "scripty",

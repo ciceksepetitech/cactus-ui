@@ -1,24 +1,27 @@
 {
-  "name": "@cs/component-alert",
+  "name": "@ciceksepeti/cui-alert",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Accessible Alert Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
-  "sideEffects": ["*.css"],
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "private": false,
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "repository": {
     "type": "",
     "url": ""
   },
   "dependencies": {
-    "@cs/component-utils": "^0.0.1",
-    "@cs/component-hooks": "^0.0.1",
-    "@cs/component-visually-hidden": "^0.0.1"
+    "@ciceksepeti/cui-utils": "^0.0.1",
+    "@ciceksepeti/cui-hooks": "^0.0.1",
+    "@ciceksepeti/cui-visually-hidden": "^0.0.1"
   },
   "scripts": {
     "build": "scripty",

@@ -1,5 +1,5 @@
 /**
- * @cs/component-portal
+ * @ciceksepeti/cui-portal
  *
  * React Portal Component
  *
@@ -29,7 +29,7 @@ export const Portal: FC<IPortalProps> = (props) => {
       document.body;
 
     const portalNode = document.createElement('div');
-    portalNode.setAttribute('data-cs-portal', 'true');
+    portalNode.setAttribute('data-cui-portal', 'true');
 
     setPortalNode(portalNode);
     container.appendChild(portalNode);

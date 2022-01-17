@@ -1,5 +1,5 @@
 {
-  "name": "@cs/component-utils",
+  "name": "@ciceksepeti/cui-utils",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Component Utils",
   "author": "cs",
@@ -10,6 +10,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "repository": {
     "type": "",
     "url": ""

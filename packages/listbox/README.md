@@ -1,13 +1,25 @@
-# @cs/component-listbox
+# @ciceksepeti/cui-listbox
 
-[![Stable release](https://img.shields.io/npm/v/@ciceksepeti/cui/listbox.svg)](https://npm.im/@ciceksepeti/cui/listbox) ![MIT license](https://badgen.now.sh/badge/license/MIT)
+[![npm version](https://img.shields.io/npm/v/@ciceksepeti/cui-listbox.svg?style=flat)](https://www.npmjs.com/package/@ciceksepeti/cui-listbox) ![storybook](https://shields.io/badge/storybook-white?logo=storybook&style=flat) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ciceksepetitech/cactus-ui/blob/HEAD/LICENSE)
 
 Renders list of options in a accessible way.
 
+## Installing
+Using Npm:
+```bash
+$ npm install @ciceksepeti/cui-listbox
+```
+Using Yarn:
+```bash
+$ yarn add @ciceksepeti/cui-listbox
+```
+
+## Example
+
 ```jsx
 import React, { useState } from "react";
-import { Listbox, ListboxItem } from "@cs/component-listbox";
-import "@cs/component-listbox/styles.css";
+import { Listbox, ListboxItem } from "@ciceksepeti/cui-listbox";
+import "@ciceksepeti/cui-listbox/styles.css";
 
 function Demo(props) {
   let [value, setValue] = useState("apple");

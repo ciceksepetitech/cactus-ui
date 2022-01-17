@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Alert from '..';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import { render, screen, cleanup, waitFor } from '@cs/component-utils';
+import { render, screen, cleanup, waitFor } from '@ciceksepeti/cui-utils';
 
 describe('alert component tests', () => {
   afterEach(() => {

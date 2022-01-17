@@ -1,5 +1,5 @@
 {
-  "name": "@cs/component-hooks",
+  "name": "@ciceksepeti/cui-hooks",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Component Hooks",
   "author": "cs",
@@ -10,8 +10,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "dependencies": {
-    "@cs/component-utils": "^0.0.1"
+    "@ciceksepeti/cui-utils": "^0.0.1"
   },
   "repository": {
     "type": "",

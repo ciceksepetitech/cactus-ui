@@ -1,5 +1,5 @@
 /**
- * @cs/component-focus-trap
+ * @ciceksepeti/cui-focus-trap
  *
  * Focus Trap Component
  *
@@ -13,8 +13,11 @@ import React, {
   useCallback,
   useLayoutEffect
 } from 'react';
-import { PolymorphicComponentProps } from '@cs/component-utils';
-import { useFindTabbableElements, useCombinedRefs } from '@cs/component-hooks';
+import {
+  useCombinedRefs,
+  useFindTabbableElements
+} from '@ciceksepeti/cui-hooks';
+import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
 
 /**
  * focus trap component
@@ -259,7 +262,7 @@ export const FocusTrap = forwardRef(
       <Component
         {...rest}
         ref={refCallback}
-        data-cs-focus-wrapper
+        data-cui-focus-wrapper
         onKeyDown={disabled ? undefined : handleKeyDown}
       >
         {children}

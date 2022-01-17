@@ -1,28 +1,32 @@
 {
-  "name": "@cs/component-dialog",
+  "name": "@ciceksepeti/cui-dialog",
   "version": "0.0.1",
   "description": "ÇiçekSepeti Accessible Dialog Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
-  "sideEffects": ["*.css"],
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "private": false,
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": ["*.css"],
+  "files": [
+    "dist",
+    "README.md",
+    "styles.css"
+  ],
   "repository": {
     "type": "",
     "url": ""
   },
   "dependencies": {
-    "@cs/component-utils": "^0.0.1",
-    "@cs/component-hooks": "^0.0.1",
-    "@cs/component-portal": "^0.0.1",
-    "@cs/component-focus-trap": "^0.0.1",
-    "@cs/component-visually-hidden": "^0.0.1"
+    "@ciceksepeti/cui-utils": "^0.0.1",
+    "@ciceksepeti/cui-hooks": "^0.0.1",
+    "@ciceksepeti/cui-portal": "^0.0.1",
+    "@ciceksepeti/cui-focus-trap": "^0.0.1",
+    "@ciceksepeti/cui-visually-hidden": "^0.0.1"
   },
-  "files": ["styles.css"],
   "scripts": {
     "build": "scripty",
     "clean": "scripty",

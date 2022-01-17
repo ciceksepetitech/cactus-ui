@@ -1,5 +1,5 @@
 /**
- * @cs/component-checkbox
+ * @ciceksepeti/cui-checkbox
  *
  * Checkbox Component
  *
@@ -17,8 +17,8 @@ import React, {
 import {
   mergeEventHandlers,
   PolymorphicComponentProps
-} from '@cs/component-utils';
-import { useCombinedRefs } from '@cs/component-hooks';
+} from '@ciceksepeti/cui-utils';
+import { useCombinedRefs } from '@ciceksepeti/cui-hooks';
 
 const useCheckbox = (inputRef: MutableRefObject<HTMLInputElement>, args) => {
   const {
@@ -168,18 +168,18 @@ export const Checkbox = forwardRef(
 
     return (
       <Component
-        data-cs-checkbox
+        data-cui-checkbox
         onClick={onClick}
-        data-cs-checkbox-status={status}
-        data-cs-checkbox-disabled={disabled}
-        data-cs-checkbox-keyboard-focus={focused}
+        data-cui-checkbox-status={status}
+        data-cui-checkbox-disabled={disabled}
+        data-cui-checkbox-keyboard-focus={focused}
       >
         <input
           {...rest}
           {...checkboxArgs}
           ref={inputRef}
           type="checkbox"
-          data-cs-checkbox-input
+          data-cui-checkbox-input
           onBlur={mergeEventHandlers(onBlur, onBlurHandler)}
           onKeyUp={mergeEventHandlers(onKeyUp, onKeyUpHandler)}
           onChange={mergeEventHandlers(onChange, onChangeHandler)}

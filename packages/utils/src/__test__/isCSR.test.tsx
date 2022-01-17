@@ -1,6 +1,6 @@
 import React from 'react';
 import { isCSR } from '..';
-import { render, screen, cleanup } from '@cs/component-utils';
+import { render, screen, cleanup } from '@ciceksepeti/cui-utils';
 
 describe('useIsCSR hook tests', () => {
   afterEach(() => {

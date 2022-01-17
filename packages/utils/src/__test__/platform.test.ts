@@ -1,5 +1,5 @@
 import { isMac, isChrome, isAppleDevice, isAndroid, isIPad } from '..';
-import { cleanup } from '@cs/component-utils';
+import { cleanup } from '@ciceksepeti/cui-utils';
 
 let platformGetter;
 let userAgentGetter;

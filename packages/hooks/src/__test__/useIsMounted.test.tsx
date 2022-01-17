@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useIsMounted } from '..';
-import { cleanup, screen, render } from '@cs/component-utils';
+import { cleanup, screen, render } from '@ciceksepeti/cui-utils';
 
 const fnMock = jest.fn();
 const fnSpecificMock = jest.fn();
