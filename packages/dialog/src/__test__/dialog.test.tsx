@@ -95,7 +95,7 @@ describe('dialog component tests', () => {
   test('dialog should unmount when overlay is clicked', async () => {
     render(<Component open>I am a dialog</Component>);
     screen.getByText(/i am a dialog/i);
-    const overlay = document.querySelector("[data-cs-dialog-overlay='true']");
+    const overlay = document.querySelector("[data-cui-dialog-overlay='true']");
     userEvent.click(overlay);
     expect(screen.queryByText(/i am a dialog/i)).not.toBeInTheDocument();
   });
@@ -103,7 +103,7 @@ describe('dialog component tests', () => {
   test('dialog should not unmount when other then overlay is clicked', async () => {
     render(<Component open>I am a dialog</Component>);
     screen.getByText(/i am a dialog/i);
-    const content = document.querySelector("[data-cs-dialog-content='true']");
+    const content = document.querySelector("[data-cui-dialog-content='true']");
     userEvent.click(content);
     expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
   });
@@ -130,7 +130,7 @@ describe('dialog component tests', () => {
     );
 
     screen.getByText(/i am a dialog/i);
-    const overlay = document.querySelector("[data-cs-dialog-overlay='true']");
+    const overlay = document.querySelector("[data-cui-dialog-overlay='true']");
     userEvent.click(overlay);
     expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
   });

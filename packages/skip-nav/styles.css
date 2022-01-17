@@ -1,11 +1,11 @@
-[data-cs-skip-nav] {
+[data-cui-skip-nav] {
   top: 0;
   left: 0;
   position: fixed;
 }
 
-[data-cs-skip-nav]:not(:focus-within),
-[data-cs-skip-nav]:not(:focus) {
+[data-cui-skip-nav]:not(:focus-within),
+[data-cui-skip-nav]:not(:focus) {
   border: 0;
   width: 1px;
   height: 1px;

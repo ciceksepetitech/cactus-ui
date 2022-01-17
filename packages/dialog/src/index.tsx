@@ -77,7 +77,7 @@ export const DialogOverlay = forwardRef(
         <div
           ref={ref}
           tabIndex={-1}
-          data-cs-dialog-overlay
+          data-cui-dialog-overlay
           onClick={handleOnClick}
           onKeyDown={handleEscapeKeyDown}
         >
@@ -151,7 +151,7 @@ export const DialogContent = forwardRef(
         role="dialog"
         aria-modal="true"
         ref={forwardedRef}
-        data-cs-dialog-content
+        data-cui-dialog-content
         {...rest}
       >
         {children}

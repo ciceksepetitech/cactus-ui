@@ -93,7 +93,7 @@ export const AlertDialogContent = forwardRef(
         aria-modal="true"
         ref={refCallback}
         role="alertdialog"
-        data-cs-alert-dialog-content
+        data-cui-alert-dialog-content
         {...rest}
       >
         {children}

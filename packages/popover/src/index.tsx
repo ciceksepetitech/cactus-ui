@@ -353,7 +353,7 @@ const Popover = forwardRef(
       >
         <Component
           {...rest}
-          data-cs-popover
+          data-cui-popover
           ref={refCallback}
           style={{ ...style, ...popoverStyles }}
         >

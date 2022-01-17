@@ -259,7 +259,7 @@ export const FocusTrap = forwardRef(
       <Component
         {...rest}
         ref={refCallback}
-        data-cs-focus-wrapper
+        data-cui-focus-wrapper
         onKeyDown={disabled ? undefined : handleKeyDown}
       >
         {children}

@@ -52,7 +52,7 @@ describe('listbox component tests', () => {
   test('listbox component input value should be first option by default', () => {
     const { container } = render(<Component />);
 
-    const input = container.querySelector('[data-cs-listbox-input]');
+    const input = container.querySelector('[data-cui-listbox-input]');
     expect(input).toHaveValue('item1');
   });
 
@@ -65,7 +65,7 @@ describe('listbox component tests', () => {
     const listbox = screen.getByRole('listbox');
     userEvent.type(listbox, '{arrowdown}{enter}');
 
-    const input = container.querySelector('[data-cs-listbox-input]');
+    const input = container.querySelector('[data-cui-listbox-input]');
     expect(input).toHaveValue('item1');
   });
 
@@ -100,7 +100,7 @@ describe('listbox component tests', () => {
     const listbox = screen.getByRole('listbox');
     userEvent.type(listbox, '{arrowdown}{arrowdown}{enter}');
 
-    const input = container.querySelector('[data-cs-listbox-input]');
+    const input = container.querySelector('[data-cui-listbox-input]');
     expect(input).toHaveValue('item3');
   });
 
@@ -139,14 +139,14 @@ describe('listbox component tests', () => {
   test('listbox component value should be set to passed value initially', () => {
     const { container } = render(<Component value="item3" />);
 
-    const input = container.querySelector('[data-cs-listbox-input]');
+    const input = container.querySelector('[data-cui-listbox-input]');
     expect(input).toHaveValue('item3');
   });
 
   test('listbox component value should be set to passed defaultValue initially', () => {
     const { container } = render(<Component defaultValue="item3" />);
 
-    const input = container.querySelector('[data-cs-listbox-input]');
+    const input = container.querySelector('[data-cui-listbox-input]');
     expect(input).toHaveValue('item3');
   });
 
@@ -159,7 +159,7 @@ describe('listbox component tests', () => {
     const option3 = screen.getByText(/item 3/i);
     userEvent.click(option3);
 
-    const input = container.querySelector('[data-cs-listbox-input]');
+    const input = container.querySelector('[data-cui-listbox-input]');
     expect(input).toHaveValue('item3');
   });
 
@@ -223,7 +223,7 @@ describe('listbox component tests', () => {
     const listbox = screen.getByRole('listbox');
     userEvent.type(listbox, '{arrowdown}{arrowdown}{space}');
 
-    const input = container.querySelector('[data-cs-listbox-input]');
+    const input = container.querySelector('[data-cui-listbox-input]');
     expect(input).toHaveValue('item3');
   });
 
@@ -231,13 +231,13 @@ describe('listbox component tests', () => {
     const { container } = render(<Component portal={false} />);
 
     expect(
-      container.querySelector('[data-cs-listbox-popover]')
+      container.querySelector('[data-cui-listbox-popover]')
     ).not.toBeVisible();
 
     const button = screen.getByRole('button');
     userEvent.click(button);
 
-    expect(container.querySelector('[data-cs-listbox-popover]')).toBeVisible();
+    expect(container.querySelector('[data-cui-listbox-popover]')).toBeVisible();
   });
 
   test('listbox component should not warn when aria attributes are provided', () => {

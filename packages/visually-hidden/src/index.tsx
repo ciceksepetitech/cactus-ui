@@ -48,7 +48,7 @@ export const VisuallyHidden = forwardRef(
         {...rest}
         style={_style}
         ref={forwardedRef}
-        data-cs-visually-hidden
+        data-cui-visually-hidden
       >
         {children}
       </Component>

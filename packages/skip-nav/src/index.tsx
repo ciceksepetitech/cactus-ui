@@ -24,7 +24,7 @@ export const SkipNav = forwardRef(
 
     return (
       <Component
-        data-cs-skip-nav
+        data-cui-skip-nav
         ref={forwardedRef}
         href={`#${targetId}`}
         {...rest}

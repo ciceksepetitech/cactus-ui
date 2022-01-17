@@ -309,7 +309,7 @@ export const ListboxInput = forwardRef(
         ref={ref}
         type="hidden"
         tabIndex={-1}
-        data-cs-listbox-input
+        data-cui-listbox-input
         value={selectedItem.value || ''}
         {...props}
       />
@@ -355,7 +355,7 @@ export const ListboxButton = forwardRef(
           <Component
             ref={ref}
             role="button"
-            data-cs-listbox-button
+            data-cui-listbox-button
             aria-haspopup="listbox"
             aria-disabled={disabled}
             aria-expanded={isExpanded}
@@ -363,7 +363,7 @@ export const ListboxButton = forwardRef(
             {...rest}
           >
             <React.Fragment>
-              <span data-cs-listbox-label>
+              <span data-cui-listbox-label>
                 {prefix}
                 {label}
               </span>
@@ -413,7 +413,7 @@ export const ListboxList = forwardRef(
         tabIndex={-1}
         role="listbox"
         ref={refCallback}
-        data-cs-listbox-list
+        data-cui-listbox-list
         id={`listbox-${providerId}`}
         aria-activedescendant={isExpanded ? cursor.id : undefined}
         {...rest}
@@ -475,7 +475,7 @@ export const ListboxItem = forwardRef(
         id={option.id}
         ref={forwardedRef}
         data-value={value}
-        data-cs-listbox-item
+        data-cui-listbox-item
         aria-disabled={disabled}
         data-label={option.label}
         onClick={() => onItemClick(value)}
@@ -511,7 +511,7 @@ export const ListboxArrow = forwardRef(
       <Component
         aria-hidden
         ref={forwardedRef}
-        data-cs-listbox-arrow
+        data-cui-listbox-arrow
         data-expanded={isExpanded}
         {...rest}
       ></Component>
@@ -551,7 +551,7 @@ export const ListboxPopover = forwardRef(
         ref={ref}
         hidden={!isExpanded}
         targetRef={targetRef}
-        data-cs-listbox-popover
+        data-cui-listbox-popover
       >
         <ListboxList>{children}</ListboxList>
       </Popover>

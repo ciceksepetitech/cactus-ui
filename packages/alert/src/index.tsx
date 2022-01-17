@@ -79,7 +79,7 @@ const createCloneFunctions = (liveRegionType: LiveRegionType): CloneRef => {
     }
 
     const liveRegionContainer = document.createElement('div');
-    liveRegionContainer.setAttribute(`data-cs-live-${liveRegionType}`, 'true');
+    liveRegionContainer.setAttribute(`data-cui-live-${liveRegionType}`, 'true');
     liveRegionContainers[liveRegionType] = liveRegionContainer;
     document.body.appendChild(liveRegionContainers[liveRegionType]);
 
@@ -165,7 +165,7 @@ export const Alert = forwardRef(
 
     const component = useMemo(
       () => (
-        <Component {...rest} ref={ref} data-cs-alert>
+        <Component {...rest} ref={ref} data-cui-alert>
           {children}
         </Component>
       ),
