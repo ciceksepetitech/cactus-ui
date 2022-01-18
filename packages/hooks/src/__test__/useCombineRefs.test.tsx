@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCombinedRefs } from '..';
-import { render, cleanup } from '@ciceksepeti/cui-utils';
+import { render, cleanup } from '../../../../utils/test-setup';
 
 const refFunctionMock = jest.fn(); // to simulate forwarded ref
 const refMutableRefObject = { current: undefined }; // to simulate MutableRefObject

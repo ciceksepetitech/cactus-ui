@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-utils",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "ÇiçekSepeti Component Utils",
   "author": "cs",
   "main": "dist/src/index.js",
@@ -15,8 +15,13 @@
     "README.md"
   ],
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "directory": "packages/utils",
+    "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || 17.x",
+    "react-dom": "^16.8.0 || 17.x"
   },
   "scripts": {
     "build": "scripty",

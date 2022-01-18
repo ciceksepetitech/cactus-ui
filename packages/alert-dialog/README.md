@@ -18,6 +18,7 @@ $ yarn add @ciceksepeti/cui-alert-dialog
 
 ```jsx
 import AlertDialog from "@ciceksepeti/cui-alert-dialog";
+import '@ciceksepeti/cui-alert-dialog/styles.css";
 
 function Demo() {
   return (

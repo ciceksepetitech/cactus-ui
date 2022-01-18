@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useOnClickOutside } from '..';
 import userEvent from '@testing-library/user-event';
-import { cleanup, screen, render } from '@ciceksepeti/cui-utils';
+import { cleanup, screen, render } from '../../../../utils/test-setup';
 
 const fnMock = jest.fn();
 

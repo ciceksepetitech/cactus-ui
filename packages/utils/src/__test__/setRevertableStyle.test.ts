@@ -1,5 +1,5 @@
 import { setRevertableStyle } from '..';
-import { cleanup } from '@ciceksepeti/cui-utils';
+import { cleanup } from '../../../../utils/test-setup';
 
 describe('setRevertableStyle utility tests', () => {
   afterEach(() => {

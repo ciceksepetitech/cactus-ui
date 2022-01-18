@@ -3,6 +3,7 @@
 **/coverage
 **/.vscode
 .github
+.jest-cache
 package.json 
 lerna.json
 .prettierrc.json

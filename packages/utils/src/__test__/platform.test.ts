@@ -1,5 +1,5 @@
 import { isMac, isChrome, isAppleDevice, isAndroid, isIPad } from '..';
-import { cleanup } from '@ciceksepeti/cui-utils';
+import { cleanup } from '../../../../utils/test-setup';
 
 let platformGetter;
 let userAgentGetter;

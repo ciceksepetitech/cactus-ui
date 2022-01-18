@@ -1,5 +1,5 @@
 import { useLatestValue } from '..';
-import { cleanup, reactHooks } from '@ciceksepeti/cui-utils';
+import { cleanup, reactHooks } from '../../../../utils/test-setup';
 
 const { renderHook } = reactHooks;
 

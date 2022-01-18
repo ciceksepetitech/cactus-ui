@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { useFindFocusableElements } from '..';
-import { render, screen, cleanup } from '@ciceksepeti/cui-utils';
+import { render, screen, cleanup } from '../../../../utils/test-setup';
 
 describe('useFindFocusableElements hook tests', () => {
   afterEach(() => {

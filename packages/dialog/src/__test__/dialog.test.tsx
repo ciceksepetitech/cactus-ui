@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Dialog from '..';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import { render, cleanup, screen } from '@ciceksepeti/cui-utils';
+import { render, cleanup, screen } from '../../../../utils/test-setup';
 
 let consoleWarn;
 let consoleError;

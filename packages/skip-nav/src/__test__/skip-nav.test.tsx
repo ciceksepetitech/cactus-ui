@@ -1,7 +1,7 @@
 import React from 'react';
 import { axe } from 'jest-axe';
 import SkipNav from '..';
-import { render, screen, cleanup } from '@ciceksepeti/cui-utils';
+import { render, screen, cleanup } from '../../../../utils/test-setup';
 
 describe('skipNav component tests', () => {
   afterEach(() => {

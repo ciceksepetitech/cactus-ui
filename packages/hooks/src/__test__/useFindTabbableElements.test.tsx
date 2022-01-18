@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useState } from 'react';
 import { useFindTabbableElements } from '..';
-import { render, screen, cleanup } from '@ciceksepeti/cui-utils';
+import { render, screen, cleanup } from '../../../../utils/test-setup';
 
 describe('useFindTabbableElements hook tests', () => {
   afterEach(() => {

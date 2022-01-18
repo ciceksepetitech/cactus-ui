@@ -2,7 +2,7 @@ import React from 'react';
 import FocusTrap from '..';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import { render, cleanup, screen } from '@ciceksepeti/cui-utils';
+import { render, cleanup, screen } from '../../../../utils/test-setup';
 
 describe('focusTrap component tests', () => {
   afterEach(() => {

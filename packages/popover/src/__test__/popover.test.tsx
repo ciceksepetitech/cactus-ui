@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Popover from '..';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import { render, cleanup, screen } from '@ciceksepeti/cui-utils';
+import { render, cleanup, screen } from '../../../../utils/test-setup';
 
 describe('popover component tests', () => {
   afterEach(() => {

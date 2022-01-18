@@ -1,7 +1,7 @@
 import React from 'react';
 import { axe } from 'jest-axe';
 import VisuallyHidden from '..';
-import { render, screen, cleanup } from '@ciceksepeti/cui-utils';
+import { render, screen, cleanup } from '../../../../utils/test-setup';
 
 describe('visuallyHidden component tests', () => {
   afterEach(() => {

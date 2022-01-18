@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useForceUpdate } from '..';
 import userEvent from '@testing-library/user-event';
-import { render, screen, cleanup } from '@ciceksepeti/cui-utils';
+import { render, screen, cleanup } from '../../../../utils/test-setup';
 
 describe('useForceUpdate hook tests', () => {
   afterEach(() => {

@@ -1,5 +1,5 @@
 import { isElementVisible } from '../utils';
-import { cleanup } from '@ciceksepeti/cui-utils';
+import { cleanup } from '../../../../utils/test-setup';
 
 describe('isElementVisible utility tests', () => {
   afterEach(() => {

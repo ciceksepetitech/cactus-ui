@@ -23,11 +23,11 @@ import {
   useEventListener,
   useOnClickOutside
 } from '@ciceksepeti/cui-hooks';
-import Popover, { IPopoverProps } from '@ciceksepeti/cui-popover';
 import {
   mergeEventHandlers,
   PolymorphicComponentProps
 } from '@ciceksepeti/cui-utils';
+import Popover, { IPopoverProps } from '@ciceksepeti/cui-popover';
 
 const initialValue = {} as IListboxContext;
 const ListboxContext = createContext(initialValue);

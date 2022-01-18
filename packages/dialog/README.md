@@ -19,6 +19,7 @@ $ yarn add @ciceksepeti/cui-dialog
 ```jsx
 import React, { useState } from "react";
 import Dialog from "@ciceksepeti/cui-dialog";
+import '@ciceksepeti/cui-dialog/styles.css";
 
 function Demo() {
   const [open, setOpen] = useState(false);
