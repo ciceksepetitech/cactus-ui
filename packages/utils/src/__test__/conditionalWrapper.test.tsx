@@ -1,6 +1,6 @@
 import React from 'react';
 import { ConditionalWrapper } from '..';
-import { render, screen, cleanup } from '@ciceksepeti/cui-utils';
+import { render, screen, cleanup } from '../../../../utils/test-setup';
 
 describe('useIsCSR hook tests', () => {
   afterEach(() => {

@@ -15,11 +15,16 @@
     "README.md"
   ],
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "directory": "packages/visually-hidden",
+    "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
     "@ciceksepeti/cui-utils": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || 17.x",
+    "react-dom": "^16.8.0 || 17.x"
   },
   "scripts": {
     "build": "scripty",

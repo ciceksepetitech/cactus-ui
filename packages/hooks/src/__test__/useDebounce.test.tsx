@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDebounce } from '..';
 import userEvent from '@testing-library/user-event';
-import { render, screen, cleanup } from '@ciceksepeti/cui-utils';
+import { render, screen, cleanup } from '../../../../utils/test-setup';
 
 const fnMock = jest.fn();
 

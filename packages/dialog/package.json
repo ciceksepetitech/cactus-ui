@@ -17,15 +17,21 @@
     "styles.css"
   ],
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "directory": "packages/dialog",
+    "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
+    "react-remove-scroll": "^2.4.3",
     "@ciceksepeti/cui-utils": "^0.0.1",
     "@ciceksepeti/cui-hooks": "^0.0.1",
     "@ciceksepeti/cui-portal": "^0.0.1",
     "@ciceksepeti/cui-focus-trap": "^0.0.1",
     "@ciceksepeti/cui-visually-hidden": "^0.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || 17.x",
+    "react-dom": "^16.8.0 || 17.x"
   },
   "scripts": {
     "build": "scripty",

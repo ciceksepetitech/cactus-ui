@@ -19,6 +19,7 @@ $ yarn add @ciceksepeti/cui-checkbox
 ```jsx
 import React, { useState } from "react";
 import Checkbox from "@ciceksepeti/cui-checkbox";
+import '@ciceksepeti/cui-checkbox/styles.css";
 
 function Demo(props) {
   const [checked, setChecked] = useState(false);

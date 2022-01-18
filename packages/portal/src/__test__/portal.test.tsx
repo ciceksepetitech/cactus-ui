@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Portal from '..';
 import { axe } from 'jest-axe';
-import { render, cleanup, within } from '@ciceksepeti/cui-utils';
+import { render, cleanup, within } from '../../../../utils/test-setup';
 
 describe('portal component tests', () => {
   afterEach(() => {

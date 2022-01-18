@@ -18,6 +18,7 @@ $ yarn add @ciceksepeti/cui-skip-nav
 
 ```jsx
 import SkipNav from "@ciceksepeti/cui-skip-nav";
+import '@ciceksepeti/cui-skip-nav/styles.css";
 
 function Demo() {
   return <SkipNav targetId="target-id">Skip Navigation</SkipNav>;
