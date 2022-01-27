@@ -1,0 +1,37 @@
+{
+  "name": "@ciceksepeti/cui-tabs",
+  "version": "0.0.2",
+  "description": "ÇiçekSepeti Tabs Component",
+  "author": "ciceksepeti",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "directory": "packages/tabs",
+    "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
+  },
+  "dependencies": {
+    "@ciceksepeti/cui-utils": "0.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || 17.x",
+    "react-dom": "^16.8.0 || 17.x"
+  },
+  "scripts": {
+    "build": "scripty",
+    "clean": "scripty",
+    "compile": "scripty"
+  },
+  "scripty": {
+    "path": "../../scripts/packages"
+  }
+}

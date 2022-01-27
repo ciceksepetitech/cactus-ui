@@ -1,0 +1,67 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs';
+import Tabs from '..';
+
+<Meta
+  title="Components/Tabs"
+  component={Tabs}
+  args={{
+    as: 'div',
+    disabled: false
+  }}
+  argTypes={{
+    as: {
+      name: 'as',
+      control: { type: 'text' },
+      description: 'changes html tag of tabs component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    }
+  }}
+/>
+
+## Tabs
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  The Tabs component consists of clickable tabs, that are aligned side by side.
+  Tabs make it easy to explore and switch between different views. Tabs organize
+  and allow navigation between groups of content that are related and at the
+  same level of hierarchy.
+</p>
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => (
+      <div>
+        <Tabs></Tabs>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of Tabs component. Renders as 'div' by default
+</Description>
+
+<ArgsTable story="Default" />
