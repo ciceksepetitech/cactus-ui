@@ -289,9 +289,7 @@ const ListboxProvider = (props) => {
 
   return (
     <ListboxContext.Provider value={providerValue}>
-      {typeof children === 'function'
-        ? children({ label: selectedItem.label, isExpanded })
-        : children}
+      {children({ label: selectedItem.label, isExpanded })}
     </ListboxContext.Provider>
   );
 };
