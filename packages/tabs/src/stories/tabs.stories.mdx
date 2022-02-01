@@ -5,7 +5,7 @@ import {
   ArgsTable,
   Description
 } from '@storybook/addon-docs';
-import { Tabs, TabList, Tab, TabPanelList, TabPanel } from '..';
+import { Tabs, TabList, Tab, TabPanel } from '..';
 
 <Meta
   title="Components/Tabs"
@@ -57,13 +57,15 @@ import { Tabs, TabList, Tab, TabPanelList, TabPanel } from '..';
         <TabList>
           <Tab>Tab1</Tab>
           <Tab disabled>Tab2</Tab>
-          <Tab>Tab3</Tab>
+          <Tab disabled>Tab3</Tab>
+          <Tab>Tab4</Tab>
+          <Tab disabled>Tab5</Tab>
         </TabList>
-        <TabPanelList>
-          <TabPanel>Panel1</TabPanel>
-          <TabPanel>Panel2</TabPanel>
-          <TabPanel>Panel3</TabPanel>
-        </TabPanelList>
+        <TabPanel>Panel1</TabPanel>
+        <TabPanel>Panel2</TabPanel>
+        <TabPanel>Panel3</TabPanel>
+        <TabPanel>Panel4</TabPanel>
+        <TabPanel>Panel5</TabPanel>
       </Tabs>
     )}
   </Story>

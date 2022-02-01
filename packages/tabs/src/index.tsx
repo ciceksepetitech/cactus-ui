@@ -1,6 +1,8 @@
 /**
  * @ciceksepeti/cui-tabs
  *
+ * @see https://www.w3.org/TR/wai-aria-practices-1.2/#tabpanel
+ *
  * Tabs Component
  *
  * The Tabs component consists of clickable tabs, that are aligned side by side.
@@ -67,6 +69,20 @@ const TabsProvider = (props) => {
 
   const providerId = useMemo(() => generateTabProviderId(), []);
 
+  const setSelection = useCallback((tab: ITab) => {
+    const { index: nextTabIndex, ref } = tab;
+
+    setCursor(nextTabIndex);
+    ref.current?.focus();
+
+    if (activationType === TabsActivation.Auto) {
+      setSelectedTabIndex(nextTabIndex);
+      onChangeRef.current?.(nextTabIndex);
+    }
+
+    setFocusedTabIndex(nextTabIndex);
+  }, []);
+
   const handleArrowSelection = useCallback(
     (currentIndex: number, direction: boolean, tabs: ITab[]) => {
       const selectableTabs = tabs.filter(({ disabled }) => !disabled);
@@ -79,28 +95,20 @@ const TabsProvider = (props) => {
         : (selectedTabIndex - 1 + selectableTabs.length) %
           selectableTabs.length;
 
-      const { index: nextTabIndex, ref } = selectableTabs[nextCursor];
-
-      setCursor(nextTabIndex);
-      ref.current?.focus();
-
-      if (activationType === TabsActivation.Auto) {
-        setSelectedTabIndex(nextTabIndex);
-        onChangeRef.current?.(nextTabIndex);
-      }
-
-      setFocusedTabIndex(nextTabIndex);
+      const tab = selectableTabs[nextCursor];
+      setSelection(tab);
     },
     [activationType]
   );
 
   const onKeyDown = useCallback(
     (event) => {
-      const tab = tabs[cursor];
-
       switch (event.key) {
         case ' ':
+        case 'Enter':
         case 'Spacebar': {
+          const tab = tabs[cursor];
+
           if (tab && !tab.disabled) {
             setSelectedTabIndex(cursor);
             onChangeRef.current?.(cursor);
@@ -145,17 +153,23 @@ const TabsProvider = (props) => {
           return;
         }
 
-        case 'Home':
+        case 'Home': {
           event.preventDefault();
-          return;
 
-        case 'PageDown':
-          event.preventDefault();
-          return;
+          const selectableTabs = tabs.filter(({ disabled }) => !disabled);
+          setSelection(selectableTabs[0]);
 
-        case 'End':
-          event.preventDefault();
           return;
+        }
+
+        case 'End': {
+          event.preventDefault();
+
+          const selectableTabs = tabs.filter(({ disabled }) => !disabled);
+          setSelection(selectableTabs[selectableTabs.length - 1]);
+
+          return;
+        }
 
         default:
           break;
@@ -259,6 +273,7 @@ export const TabList = forwardRef(
         data-cui-tab-list
         ref={forwardedRef}
         onKeyDown={onKeyDown}
+        data-orientation={orientation}
         aria-orientation={orientation}
       >
         {children}
@@ -280,15 +295,13 @@ export const Tab = forwardRef(
     const Component = as || 'button';
 
     const internalRef = useRef(null);
-    const ref = useCombinedRefs(forwardedRef, internalRef);
-
     const [tab, setTab] = useState<ITab>({} as ITab);
+    const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const {
       panels,
       setTabs,
       providerId,
-      orientation,
       selectedTabIndex,
       setSelectedTabIndex
     } = useTabsContext();
@@ -323,33 +336,12 @@ export const Tab = forwardRef(
         disabled={disabled}
         aria-disabled={disabled}
         aria-selected={isTabSelected}
-        data-orientation={orientation}
         tabIndex={isTabSelected ? 0 : -1}
         aria-controls={panels[tab.index]?.id}
         onClick={mergeEventHandlers(onClick, () =>
           setSelectedTabIndex(tab.index)
         )}
       >
-        {children}
-      </Component>
-    );
-  }
-);
-
-/**
- * tab-panel-list component
- */
-export const TabPanelList = forwardRef(
-  <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C>,
-    forwardedRef
-  ) => {
-    const { as, children, ...rest } = props;
-
-    const Component = as || 'div';
-
-    return (
-      <Component {...rest} ref={forwardedRef} data-cui-tab-panel-list>
         {children}
       </Component>
     );
@@ -369,7 +361,6 @@ export const TabPanel = forwardRef(
     const Component = as || 'div';
 
     const [panel, setPanel] = useState<IPanel>({} as IPanel);
-
     const { tabs, setPanels, providerId, selectedTabIndex } = useTabsContext();
 
     useIsomorphicLayoutEffect(() => {
@@ -473,4 +464,3 @@ Tab.displayName = 'Tab';
 Tabs.displayName = 'Tabs';
 TabList.displayName = 'TabList';
 TabPanel.displayName = 'TabPanel';
-TabPanelList.displayName = 'TabPanelList';
