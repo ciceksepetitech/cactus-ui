@@ -65,20 +65,33 @@ const TabsProvider = (props) => {
   const [tabs, setTabs] = useState<ITab[]>([]);
   const [cursor, setCursor] = useState<number>(0);
   const [panels, setPanels] = useState<IPanel[]>([]);
-  const onChangeRef = useLatestValue<(index: number) => void>(onChange);
+  const onChangeRef =
+    useLatestValue<(index: number, id: string) => void>(onChange);
 
   const providerId = useMemo(() => generateTabProviderId(), []);
 
-  const setSelection = useCallback((tab: ITab) => {
-    const { index: nextTabIndex, ref } = tab;
+  const setArrowSelection = useCallback((tab: ITab) => {
+    const { id, index: nextTabIndex, ref } = tab;
 
     setCursor(nextTabIndex);
     ref.current?.focus();
 
     if (activationType === TabsActivation.Auto) {
       setSelectedTabIndex(nextTabIndex);
-      onChangeRef.current?.(nextTabIndex);
+      onChangeRef.current?.(nextTabIndex, id);
     }
+
+    setFocusedTabIndex(nextTabIndex);
+  }, []);
+
+  const clickSelection = useCallback((tab: ITab) => {
+    const { id, index: nextTabIndex, ref } = tab;
+
+    setCursor(nextTabIndex);
+    ref.current?.focus();
+
+    setSelectedTabIndex(nextTabIndex);
+    onChangeRef.current?.(nextTabIndex, id);
 
     setFocusedTabIndex(nextTabIndex);
   }, []);
@@ -96,9 +109,9 @@ const TabsProvider = (props) => {
           selectableTabs.length;
 
       const tab = selectableTabs[nextCursor];
-      setSelection(tab);
+      setArrowSelection(tab);
     },
-    [activationType]
+    [activationType, setArrowSelection]
   );
 
   const onKeyDown = useCallback(
@@ -111,7 +124,7 @@ const TabsProvider = (props) => {
 
           if (tab && !tab.disabled) {
             setSelectedTabIndex(cursor);
-            onChangeRef.current?.(cursor);
+            onChangeRef.current?.(cursor, tab.id);
           }
 
           return;
@@ -157,7 +170,7 @@ const TabsProvider = (props) => {
           event.preventDefault();
 
           const selectableTabs = tabs.filter(({ disabled }) => !disabled);
-          setSelection(selectableTabs[0]);
+          setArrowSelection(selectableTabs[0]);
 
           return;
         }
@@ -166,13 +179,13 @@ const TabsProvider = (props) => {
           event.preventDefault();
 
           const selectableTabs = tabs.filter(({ disabled }) => !disabled);
-          setSelection(selectableTabs[selectableTabs.length - 1]);
+          setArrowSelection(selectableTabs[selectableTabs.length - 1]);
 
           return;
         }
 
         default:
-          break;
+          return;
       }
     },
     [cursor, orientation, handleArrowSelection, tabs]
@@ -185,6 +198,7 @@ const TabsProvider = (props) => {
     setPanels,
     onKeyDown,
     providerId,
+    clickSelection,
     ...initialValues
   };
 
@@ -273,7 +287,6 @@ export const TabList = forwardRef(
         data-cui-tab-list
         ref={forwardedRef}
         onKeyDown={onKeyDown}
-        data-orientation={orientation}
         aria-orientation={orientation}
       >
         {children}
@@ -302,8 +315,9 @@ export const Tab = forwardRef(
       panels,
       setTabs,
       providerId,
-      selectedTabIndex,
-      setSelectedTabIndex
+      orientation,
+      clickSelection,
+      selectedTabIndex
     } = useTabsContext();
 
     useIsomorphicLayoutEffect(() => {
@@ -336,12 +350,31 @@ export const Tab = forwardRef(
         disabled={disabled}
         aria-disabled={disabled}
         aria-selected={isTabSelected}
+        data-orientation={orientation}
         tabIndex={isTabSelected ? 0 : -1}
         aria-controls={panels[tab.index]?.id}
-        onClick={mergeEventHandlers(onClick, () =>
-          setSelectedTabIndex(tab.index)
-        )}
+        onClick={mergeEventHandlers(onClick, () => clickSelection(tab))}
       >
+        {children}
+      </Component>
+    );
+  }
+);
+
+/**
+ * tab-panel-list component
+ */
+export const TabPanelList = forwardRef(
+  <C extends React.ElementType = 'div'>(
+    props: PolymorphicComponentProps<C>,
+    forwardedRef
+  ) => {
+    const { as, children, ...rest } = props;
+
+    const Component = as || 'div';
+
+    return (
+      <Component {...rest} ref={forwardedRef} data-cui-tab-panel-list>
         {children}
       </Component>
     );
@@ -377,7 +410,8 @@ export const TabPanel = forwardRef(
         );
     }, [providerId]);
 
-    const isPanelActive = selectedTabIndex === panel.index;
+    const isTabDisabled = tabs[panel.index]?.disabled;
+    const isPanelActive = selectedTabIndex === panel.index && !isTabDisabled;
 
     return (
       <Component
@@ -408,7 +442,7 @@ export interface ITabsProps {
   defaultIndex?: number;
   orientation?: TabsOrientation;
   activationType?: TabsActivation;
-  onChange?: (index: number) => void;
+  onChange?: (index: number, id: string) => void;
   children: ((props: ITabsChildrenProps) => React.ReactNode) | React.ReactNode;
 }
 
@@ -417,7 +451,8 @@ export interface ITabsProviderProps {
   selectedTabIndex: number;
   orientation?: TabsOrientation;
   activationType?: TabsActivation;
-  onChange?: (index: number) => void;
+  clickSelection?: (tab: ITab) => void;
+  onChange?: (index: number, id: string) => void;
   setFocusedTabIndex: React.Dispatch<React.SetStateAction<number>>;
   setSelectedTabIndex: React.Dispatch<React.SetStateAction<number>>;
 }
