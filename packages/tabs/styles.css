@@ -1,0 +1,35 @@
+[data-cui-tabs][data-orientation='vertical'] {
+  display: flex;
+}
+
+[data-cui-tab-list] {
+  display: flex;
+  background-color: #cce5ff;
+}
+
+[data-cui-tab-list][aria-orientation='vertical'] {
+  flex-direction: column;
+}
+
+[data-cui-tab] {
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+[data-cui-tab][aria-selected='true'] {
+  color: #004085;
+  border-bottom: 1px solid currentColor;
+}
+
+[data-cui-tab][aria-selected='true'][data-orientation='vertical'] {
+  border-bottom: none;
+  border-right: 1px solid currentColor;
+}
+
+[data-cui-tab][aria-disabled='true'] {
+  opacity: 0.4;
+  cursor: default;
+}

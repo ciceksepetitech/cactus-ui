@@ -51,8 +51,8 @@ jobs:
       - name: 🧪 Run Test Coverage
         run: yarn test:coverage:summary
 
-      - name: 📗 Build Storybook
-        run: yarn storybook:build
+      # - name: 📗 Build Storybook
+      #   run: yarn storybook:build
 
       # - name: 🚀  Deploy Storybook
       # will be implemented in future

@@ -19,6 +19,7 @@
     "README.md"
   ],
   "dependencies": {
+    "@ciceksepeti/cui-tabs": "0.0.1",
     "@ciceksepeti/cui-alert": "0.1.0",
     "@ciceksepeti/cui-alert-dialog": "0.0.2",
     "@ciceksepeti/cui-checkbox": "0.0.2",

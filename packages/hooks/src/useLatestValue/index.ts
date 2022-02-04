@@ -1,5 +1,4 @@
 import { useRef, MutableRefObject } from 'react';
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect';
 
 /**
  * stores latest value with ref
