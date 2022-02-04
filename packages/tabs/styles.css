@@ -4,7 +4,7 @@
 
 [data-cui-tab-list] {
   display: flex;
-  background-color: #eee;
+  background-color: #cce5ff;
 }
 
 [data-cui-tab-list][aria-orientation='vertical'] {
@@ -20,7 +20,7 @@
 }
 
 [data-cui-tab][aria-selected='true'] {
-  color: cornflowerblue;
+  color: #004085;
   border-bottom: 1px solid currentColor;
 }
 

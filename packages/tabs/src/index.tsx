@@ -57,18 +57,47 @@ const TabsProvider = (props) => {
   const {
     onChange,
     orientation,
+    defaultIndex,
     activationType,
     setFocusedTabIndex,
     setSelectedTabIndex
   } = initialValues;
 
   const [tabs, setTabs] = useState<ITab[]>([]);
-  const [cursor, setCursor] = useState<number>(0);
+  const [cursor, setCursor] = useState<number>();
   const [panels, setPanels] = useState<IPanel[]>([]);
+  const isDefaultTabIndexSet = useRef<boolean>(false);
   const onChangeRef =
     useLatestValue<(index: number, id: string) => void>(onChange);
 
   const providerId = useMemo(() => generateTabProviderId(), []);
+
+  /**
+   * find first undisabled tab to set initially
+   */
+  useIsomorphicLayoutEffect(() => {
+    if (tabs.length === 0 || isDefaultTabIndexSet.current === true) return;
+
+    if (!tabs[defaultIndex].disabled) {
+      setCursor(defaultIndex);
+      setFocusedTabIndex(defaultIndex);
+      setSelectedTabIndex(defaultIndex);
+      isDefaultTabIndexSet.current = true;
+
+      return;
+    }
+
+    const selectableTabs = tabs.filter(({ disabled }) => !disabled);
+
+    if (selectableTabs.length > 0) {
+      const { index: selectableTabIndex } = selectableTabs[0];
+
+      setCursor(selectableTabIndex);
+      setFocusedTabIndex(selectableTabIndex);
+      setSelectedTabIndex(selectableTabIndex);
+      isDefaultTabIndexSet.current = true;
+    }
+  }, [tabs, defaultIndex]);
 
   const setArrowSelection = useCallback((tab: ITab) => {
     const { id, index: nextTabIndex, ref } = tab;
@@ -221,7 +250,7 @@ export const Tabs = forwardRef(
       as,
       children,
       onChange,
-      defaultIndex,
+      defaultIndex = 0,
       activationType = TabsActivation.Auto,
       orientation = TabsOrientation.Horizontal,
       ...rest
@@ -229,17 +258,13 @@ export const Tabs = forwardRef(
 
     const Component = as || 'div';
 
-    const initiallySelectedTabIndex =
-      activationType === TabsActivation.Auto ? defaultIndex || 0 : defaultIndex;
-
     const [focusedTabIndex, setFocusedTabIndex] = useState<number>();
-    const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
-      initiallySelectedTabIndex
-    );
+    const [selectedTabIndex, setSelectedTabIndex] = useState<number>();
 
     const initialValues: ITabsProviderProps = {
       onChange,
       orientation,
+      defaultIndex,
       activationType,
       focusedTabIndex,
       selectedTabIndex,
@@ -338,6 +363,7 @@ export const Tab = forwardRef(
       Component === 'button' && props.type == null ? 'button' : props.type;
 
     const isTabSelected = selectedTabIndex === tab.index;
+    const controlledPanel = panels[tab.index]?.id;
 
     return (
       <Component
@@ -351,8 +377,8 @@ export const Tab = forwardRef(
         aria-disabled={disabled}
         aria-selected={isTabSelected}
         data-orientation={orientation}
+        aria-controls={controlledPanel}
         tabIndex={isTabSelected ? 0 : -1}
-        aria-controls={panels[tab.index]?.id}
         onClick={mergeEventHandlers(onClick, () => clickSelection(tab))}
       >
         {children}
@@ -420,9 +446,9 @@ export const TabPanel = forwardRef(
         role="tabpanel"
         ref={forwardedRef}
         data-cui-tab-panel
-        hidden={!isPanelActive}
         tabIndex={isPanelActive ? 0 : -1}
         aria-labelledby={tabs[panel.index]?.id}
+        hidden={selectedTabIndex === undefined ? false : !isPanelActive}
       >
         {children}
       </Component>
@@ -447,6 +473,7 @@ export interface ITabsProps {
 }
 
 export interface ITabsProviderProps {
+  defaultIndex: number;
   focusedTabIndex: number;
   selectedTabIndex: number;
   orientation?: TabsOrientation;

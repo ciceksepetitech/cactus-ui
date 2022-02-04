@@ -79,3 +79,41 @@ import '../../styles.css';
 </Description>
 
 <ArgsTable story="Default" />
+
+##### Default
+
+<Canvas>
+  <Story name="Render Props" inline={false}>
+    {(args) => (
+      <Tabs>
+        {({ selectedTabIndex, focusedTabIndex }) => {
+          return (
+            <React.Fragment>
+              <TabList>
+                <Tab>Tab1</Tab>
+                <Tab disabled>
+                  {focusedTabIndex === 0 ? 'focus on left' : 'focus on right'}
+                </Tab>
+                <Tab>
+                  {selectedTabIndex === 2 ? 'selected' : 'not selected'}
+                </Tab>
+              </TabList>
+              <TabPanelList>
+                <TabPanel>Panel1</TabPanel>
+                <TabPanel>Panel2</TabPanel>
+                <TabPanel>Panel3</TabPanel>
+              </TabPanelList>
+            </React.Fragment>
+          );
+        }}
+      </Tabs>
+    )}
+  </Story>
+</Canvas>
+
+<Description story="Render Props">
+  Example of a default behavior of Tabs component with render props pattern.
+  Renders as 'div' by default
+</Description>
+
+<ArgsTable story="Render Props" />
