@@ -1,0 +1,66 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs';
+import RadioGroup from '..';
+import '../../styles.css';
+
+<Meta
+  title="Components/Radio Group"
+  component={RadioGroup}
+  args={{
+    as: 'div',
+    disabled: false
+  }}
+  argTypes={{
+    as: {
+      name: 'as',
+      control: { type: 'text' },
+      description:
+        'changes html tag of radio group component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    }
+  }}
+/>
+
+## Radio Group
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  Radio buttons allow the user to select one option from a set. Once a radio
+  group is established, selecting any radio button in that group automatically
+  deselects any currently-selected radio button in the same group. RadioGroup is
+  a polymorphic component. That's why can be rendered as any valid HTML tag
+</p>
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => <RadioGroup {...args}></RadioGroup>}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of RadioGroup component. Renders as 'div' by
+  default
+</Description>
+
+<ArgsTable story="Default" />
