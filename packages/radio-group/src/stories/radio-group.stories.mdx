@@ -55,30 +55,43 @@ import '../../styles.css';
 <Canvas>
   <Story name="Default" inline={false}>
     {(args) => (
-      <RadioGroup {...args}>
+      <RadioGroup {...args} aria-label="fruits">
         <div
           style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
         >
-          <Radio id="apple" value="apple" />
-          <label htmlFor="apple">apple</label>
+          <Radio id="apple" value="apple" aria-labelledby="apple-label" />
+          <label id="apple-label" htmlFor="apple">
+            apple
+          </label>
         </div>
         <div
           style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
         >
-          <Radio id="cherry" value="cherry" />
-          <label htmlFor="cherry">cherry</label>
+          <Radio id="cherry" value="cherry" aria-labelledby="cherry-label" />
+          <label id="cherry-label" htmlFor="cherry">
+            cherry
+          </label>
         </div>
         <div
           style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
         >
-          <Radio id="orange" disabled value="orange" />
-          <label htmlFor="orange">orange</label>
+          <Radio
+            disabled
+            id="orange"
+            value="orange"
+            aria-labelledby="orange-label"
+          />
+          <label id="orange-label" htmlFor="orange">
+            orange
+          </label>
         </div>
         <div
           style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
         >
-          <Radio id="banana" value="banana" />
-          <label htmlFor="banana">banana</label>
+          <Radio id="banana" value="banana" aria-labelledby="banana-label" />
+          <label id="banana-label" htmlFor="banana">
+            banana
+          </label>
         </div>
       </RadioGroup>
     )}

@@ -55,16 +55,42 @@ const RadioGroupProvider = (props) => {
     value,
     onChange,
     defaultValue,
+    selectedRadioValue,
     setFocusedRadioValue,
     setSelectedRadioValue
   } = initialValues;
 
-  const [currentValue, setCurrentValue] = useState<string>();
+  const isMounted = useRef(null);
   const [radios, setRadios] = useState<IRadio[]>([]);
+  const [currentValue, setCurrentValue] = useState<string>(
+    value || defaultValue
+  );
   const onChangeRef =
     useLatestValue<(value: string, id: string, name: string) => void>(onChange);
 
   const providerId = useMemo(() => generateRadioGroupProviderId(), []);
+
+  useIsomorphicLayoutEffect(() => {
+    if (radios.length > 0 && !selectedRadioValue) {
+      const [firstSelectableRadio] = radios.filter(({ disabled }) => !disabled);
+
+      if (firstSelectableRadio) {
+        const { ref } = firstSelectableRadio;
+        ref.current.tabIndex = 0;
+      }
+    }
+  }, [radios, selectedRadioValue]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (radios.length > 0 && !isMounted.current && selectedRadioValue) {
+      const radio = radios.find((radio) => radio.value === selectedRadioValue);
+
+      if (radio) {
+        radio.ref.current.checked = true;
+        isMounted.current = true;
+      }
+    }
+  }, [radios, selectedRadioValue]);
 
   const setArrowSelection = useCallback((radio: IRadio) => {
     const { id, name, value, ref } = radio;
@@ -74,7 +100,8 @@ const RadioGroupProvider = (props) => {
     setSelectedRadioValue(value);
 
     ref.current?.focus();
-    ref.current.value = value;
+    ref.current.tabIndex = 0;
+    ref.current.checked = true;
     onChangeRef.current?.(value, id, name);
   }, []);
 
@@ -86,20 +113,39 @@ const RadioGroupProvider = (props) => {
     setSelectedRadioValue(value);
 
     ref.current?.focus();
-    ref.current.value = value;
+    ref.current.tabIndex = 0;
+    ref.current.checked = true;
     onChangeRef.current?.(value, id, name);
   }, []);
+
+  const onFocusHandler = useCallback(
+    (radio: IRadio) => {
+      const { value, ref } = radio;
+      ref.current?.focus();
+      setFocusedRadioValue(value);
+    },
+    [selectedRadioValue]
+  );
+
+  const onBlurHandler = useCallback(
+    (radio: IRadio) => {
+      const { ref } = radio;
+      setFocusedRadioValue('');
+      ref.current.tabIndex = 0;
+    },
+    [selectedRadioValue]
+  );
 
   const handleArrowSelection = useCallback(
     (currentValue: string, direction: boolean, radios: IRadio[]) => {
       const selectableRadios = radios.filter(({ disabled }) => !disabled);
-      const selectedRadioValue = selectableRadios.findIndex(
+      const selectedRadioIndex = selectableRadios.findIndex(
         ({ value }) => value === currentValue
       );
 
       const nextCursor = direction
-        ? (selectedRadioValue + 1) % selectableRadios.length
-        : (selectedRadioValue - 1 + selectableRadios.length) %
+        ? (selectedRadioIndex + 1) % selectableRadios.length
+        : (selectedRadioIndex - 1 + selectableRadios.length) %
           selectableRadios.length;
 
       const radio = selectableRadios[nextCursor];
@@ -117,6 +163,10 @@ const RadioGroupProvider = (props) => {
           const radio = radios.find((radio) => radio.value === currentValue);
 
           if (radio && !radio.disabled) {
+            radio.ref.current.tabIndex = 0;
+
+            setCurrentValue(currentValue);
+            setFocusedRadioValue(currentValue);
             setSelectedRadioValue(currentValue);
             onChangeRef.current?.(currentValue, radio.id, radio.name);
           }
@@ -151,14 +201,16 @@ const RadioGroupProvider = (props) => {
     setRadios,
     providerId,
     defaultValue,
+    onBlurHandler,
     onClickHandler,
+    onFocusHandler,
     onKeyDownHandler,
     ...initialValues
   };
 
   return (
     <RadioGroupContext.Provider value={providerValue}>
-      {children({ onKeyDownHandler })}
+      {children({ providerId, onKeyDownHandler })}
     </RadioGroupContext.Provider>
   );
 };
@@ -174,6 +226,7 @@ export const RadioGroup = forwardRef(
     const {
       as,
       children,
+      onChange,
       onKeyDown,
       value = '',
       defaultValue = '',
@@ -181,10 +234,14 @@ export const RadioGroup = forwardRef(
       ...rest
     } = props;
 
+    showRadioGroupWarnings(RadioGroup.displayName, props);
+
     const Component = as || 'div';
 
     const [focusedRadioValue, setFocusedRadioValue] = useState<string>();
-    const [selectedRadioValue, setSelectedRadioValue] = useState<string>();
+    const [selectedRadioValue, setSelectedRadioValue] = useState<string>(
+      value || defaultValue
+    );
 
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
@@ -197,6 +254,7 @@ export const RadioGroup = forwardRef(
 
     const initialValues: IRadioGroupProviderProps = {
       value,
+      onChange,
       orientation,
       defaultValue,
       focusedRadioValue,
@@ -207,8 +265,9 @@ export const RadioGroup = forwardRef(
 
     return (
       <RadioGroupProvider initialValues={initialValues}>
-        {({ onKeyDownHandler }) => (
+        {({ providerId, onKeyDownHandler }) => (
           <Component
+            id={`radio-group-${providerId}`}
             {...rest}
             ref={ref}
             role="radiogroup"
@@ -239,7 +298,10 @@ export const Radio = forwardRef(
     >,
     forwardedRef
   ) => {
-    const { as, disabled, value, children, onClick, ...rest } = props;
+    const { as, disabled, value, children, onClick, onBlur, onFocus, ...rest } =
+      props;
+
+    showRadioWarnings(Radio.displayName, props);
 
     const Component = as || 'span';
 
@@ -251,6 +313,8 @@ export const Radio = forwardRef(
     const {
       setRadios,
       providerId,
+      onBlurHandler,
+      onFocusHandler,
       onClickHandler,
       focusedRadioValue,
       selectedRadioValue
@@ -297,13 +361,70 @@ export const Radio = forwardRef(
           disabled={disabled}
           data-cui-radio-input
           aria-disabled={disabled}
-          tabIndex={isRadioSelected ? 0 : -1}
+          aria-checked={isRadioSelected}
+          onBlur={mergeEventHandlers(onBlur, () => onBlurHandler(radio))}
+          onFocus={mergeEventHandlers(onFocus, () => onFocusHandler(radio))}
           onClick={mergeEventHandlers(onClick, () => onClickHandler(radio))}
         />
       </Component>
     );
   }
 );
+
+/** Warnings */
+
+/**
+ * handles development environment warning messages
+ * @param componentName
+ * @param props
+ * @returns
+ */
+const showRadioGroupWarnings = (
+  componentName: string,
+  props: IRadioGroupProps
+) => {
+  if (process.env.NODE_ENV === 'production') return;
+
+  if (props.defaultValue && props.value) {
+    const warning = `@ciceksepeti/cui-radio-group - ${componentName}: a component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. Both defaultValue and value cannot be provided at the same time.`;
+    console.warn(warning);
+  }
+
+  if (props['aria-labelledby'] && props['aria-label']) {
+    const warning = `@ciceksepeti/cui-radio-group - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label.`;
+    console.warn(warning);
+  }
+
+  if (props['aria-labelledby'] || props['aria-label']) return;
+
+  const warning = `@ciceksepeti/cui-radio-group - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe content of radio-group.`;
+
+  console.warn(warning);
+};
+
+/**
+ * handles development environment warning messages
+ * @param componentName
+ * @param props
+ * @returns
+ */
+const showRadioWarnings = (
+  componentName: string,
+  props: React.InputHTMLAttributes<HTMLInputElement>
+) => {
+  if (process.env.NODE_ENV === 'production') return;
+
+  if (props['aria-labelledby'] && props['aria-label']) {
+    const warning = `@ciceksepeti/cui-radio - ${componentName}: both aria-labelledby and aria-label provided to component. If label is visible, its id should be passed to aria-labelledby, if it is not description should be passed to aria-label.`;
+    console.warn(warning);
+  }
+
+  if (props['aria-labelledby'] || props['aria-label']) return;
+
+  const warning = `@ciceksepeti/cui-radio - ${componentName}: aria-labelledby or aria-label attribute should be provided to describe content of radio.`;
+
+  console.warn(warning);
+};
 
 /** Types, Enums and Interfaces */
 
@@ -316,6 +437,7 @@ export interface IRadioGroupProps {
   value?: string;
   defaultValue?: string;
   orientation?: RadioGroupOrientation;
+  onChange?: (value: string, id?: string, name?: string) => void;
   children:
     | ((props: IRadioGroupChildrenProps) => React.ReactNode)
     | React.ReactNode;
@@ -330,11 +452,13 @@ export interface IRadio {
 }
 
 export interface IRadioGroupProviderProps {
-  value: string;
-  defaultValue: string;
+  value?: string;
+  defaultValue?: string;
   focusedRadioValue: string;
   selectedRadioValue: string;
   orientation?: RadioGroupOrientation;
+  onBlurHandler?: (radio: IRadio) => void;
+  onFocusHandler?: (radio: IRadio) => void;
   onClickHandler?: (Radio: IRadio) => void;
   onChange?: (value: string, id: string, name: string) => void;
   setFocusedRadioValue: React.Dispatch<React.SetStateAction<string>>;
@@ -356,3 +480,4 @@ export enum RadioGroupOrientation {
 /** Display Names */
 
 Radio.displayName = 'Radio';
+RadioGroup.displayName = 'RadioGroup';
