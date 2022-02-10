@@ -92,11 +92,10 @@ const RadioGroupProvider = (props) => {
     }
   }, [radios, selectedRadioValue]);
 
-  const setArrowSelection = useCallback((radio: IRadio) => {
+  const selectRadio = useCallback((radio: IRadio) => {
     const { id, name, value, ref } = radio;
 
     setCurrentValue(value);
-    setFocusedRadioValue(value);
     setSelectedRadioValue(value);
 
     ref.current?.focus();
@@ -105,18 +104,23 @@ const RadioGroupProvider = (props) => {
     onChangeRef.current?.(value, id, name);
   }, []);
 
-  const onClickHandler = useCallback((radio: IRadio) => {
-    const { id, name, value, ref } = radio;
+  const setArrowSelection = useCallback(
+    (radio: IRadio) => {
+      const { value } = radio;
 
-    setCurrentValue(value);
-    setFocusedRadioValue('');
-    setSelectedRadioValue(value);
+      selectRadio(radio);
+      setFocusedRadioValue(value);
+    },
+    [selectRadio]
+  );
 
-    ref.current?.focus();
-    ref.current.tabIndex = 0;
-    ref.current.checked = true;
-    onChangeRef.current?.(value, id, name);
-  }, []);
+  const onClickHandler = useCallback(
+    (radio: IRadio) => {
+      selectRadio(radio);
+      setFocusedRadioValue('');
+    },
+    [selectRadio]
+  );
 
   const onFocusHandler = useCallback(
     (radio: IRadio) => {
