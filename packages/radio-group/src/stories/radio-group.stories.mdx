@@ -5,7 +5,7 @@ import {
   ArgsTable,
   Description
 } from '@storybook/addon-docs';
-import RadioGroup from '..';
+import { RadioGroup, Radio } from '..';
 import '../../styles.css';
 
 <Meta
@@ -54,7 +54,34 @@ import '../../styles.css';
 
 <Canvas>
   <Story name="Default" inline={false}>
-    {(args) => <RadioGroup {...args}></RadioGroup>}
+    {(args) => (
+      <RadioGroup {...args}>
+        <div
+          style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
+        >
+          <Radio id="apple" value="apple" />
+          <label htmlFor="apple">apple</label>
+        </div>
+        <div
+          style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
+        >
+          <Radio id="cherry" value="cherry" />
+          <label htmlFor="cherry">cherry</label>
+        </div>
+        <div
+          style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
+        >
+          <Radio id="orange" disabled value="orange" />
+          <label htmlFor="orange">orange</label>
+        </div>
+        <div
+          style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
+        >
+          <Radio id="banana" value="banana" />
+          <label htmlFor="banana">banana</label>
+        </div>
+      </RadioGroup>
+    )}
   </Story>
 </Canvas>
 

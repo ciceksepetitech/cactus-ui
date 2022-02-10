@@ -1,0 +1,57 @@
+[data-cui-radio-group] {
+  display: flex;
+}
+
+[data-cui-radio-group][aria-orientation='vertical'] {
+  flex-direction: column;
+}
+
+[data-cui-radio] {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  margin-right: 5px;
+  position: relative;
+  border-radius: 50%;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
+  border: 2px solid #52ad36;
+}
+
+[data-cui-radio][data-cui-radio-selected='true'] {
+  background-color: #52ad36;
+}
+
+[data-cui-radio]::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+}
+
+[data-cui-radio-disabled='true'] {
+  opacity: 0.5;
+}
+
+[data-cui-radio-keyboard-focus='true'] {
+  outline: #52ad36 auto 2px;
+  box-shadow: 0 0 1px 3px cornflowerblue;
+}
+
+[data-cui-radio-input] {
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 1;
+  opacity: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  position: absolute;
+  box-sizing: border-box;
+}
