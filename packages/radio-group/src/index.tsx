@@ -98,7 +98,6 @@ const RadioGroupProvider = (props) => {
     setCurrentValue(value);
     setSelectedRadioValue(value);
 
-    ref.current?.focus();
     ref.current.tabIndex = 0;
     ref.current.checked = true;
     onChangeRef.current?.(value, id, name);
@@ -122,30 +121,30 @@ const RadioGroupProvider = (props) => {
     [selectRadio]
   );
 
-  const onFocusHandler = useCallback(
-    (radio: IRadio) => {
-      const { value, ref } = radio;
-      ref.current?.focus();
-      setFocusedRadioValue(value);
-    },
-    [selectedRadioValue]
-  );
+  const onFocusHandler = useCallback((radio: IRadio) => {
+    const { value, ref } = radio;
+    ref.current?.focus();
+    setFocusedRadioValue(value);
+  }, []);
 
-  const onBlurHandler = useCallback(
-    (radio: IRadio) => {
-      const { ref } = radio;
-      setFocusedRadioValue('');
-      ref.current.tabIndex = 0;
-    },
-    [selectedRadioValue]
-  );
+  const onBlurHandler = useCallback((radio: IRadio) => {
+    const { ref } = radio;
+    ref.current.tabIndex = 0;
+  }, []);
 
   const handleArrowSelection = useCallback(
     (currentValue: string, direction: boolean, radios: IRadio[]) => {
       const selectableRadios = radios.filter(({ disabled }) => !disabled);
-      const selectedRadioIndex = selectableRadios.findIndex(
+
+      let selectedRadioIndex = selectableRadios.findIndex(
         ({ value }) => value === currentValue
       );
+
+      if (!selectedRadioValue) {
+        const nextIndex = selectedRadioIndex + 1;
+        selectedRadioIndex =
+          nextIndex <= selectableRadios.length ? nextIndex : selectedRadioIndex;
+      }
 
       const nextCursor = direction
         ? (selectedRadioIndex + 1) % selectableRadios.length
@@ -155,7 +154,7 @@ const RadioGroupProvider = (props) => {
       const radio = selectableRadios[nextCursor];
       setArrowSelection(radio);
     },
-    [setArrowSelection]
+    [selectedRadioValue, setArrowSelection]
   );
 
   const onKeyDownHandler = useCallback(
@@ -164,15 +163,20 @@ const RadioGroupProvider = (props) => {
         case ' ':
         case 'Enter':
         case 'Spacebar': {
-          const radio = radios.find((radio) => radio.value === currentValue);
+          const activeElement = document.activeElement as HTMLInputElement;
+          const activeElementValue = activeElement.value;
+
+          const radio = radios.find(
+            (radio) => radio.value === activeElementValue
+          );
 
           if (radio && !radio.disabled) {
             radio.ref.current.tabIndex = 0;
 
-            setCurrentValue(currentValue);
-            setFocusedRadioValue(currentValue);
-            setSelectedRadioValue(currentValue);
-            onChangeRef.current?.(currentValue, radio.id, radio.name);
+            setCurrentValue(activeElementValue);
+            setFocusedRadioValue(activeElementValue);
+            setSelectedRadioValue(activeElementValue);
+            onChangeRef.current?.(activeElementValue, radio.id, radio.name);
           }
 
           return;
@@ -206,8 +210,8 @@ const RadioGroupProvider = (props) => {
     providerId,
     defaultValue,
     onBlurHandler,
-    onClickHandler,
     onFocusHandler,
+    onClickHandler,
     onKeyDownHandler,
     ...initialValues
   };
@@ -229,6 +233,7 @@ export const RadioGroup = forwardRef(
   ) => {
     const {
       as,
+      onBlur,
       children,
       onChange,
       onKeyDown,
@@ -251,6 +256,10 @@ export const RadioGroup = forwardRef(
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const onOutsideClick = useCallback(() => {
+      setFocusedRadioValue('');
+    }, []);
+
+    const onBlurHandler = useCallback(() => {
       setFocusedRadioValue('');
     }, []);
 
@@ -277,6 +286,7 @@ export const RadioGroup = forwardRef(
             role="radiogroup"
             data-cui-radio-group
             aria-orientation={orientation}
+            onBlur={mergeEventHandlers(onBlur, onBlurHandler)}
             onKeyDown={mergeEventHandlers(onKeyDown, onKeyDownHandler)}
           >
             {isFunction(children)
@@ -302,7 +312,7 @@ export const Radio = forwardRef(
     >,
     forwardedRef
   ) => {
-    const { as, disabled, value, children, onClick, onBlur, onFocus, ...rest } =
+    const { as, value, onBlur, onFocus, onClick, disabled, children, ...rest } =
       props;
 
     showRadioWarnings(Radio.displayName, props);
@@ -367,8 +377,8 @@ export const Radio = forwardRef(
           aria-disabled={disabled}
           aria-checked={isRadioSelected}
           onBlur={mergeEventHandlers(onBlur, () => onBlurHandler(radio))}
-          onFocus={mergeEventHandlers(onFocus, () => onFocusHandler(radio))}
           onClick={mergeEventHandlers(onClick, () => onClickHandler(radio))}
+          onFocus={mergeEventHandlers(onFocus, () => onFocusHandler(radio))}
         />
       </Component>
     );
