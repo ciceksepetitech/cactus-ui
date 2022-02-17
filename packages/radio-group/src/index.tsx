@@ -98,6 +98,7 @@ const RadioGroupProvider = (props) => {
     setCurrentValue(value);
     setSelectedRadioValue(value);
 
+    ref.current.focus();
     ref.current.tabIndex = 0;
     ref.current.checked = true;
     onChangeRef.current?.(value, id, name);
@@ -233,6 +234,7 @@ export const RadioGroup = forwardRef(
   ) => {
     const {
       as,
+      name,
       onBlur,
       children,
       onChange,
@@ -266,6 +268,7 @@ export const RadioGroup = forwardRef(
     useOnClickOutside(ref, onOutsideClick);
 
     const initialValues: IRadioGroupProviderProps = {
+      name,
       value,
       onChange,
       orientation,
@@ -325,6 +328,7 @@ export const Radio = forwardRef(
     const ref = useCombinedRefs<HTMLInputElement>(forwardedRef, internalRef);
 
     const {
+      name,
       setRadios,
       providerId,
       onBlurHandler,
@@ -335,15 +339,15 @@ export const Radio = forwardRef(
     } = useRadioGroupContext();
 
     useIsomorphicLayoutEffect(() => {
-      const name = `radio-${providerId}`;
+      const radioName = name || `radio-${providerId}`;
       const id = `radio-${value}-${providerId}`;
 
       const radio = {
         id,
         ref,
-        name,
         value,
-        disabled
+        disabled,
+        name: radioName
       } as IRadio;
 
       setRadio(radio);
@@ -353,7 +357,7 @@ export const Radio = forwardRef(
         setRadios((previousRadios) =>
           previousRadios.filter(({ id }) => id !== radio.id)
         );
-    }, [disabled, value, providerId]);
+    }, [name, disabled, value, providerId]);
 
     const isRadioFocused = focusedRadioValue === radio.value;
     const isRadioSelected = selectedRadioValue === radio.value;
@@ -448,6 +452,7 @@ export interface IRadioGroupChildrenProps {
 }
 
 export interface IRadioGroupProps {
+  name?: string;
   value?: string;
   defaultValue?: string;
   orientation?: RadioGroupOrientation;
@@ -466,6 +471,7 @@ export interface IRadio {
 }
 
 export interface IRadioGroupProviderProps {
+  name?: string;
   value?: string;
   defaultValue?: string;
   focusedRadioValue: string;
