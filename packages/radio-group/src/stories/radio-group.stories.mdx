@@ -56,7 +56,9 @@ import '../../styles.css';
   <Story name="Default" inline={false}>
     {(args) => (
       <RadioGroup {...args} aria-label="fruits">
-        <div
+        <label
+          htmlFor="apple"
+          id="apple-label"
           style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
         >
           <Radio
@@ -65,19 +67,19 @@ import '../../styles.css';
             value="apple"
             aria-labelledby="apple-label"
           />
-          <label id="apple-label" htmlFor="apple">
-            apple
-          </label>
-        </div>
-        <div
+          apple
+        </label>
+        <label
+          htmlFor="cherry"
+          id="cherry-label"
           style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
         >
           <Radio id="cherry" value="cherry" aria-labelledby="cherry-label" />
-          <label id="cherry-label" htmlFor="cherry">
-            cherry
-          </label>
-        </div>
-        <div
+          cherry
+        </label>
+        <label
+          htmlFor="orange"
+          id="orange-label"
           style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
         >
           <Radio
@@ -86,18 +88,16 @@ import '../../styles.css';
             value="orange"
             aria-labelledby="orange-label"
           />
-          <label id="orange-label" htmlFor="orange">
-            orange
-          </label>
-        </div>
-        <div
+          orange
+        </label>
+        <label
+          htmlFor="banana"
+          id="banana-label"
           style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}
         >
           <Radio id="banana" value="banana" aria-labelledby="banana-label" />
-          <label id="banana-label" htmlFor="banana">
-            banana
-          </label>
-        </div>
+          banana
+        </label>
       </RadioGroup>
     )}
   </Story>

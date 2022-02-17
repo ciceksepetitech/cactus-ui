@@ -19,6 +19,7 @@ import React, {
 } from 'react';
 import {
   usePrevious,
+  useLatestValue,
   useCombinedRefs,
   useEventListener,
   useOnClickOutside
@@ -210,13 +211,11 @@ const ListboxProvider = (props) => {
 
         setCursor(item);
         setSelectedItem(item);
-        onChange?.(item.value);
       } else {
         const item = options[0];
 
         setCursor(item);
         setSelectedItem(item);
-        onChange?.(item.value);
       }
     }
   }, [value, defaultValue, options]);
@@ -334,6 +333,8 @@ export const ListboxButton = forwardRef(
 
     showContentWarnings(Listbox.displayName, props);
 
+    const onChangeRef = useLatestValue(onChange);
+
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
@@ -342,9 +343,9 @@ export const ListboxButton = forwardRef(
     const initialValues: IListboxProviderProps = {
       value,
       disabled,
-      onChange,
       defaultValue,
-      targetRef: ref
+      targetRef: ref,
+      onChange: onChangeRef.current
     };
 
     return (
@@ -560,16 +561,21 @@ export const ListboxPopover = forwardRef(
 /**
  * listbox component
  */
-export const Listbox = forwardRef((props: IListboxProps, forwardedRef) => {
-  const { children, portal, name, required, ...rest } = props;
+export const Listbox = forwardRef(
+  <C extends React.ElementType = 'div'>(
+    props: PolymorphicComponentProps<C, IListboxProps>,
+    forwardedRef
+  ) => {
+    const { children, portal, name, required, ...rest } = props;
 
-  return (
-    <ListboxButton {...rest} ref={forwardedRef}>
-      <ListboxInput name={name} required={required} />
-      <ListboxPopover portal={portal}>{children}</ListboxPopover>
-    </ListboxButton>
-  );
-});
+    return (
+      <ListboxButton {...rest} ref={forwardedRef}>
+        <ListboxInput name={name} required={required} />
+        <ListboxPopover portal={portal}>{children}</ListboxPopover>
+      </ListboxButton>
+    );
+  }
+);
 
 export default Listbox;
 
@@ -601,7 +607,7 @@ const showContentWarnings = (componentName: string, props: IListboxProps) => {
 export type ListboxValue = string | number | readonly string[];
 
 export interface IListboxProps
-  extends Omit<React.ComponentProps<'select'>, 'prefix'> {
+  extends Omit<React.ComponentProps<'select'>, 'prefix' | 'onChange'> {
   name?: string;
   portal?: boolean;
   required?: boolean;
@@ -632,8 +638,8 @@ export interface IListboxProviderProps {
   disabled?: boolean;
   value: ListboxValue;
   defaultValue: string;
+  onChange: (value: string) => void;
   targetRef: React.MutableRefObject<any>;
-  onChange: React.ChangeEventHandler<HTMLSelectElement>;
 }
 
 export interface IListboxContext {
