@@ -160,36 +160,36 @@ const TabsProvider = (props) => {
         }
 
         case 'ArrowUp': {
-          event.preventDefault();
-
           if (orientation === TabsOrientation.Horizontal) return;
+
+          event.preventDefault();
           handleArrowSelection(cursor, false, tabs);
 
           return;
         }
 
         case 'ArrowDown': {
-          event.preventDefault();
-
           if (orientation === TabsOrientation.Horizontal) return;
+
+          event.preventDefault();
           handleArrowSelection(cursor, true, tabs);
 
           return;
         }
 
         case 'ArrowLeft': {
-          event.preventDefault();
-
           if (orientation === TabsOrientation.Vertical) return;
+
+          event.preventDefault();
           handleArrowSelection(cursor, false, tabs);
 
           return;
         }
 
         case 'ArrowRight': {
-          event.preventDefault();
-
           if (orientation === TabsOrientation.Vertical) return;
+
+          event.preventDefault();
           handleArrowSelection(cursor, true, tabs);
 
           return;
@@ -464,7 +464,6 @@ export interface ITabsChildrenProps {
 }
 
 export interface ITabsProps {
-  disabled?: boolean;
   defaultIndex?: number;
   orientation?: TabsOrientation;
   activationType?: TabsActivation;

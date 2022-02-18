@@ -13,7 +13,9 @@ import '../../styles.css';
   component={Tabs}
   args={{
     as: 'div',
-    disabled: false
+    defaultIndex: 0,
+    orientation: 'horizontal',
+    activationType: 'auto'
   }}
   argTypes={{
     as: {
@@ -24,6 +26,35 @@ import '../../styles.css';
         defaultValue: { summary: 'div' },
         type: { summary: 'Values', detail: 'Valid HTML Tags' }
       }
+    },
+    defaultIndex: {
+      name: 'defaultIndex',
+      control: { type: 'number' },
+      description: 'default selected tab',
+      table: { defaultValue: { summary: 0 } }
+    },
+    orientation: {
+      control: { type: 'select' },
+      options: ['horizontal', 'vertical'],
+      description: 'orientation of tabs',
+      table: {
+        defaultValue: { summary: 'horizontal' },
+        type: { summary: 'string' }
+      }
+    },
+    activationType: {
+      control: { type: 'select' },
+      options: ['auto', 'manual'],
+      description: 'activation type of tabs',
+      table: {
+        defaultValue: { summary: 'auto' },
+        type: { summary: 'string' }
+      }
+    },
+    onChange: {
+      name: 'onChange',
+      control: { type: 'function' },
+      description: 'gets called when tab changes'
     }
   }}
 />
