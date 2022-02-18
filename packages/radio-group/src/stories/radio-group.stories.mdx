@@ -13,18 +13,52 @@ import '../../styles.css';
   component={RadioGroup}
   args={{
     as: 'div',
-    disabled: false
+    name: 'fruits',
+    orientation: 'horizontal'
   }}
   argTypes={{
     as: {
       name: 'as',
       control: { type: 'text' },
       description:
-        'changes html tag of radio group component which renders to DOM',
+        'changes html tag of radio-group component which renders to DOM',
       table: {
         defaultValue: { summary: 'div' },
         type: { summary: 'Values', detail: 'Valid HTML Tags' }
       }
+    },
+    orientation: {
+      name: 'orientation',
+      control: { type: 'select' },
+      description: 'orientation of radios',
+      options: ['horizontal', 'vertical'],
+      table: {
+        defaultValue: { summary: 'horizontal' },
+        type: { summary: 'orientation of radios' }
+      }
+    },
+    name: {
+      name: 'name',
+      control: { type: 'text' },
+      description: 'name of input element',
+      table: { defaultValue: { summary: '' } }
+    },
+    defaultValue: {
+      name: 'defaultValue',
+      control: { type: 'text' },
+      description: 'defaultValue of input element',
+      table: { defaultValue: { summary: '' } }
+    },
+    value: {
+      name: 'value',
+      control: { type: 'text' },
+      description: 'value of input element',
+      table: { defaultValue: { summary: '' } }
+    },
+    onChange: {
+      name: 'onChange',
+      control: { type: 'function' },
+      description: 'gets called when radio is clicked'
     }
   }}
 />
