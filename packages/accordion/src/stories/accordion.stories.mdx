@@ -1,0 +1,69 @@
+import {
+  Meta,
+  Story,
+  Canvas,
+  ArgsTable,
+  Description
+} from '@storybook/addon-docs';
+import { Accordion } from '..';
+import '../../styles.css';
+
+<Meta
+  title="Components/Accordion"
+  component={Accordion}
+  args={{
+    as: 'div'
+  }}
+  argTypes={{
+    as: {
+      name: 'as',
+      control: { type: 'text' },
+      description:
+        'changes html tag of accordion component which renders to DOM',
+      table: {
+        defaultValue: { summary: 'div' },
+        type: { summary: 'Values', detail: 'Valid HTML Tags' }
+      }
+    }
+  }}
+/>
+
+## Accordion
+
+<p
+  style={{
+    color: 'white',
+    padding: '10px',
+    fontWeight: 'bold',
+    borderRadius: '4px',
+    backgroundColor: '#1B5193'
+  }}
+>
+  An accordion is a vertically stacked set of interactive headings that each
+  contain a title, content snippet, or thumbnail representing a section of
+  content. The headings function as controls that enable users to reveal or hide
+  their associated sections of content. Accordions are commonly used to reduce
+  the need to scroll when presenting multiple sections of content on a single
+  page.
+</p>
+
+#### Stories
+
+<hr />
+
+##### Default
+
+<Canvas>
+  <Story name="Default" inline={false}>
+    {(args) => {
+      return <Accordion></Accordion>;
+    }}
+  </Story>
+</Canvas>
+
+<Description story="Default">
+  Example of a default behavior of Accordion component. Renders as 'div' by
+  default
+</Description>
+
+<ArgsTable story="Default" />
