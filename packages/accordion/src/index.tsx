@@ -32,6 +32,9 @@ const generateAccordionProviderId = () => ++_accordionProviderId;
 let _accordionIndex = -1;
 const generateAccordionIndex = () => ++_accordionIndex;
 
+let _accordionContentIndex = -1;
+const generateAccordionContentIndex = () => ++_accordionContentIndex;
+
 export const useAccordionContext = () => {
   const context = useContext(AccordionContext);
 
@@ -47,6 +50,9 @@ const AccordionProvider = (props) => {
   const { children, initialValues } = props;
 
   const [accordions, setAccordions] = useState<IAccordion[]>([]);
+  const [accordionContents, setAccordionContents] = useState<
+    IAccordionContent[]
+  >([]);
 
   const providerId = useMemo(() => generateAccordionProviderId(), []);
 
@@ -54,6 +60,8 @@ const AccordionProvider = (props) => {
     providerId,
     accordions,
     setAccordions,
+    accordionContents,
+    setAccordionContents,
     ...initialValues
   };
 
@@ -146,21 +154,21 @@ export const AccordionButton = forwardRef(
     props: PolymorphicComponentProps<C, IAccordionButtonProps>,
     forwardedRef
   ) => {
-    const { as, children, disabled, ...rest } = props;
+    const { id, as, children, disabled, ...rest } = props;
 
     const Component = as || 'button';
 
-    const [accordion, setAccordion] = useState<IAccordion>();
-    const { expandedIndexes, providerId, setAccordions } =
+    const [accordion, setAccordion] = useState<IAccordion>({} as IAccordion);
+    const { accordionContents, expandedIndexes, providerId, setAccordions } =
       useAccordionContext();
 
     useIsomorphicLayoutEffect(() => {
       const index = generateAccordionIndex();
-      const id = `accordion-button-${index}-${providerId}`;
+      const _id = id || `accordion-button-${index}-${providerId}`;
 
       const accordion = {
-        id,
         index,
+        id: _id,
         disabled
       } as IAccordion;
 
@@ -171,14 +179,17 @@ export const AccordionButton = forwardRef(
         setAccordions((previousAccordions) =>
           previousAccordions.filter(({ id }) => id !== accordion.id)
         );
-    }, [disabled, providerId]);
+    }, [id, disabled, providerId]);
 
+    const controls = accordionContents?.[accordion.index]?.id;
     const isExpanded = expandedIndexes.includes(accordion.index);
 
     return (
       <Component
+        id={accordion.id}
         ref={forwardedRef}
         disabled={disabled}
+        aria-controls={controls}
         aria-disabled={disabled}
         data-cui-accordion-button
         aria-expanded={isExpanded}
@@ -198,15 +209,52 @@ export const AccordionContent = forwardRef(
     props: PolymorphicComponentProps<C, IAccordionContentProps>,
     forwardedRef
   ) => {
-    const { as, children, ...rest } = props;
+    const { id, as, children, ...rest } = props;
 
     const Component = as || 'div';
+
+    const { accordions, expandedIndexes, providerId, setAccordionContents } =
+      useAccordionContext();
+
+    const [accordionContent, setAccordionContent] = useState<IAccordionContent>(
+      {} as IAccordionContent
+    );
+
+    useIsomorphicLayoutEffect(() => {
+      const index = generateAccordionContentIndex();
+      const _id = id || `accordion-content-${index}-${providerId}`;
+
+      const accordionContent = {
+        index,
+        id: _id
+      } as IAccordion;
+
+      setAccordionContent(accordionContent);
+      setAccordionContents((previousAccordionContents) => [
+        ...previousAccordionContents,
+        accordionContent
+      ]);
+
+      return () =>
+        setAccordionContents((previousAccordionContents) =>
+          previousAccordionContents.filter(
+            ({ id }) => id !== accordionContent.id
+          )
+        );
+    }, [id, providerId]);
+
+    const labelledby = accordions?.[accordionContent.index]?.id;
+    const isExpanded = expandedIndexes.includes(accordionContent.index);
 
     return (
       <Component
         role="region"
         ref={forwardedRef}
+        hidden={!isExpanded}
+        id={accordionContent.id}
+        data-expanded={isExpanded}
         data-cui-accordion-content
+        aria-labelledby={labelledby}
         {...rest}
       >
         {children}
@@ -229,7 +277,11 @@ export interface IAccordionProviderProps {
 export interface IAccordionContext extends IAccordionProviderProps {
   providerId: number;
   accordions: IAccordion[];
+  accordionContents: IAccordionContent[];
   setAccordions: React.Dispatch<React.SetStateAction<IAccordion[]>>;
+  setAccordionContents: React.Dispatch<
+    React.SetStateAction<IAccordionContent[]>
+  >;
 }
 
 export interface IAccordionProps {
@@ -245,6 +297,11 @@ export interface IAccordion {
   id: string;
   index: number;
   disabled?: boolean;
+}
+
+export interface IAccordionContent {
+  id: string;
+  index: number;
 }
 
 export interface IAccordionHeaderProps {
