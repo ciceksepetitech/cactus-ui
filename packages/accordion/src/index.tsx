@@ -77,7 +77,7 @@ const AccordionProvider = (props) => {
     (accordion: IAccordion) => {
       const { index, disabled } = accordion;
 
-      if (disabled || !collapsible) return;
+      if (disabled) return;
 
       if (isControlled) {
         onChangeRef.current?.(index);
@@ -86,11 +86,17 @@ const AccordionProvider = (props) => {
 
       setExpandedIndexes((prevExpandedIndexes) => {
         if (single) {
-          if (prevExpandedIndexes.includes(index)) return [];
-          else return [index];
+          if (prevExpandedIndexes.includes(index)) {
+            if (!collapsible) return [...prevExpandedIndexes];
+            return [];
+          } else {
+            return [index];
+          }
         }
 
         if (prevExpandedIndexes.includes(index)) {
+          if (!collapsible) return [...prevExpandedIndexes];
+
           return prevExpandedIndexes.filter(
             (index) => index !== accordion.index
           );
