@@ -10,13 +10,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "sideEffects": [
-    "*.css"
-  ],
   "files": [
     "dist",
-    "README.md",
-    "styles.css"
+    "README.md"
   ],
   "repository": {
     "type": "git",

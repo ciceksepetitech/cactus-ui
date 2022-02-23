@@ -139,6 +139,7 @@ export const Accordion = forwardRef(
 
     const Component = as || 'div';
 
+    // handles prop indexes change when controlled!
     useEffect(() => {
       if (indexes) setExpandedIndexes(indexes);
     }, [indexes]);
