@@ -328,7 +328,7 @@ export const Tab = forwardRef(
     props: PolymorphicComponentProps<C, ITabProps>,
     forwardedRef
   ) => {
-    const { as, children, onClick, disabled, ...rest } = props;
+    const { id, as, children, onClick, disabled, ...rest } = props;
 
     const Component = as || 'button';
 
@@ -347,8 +347,8 @@ export const Tab = forwardRef(
 
     useIsomorphicLayoutEffect(() => {
       const index = generateTabId();
-      const id = `tab-${index}-${providerId}`;
-      const tab = { id, index, ref, disabled } as ITab;
+      const _id = id || `tab-${index}-${providerId}`;
+      const tab = { id: _id, index, ref, disabled } as ITab;
 
       setTab(tab);
       setTabs((previousTabs) => [...previousTabs, tab]);
@@ -357,7 +357,7 @@ export const Tab = forwardRef(
         setTabs((previousTabs) =>
           previousTabs.filter(({ id }) => id !== tab.id)
         );
-    }, [disabled, providerId]);
+    }, [id, disabled, providerId]);
 
     const type =
       Component === 'button' && props.type == null ? 'button' : props.type;
@@ -415,7 +415,7 @@ export const TabPanel = forwardRef(
     props: PolymorphicComponentProps<C>,
     forwardedRef
   ) => {
-    const { as, children, ...rest } = props;
+    const { id, as, children, ...rest } = props;
 
     const Component = as || 'div';
 
@@ -424,8 +424,8 @@ export const TabPanel = forwardRef(
 
     useIsomorphicLayoutEffect(() => {
       const index = generateTabPanelId();
-      const id = `tab-panel-${index}-${providerId}`;
-      const panel = { id, index } as IPanel;
+      const _id = id || `tab-panel-${index}-${providerId}`;
+      const panel = { id: _id, index } as IPanel;
 
       setPanel(panel);
       setPanels((previousPanels) => [...previousPanels, panel]);
@@ -434,7 +434,7 @@ export const TabPanel = forwardRef(
         setPanels((previousPanels) =>
           previousPanels.filter(({ id }) => id !== panel.id)
         );
-    }, [providerId]);
+    }, [id, providerId]);
 
     const isTabDisabled = tabs[panel.index]?.disabled;
     const isPanelActive = selectedTabIndex === panel.index && !isTabDisabled;
