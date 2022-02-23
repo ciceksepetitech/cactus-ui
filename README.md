@@ -9,7 +9,7 @@ Documentation Web App for Cactus UI is still in progress.
 Storybook can be used after cloning the project for documentation.
 
 ## Features
-* Accessible – Accessibility and behavior is implemented according to [WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.2/), including full screen reader and keyboard navigation support.
+* Accessible – Accessibility and behaviour is implemented according to [WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.2/), including full screen reader and keyboard navigation support.
 * Adaptable – All components are designed to work with mouse, touch, and keyboard interactions. They’re built with an accessibility first approach.
 * Customizable – Easy to customize with inline style, CSS files and libraries like styled-components.
 

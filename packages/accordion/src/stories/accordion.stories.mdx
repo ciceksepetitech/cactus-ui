@@ -16,7 +16,10 @@ import {
   title="Components/Accordion"
   component={Accordion}
   args={{
-    as: 'div'
+    as: 'div',
+    single: true,
+    collapsible: true,
+    disableOptionalArrowKeys: false
   }}
   argTypes={{
     as: {
@@ -28,6 +31,41 @@ import {
         defaultValue: { summary: 'div' },
         type: { summary: 'Values', detail: 'Valid HTML Tags' }
       }
+    },
+    single: {
+      name: 'single',
+      control: { type: 'boolean' },
+      description: 'sets the accordion toggle option',
+      table: { defaultValue: { summary: true } }
+    },
+    collapsible: {
+      name: 'collapsible',
+      control: { type: 'boolean' },
+      description: 'sets if accordion can collape or not',
+      table: { defaultValue: { summary: true } }
+    },
+    disableOptionalArrowKeys: {
+      name: 'disableOptionalArrowKeys',
+      control: { type: 'boolean' },
+      description: 'sets optional arrow type behaviour',
+      table: { defaultValue: { summary: false } }
+    },
+    indexes: {
+      name: 'indexes',
+      control: { type: 'array' },
+      description: 'sets expanded indexes',
+      table: { defaultValue: { summary: undefined } }
+    },
+    defaultIndexes: {
+      name: 'indexes',
+      control: { type: 'array' },
+      description: 'sets expanded defaultIndexes',
+      table: { defaultValue: { summary: undefined } }
+    },
+    onChange: {
+      name: 'onChange',
+      control: { type: 'function' },
+      description: 'gets called when accordion is toggled'
     }
   }}
 />
@@ -61,7 +99,7 @@ import {
   <Story name="Default" inline={false}>
     {(args) => {
       return (
-        <Accordion>
+        <Accordion {...args}>
           <AccordionHeader>
             <AccordionButton>Step 1</AccordionButton>
           </AccordionHeader>
