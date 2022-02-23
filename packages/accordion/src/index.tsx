@@ -11,6 +11,7 @@
  */
 
 import React, {
+  useRef,
   useMemo,
   useState,
   useEffect,
@@ -21,6 +22,7 @@ import React, {
 } from 'react';
 import {
   useLatestValue,
+  useCombinedRefs,
   useIsomorphicLayoutEffect
 } from '@ciceksepeti/cui-hooks';
 import {
@@ -60,8 +62,14 @@ const AccordionProvider = (props) => {
     IAccordionContent[]
   >([]);
 
-  const { single, collapsible, onChangeRef, isControlled, setExpandedIndexes } =
-    initialValues;
+  const {
+    single,
+    collapsible,
+    onChangeRef,
+    isControlled,
+    setExpandedIndexes,
+    disableOptionalArrowKeys
+  } = initialValues;
 
   const providerId = useMemo(() => generateAccordionProviderId(), []);
 
@@ -94,11 +102,99 @@ const AccordionProvider = (props) => {
     [single, collapsible, isControlled]
   );
 
+  const handleArrowSelection = useCallback(
+    (currentIndex: number, direction: boolean, accordions: IAccordion[]) => {
+      const selectableAccordions = accordions.filter(
+        ({ disabled }) => !disabled
+      );
+
+      const selectedAccordionIndex = selectableAccordions.findIndex(
+        ({ index }) => index === currentIndex
+      );
+
+      const { length } = selectableAccordions;
+      const nextCursor = direction
+        ? (selectedAccordionIndex + 1) % length
+        : (selectedAccordionIndex - 1 + length) % length;
+
+      const accordion = selectableAccordions[nextCursor];
+      accordion.ref.current.focus();
+    },
+    []
+  );
+
+  const onKeyDownHandler = useCallback(
+    (event, accordion: IAccordion) => {
+      switch (event.key) {
+        case ' ':
+        case 'Enter':
+        case 'Spacebar': {
+          if (accordion && !accordion.disabled) {
+            onChangeRef.current?.(accordion.id);
+          }
+
+          return;
+        }
+
+        case 'ArrowUp': {
+          if (disableOptionalArrowKeys) return;
+
+          event.preventDefault();
+          handleArrowSelection(accordion.index, true, accordions);
+          return;
+        }
+
+        case 'ArrowDown': {
+          if (disableOptionalArrowKeys) return;
+
+          event.preventDefault();
+          handleArrowSelection(accordion.index, false, accordions);
+          return;
+        }
+
+        case 'Home': {
+          if (disableOptionalArrowKeys) return;
+
+          event.preventDefault();
+
+          const selectableAccordions = accordions.filter(
+            ({ disabled }) => !disabled
+          );
+
+          selectableAccordions[0]?.ref.current.focus();
+
+          return;
+        }
+
+        case 'End': {
+          if (disableOptionalArrowKeys) return;
+
+          event.preventDefault();
+
+          const selectableAccordions = accordions.filter(
+            ({ disabled }) => !disabled
+          );
+
+          selectableAccordions[
+            selectableAccordions.length - 1
+          ]?.ref.current.focus();
+
+          return;
+        }
+
+        default:
+          return;
+      }
+    },
+    [handleArrowSelection, disableOptionalArrowKeys, accordions]
+  );
+
   const providerValue: IAccordionContext = {
     providerId,
     accordions,
     setAccordions,
     toggleAccordion,
+    onKeyDownHandler,
     accordionContents,
     setAccordionContents,
     ...initialValues
@@ -127,6 +223,7 @@ export const Accordion = forwardRef(
       single = true,
       defaultIndexes,
       collapsible = true,
+      disableOptionalArrowKeys = false,
       ...rest
     } = props;
 
@@ -151,7 +248,8 @@ export const Accordion = forwardRef(
       isControlled,
       defaultIndexes,
       expandedIndexes,
-      setExpandedIndexes
+      setExpandedIndexes,
+      disableOptionalArrowKeys
     };
 
     return (
@@ -201,9 +299,12 @@ export const AccordionButton = forwardRef(
     props: PolymorphicComponentProps<C, IAccordionButtonProps>,
     forwardedRef
   ) => {
-    const { id, as, children, disabled, onClick, ...rest } = props;
+    const { id, as, children, disabled, onClick, onKeyDown, ...rest } = props;
 
     const Component = as || 'button';
+
+    const internalRef = useRef(null);
+    const ref = useCombinedRefs(forwardedRef, internalRef);
 
     const [accordion, setAccordion] = useState<IAccordion>({} as IAccordion);
 
@@ -212,6 +313,7 @@ export const AccordionButton = forwardRef(
       setAccordions,
       toggleAccordion,
       expandedIndexes,
+      onKeyDownHandler,
       accordionContents
     } = useAccordionContext();
 
@@ -220,6 +322,7 @@ export const AccordionButton = forwardRef(
       const _id = id || `accordion-button-${index}-${providerId}`;
 
       const accordion = {
+        ref,
         index,
         id: _id,
         disabled
@@ -239,14 +342,17 @@ export const AccordionButton = forwardRef(
 
     return (
       <Component
+        ref={ref}
         id={accordion.id}
-        ref={forwardedRef}
         disabled={disabled}
         aria-controls={controls}
         aria-disabled={disabled}
         data-cui-accordion-button
         aria-expanded={isExpanded}
         onClick={mergeEventHandlers(onClick, () => toggleAccordion(accordion))}
+        onKeyDown={mergeEventHandlers(onKeyDown, (event) =>
+          onKeyDownHandler(event, accordion)
+        )}
         {...rest}
       >
         {children}
@@ -325,6 +431,7 @@ export interface IAccordionProviderProps {
   isControlled: boolean;
   defaultIndexes?: number[];
   expandedIndexes?: number[];
+  disableOptionalArrowKeys?: boolean;
   toggleAccordion?: (accordion: IAccordion) => void;
   onChangeRef?: React.MutableRefObject<(index: number) => void>;
   setExpandedIndexes?: React.Dispatch<React.SetStateAction<number[]>>;
@@ -335,6 +442,10 @@ export interface IAccordionContext extends IAccordionProviderProps {
   accordions: IAccordion[];
   accordionContents: IAccordionContent[];
   setAccordions: React.Dispatch<React.SetStateAction<IAccordion[]>>;
+  onKeyDownHandler: (
+    event: Event | React.SyntheticEvent<Element, Event>,
+    accordion: IAccordion
+  ) => void;
   setAccordionContents: React.Dispatch<
     React.SetStateAction<IAccordionContent[]>
   >;
@@ -346,6 +457,7 @@ export interface IAccordionProps {
   collapsible?: boolean;
   defaultIndexes?: number[];
   children: React.ReactNode;
+  disableOptionalArrowKeys?: boolean;
   onChange?: (index: number) => void;
 }
 
@@ -353,6 +465,7 @@ export interface IAccordion {
   id: string;
   index: number;
   disabled?: boolean;
+  ref: React.MutableRefObject<HTMLButtonElement>;
 }
 
 export interface IAccordionContent {
