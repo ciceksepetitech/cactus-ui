@@ -123,6 +123,9 @@ const AccordionProvider = (props) => {
     []
   );
 
+  /**
+   * @see https://www.w3.org/TR/wai-aria-practices-1.2/#keyboard-interaction
+   */
   const onKeyDownHandler = useCallback(
     (event, accordion: IAccordion) => {
       switch (event.key) {
@@ -215,6 +218,8 @@ export const Accordion = forwardRef(
     props: PolymorphicComponentProps<C, IAccordionProps>,
     forwardedRef
   ) => {
+    showAccordionWarnings(Accordion.displayName, props);
+
     const {
       as,
       indexes,
@@ -279,6 +284,8 @@ export const AccordionHeader = forwardRef(
     props: PolymorphicComponentProps<C, IAccordionHeaderProps>,
     forwardedRef
   ) => {
+    showAccordionHeaderWarnings(AccordionHeader.displayName, props);
+
     const { as, children, ...rest } = props;
 
     const Component = as || 'h3';
@@ -422,6 +429,56 @@ export const AccordionContent = forwardRef(
     );
   }
 );
+
+/** Warnings */
+
+/**
+ * handles development environment warning messages
+ * @param componentName
+ * @param props
+ * @returns
+ */
+const showAccordionWarnings = (
+  componentName: string,
+  props: IAccordionProps
+) => {
+  if (process.env.NODE_ENV === 'production') return;
+
+  if (props.indexes && props.defaultIndexes) {
+    const warning = `@ciceksepeti/cui-accordion - ${componentName}: the indexes prop is provided with defaultIndexes. To make accordion controlled remove defaultIndexes and add onChange prop or remove indexes props and leave only defaultIndexes prop.`;
+    console.warn(warning);
+  }
+
+  if (!props.indexes && props.onChange) {
+    const warning = `@ciceksepeti/cui-accordion - ${componentName}: the onChange prop is provided without providing indexes prop. To make accordion controlled, add indexes prop. To use accordion as uncontrolled component with initial indexes, use defaultIndexes prop and remove onChange prop.`;
+    console.warn(warning);
+  }
+
+  if (props.indexes && !props.onChange) {
+    const warning = `@ciceksepeti/cui-accordion - ${componentName}: the indexes prop is provided without providing onChange prop. To make accordion work, add onChange props, remove indexes prop and use it as uncontrolled component or only add defaultIndexes prop.`;
+    console.warn(warning);
+  }
+};
+
+/**
+ * handles development environment warning messages
+ * @param componentName
+ * @param props
+ * @returns
+ */
+const showAccordionHeaderWarnings = (
+  componentName: string,
+  props: React.HTMLAttributes<HTMLHeadingElement>
+) => {
+  if (process.env.NODE_ENV === 'production') return;
+
+  const childrenArray = React.Children.toArray(props.children);
+
+  if (childrenArray.length > 1) {
+    const warning = `@ciceksepeti/cui-accordion - ${componentName}: the button element is the only element inside the heading element. That is, if there are other visually persistent elements, they are not included inside the heading element. @see https://www.w3.org/TR/wai-aria-practices-1.2/#wai-aria-roles-states-and-properties.`;
+    console.warn(warning);
+  }
+};
 
 /** Types and Interfaces */
 
