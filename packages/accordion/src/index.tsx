@@ -13,15 +13,21 @@
 import React, {
   useMemo,
   useState,
+  useEffect,
   useContext,
   forwardRef,
+  useCallback,
   createContext
 } from 'react';
 import {
   useLatestValue,
   useIsomorphicLayoutEffect
 } from '@ciceksepeti/cui-hooks';
-import { PolymorphicComponentProps, isFunction } from '@ciceksepeti/cui-utils';
+import {
+  isFunction,
+  mergeEventHandlers,
+  PolymorphicComponentProps
+} from '@ciceksepeti/cui-utils';
 
 const initialValue = {} as IAccordionContext;
 const AccordionContext = createContext(initialValue);
@@ -54,12 +60,45 @@ const AccordionProvider = (props) => {
     IAccordionContent[]
   >([]);
 
+  const { single, collapsible, onChangeRef, isControlled, setExpandedIndexes } =
+    initialValues;
+
   const providerId = useMemo(() => generateAccordionProviderId(), []);
+
+  const toggleAccordion = useCallback(
+    (accordion: IAccordion) => {
+      const { index, disabled } = accordion;
+
+      if (disabled || !collapsible) return;
+
+      if (isControlled) {
+        onChangeRef.current?.(index);
+        return;
+      }
+
+      setExpandedIndexes((prevExpandedIndexes) => {
+        if (single) {
+          if (prevExpandedIndexes.includes(index)) return [];
+          else return [index];
+        }
+
+        if (prevExpandedIndexes.includes(index)) {
+          return prevExpandedIndexes.filter(
+            (index) => index !== accordion.index
+          );
+        } else {
+          return [...prevExpandedIndexes, index];
+        }
+      });
+    },
+    [single, collapsible, isControlled]
+  );
 
   const providerValue: IAccordionContext = {
     providerId,
     accordions,
     setAccordions,
+    toggleAccordion,
     accordionContents,
     setAccordionContents,
     ...initialValues
@@ -91,20 +130,27 @@ export const Accordion = forwardRef(
       ...rest
     } = props;
 
+    const isControlled = !!indexes;
+    const initialIndexes = indexes || defaultIndexes || [];
+
     const onChangeRef = useLatestValue<(index: number) => void>(onChange);
-    const [expandedIndexes, setExpandedIndexes] = useState<number[]>(
-      indexes || defaultIndexes
-    );
+    const [expandedIndexes, setExpandedIndexes] =
+      useState<number[]>(initialIndexes);
 
     const Component = as || 'div';
+
+    useEffect(() => {
+      if (indexes) setExpandedIndexes(indexes);
+    }, [indexes]);
 
     const initialValues: IAccordionProviderProps = {
       single,
       collapsible,
+      onChangeRef,
+      isControlled,
       defaultIndexes,
       expandedIndexes,
-      setExpandedIndexes,
-      onChange: onChangeRef.current
+      setExpandedIndexes
     };
 
     return (
@@ -154,13 +200,19 @@ export const AccordionButton = forwardRef(
     props: PolymorphicComponentProps<C, IAccordionButtonProps>,
     forwardedRef
   ) => {
-    const { id, as, children, disabled, ...rest } = props;
+    const { id, as, children, disabled, onClick, ...rest } = props;
 
     const Component = as || 'button';
 
     const [accordion, setAccordion] = useState<IAccordion>({} as IAccordion);
-    const { accordionContents, expandedIndexes, providerId, setAccordions } =
-      useAccordionContext();
+
+    const {
+      providerId,
+      setAccordions,
+      toggleAccordion,
+      expandedIndexes,
+      accordionContents
+    } = useAccordionContext();
 
     useIsomorphicLayoutEffect(() => {
       const index = generateAccordionIndex();
@@ -181,7 +233,7 @@ export const AccordionButton = forwardRef(
         );
     }, [id, disabled, providerId]);
 
-    const controls = accordionContents?.[accordion.index]?.id;
+    const controls = accordionContents[accordion.index]?.id;
     const isExpanded = expandedIndexes.includes(accordion.index);
 
     return (
@@ -193,6 +245,7 @@ export const AccordionButton = forwardRef(
         aria-disabled={disabled}
         data-cui-accordion-button
         aria-expanded={isExpanded}
+        onClick={mergeEventHandlers(onClick, () => toggleAccordion(accordion))}
         {...rest}
       >
         {children}
@@ -243,7 +296,7 @@ export const AccordionContent = forwardRef(
         );
     }, [id, providerId]);
 
-    const labelledby = accordions?.[accordionContent.index]?.id;
+    const labelledby = accordions[accordionContent.index]?.id;
     const isExpanded = expandedIndexes.includes(accordionContent.index);
 
     return (
@@ -252,10 +305,10 @@ export const AccordionContent = forwardRef(
         ref={forwardedRef}
         hidden={!isExpanded}
         id={accordionContent.id}
-        data-expanded={isExpanded}
-        data-cui-accordion-content
         aria-labelledby={labelledby}
         {...rest}
+        data-expanded={isExpanded}
+        data-cui-accordion-content
       >
         {children}
       </Component>
@@ -268,9 +321,11 @@ export const AccordionContent = forwardRef(
 export interface IAccordionProviderProps {
   single?: boolean;
   collapsible?: boolean;
+  isControlled: boolean;
   defaultIndexes?: number[];
   expandedIndexes?: number[];
-  onChange?: (index: number) => void;
+  toggleAccordion?: (accordion: IAccordion) => void;
+  onChangeRef?: React.MutableRefObject<(index: number) => void>;
   setExpandedIndexes?: React.Dispatch<React.SetStateAction<number[]>>;
 }
 

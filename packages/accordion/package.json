@@ -24,6 +24,7 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
+    "@ciceksepeti/cui-hooks": "0.2.0",
     "@ciceksepeti/cui-utils": "0.2.0"
   },
   "peerDependencies": {
