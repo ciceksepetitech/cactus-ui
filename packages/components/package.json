@@ -30,6 +30,7 @@
     "@ciceksepeti/cui-portal": "0.0.3",
     "@ciceksepeti/cui-radio-group": "0.0.2",
     "@ciceksepeti/cui-skip-nav": "0.0.3",
+    "@ciceksepeti/cui-accordion": "0.0.1",
     "@ciceksepeti/cui-tabs": "0.0.2",
     "@ciceksepeti/cui-utils": "0.2.0",
     "@ciceksepeti/cui-visually-hidden": "0.0.3"

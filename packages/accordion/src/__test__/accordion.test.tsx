@@ -141,11 +141,56 @@ describe('accordion component tests', () => {
     expect(content1).toBeVisible();
   });
 
+  test('accordion contents should be visible when collapsible is set to false and single is set to false', async () => {
+    render(<Component collapsible={false} single={false} />);
+
+    const step1 = screen.getByText(/step1/i);
+    const step3 = screen.getByText(/step3/i);
+    const content1 = screen.getByText(/step one content/i);
+    const content3 = screen.getByText(/step three content/i);
+
+    userEvent.click(step1);
+    userEvent.click(step3);
+
+    expect(content1).toBeVisible();
+    expect(content3).toBeVisible();
+
+    userEvent.click(step1);
+    userEvent.click(step3);
+
+    expect(content1).toBeVisible();
+    expect(content3).toBeVisible();
+  });
+
   test('accordion button component aria-expanded should be false by default', () => {
     render(<Component />);
 
     const step1 = screen.getByText(/step1/i);
     expect(step1).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  test('accordion first button should be focused when home key pressed', () => {
+    render(<Component />);
+
+    const step1 = screen.getByText(/step1/i);
+    const step3 = screen.getByText(/step3/i);
+
+    userEvent.click(step3);
+    userEvent.type(step3, '{home}');
+
+    expect(document.activeElement === step1).toBeTruthy();
+  });
+
+  test('accordion last button should be focused when end key pressed', () => {
+    render(<Component />);
+
+    const step1 = screen.getByText(/step1/i);
+    const step3 = screen.getByText(/step3/i);
+
+    userEvent.click(step1);
+    userEvent.type(step1, '{end}');
+
+    expect(document.activeElement === step3).toBeTruthy();
   });
 
   test('accordion button component aria-expanded should be true when expanded', () => {

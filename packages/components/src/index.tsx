@@ -8,6 +8,7 @@ export * from '@ciceksepeti/cui-listbox';
 export * from '@ciceksepeti/cui-popover';
 export * from '@ciceksepeti/cui-skip-nav';
 export * from '@ciceksepeti/cui-checkbox';
+export * from '@ciceksepeti/cui-accordion';
 export * from '@ciceksepeti/cui-focus-trap';
 export * from '@ciceksepeti/cui-radio-group';
 export * from '@ciceksepeti/cui-alert-dialog';
