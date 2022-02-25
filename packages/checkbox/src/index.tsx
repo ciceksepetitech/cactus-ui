@@ -133,10 +133,11 @@ export const Checkbox = forwardRef(
   ) => {
     const {
       as,
-      onBlur,
-      onKeyUp,
+      id,
+      name,
+      value,
+      onClick,
       disabled,
-      onChange,
       indeterminate,
       defaultChecked,
       checked: controlledCheck,
@@ -154,10 +155,10 @@ export const Checkbox = forwardRef(
     const {
       status,
       focused,
-      onClick,
-      onBlur: onBlurHandler,
-      onKeyUp: onKeyUpHandler,
-      onChange: onChangeHandler,
+      onBlur,
+      onKeyUp,
+      onChange,
+      onClick: onClickHandler,
       ...checkboxArgs
     } = useCheckbox(inputRef, {
       disabled,
@@ -168,21 +169,24 @@ export const Checkbox = forwardRef(
 
     return (
       <Component
+        {...rest}
         data-cui-checkbox
-        onClick={onClick}
         data-cui-checkbox-status={status}
         data-cui-checkbox-disabled={disabled}
         data-cui-checkbox-keyboard-focus={focused}
+        onClick={mergeEventHandlers(onClick, onClickHandler)}
       >
         <input
-          {...rest}
           {...checkboxArgs}
+          id={id}
+          name={name}
+          value={value}
           ref={inputRef}
           type="checkbox"
+          onBlur={onBlur}
+          onKeyUp={onKeyUp}
+          onChange={onChange}
           data-cui-checkbox-input
-          onBlur={mergeEventHandlers(onBlur, onBlurHandler)}
-          onKeyUp={mergeEventHandlers(onKeyUp, onKeyUpHandler)}
-          onChange={mergeEventHandlers(onChange, onChangeHandler)}
         />
       </Component>
     );

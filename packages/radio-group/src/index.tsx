@@ -315,8 +315,7 @@ export const Radio = forwardRef(
     >,
     forwardedRef
   ) => {
-    const { as, value, onBlur, onFocus, onClick, disabled, children, ...rest } =
-      props;
+    const { as, id, value, disabled, children, ...rest } = props;
 
     showRadioWarnings(Radio.displayName, props);
 
@@ -340,12 +339,12 @@ export const Radio = forwardRef(
 
     useIsomorphicLayoutEffect(() => {
       const radioName = name || `radio-${providerId}`;
-      const id = `radio-${value}-${providerId}`;
+      const _id = id || `radio-${value}-${providerId}`;
 
       const radio = {
-        id,
         ref,
         value,
+        id: _id,
         disabled,
         name: radioName
       } as IRadio;
@@ -357,32 +356,32 @@ export const Radio = forwardRef(
         setRadios((previousRadios) =>
           previousRadios.filter(({ id }) => id !== radio.id)
         );
-    }, [name, disabled, value, providerId]);
+    }, [id, name, disabled, value, providerId]);
 
     const isRadioFocused = focusedRadioValue === radio.value;
     const isRadioSelected = selectedRadioValue === radio.value;
 
     return (
       <Component
+        {...rest}
         data-cui-radio
         data-cui-radio-disabled={disabled}
         data-cui-radio-selected={isRadioSelected}
         data-cui-radio-keyboard-focus={isRadioFocused}
       >
         <input
-          id={radio.id}
-          name={radio.name}
-          {...rest}
           ref={ref}
           type="radio"
-          value={value}
+          id={radio.id}
+          name={radio.name}
+          value={radio.value}
           disabled={disabled}
           data-cui-radio-input
           aria-disabled={disabled}
           aria-checked={isRadioSelected}
-          onBlur={mergeEventHandlers(onBlur, () => onBlurHandler(radio))}
-          onClick={mergeEventHandlers(onClick, () => onClickHandler(radio))}
-          onFocus={mergeEventHandlers(onFocus, () => onFocusHandler(radio))}
+          onBlur={() => onBlurHandler(radio)}
+          onClick={() => onClickHandler(radio)}
+          onFocus={() => onFocusHandler(radio)}
         />
       </Component>
     );
