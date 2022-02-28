@@ -48,8 +48,5 @@ jobs:
       - name: ⚙️ Build
         run: yarn lerna:build
 
-      - name: 🧪 Run Tests
-        run: yarn test
-
-      - name: 🧪 Run Test Coverage
+      - name: 🧪 Run Tests with Coverage
         run: yarn test:coverage:summary

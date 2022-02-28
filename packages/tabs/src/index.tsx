@@ -15,6 +15,7 @@ import React, {
   useRef,
   useMemo,
   useState,
+  useEffect,
   useContext,
   forwardRef,
   useCallback,
@@ -51,7 +52,7 @@ const TabsProvider = (props) => {
   const {
     onChange,
     orientation,
-    defaultIndex,
+    isControlled,
     activationType,
     setFocusedTabIndex,
     setSelectedTabIndex
@@ -62,7 +63,6 @@ const TabsProvider = (props) => {
   const [tabs, setTabs] = useState<ITab[]>([]);
   const [cursor, setCursor] = useState<number>();
   const [panels, setPanels] = useState<IPanel[]>([]);
-  const isDefaultTabIndexSet = useRef<boolean>(false);
   const onChangeRef =
     useLatestValue<(index: number, id: string) => void>(onChange);
 
@@ -72,54 +72,54 @@ const TabsProvider = (props) => {
    * find first undisabled tab to set initially
    */
   useIsomorphicLayoutEffect(() => {
-    if (tabs.length === 0 || isDefaultTabIndexSet.current === true) return;
-
-    if (!tabs[defaultIndex]?.disabled) {
-      setCursor(defaultIndex);
-      setFocusedTabIndex(defaultIndex);
-      setSelectedTabIndex(defaultIndex);
-      isDefaultTabIndexSet.current = true;
-
-      return;
-    }
+    if (tabs.length === 0) return;
 
     const selectableTabs = tabs.filter(({ disabled }) => !disabled);
 
     if (selectableTabs.length > 0) {
-      const { index: selectableTabIndex } = selectableTabs[0];
+      const selectableFirstTab = selectableTabs[0];
+
+      if (!selectableFirstTab) return;
+
+      const { index: selectableTabIndex } = selectableFirstTab;
 
       setCursor(selectableTabIndex);
       setFocusedTabIndex(selectableTabIndex);
       setSelectedTabIndex(selectableTabIndex);
-      isDefaultTabIndexSet.current = true;
     }
-  }, [tabs, defaultIndex]);
+  }, [tabs]);
 
-  const setArrowSelection = useCallback((tab: ITab) => {
-    const { id, index: nextTabIndex, ref } = tab;
+  const setArrowSelection = useCallback(
+    (tab: ITab) => {
+      const { id, index: nextTabIndex, ref } = tab;
 
-    setCursor(nextTabIndex);
-    ref.current?.focus();
+      setCursor(nextTabIndex);
+      ref.current?.focus();
 
-    if (activationType === TabsActivation.Auto) {
+      if (activationType === TabsActivation.Auto) {
+        setSelectedTabIndex(nextTabIndex);
+        isControlled && onChangeRef.current?.(nextTabIndex, id);
+      }
+
+      setFocusedTabIndex(nextTabIndex);
+    },
+    [isControlled]
+  );
+
+  const clickSelection = useCallback(
+    (tab: ITab) => {
+      const { id, index: nextTabIndex, ref } = tab;
+
+      setCursor(nextTabIndex);
+      ref.current?.focus();
+
       setSelectedTabIndex(nextTabIndex);
-      onChangeRef.current?.(nextTabIndex, id);
-    }
+      isControlled && onChangeRef.current?.(nextTabIndex, id);
 
-    setFocusedTabIndex(nextTabIndex);
-  }, []);
-
-  const clickSelection = useCallback((tab: ITab) => {
-    const { id, index: nextTabIndex, ref } = tab;
-
-    setCursor(nextTabIndex);
-    ref.current?.focus();
-
-    setSelectedTabIndex(nextTabIndex);
-    onChangeRef.current?.(nextTabIndex, id);
-
-    setFocusedTabIndex(nextTabIndex);
-  }, []);
+      setFocusedTabIndex(nextTabIndex);
+    },
+    [isControlled]
+  );
 
   const handleArrowSelection = useCallback(
     (currentIndex: number, direction: boolean, tabs: ITab[]) => {
@@ -149,7 +149,7 @@ const TabsProvider = (props) => {
 
           if (tab && !tab.disabled) {
             setSelectedTabIndex(cursor);
-            onChangeRef.current?.(cursor, tab.id);
+            isControlled && onChangeRef.current?.(cursor, tab.id);
           }
 
           return;
@@ -213,7 +213,7 @@ const TabsProvider = (props) => {
           return;
       }
     },
-    [cursor, orientation, handleArrowSelection, tabs]
+    [cursor, orientation, isControlled, handleArrowSelection, tabs]
   );
 
   const providerValue: ITabsContext = {
@@ -244,11 +244,14 @@ export const Tabs = forwardRef(
     props: PolymorphicComponentProps<C, ITabsProps>,
     forwardedRef
   ) => {
+    showTabsWarnings(Tabs.displayName, props);
+
     const {
       as,
+      index,
       children,
       onChange,
-      defaultIndex = 0,
+      defaultIndex,
       activationType = TabsActivation.Auto,
       orientation = TabsOrientation.Horizontal,
       ...rest
@@ -256,12 +259,23 @@ export const Tabs = forwardRef(
 
     const Component = as || 'div';
 
+    const isControlled = index >= 0;
+    const initialSelectedTabIndex = index || defaultIndex || 0;
+
     const [focusedTabIndex, setFocusedTabIndex] = useState<number>();
-    const [selectedTabIndex, setSelectedTabIndex] = useState<number>();
+    const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
+      initialSelectedTabIndex
+    );
+
+    // handles prop index change when controlled!
+    useEffect(() => {
+      if (index >= 0) setSelectedTabIndex(index);
+    }, [index]);
 
     const initialValues: ITabsProviderProps = {
       onChange,
       orientation,
+      isControlled,
       defaultIndex,
       activationType,
       focusedTabIndex,
@@ -456,6 +470,33 @@ export const TabPanel = forwardRef(
   }
 );
 
+/** Warnings */
+
+/**
+ * handles development environment warning messages
+ * @param componentName
+ * @param props
+ * @returns
+ */
+const showTabsWarnings = (componentName: string, props: ITabsProps) => {
+  if (process.env.NODE_ENV === 'production') return;
+
+  if (props.index && props.defaultIndex) {
+    const warning = `@ciceksepeti/cui-tabs - ${componentName}: the index prop is provided with defaultIndex. To make tab controlled remove defaultIndex and add onChange prop or remove index props and leave only defaultIndex prop.`;
+    console.warn(warning);
+  }
+
+  if (!props.index && props.onChange) {
+    const warning = `@ciceksepeti/cui-tabs - ${componentName}: the onChange prop is provided without providing index prop. To make tab controlled, add index prop. To use tab as uncontrolled component with initial index, use defaultIndex prop and remove onChange prop.`;
+    console.warn(warning);
+  }
+
+  if (props.index && !props.onChange) {
+    const warning = `@ciceksepeti/cui-tabs - ${componentName}: the index prop is provided without providing onChange prop. To make tab work, add onChange props, remove index prop and use it as uncontrolled component or only add defaultIndex prop.`;
+    console.warn(warning);
+  }
+};
+
 /** Types, Enums and Interfaces */
 
 export interface ITabsChildrenProps {
@@ -464,6 +505,7 @@ export interface ITabsChildrenProps {
 }
 
 export interface ITabsProps {
+  index?: number;
   defaultIndex?: number;
   orientation?: TabsOrientation;
   activationType?: TabsActivation;
@@ -473,6 +515,7 @@ export interface ITabsProps {
 
 export interface ITabsProviderProps {
   defaultIndex: number;
+  isControlled: boolean;
   focusedTabIndex: number;
   selectedTabIndex: number;
   orientation?: TabsOrientation;
