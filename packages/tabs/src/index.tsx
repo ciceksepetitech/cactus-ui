@@ -54,6 +54,7 @@ const TabsProvider = (props) => {
     orientation,
     isControlled,
     activationType,
+    selectedTabIndex,
     setFocusedTabIndex,
     setSelectedTabIndex
   } = initialValues;
@@ -72,7 +73,7 @@ const TabsProvider = (props) => {
    * find first undisabled tab to set initially
    */
   useIsomorphicLayoutEffect(() => {
-    if (tabs.length === 0) return;
+    if (tabs.length === 0 || selectedTabIndex) return;
 
     const selectableTabs = tabs.filter(({ disabled }) => !disabled);
 
@@ -87,7 +88,7 @@ const TabsProvider = (props) => {
       setFocusedTabIndex(selectableTabIndex);
       setSelectedTabIndex(selectableTabIndex);
     }
-  }, [tabs]);
+  }, [isControlled, tabs]);
 
   const setArrowSelection = useCallback(
     (tab: ITab) => {
@@ -97,25 +98,32 @@ const TabsProvider = (props) => {
       ref.current?.focus();
 
       if (activationType === TabsActivation.Auto) {
+        if (isControlled) {
+          onChangeRef.current?.(nextTabIndex, id);
+          return;
+        }
+
         setSelectedTabIndex(nextTabIndex);
-        isControlled && onChangeRef.current?.(nextTabIndex, id);
       }
 
       setFocusedTabIndex(nextTabIndex);
     },
-    [isControlled]
+    [isControlled, activationType]
   );
 
   const clickSelection = useCallback(
     (tab: ITab) => {
       const { id, index: nextTabIndex, ref } = tab;
 
-      setCursor(nextTabIndex);
       ref.current?.focus();
+      setCursor(nextTabIndex);
+
+      if (isControlled) {
+        onChangeRef.current?.(nextTabIndex, id);
+        return;
+      }
 
       setSelectedTabIndex(nextTabIndex);
-      isControlled && onChangeRef.current?.(nextTabIndex, id);
-
       setFocusedTabIndex(nextTabIndex);
     },
     [isControlled]
@@ -148,7 +156,8 @@ const TabsProvider = (props) => {
           const tab = tabs[cursor];
 
           if (tab && !tab.disabled) {
-            setSelectedTabIndex(cursor);
+            event.preventDefault();
+            !isControlled && setSelectedTabIndex(cursor);
             isControlled && onChangeRef.current?.(cursor, tab.id);
           }
 
