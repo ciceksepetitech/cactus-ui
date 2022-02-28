@@ -495,7 +495,7 @@ const showTabsWarnings = (componentName: string, props: ITabsProps) => {
     console.warn(warning);
   }
 
-  if (!props.index && props.onChange) {
+  if (props.index === undefined && props.onChange) {
     const warning = `@ciceksepeti/cui-tabs - ${componentName}: the onChange prop is provided without providing index prop. To make tab controlled, add index prop. To use tab as uncontrolled component with initial index, use defaultIndex prop and remove onChange prop.`;
     console.warn(warning);
   }

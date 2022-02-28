@@ -459,7 +459,7 @@ const showAccordionWarnings = (
     console.warn(warning);
   }
 
-  if (!props.indexes && props.onChange) {
+  if (props.indexes === undefined && props.onChange) {
     const warning = `@ciceksepeti/cui-accordion - ${componentName}: the onChange prop is provided without providing indexes prop. To make accordion controlled, add indexes prop. To use accordion as uncontrolled component with initial indexes, use defaultIndexes prop and remove onChange prop.`;
     console.warn(warning);
   }

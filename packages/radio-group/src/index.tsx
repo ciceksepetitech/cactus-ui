@@ -56,6 +56,7 @@ const RadioGroupProvider = (props) => {
     value,
     onChange,
     defaultValue,
+    isControlled,
     selectedRadioValue,
     setFocusedRadioValue,
     setSelectedRadioValue
@@ -93,17 +94,23 @@ const RadioGroupProvider = (props) => {
     }
   }, [radios, selectedRadioValue]);
 
-  const selectRadio = useCallback((radio: IRadio) => {
-    const { id, name, value, ref } = radio;
+  const selectRadio = useCallback(
+    (radio: IRadio) => {
+      const { id, name, value, ref } = radio;
 
-    setCurrentValue(value);
-    setSelectedRadioValue(value);
+      ref.current.focus();
+      setCurrentValue(value);
+      ref.current.tabIndex = 0;
 
-    ref.current.focus();
-    ref.current.tabIndex = 0;
-    ref.current.checked = true;
-    onChangeRef.current?.(value, id, name);
-  }, []);
+      if (isControlled) {
+        onChangeRef.current?.(value, id, name);
+      } else {
+        ref.current.checked = true;
+        setSelectedRadioValue(value);
+      }
+    },
+    [isControlled]
+  );
 
   const setArrowSelection = useCallback(
     (radio: IRadio) => {
@@ -173,12 +180,18 @@ const RadioGroupProvider = (props) => {
           );
 
           if (radio && !radio.disabled) {
+            event.preventDefault();
+
             radio.ref.current.tabIndex = 0;
 
             setCurrentValue(activeElementValue);
             setFocusedRadioValue(activeElementValue);
-            setSelectedRadioValue(activeElementValue);
-            onChangeRef.current?.(activeElementValue, radio.id, radio.name);
+
+            if (isControlled) {
+              onChangeRef.current?.(activeElementValue, radio.id, radio.name);
+            } else {
+              setSelectedRadioValue(activeElementValue);
+            }
           }
 
           return;
@@ -202,7 +215,7 @@ const RadioGroupProvider = (props) => {
           return;
       }
     },
-    [currentValue, handleArrowSelection, radios]
+    [currentValue, isControlled, handleArrowSelection, radios]
   );
 
   const providerValue: IRadioGroupContext = {
@@ -250,6 +263,8 @@ export const RadioGroup = forwardRef(
 
     const Component = as || 'div';
 
+    const isControlled = !!value;
+
     const [focusedRadioValue, setFocusedRadioValue] = useState<string>();
     const [selectedRadioValue, setSelectedRadioValue] = useState<string>(
       value || defaultValue
@@ -279,6 +294,7 @@ export const RadioGroup = forwardRef(
       onChange,
       orientation,
       defaultValue,
+      isControlled,
       focusedRadioValue,
       selectedRadioValue,
       setFocusedRadioValue,
@@ -413,7 +429,7 @@ const showRadioGroupWarnings = (
     console.warn(warning);
   }
 
-  if (!props.value && props.onChange) {
+  if (props.value === undefined && props.onChange) {
     const warning = `@ciceksepeti/cui-radio-group - ${componentName}: the onChange prop is provided without providing value prop. To make radio-group controlled, add value prop. To use radio-group as uncontrolled component with initial value, use defaultValue prop and remove onChange prop.`;
     console.warn(warning);
   }
@@ -491,6 +507,7 @@ export interface IRadio {
 export interface IRadioGroupProviderProps {
   name?: string;
   value?: string;
+  isControlled: boolean;
   defaultValue?: string;
   focusedRadioValue: string;
   selectedRadioValue: string;
