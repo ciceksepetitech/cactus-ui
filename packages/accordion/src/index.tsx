@@ -37,12 +37,6 @@ const AccordionContext = createContext(initialValue);
 let _accordionProviderId = 0;
 const generateAccordionProviderId = () => ++_accordionProviderId;
 
-let _accordionIndex = -1;
-const generateAccordionIndex = () => ++_accordionIndex;
-
-let _accordionContentIndex = -1;
-const generateAccordionContentIndex = () => ++_accordionContentIndex;
-
 export const useAccordionContext = () => {
   const context = useContext(AccordionContext);
 
@@ -57,6 +51,8 @@ export const useAccordionContext = () => {
 const AccordionProvider = (props) => {
   const { children, initialValues } = props;
 
+  const accordionIndexRef = useRef<number>(-1);
+  const accordionContentIndexRef = useRef<number>(-1);
   const [accordions, setAccordions] = useState<IAccordion[]>([]);
   const [accordionContents, setAccordionContents] = useState<
     IAccordionContent[]
@@ -204,8 +200,10 @@ const AccordionProvider = (props) => {
     setAccordions,
     toggleAccordion,
     onKeyDownHandler,
+    accordionIndexRef,
     accordionContents,
     setAccordionContents,
+    accordionContentIndexRef,
     ...initialValues
   };
 
@@ -327,11 +325,12 @@ export const AccordionButton = forwardRef(
       toggleAccordion,
       expandedIndexes,
       onKeyDownHandler,
-      accordionContents
+      accordionContents,
+      accordionIndexRef
     } = useAccordionContext();
 
     useIsomorphicLayoutEffect(() => {
-      const index = generateAccordionIndex();
+      const index = ++accordionIndexRef.current;
       const _id = id || `accordion-button-${index}-${providerId}`;
 
       const accordion = {
@@ -386,15 +385,20 @@ export const AccordionContent = forwardRef(
 
     const Component = as || 'div';
 
-    const { accordions, expandedIndexes, providerId, setAccordionContents } =
-      useAccordionContext();
+    const {
+      accordions,
+      providerId,
+      expandedIndexes,
+      setAccordionContents,
+      accordionContentIndexRef
+    } = useAccordionContext();
 
     const [accordionContent, setAccordionContent] = useState<IAccordionContent>(
       {} as IAccordionContent
     );
 
     useIsomorphicLayoutEffect(() => {
-      const index = generateAccordionContentIndex();
+      const index = ++accordionContentIndexRef.current;
       const _id = id || `accordion-content-${index}-${providerId}`;
 
       const accordionContent = {
@@ -455,7 +459,7 @@ const showAccordionWarnings = (
     console.warn(warning);
   }
 
-  if (!props.indexes && props.onChange) {
+  if (props.indexes === undefined && props.onChange) {
     const warning = `@ciceksepeti/cui-accordion - ${componentName}: the onChange prop is provided without providing indexes prop. To make accordion controlled, add indexes prop. To use accordion as uncontrolled component with initial indexes, use defaultIndexes prop and remove onChange prop.`;
     console.warn(warning);
   }
@@ -504,6 +508,8 @@ export interface IAccordionContext extends IAccordionProviderProps {
   providerId: number;
   accordions: IAccordion[];
   accordionContents: IAccordionContent[];
+  accordionIndexRef: React.MutableRefObject<number>;
+  accordionContentIndexRef: React.MutableRefObject<number>;
   setAccordions: React.Dispatch<React.SetStateAction<IAccordion[]>>;
   onKeyDownHandler: (
     event: Event | React.SyntheticEvent<Element, Event>,
@@ -541,11 +547,6 @@ export interface IAccordionHeaderProps {
 }
 
 export interface IAccordionButtonProps {
-  children: React.ReactNode;
-}
-
-export interface IAccordionItemProps {
-  disabled?: boolean;
   children: React.ReactNode;
 }
 

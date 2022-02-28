@@ -87,9 +87,9 @@ describe('radio group component tests', () => {
     expect(checkedRadio.value).toBe('cherry');
   });
 
-  test('radio group component onchange should be called when provided', () => {
+  test('radio group component onchange should be called when provided with index prop', () => {
     const onChangeMock = jest.fn();
-    render(<Component onChange={onChangeMock} />);
+    render(<Component value="cherry" onChange={onChangeMock} />);
 
     const banana = screen.getByText('banana');
     userEvent.click(banana);
@@ -108,7 +108,7 @@ describe('radio group component tests', () => {
 
   test('radio group should respect to space and enter', async () => {
     const onChangeMock = jest.fn();
-    render(<Component onChange={onChangeMock} />);
+    render(<Component value="cherry" onChange={onChangeMock} />);
 
     const banana = screen.getByText('banana');
     userEvent.type(banana, '{arrowleft}{space}{enter}');

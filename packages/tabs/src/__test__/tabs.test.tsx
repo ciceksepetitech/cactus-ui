@@ -4,9 +4,16 @@ import userEvent from '@testing-library/user-event';
 import { Tabs, TabList, Tab, TabPanelList, TabPanel, TabsActivation } from '..';
 import { render, screen, cleanup, waitFor } from '../../../../utils/test-setup';
 
+let consoleWarn;
+
 describe('tabs component tests', () => {
   afterEach(() => {
+    jest.restoreAllMocks();
     cleanup();
+  });
+
+  beforeEach(() => {
+    consoleWarn = jest.spyOn(global.console, 'warn').mockImplementation();
   });
 
   test('tabs should pass a11y', async () => {
@@ -190,10 +197,10 @@ describe('tabs component tests', () => {
     expect(tab4).toHaveAttribute('aria-selected', 'true');
   });
 
-  test('tabs onChange should be called when passed', async () => {
+  test('tabs onChange should be called when passed with index prop', async () => {
     const mockFn = jest.fn();
 
-    render(<Component onChange={mockFn} />);
+    render(<Component index={0} onChange={mockFn} />);
 
     const tab4 = screen.getByText(/tab4/i);
     userEvent.click(tab4);
