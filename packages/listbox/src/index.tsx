@@ -429,6 +429,7 @@ export const ListboxItem = forwardRef(
     forwardedRef
   ) => {
     const {
+      id,
       as,
       value,
       children,
@@ -454,8 +455,8 @@ export const ListboxItem = forwardRef(
 
     useEffect(() => {
       const label = getLabel(children);
-      const id = `option-${value}-listbox-${providerId}`;
-      const option = { id, label, disabled, value };
+      const _id = id || `option-${value}-listbox-${providerId}`;
+      const option = { id: _id, label, disabled, value };
 
       setOption(option);
       setOptions((previousOptions) => [...previousOptions, option]);
@@ -464,7 +465,7 @@ export const ListboxItem = forwardRef(
         setOptions((previousOptions) =>
           previousOptions.filter(({ value }) => value !== option.value)
         );
-    }, [disabled, providerId]);
+    }, [id, disabled, providerId]);
 
     const Component = as || 'li';
 

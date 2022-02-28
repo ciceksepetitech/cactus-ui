@@ -37,12 +37,6 @@ const TabsContext = createContext(initialValue);
 let _tabProviderId = 0;
 const generateTabProviderId = () => ++_tabProviderId;
 
-let _tabId = -1;
-const generateTabId = () => ++_tabId;
-
-let _tabPanelId = -1;
-const generateTabPanelId = () => ++_tabPanelId;
-
 export const useTabsContext = () => {
   const context = useContext(TabsContext);
 
@@ -63,6 +57,8 @@ const TabsProvider = (props) => {
     setSelectedTabIndex
   } = initialValues;
 
+  const tabIdRef = useRef<number>(-1);
+  const tabPanelIdRef = useRef<number>(-1);
   const [tabs, setTabs] = useState<ITab[]>([]);
   const [cursor, setCursor] = useState<number>();
   const [panels, setPanels] = useState<IPanel[]>([]);
@@ -78,7 +74,7 @@ const TabsProvider = (props) => {
   useIsomorphicLayoutEffect(() => {
     if (tabs.length === 0 || isDefaultTabIndexSet.current === true) return;
 
-    if (!tabs[defaultIndex].disabled) {
+    if (!tabs[defaultIndex]?.disabled) {
       setCursor(defaultIndex);
       setFocusedTabIndex(defaultIndex);
       setSelectedTabIndex(defaultIndex);
@@ -224,9 +220,11 @@ const TabsProvider = (props) => {
     tabs,
     panels,
     setTabs,
+    tabIdRef,
     setPanels,
     onKeyDown,
     providerId,
+    tabPanelIdRef,
     clickSelection,
     ...initialValues
   };
@@ -339,6 +337,7 @@ export const Tab = forwardRef(
     const {
       panels,
       setTabs,
+      tabIdRef,
       providerId,
       orientation,
       clickSelection,
@@ -346,7 +345,7 @@ export const Tab = forwardRef(
     } = useTabsContext();
 
     useIsomorphicLayoutEffect(() => {
-      const index = generateTabId();
+      const index = ++tabIdRef.current;
       const _id = id || `tab-${index}-${providerId}`;
       const tab = { id: _id, index, ref, disabled } as ITab;
 
@@ -420,10 +419,11 @@ export const TabPanel = forwardRef(
     const Component = as || 'div';
 
     const [panel, setPanel] = useState<IPanel>({} as IPanel);
-    const { tabs, setPanels, providerId, selectedTabIndex } = useTabsContext();
+    const { tabs, setPanels, providerId, tabPanelIdRef, selectedTabIndex } =
+      useTabsContext();
 
     useIsomorphicLayoutEffect(() => {
-      const index = generateTabPanelId();
+      const index = ++tabPanelIdRef.current;
       const _id = id || `tab-panel-${index}-${providerId}`;
       const panel = { id: _id, index } as IPanel;
 
@@ -505,6 +505,8 @@ export interface ITabsContext extends ITabsProviderProps {
   panels: IPanel[];
   providerId: number;
   onKeyDown: () => void;
+  tabIdRef: React.MutableRefObject<number>;
+  tabPanelIdRef: React.MutableRefObject<number>;
   setTabs: React.Dispatch<React.SetStateAction<ITab[]>>;
   setPanels: React.Dispatch<React.SetStateAction<IPanel[]>>;
 }
