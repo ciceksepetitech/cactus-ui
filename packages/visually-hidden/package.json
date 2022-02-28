@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-visually-hidden",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "ÇiçekSepeti Visually Hidden Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -20,7 +20,7 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-utils": "0.4.0"
+    "@ciceksepeti/cui-utils": "0.5.0"
   },
   "peerDependencies": {
     "react": "^16.8.0 || 17.x",
