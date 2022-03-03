@@ -6,3 +6,4 @@ tsconfig.json
 coverage
 stories
 __test__
+gulpfile.js
