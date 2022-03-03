@@ -501,7 +501,7 @@ export const ListboxArrow = forwardRef(
     props: PolymorphicComponentProps<C, IListboxProps>,
     forwardedRef
   ) => {
-    const { as, children, ...rest } = props;
+    const { as, ...rest } = props;
 
     const Component = as || 'span';
 
@@ -514,7 +514,7 @@ export const ListboxArrow = forwardRef(
         data-cui-listbox-arrow
         data-expanded={isExpanded}
         {...rest}
-      ></Component>
+      />
     );
   }
 );
