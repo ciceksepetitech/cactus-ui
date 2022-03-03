@@ -15,7 +15,6 @@ import React, {
   useRef,
   useMemo,
   useState,
-  useEffect,
   useContext,
   forwardRef,
   useCallback,
@@ -270,11 +269,6 @@ export const RadioGroup = forwardRef(
       value || defaultValue
     );
 
-    // handles prop value change when controlled!
-    useEffect(() => {
-      if (value) setSelectedRadioValue(value);
-    }, [value]);
-
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
 
@@ -296,9 +290,9 @@ export const RadioGroup = forwardRef(
       defaultValue,
       isControlled,
       focusedRadioValue,
-      selectedRadioValue,
       setFocusedRadioValue,
-      setSelectedRadioValue
+      setSelectedRadioValue,
+      selectedRadioValue: isControlled ? value : selectedRadioValue
     };
 
     return (
@@ -434,7 +428,7 @@ const showRadioGroupWarnings = (
     console.warn(warning);
   }
 
-  if (props.value && !props.onChange) {
+  if (props.value !== undefined && !props.onChange) {
     const warning = `@ciceksepeti/cui-radio-group - ${componentName}: the value prop is provided without providing onChange prop. To make radio-group work, add onChange props, remove value prop and use it as uncontrolled component or only add defaultValue prop.`;
     console.warn(warning);
   }

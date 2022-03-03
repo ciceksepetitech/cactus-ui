@@ -14,7 +14,6 @@ import React, {
   useRef,
   useMemo,
   useState,
-  useEffect,
   useContext,
   forwardRef,
   useCallback,
@@ -245,20 +244,15 @@ export const Accordion = forwardRef(
 
     const Component = as || 'div';
 
-    // handles prop indexes change when controlled!
-    useEffect(() => {
-      if (indexes) setExpandedIndexes(indexes);
-    }, [indexes]);
-
     const initialValues: IAccordionProviderProps = {
       single,
       collapsible,
       onChangeRef,
       isControlled,
       defaultIndexes,
-      expandedIndexes,
       setExpandedIndexes,
-      disableOptionalArrowKeys
+      disableOptionalArrowKeys,
+      expandedIndexes: isControlled ? indexes : expandedIndexes
     };
 
     return (
