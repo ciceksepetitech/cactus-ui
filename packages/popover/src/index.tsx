@@ -309,7 +309,7 @@ const usePopoverTabIndexSyncing = (popoverNode: HTMLElement) => {
   return { handleKeyDown };
 };
 
-const Popover = forwardRef(
+export const Popover = forwardRef(
   <C extends React.ElementType = 'div'>(
     props: PolymorphicComponentProps<C, IPopoverProps>,
     forwardedRef
