@@ -389,6 +389,7 @@ export const ListboxButton = forwardRef(
           <Component
             ref={ref}
             role="button"
+            type="button"
             data-cui-listbox-button
             aria-haspopup="listbox"
             aria-disabled={disabled}
