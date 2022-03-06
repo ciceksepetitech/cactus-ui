@@ -33,6 +33,7 @@ const defaultPopoverStyles: CSSProperties = {
 };
 
 const usePopover = ({
+  hidden,
   autoFlip,
   placement,
   targetRef,
@@ -148,6 +149,7 @@ const usePopover = ({
       ...newPosition
     }));
   }, [
+    hidden,
     autoFlip,
     placement,
     popoverNode,
@@ -317,6 +319,7 @@ export const Popover = forwardRef(
     const {
       as,
       style,
+      hidden,
       children,
       targetRef,
       portal = true,
@@ -333,6 +336,7 @@ export const Popover = forwardRef(
     usePopoverTabIndexSyncing(refNode);
 
     const { styles: popoverStyles } = usePopover({
+      hidden,
       autoFlip,
       placement,
       targetRef,
@@ -353,6 +357,7 @@ export const Popover = forwardRef(
       >
         <Component
           {...rest}
+          hidden={hidden}
           data-cui-popover
           ref={refCallback}
           style={{ ...style, ...popoverStyles }}
@@ -394,6 +399,7 @@ export type PlacementGetterType = Placements.Left | Placements.Top;
 
 export interface IUsePopoverProps
   extends Pick<IPopoverProps, 'autoFlip' | 'placement' | 'targetRef'> {
+  hidden?: boolean;
   popoverNode: HTMLElement;
 }
 
