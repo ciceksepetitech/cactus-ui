@@ -64,6 +64,7 @@ const useListbox = (props) => {
     options,
     onChange,
     setCursor,
+    isControlled,
     setIsExpanded,
     setSelectedItem
   } = props;
@@ -106,9 +107,14 @@ const useListbox = (props) => {
           event.stopPropagation();
 
           if (item && !item.disabled) {
-            setSelectedItem(item);
-            onChange?.(item.value);
             setIsExpanded((prev) => !prev);
+
+            if (isControlled) {
+              onChange?.(item.value);
+              return;
+            }
+
+            setSelectedItem(item);
           }
 
           return;
@@ -139,7 +145,7 @@ const useListbox = (props) => {
           break;
       }
     },
-    [cursor, options]
+    [cursor, isControlled, options]
   );
 
   return {
@@ -149,8 +155,14 @@ const useListbox = (props) => {
 };
 
 const useListboxItem = (props) => {
-  const { options, onChange, setCursor, setIsExpanded, setSelectedItem } =
-    props;
+  const {
+    options,
+    onChange,
+    setCursor,
+    isControlled,
+    setIsExpanded,
+    setSelectedItem
+  } = props;
 
   const onMouseEnter = useCallback((item) => {
     setCursor(item);
@@ -170,10 +182,15 @@ const useListboxItem = (props) => {
       if (item.disabled) return;
 
       setIsExpanded(false);
+
+      if (isControlled) {
+        onChange?.(item.value);
+        return;
+      }
+
       setSelectedItem(item);
-      onChange?.(item.value);
     },
-    [options]
+    [options, isControlled]
   );
 
   return {
@@ -187,7 +204,7 @@ const useListboxItem = (props) => {
 const ListboxProvider = (props) => {
   const { children, initialValues } = props;
 
-  const { value, targetRef, defaultValue, onChange, disabled } =
+  const { value, targetRef, isControlled, defaultValue, onChange, disabled } =
     initialValues as IListboxProviderProps;
 
   const popoverRef = useRef(null);
@@ -204,6 +221,18 @@ const ListboxProvider = (props) => {
   const providerId = useMemo(() => generateProviderId(), []);
 
   useEffect(() => {
+    if (isControlled && options.length > 0) {
+      const item = options.find((option) => option.value === value) || {};
+      setCursor(item);
+      setSelectedItem(item);
+
+      return;
+    }
+  }, [options, value, isControlled]);
+
+  useEffect(() => {
+    if (isControlled) return;
+
     if (!selectedItem.value && options.length > 0) {
       if (value || defaultValue) {
         const _value = value || defaultValue;
@@ -218,7 +247,7 @@ const ListboxProvider = (props) => {
         setSelectedItem(item);
       }
     }
-  }, [value, defaultValue, options]);
+  }, [value, isControlled, defaultValue, options]);
 
   useEffect(() => {
     if (previousExpanded && !isExpanded) setCursor(selectedItem);
@@ -229,6 +258,7 @@ const ListboxProvider = (props) => {
     options,
     onChange,
     setCursor,
+    isControlled,
     setIsExpanded,
     setSelectedItem
   });
@@ -238,6 +268,7 @@ const ListboxProvider = (props) => {
       options,
       onChange,
       setCursor,
+      isControlled,
       setIsExpanded,
       setSelectedItem
     });
@@ -332,6 +363,9 @@ export const ListboxButton = forwardRef(
     } = props;
 
     showContentWarnings(Listbox.displayName, props);
+    showListboxWarnings(Listbox.displayName, props);
+
+    const isControlled = value !== undefined;
 
     const onChangeRef = useLatestValue(onChange);
 
@@ -344,6 +378,7 @@ export const ListboxButton = forwardRef(
       value,
       disabled,
       defaultValue,
+      isControlled,
       targetRef: ref,
       onChange: onChangeRef.current
     };
@@ -354,6 +389,7 @@ export const ListboxButton = forwardRef(
           <Component
             ref={ref}
             role="button"
+            type="button"
             data-cui-listbox-button
             aria-haspopup="listbox"
             aria-disabled={disabled}
@@ -588,6 +624,31 @@ export default Listbox;
  * @param props
  * @returns
  */
+const showListboxWarnings = (componentName: string, props: IListboxProps) => {
+  if (process.env.NODE_ENV === 'production') return;
+
+  if (props.value && props.defaultValue) {
+    const warning = `@ciceksepeti/cui-listbox - ${componentName}: the value prop is provided with defaultValue. To make listbox controlled remove defaultValue and add onChange prop or remove value props and leave only defaultValue prop.`;
+    console.warn(warning);
+  }
+
+  if (props.value === undefined && props.onChange) {
+    const warning = `@ciceksepeti/cui-listbox - ${componentName}: the onChange prop is provided without providing value prop. To make listbox controlled, add value prop. To use listbox as uncontrolled component with initial value, use defaultValue prop and remove onChange prop.`;
+    console.warn(warning);
+  }
+
+  if (props.value !== undefined && !props.onChange) {
+    const warning = `@ciceksepeti/cui-listbox - ${componentName}: the value prop is provided without providing onChange prop. To make listbox work, add onChange props, remove value prop and use it as uncontrolled component or only add defaultValue prop.`;
+    console.warn(warning);
+  }
+};
+
+/**
+ * handles development environment warning messages
+ * @param componentName
+ * @param props
+ * @returns
+ */
 const showContentWarnings = (componentName: string, props: IListboxProps) => {
   if (process.env.NODE_ENV === 'production') return;
 
@@ -617,6 +678,7 @@ export interface IListboxProps
   arrow?: React.ReactNode;
   prefix?: React.ReactNode;
   children: React.ReactNode;
+  onChange?: (value: string) => void;
 }
 
 export interface IListboxItemProps {
@@ -639,6 +701,7 @@ export interface IListboxProviderProps {
   disabled?: boolean;
   value: ListboxValue;
   defaultValue: string;
+  isControlled: boolean;
   onChange: (value: string) => void;
   targetRef: React.MutableRefObject<any>;
 }

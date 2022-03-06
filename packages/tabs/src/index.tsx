@@ -15,7 +15,6 @@ import React, {
   useRef,
   useMemo,
   useState,
-  useEffect,
   useContext,
   forwardRef,
   useCallback,
@@ -276,11 +275,6 @@ export const Tabs = forwardRef(
       initialSelectedTabIndex
     );
 
-    // handles prop index change when controlled!
-    useEffect(() => {
-      if (index >= 0) setSelectedTabIndex(index);
-    }, [index]);
-
     const initialValues: ITabsProviderProps = {
       onChange,
       orientation,
@@ -288,9 +282,9 @@ export const Tabs = forwardRef(
       defaultIndex,
       activationType,
       focusedTabIndex,
-      selectedTabIndex,
       setFocusedTabIndex,
-      setSelectedTabIndex
+      setSelectedTabIndex,
+      selectedTabIndex: isControlled ? index : selectedTabIndex
     };
 
     return (
@@ -500,7 +494,7 @@ const showTabsWarnings = (componentName: string, props: ITabsProps) => {
     console.warn(warning);
   }
 
-  if (props.index && !props.onChange) {
+  if (props.index !== undefined && !props.onChange) {
     const warning = `@ciceksepeti/cui-tabs - ${componentName}: the index prop is provided without providing onChange prop. To make tab work, add onChange props, remove index prop and use it as uncontrolled component or only add defaultIndex prop.`;
     console.warn(warning);
   }
