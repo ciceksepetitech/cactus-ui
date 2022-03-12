@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-popover",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "ÇiçekSepeti Popover Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -20,9 +20,9 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-hooks": "0.7.0",
-    "@ciceksepeti/cui-portal": "0.0.8",
-    "@ciceksepeti/cui-utils": "0.7.0"
+    "@ciceksepeti/cui-hooks": "0.8.0",
+    "@ciceksepeti/cui-portal": "0.0.9",
+    "@ciceksepeti/cui-utils": "0.8.0"
   },
   "peerDependencies": {
     "react": "^16.8.0 || 17.x",
