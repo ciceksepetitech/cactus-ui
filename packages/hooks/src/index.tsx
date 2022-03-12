@@ -1,4 +1,5 @@
 export * from './utils';
+export * from './useId';
 export * from './useIsCSR';
 export * from './useArray';
 export * from './constants';
