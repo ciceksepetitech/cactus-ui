@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-dialog",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "ÇiçekSepeti Accessible Dialog Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -24,11 +24,11 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-focus-trap": "0.0.9",
-    "@ciceksepeti/cui-hooks": "0.8.0",
-    "@ciceksepeti/cui-portal": "0.0.9",
-    "@ciceksepeti/cui-utils": "0.8.0",
-    "@ciceksepeti/cui-visually-hidden": "0.0.9",
+    "@ciceksepeti/cui-focus-trap": "0.0.10",
+    "@ciceksepeti/cui-hooks": "0.9.0",
+    "@ciceksepeti/cui-portal": "0.0.10",
+    "@ciceksepeti/cui-utils": "0.9.0",
+    "@ciceksepeti/cui-visually-hidden": "0.0.10",
     "react-remove-scroll": "^2.4.3"
   },
   "peerDependencies": {
