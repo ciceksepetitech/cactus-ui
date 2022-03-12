@@ -1,5 +1,5 @@
 import { RefObject, useCallback } from 'react';
-import { useEventListener } from '..';
+import { useEventListener, IUseEventListener } from '..';
 import { useLatestValue } from '../useLatestValue';
 
 /**
@@ -8,7 +8,8 @@ import { useLatestValue } from '../useLatestValue';
  */
 export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   specifiedNodeRef: RefObject<T>,
-  callback: (event: MouseEvent | TouchEvent) => void
+  callback: (event: MouseEvent | TouchEvent) => void,
+  listenerProps?: IUseEventListener
 ): void {
   const callbackRef =
     useLatestValue<(event: MouseEvent | TouchEvent) => void>(callback);
@@ -24,11 +25,13 @@ export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
 
   useEventListener({
     listener,
-    name: 'mousedown'
+    name: 'mousedown',
+    ...listenerProps
   });
 
   useEventListener({
     listener,
-    name: 'touchstart'
+    name: 'touchstart',
+    ...listenerProps
   });
 }

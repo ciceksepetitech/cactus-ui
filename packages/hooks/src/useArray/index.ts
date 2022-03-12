@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-interface IUseArrayReturn<T> {
+export interface IUseArrayReturn<T> {
   value: T[];
   clear: () => void;
   isEmpty: () => boolean;

@@ -1,6 +1,6 @@
 import { useRef, useCallback, useEffect } from 'react';
 
-type UseIsMounted = () => boolean;
+export type UseIsMounted = () => boolean;
 
 /**
  * returns a memoized callback function to
