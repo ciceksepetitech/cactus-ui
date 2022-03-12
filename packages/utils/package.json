@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-utils",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "ÇiçekSepeti Component Utils",
   "author": "cs",
   "main": "dist/src/index.js",
