@@ -572,12 +572,21 @@ export const ListboxPopover = forwardRef(
       setIsExpanded(false);
     }, []);
 
-    useEffect(() => {
+    const setPopoverWidth = useCallback(() => {
       if (popoverRef.current && targetRef.current) {
         popoverRef.current.style.minWidth =
           targetRef.current.clientWidth + 'px';
       }
-    }, [selectedItem]);
+    }, []);
+
+    useEffect(() => {
+      setPopoverWidth();
+    }, [setPopoverWidth]);
+
+    useEventListener({
+      name: 'resize',
+      listener: setPopoverWidth
+    });
 
     useOnClickOutside(ref, onOutsideClick);
 
