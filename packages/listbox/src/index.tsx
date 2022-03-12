@@ -18,7 +18,6 @@ import React, {
   createContext
 } from 'react';
 import {
-  usePrevious,
   useLatestValue,
   useCombinedRefs,
   useEventListener,
@@ -172,10 +171,6 @@ const useListboxItem = (props) => {
     setCursor(item);
   }, []);
 
-  const onMouseLeave = useCallback(() => {
-    setCursor({});
-  }, []);
-
   const onItemClick = useCallback(
     (value) => {
       const item = options.find((option) => option.value === value);
@@ -189,6 +184,7 @@ const useListboxItem = (props) => {
       }
 
       setSelectedItem(item);
+      setCursor(item);
     },
     [options, isControlled]
   );
@@ -196,7 +192,6 @@ const useListboxItem = (props) => {
   return {
     onItemClick,
     onMouseEnter,
-    onMouseLeave,
     onTouchStart
   };
 };
@@ -216,8 +211,6 @@ const ListboxProvider = (props) => {
     {} as IListboxOption
   );
 
-  const previousExpanded = usePrevious(isExpanded);
-
   const providerId = useMemo(() => generateProviderId(), []);
 
   useEffect(() => {
@@ -233,25 +226,20 @@ const ListboxProvider = (props) => {
   useEffect(() => {
     if (isControlled) return;
 
+    let item;
+
     if (!selectedItem.value && options.length > 0) {
       if (value || defaultValue) {
         const _value = value || defaultValue;
-        const item = options.find((option) => option.value === _value);
-
-        setCursor(item);
-        setSelectedItem(item);
+        item = options.find((option) => option.value === _value);
       } else {
-        const item = options[0];
-
-        setCursor(item);
-        setSelectedItem(item);
+        item = options[0];
       }
+
+      setCursor(item);
+      setSelectedItem(item);
     }
   }, [value, isControlled, defaultValue, options]);
-
-  useEffect(() => {
-    if (previousExpanded && !isExpanded) setCursor(selectedItem);
-  }, [previousExpanded, selectedItem, isExpanded]);
 
   const { onKeyDown, onTargetKeyDown } = useListbox({
     cursor,
@@ -263,21 +251,18 @@ const ListboxProvider = (props) => {
     setSelectedItem
   });
 
-  const { onMouseEnter, onMouseLeave, onTouchStart, onItemClick } =
-    useListboxItem({
-      options,
-      onChange,
-      setCursor,
-      isControlled,
-      setIsExpanded,
-      setSelectedItem
-    });
+  const { onMouseEnter, onTouchStart, onItemClick } = useListboxItem({
+    options,
+    onChange,
+    setCursor,
+    isControlled,
+    setIsExpanded,
+    setSelectedItem
+  });
 
   const onTargetMousedown = useCallback(
     (event) => {
       if (popoverRef.current?.contains(event.target)) return;
-
-      event.stopPropagation();
       setIsExpanded(!isExpanded);
     },
     [isExpanded]
@@ -301,6 +286,7 @@ const ListboxProvider = (props) => {
     cursor,
     options,
     disabled,
+    setCursor,
     onKeyDown,
     setOptions,
     isExpanded,
@@ -310,7 +296,6 @@ const ListboxProvider = (props) => {
     onMouseEnter,
     onTouchStart,
     selectedItem,
-    onMouseLeave,
     setIsExpanded,
     hiddenInputRef,
     setSelectedItem,
@@ -414,13 +399,21 @@ export const ListboxButton = forwardRef(
 
 export const ListboxList = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IListboxProps>,
+    props: PolymorphicComponentProps<C, Omit<IListboxProps, 'onMouseLeave'>>,
     forwardedRef
   ) => {
-    const { as, children, ...rest } = props;
+    const { as, children, onMouseLeave, ...rest } = props;
 
     const [refNode, setRefNode] = useState<HTMLElement>();
-    const { providerId, isExpanded, cursor, onKeyDown } = useListboxContext();
+
+    const {
+      cursor,
+      onKeyDown,
+      setCursor,
+      providerId,
+      isExpanded,
+      selectedItem
+    } = useListboxContext();
 
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
@@ -428,8 +421,9 @@ export const ListboxList = forwardRef(
     const Component = as || 'ul';
 
     useEffect(() => {
-      if (isExpanded) refNode.focus();
-    }, [isExpanded, refNode]);
+      if (isExpanded) setTimeout(() => refNode.focus(), 0);
+      if (!isExpanded) setCursor(selectedItem);
+    }, [isExpanded, selectedItem, refNode]);
 
     useEventListener({
       target: ref,
@@ -437,6 +431,10 @@ export const ListboxList = forwardRef(
       listener: onKeyDown,
       condition: isExpanded
     });
+
+    const handleMouseLeave = useCallback(() => {
+      if (isExpanded) setCursor({} as IListboxOption);
+    }, [isExpanded]);
 
     const refCallback = useCallback((node: HTMLElement) => {
       ref.current = node;
@@ -451,6 +449,7 @@ export const ListboxList = forwardRef(
         data-cui-listbox-list
         id={`listbox-${providerId}`}
         aria-activedescendant={isExpanded ? cursor.id : undefined}
+        onMouseLeave={mergeEventHandlers(onMouseLeave, handleMouseLeave)}
         {...rest}
       >
         {children}
@@ -470,7 +469,6 @@ export const ListboxItem = forwardRef(
       value,
       children,
       disabled,
-      onMouseLeave,
       onMouseEnter,
       onTouchStart,
       ...rest
@@ -485,7 +483,6 @@ export const ListboxItem = forwardRef(
       onItemClick,
       selectedItem,
       onMouseEnter: handleMouseEnter,
-      onMouseLeave: handleMouseLeave,
       onTouchStart: handleTouchStart
     } = useListboxContext();
 
@@ -517,7 +514,6 @@ export const ListboxItem = forwardRef(
         onClick={() => onItemClick(value)}
         aria-selected={cursor.value === value}
         data-active={selectedItem.value === value}
-        onMouseLeave={mergeEventHandlers(onMouseLeave, handleMouseLeave)}
         onMouseEnter={mergeEventHandlers(onMouseEnter, () =>
           handleMouseEnter(option)
         )}
@@ -563,23 +559,31 @@ export const ListboxPopover = forwardRef(
     const { children, ...rest } = props;
 
     const context = useListboxContext();
-    const { targetRef, selectedItem, isExpanded, setIsExpanded, popoverRef } =
-      context;
+    const { targetRef, isExpanded, setIsExpanded, popoverRef } = context;
 
     const ref = useCombinedRefs(forwardedRef, popoverRef);
 
-    const onOutsideClick = useCallback(() => {
-      setIsExpanded(false);
+    const onOutsideClick = useCallback((event) => {
+      if (!targetRef.current.contains(event.target)) setIsExpanded(false);
     }, []);
 
-    useEffect(() => {
+    const setPopoverWidth = useCallback(() => {
       if (popoverRef.current && targetRef.current) {
         popoverRef.current.style.minWidth =
           targetRef.current.clientWidth + 'px';
       }
-    }, [selectedItem]);
+    }, []);
 
-    useOnClickOutside(ref, onOutsideClick);
+    useEffect(() => {
+      setPopoverWidth();
+    }, [setPopoverWidth]);
+
+    useEventListener({
+      name: 'resize',
+      listener: setPopoverWidth
+    });
+
+    useOnClickOutside(ref, onOutsideClick, { condition: isExpanded });
 
     return (
       <Popover
@@ -685,7 +689,6 @@ export interface IListboxItemProps {
   disabled?: boolean;
   value: ListboxValue;
   children: React.ReactNode;
-  onMouseLeave: (event: React.SyntheticEvent) => any;
   onMouseEnter: (event: React.SyntheticEvent) => any;
   onTouchStart: (event: React.SyntheticEvent) => any;
 }
@@ -712,7 +715,6 @@ export interface IListboxContext {
   isExpanded: boolean;
   onKeyDown: () => void;
   cursor: IListboxOption;
-  onMouseLeave: () => void;
   options: IListboxOption[];
   selectedItem: IListboxOption;
   targetRef: React.MutableRefObject<any>;
@@ -722,6 +724,7 @@ export interface IListboxContext {
   onMouseEnter: (value: IListboxOption) => void;
   onTouchStart: (value: IListboxOption) => void;
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  setCursor: React.Dispatch<React.SetStateAction<IListboxOption>>;
   setOptions: React.Dispatch<React.SetStateAction<IListboxOption[]>>;
   setSelectedItem: React.Dispatch<React.SetStateAction<IListboxOption>>;
 }

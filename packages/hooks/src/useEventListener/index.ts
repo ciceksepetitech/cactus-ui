@@ -2,7 +2,7 @@ import { useEffect, MutableRefObject, RefObject } from 'react';
 import { isCSR } from '@ciceksepeti/cui-utils';
 import { useLatestValue } from '../useLatestValue';
 
-interface IUseEventListener {
+export interface IUseEventListener {
   condition?: boolean;
   listener: EventListener;
   options?: AddEventListenerOptions;

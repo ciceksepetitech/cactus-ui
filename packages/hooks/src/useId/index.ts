@@ -1,11 +1,3 @@
-import * as React from 'react';
-import { useIsomorphicLayoutEffect } from '..';
-
-let id = 0;
-const genId = () => ++id;
-
-let serverHandoffComplete = false;
-
 /**
  * useId
  *
@@ -20,6 +12,15 @@ let serverHandoffComplete = false;
  * @author https://reach.tech/auto-id
  * @reference https://reach.tech/auto-id
  */
+
+import * as React from 'react';
+import { useIsomorphicLayoutEffect } from '..';
+
+let id = 0;
+const genId = () => ++id;
+
+let serverHandoffComplete = false;
+
 function useId(idFromProps: string): string;
 function useId(idFromProps: string | undefined): string | undefined;
 function useId(idFromProps?: null): string | undefined;
