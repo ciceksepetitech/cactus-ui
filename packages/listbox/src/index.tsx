@@ -399,10 +399,10 @@ export const ListboxButton = forwardRef(
 
 export const ListboxList = forwardRef(
   <C extends React.ElementType = 'div'>(
-    props: PolymorphicComponentProps<C, IListboxProps>,
+    props: PolymorphicComponentProps<C, Omit<IListboxProps, 'onMouseLeave'>>,
     forwardedRef
   ) => {
-    const { as, children, ...rest } = props;
+    const { as, children, onMouseLeave, ...rest } = props;
 
     const [refNode, setRefNode] = useState<HTMLElement>();
 
@@ -432,6 +432,10 @@ export const ListboxList = forwardRef(
       condition: isExpanded
     });
 
+    const handleMouseLeave = useCallback(() => {
+      if (isExpanded) setCursor({} as IListboxOption);
+    }, [isExpanded]);
+
     const refCallback = useCallback((node: HTMLElement) => {
       ref.current = node;
       setRefNode(node);
@@ -445,6 +449,7 @@ export const ListboxList = forwardRef(
         data-cui-listbox-list
         id={`listbox-${providerId}`}
         aria-activedescendant={isExpanded ? cursor.id : undefined}
+        onMouseLeave={mergeEventHandlers(onMouseLeave, handleMouseLeave)}
         {...rest}
       >
         {children}
