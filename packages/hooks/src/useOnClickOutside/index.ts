@@ -9,7 +9,7 @@ import { useLatestValue } from '../useLatestValue';
 export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   specifiedNodeRef: RefObject<T>,
   callback: (event: MouseEvent | TouchEvent) => void,
-  listenerProps?: IUseEventListener
+  listenerProps?: Partial<IUseEventListener>
 ): void {
   const callbackRef =
     useLatestValue<(event: MouseEvent | TouchEvent) => void>(callback);
