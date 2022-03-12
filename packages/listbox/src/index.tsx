@@ -563,8 +563,7 @@ export const ListboxPopover = forwardRef(
     const { children, ...rest } = props;
 
     const context = useListboxContext();
-    const { targetRef, selectedItem, isExpanded, setIsExpanded, popoverRef } =
-      context;
+    const { targetRef, isExpanded, setIsExpanded, popoverRef } = context;
 
     const ref = useCombinedRefs(forwardedRef, popoverRef);
 
