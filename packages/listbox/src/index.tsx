@@ -576,7 +576,7 @@ export const ListboxPopover = forwardRef(
 
     useEffect(() => {
       setPopoverWidth();
-    }, [setPopoverWidth]);
+    }, [isExpanded, setPopoverWidth]);
 
     useEventListener({
       name: 'resize',
