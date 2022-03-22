@@ -10,7 +10,8 @@ import {
   useCombinedRefs,
   useEventListener,
   getTabbableElements,
-  useFindTabbableElements
+  useFindTabbableElements,
+  useIsomorphicLayoutEffect
 } from '@ciceksepeti/cui-hooks';
 import React, {
   useRef,
@@ -18,7 +19,6 @@ import React, {
   forwardRef,
   useCallback,
   CSSProperties,
-  useLayoutEffect,
   MutableRefObject
 } from 'react';
 import {
@@ -157,7 +157,7 @@ const usePopover = ({
     getPlacementGetter
   ]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     getPopoverPosition();
   }, [getPopoverPosition]);
 
@@ -181,13 +181,13 @@ const usePopoverTabIndexSyncing = (popoverNode: HTMLElement) => {
   const parentActiveElementRef = useRef<HTMLElement>(null);
   const { tabbableElements } = useFindTabbableElements(popoverNode);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const parentActiveElement = document.activeElement as HTMLElement;
     parentActiveElementRef.current = parentActiveElement;
   }, []);
 
   const focusToElement = useCallback((element) => {
-    if (!document.contains(element)) return;
+    if (!document.body.contains(element)) return;
     element.focus();
   }, []);
 

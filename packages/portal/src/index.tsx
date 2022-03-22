@@ -6,8 +6,9 @@
  * mounts its content in a specific area of the dom
  */
 
-import React, { FC, useLayoutEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useIsomorphicLayoutEffect } from '@ciceksepeti/cui-hooks';
 
 /**
  * portal component
@@ -22,7 +23,7 @@ export const Portal: FC<IPortalProps> = (props) => {
    * handles mounting/unmounting of its content
    * creates a portal node and mounts the content to the container (by default document.body)
    */
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const container =
       document.getElementById(containerId) ||
       containerRef?.current ||
