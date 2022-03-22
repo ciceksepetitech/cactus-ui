@@ -6,16 +6,11 @@
  * focusTrap component traps focus events inside of its boundries. It is developed according to the accessibility rules. User cannot leave the trap boundries unless disables it. Great match for components like Modals, Dialogs and etc.
  */
 
-import React, {
-  useRef,
-  useState,
-  forwardRef,
-  useCallback,
-  useLayoutEffect
-} from 'react';
+import React, { useRef, useState, forwardRef, useCallback } from 'react';
 import {
   useCombinedRefs,
-  useFindTabbableElements
+  useFindTabbableElements,
+  useIsomorphicLayoutEffect
 } from '@ciceksepeti/cui-hooks';
 import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
 
@@ -122,7 +117,7 @@ export const FocusTrap = forwardRef(
     /**
      * stores parent active element to refocus when user unmounts trap
      */
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (!restoreFocusOnUnmount || disabled) return;
 
       const parentActiveElement = document.activeElement as HTMLElement;
@@ -134,7 +129,7 @@ export const FocusTrap = forwardRef(
     /**
      * listens for click events to correctly update currentFocusedElementIndex.current
      */
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (disabled) return;
 
       document.addEventListener('click', clickListener, false);
@@ -198,7 +193,7 @@ export const FocusTrap = forwardRef(
     /**
      * focuses to first element on mount if autoFocusToFirst is true
      */
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (!shouldAutoFocusToFirst || checkForAlreadyFocusedElement()) return;
       focusFirstFocusableElement();
     }, [
@@ -210,7 +205,7 @@ export const FocusTrap = forwardRef(
     /**
      * focuses to last element on mount if autoFocusToLast is true
      */
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (!autoFocusToLast || checkForAlreadyFocusedElement()) return;
       focusLastFocusableElement();
     }, [

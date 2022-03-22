@@ -19,6 +19,9 @@
     "dist",
     "README.md"
   ],
+  "dependencies": {
+    "@ciceksepeti/cui-hooks": "0.9.0"
+  },
   "peerDependencies": {
     "react": "^16.8.0 || 17.x",
     "react-dom": "^16.8.0 || 17.x"

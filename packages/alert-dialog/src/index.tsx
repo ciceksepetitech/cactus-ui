@@ -8,16 +8,11 @@
 
 import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
 import {
+  useCombinedRefs,
   useFindTabbableElements,
-  useCombinedRefs
+  useIsomorphicLayoutEffect
 } from '@ciceksepeti/cui-hooks';
-import React, {
-  useRef,
-  useState,
-  forwardRef,
-  useCallback,
-  useLayoutEffect
-} from 'react';
+import React, { useRef, useState, forwardRef, useCallback } from 'react';
 import {
   IDialogProps,
   DialogOverlay,
@@ -76,7 +71,7 @@ export const AlertDialogContent = forwardRef(
     const [refNode, setRefNode] = useState<HTMLElement>();
     const { tabbableElements } = useFindTabbableElements(refNode);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (process.env.NODE_ENV === 'production') return;
 
       if (tabbableElements?.length === 0) {
