@@ -187,7 +187,7 @@ const usePopoverTabIndexSyncing = (popoverNode: HTMLElement) => {
   }, []);
 
   const focusToElement = useCallback((element) => {
-    if (!document.contains(element)) return;
+    if (!document.body.contains(element)) return;
     element.focus();
   }, []);
 

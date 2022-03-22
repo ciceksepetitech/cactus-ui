@@ -55,7 +55,7 @@ export const FocusTrap = forwardRef(
      * TODO: waiting for transitions can be added in the future! If there is any animation on the element, wait until it completes then focus!
      */
     const focusToElement = useCallback((element) => {
-      if (!document.contains(element)) return;
+      if (!document.body.contains(element)) return;
       element.focus();
     }, []);
 
