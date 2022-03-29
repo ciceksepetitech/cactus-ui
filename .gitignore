@@ -55,12 +55,12 @@ Thumbs.db
 # storybook
 storybook-static
 
-# website
-website/.docusaurus
-website/.cache-loader
-website/build
-website/node_modules
-website/npm-debug.log*
-website/yarn-debug.log*
-website/yarn-error.log*
-website/.vercel
+# doc-website
+doc-website/.docusaurus
+doc-website/.cache-loader
+doc-website/build
+doc-website/node_modules
+doc-website/npm-debug.log*
+doc-website/yarn-debug.log*
+doc-website/yarn-error.log*
+doc-website/.vercel
