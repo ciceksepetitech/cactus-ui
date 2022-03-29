@@ -1,0 +1,52 @@
+.accordion {
+  margin: 0;
+  [data-cui-accordion-button] {
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: none;
+    outline: none;
+    transition: background-color 0.6s ease;
+  }
+
+  [data-cui-accordion-header] {
+    height: 30px;
+    padding-bottom: 50px;
+    margin-top: -15px !important;
+  }
+
+  &__title {
+    display: flex;
+  }
+
+  &__icon {
+    transition: transform 0.6s ease;
+  }
+
+  [data-cui-accordion-button][aria-expanded='true'] {
+    .accordion__icon {
+      transform: rotate(90deg);
+    }
+  }
+
+  [data-cui-accordion-content] {
+    display: block;
+    transition: all 0.7s ease-in-out;
+    overflow: hidden;
+  }
+
+  [data-cui-accordion-content][data-expanded='true'] {
+    overflow-y: auto;
+  }
+  [data-cui-accordion-content][data-expanded='false'] {
+    display: none;
+    max-height: 0;
+  }
+  .anchor {
+    visibility: hidden;
+    height: 1px;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

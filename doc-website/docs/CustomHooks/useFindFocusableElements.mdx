@@ -1,0 +1,55 @@
+---
+sidebar_position: 14
+---
+
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import FindFocusableElements from '/src/CUIComponents/Hooks/FindFocusableElements/FindFocusableElements.tsx';
+
+# useFindFocusableElements
+
+## Importing useFindFocusableElements Hook
+
+```jsx
+import { useFindFocusableElements } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+```jsx
+import React, { useCallback, useRef, useState } from 'react';
+import { useFindFocusableElements } from '@ciceksepeti/cui-hooks';
+
+export const FindTabbableElements = () => {
+  const ref = useRef(null);
+  const [refNode, setRefNode] = useState();
+  const { focusableElements } = useFindFocusableElements(refNode);
+
+  const refCallback = useCallback((node) => {
+    ref.current = node;
+    setRefNode(node);
+  }, []);
+
+  return (
+    <div ref={refCallback}>
+      <button>button</button>
+      <button>button</button>
+      <p>text</p>
+      <span>text</span>
+    </div>
+  );
+};
+```
+
+## Preview & Test
+
+<PreviewContainer title={'useFindFocusableElements'} contentType={'PREVIEW & TEST AREA'}>
+
+- Gets tabbable elements inside of passed nodeRef
+- The element is keyboard "focusable", as it is part of the document's sequential focus navigation order.
+
+- In this example, each focusable text represents focusable button elements which can be focused thorugh keyboard tab action.
+- As a result 2/4 elements are focusable which are buttons.
+
+<FindFocusableElements />
+
+</PreviewContainer>

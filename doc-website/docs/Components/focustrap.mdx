@@ -1,0 +1,172 @@
+---
+sidebar_position: 5
+---
+
+import focusTrap from '/src/data/focusTrap.json';
+
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUIFocusTrapAutoFocus from '/src/CUIComponents/FocusTrap/CUIFocusTrapAutoFocus.tsx';
+import CUIFocusTrapDefault from '/src/CUIComponents/FocusTrap/CUIFocusTrapDefault.tsx';
+import CUIFocusTrapRefocus from '/src/CUIComponents/FocusTrap/CUIFocusTrapRefocus.tsx';
+
+# Focus Trap
+
+<HeaderTableContainer data={focusTrap} />
+
+## Content
+
+<InfoContainer>
+  FocusTrap component traps focus events inside of its boundaries. It is
+  developed according to the accessibility rules. User cannot leave the trap
+  boundaries unless disables it. Great match for components like Modals, Dialogs
+  and etc. FocusTrap is a polymorphic component. That's why can be rendered as
+  any valid HTML tag.
+</InfoContainer>
+
+## Example
+
+### Default
+
+> Example of a default behavior of FocusTrap component. Renders as 'div' by default.
+
+```jsx
+import React from 'react';
+import FocusTrap from '@ciceksepeti/cui-focus-trap';
+
+export const Example = () => {
+  return (
+    <FocusTrap as="div" autoFocusToFirst restoreFocusOnUnmount>
+      <button>focusable</button>
+      <button>focusable</button>
+      <button>focusable</button>
+      <button disabled>disabled</button>
+      <span>
+        <button>hidden</button>
+        <button tabIndex={-1}>tabindex -1</button>
+      </span>
+      <button>focusable</button>
+    </FocusTrap>
+  );
+};
+```
+
+<CUIFocusTrapDefault />
+
+### Refocus On Unmount
+
+> Example of refocusing the last focused element when FocusTrap unmounts.
+
+```jsx
+import React, { useState } from 'react';
+import FocusTrap from '@ciceksepeti/cui-focus-trap';
+
+export const Example = () => {
+  const buttonStyles = {
+    padding: '5px',
+    margin: '3px 5px',
+    cursor: 'pointer',
+  };
+  const args = {
+    as: 'div',
+    disabled: false,
+    autoFocusToFirst: true,
+    autoFocusToLast: false,
+    restoreFocusOnUnmount: true,
+  };
+
+  const [open, setOpen] = useState(false);
+
+  return (
+      <button style={buttonStyles}>some button</button>
+      <button style={buttonStyles} onClick={() => setOpen(true)}>
+        show panel
+      </button>
+      <button style={buttonStyles}>some button</button>
+      {open && (
+        <div
+          style={{
+            padding: 10,
+            borderRadius: 4,
+            margin: '10px 5px',
+            border: '1px solid red',
+          }}
+        >
+          <FocusTrap {...args}>
+            <h3 style={{ marginTop: 0 }}>Trapped Panel</h3>
+            <button style={buttonStyles}>focusable</button>
+            <button style={buttonStyles}>focusable</button>
+            <button style={buttonStyles} onClick={() => setOpen(false)}>
+              Close panel
+            </button>
+          </FocusTrap>
+        </div>
+      )}
+  );
+};
+
+```
+
+<CUIFocusTrapRefocus />
+
+### autoFocus Attribute
+
+> Example of auto focusing to element with autoFocus attribute.
+
+```jsx
+import React from 'react';
+import FocusTrap from '@ciceksepeti/cui-focus-trap';
+
+export const CUIFocusTrapAutoFocus = () => {
+  const buttonStyles = {
+    padding: '5px',
+    margin: '3px 5px',
+    cursor: 'pointer',
+  };
+  const args = {
+    as: 'div',
+    disabled: false,
+    autoFocusToFirst: true,
+    autoFocusToLast: false,
+    restoreFocusOnUnmount: true,
+  };
+
+  return (
+    <FocusTrap {...args}>
+      <button style={buttonStyles}>focusable</button>
+      // autoFocus attribute is false
+      <button style={buttonStyles} autoFocus={false}></button>
+      <button style={buttonStyles}>focusable</button>
+    </FocusTrap>
+  );
+};
+```
+
+<CUIFocusTrapAutoFocus />
+
+## Props
+
+<PropTable tableData={focusTrap.focusTrapProps} />
+
+## Playground
+
+<Playground urls={focusTrap.sandboxUrls} />
+
+## Styling
+
+### Element Selector {#Element-Selector}
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={focusTrap.focusTrapStylingTable} />

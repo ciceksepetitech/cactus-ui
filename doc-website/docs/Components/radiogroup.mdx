@@ -1,0 +1,229 @@
+---
+sidebar_position: 8
+---
+
+import radiogroup from '/src/data/radiogroup.json';
+
+import AccessibilityTable from '/src/CUIComponents/AccessibilityTable/AccessibilityTable.tsx';
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUIRadioGroupDefault from '/src/CUIComponents/RadioGroup/CUIRadioGroupDefault.tsx';
+
+# Radio Group
+
+<HeaderTableContainer data={radiogroup} />
+
+## Content
+
+<InfoContainer>
+  Radio buttons allow the user to select one option from a set. Once a radio
+  group is established, selecting any radio button in that group automatically
+  deselects any currently-selected radio button in the same group. RadioGroup is
+  a polymorphic component. That's why can be rendered as any valid HTML tag.
+</InfoContainer>
+
+## Example
+
+> Example of a default behavior of RadioGroup component. Renders as 'div' by default.
+
+```jsx
+import React, { useState } from 'react';
+import { RadioGroup, Radio } from '@ciceksepeti/cui-radio-group';
+
+function Example() {
+  return (
+    <RadioGroup
+      as="div"
+      name="fruits"
+      orientation="horizontal"
+      aria-label="fruits"
+    >
+      <label htmlFor="apple" id="apple-label">
+        <Radio
+          disabled
+          id="apple"
+          value="apple"
+          aria-labelledby="apple-label"
+        />
+        apple
+      </label>
+      <label htmlFor="cherry" id="cherry-label">
+        <Radio id="cherry" value="cherry" aria-labelledby="cherry-label" />
+        cherry
+      </label>
+      <label htmlFor="orange" id="orange-label">
+        <Radio
+          disabled
+          id="orange"
+          value="orange"
+          aria-labelledby="orange-label"
+        />
+        orange
+      </label>
+      <label htmlFor="banana" id="banana-label">
+        <Radio id="banana" value="banana" aria-labelledby="banana-label" />
+        banana
+      </label>
+    </RadioGroup>
+  );
+}
+```
+
+<CUIRadioGroupDefault />
+
+## Props
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### RadioGroup Props {#RadioGroup-Props}
+
+<AccordionItem title={'RadioGroup-Props'}>
+
+  <PropTable tableData={radiogroup.radioGroupProps} />
+</AccordionItem >
+
+### RadioGroup Events {#RadioGroup-Events}
+
+<AccordionItem title={'RadioGroup-EventsEvents'}>
+
+  <EventTable tableData={radiogroup.radioGroupEvents} />
+</AccordionItem >
+
+### RadioGroup Accessibility {#RadioGroup-Accessibility}
+
+<AccordionItem title={'RadioGroup-Accessibility'}>
+
+  <AdmonitionContainer type="info">
+    <span style={{ fontWeight: '600' }}>Aria-label</span> and{' '}
+    <span style={{ fontWeight: '600' }}>aria-labelledby</span> are not
+    obligatory accessibility tags. It gives an error in course of development,
+    not during production. If label is visible, its id should be passed to
+    aria-labelledby, if it is not description should be passed to aria-label.
+  </AdmonitionContainer>
+  <AccessibilityTable tableData={radiogroup.radioGroupAccessibility} />
+</AccordionItem >
+
+### Radio Props {#Radio-Props}
+
+<AccordionItem title={'Radio-Props'}>
+
+  <PropTable tableData={radiogroup.radioProps} />
+</AccordionItem >
+
+### Radio Accessibility {#Radio-Accessibility}
+
+<AccordionItem title={'Radio-Accessibility'}>
+
+  <AdmonitionContainer type="info">
+    <span style={{ fontWeight: '600' }}>Aria-label</span> and{' '}
+    <span style={{ fontWeight: '600' }}>aria-labelledby</span> are not
+    obligatory accessibility tags. It gives an error in course of development,
+    not during production. If label is visible, its id should be passed to
+    aria-labelledby, if it is not description should be passed to aria-label.
+  </AdmonitionContainer>
+  <AccessibilityTable tableData={radiogroup.radioAccessibility} />
+</AccordionItem >
+
+</Accordion>
+
+## Playground
+
+<Playground urls={radiogroup.sandboxUrls} />
+
+## Styling
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Element Selectors {#Element-Selectors}
+
+<AccordionItem title={'Element Selector'}>
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={radiogroup.radioStylingTable} />
+
+</AccordionItem >
+
+### Default Selector Values {#Default-Selector-Values}
+
+<AccordionItem title={'Default-Selector-Values'}>
+
+```css
+[data-cui-radio-group] {
+  display: flex;
+}
+
+[data-cui-radio-group][aria-orientation='vertical'] {
+  flex-direction: column;
+}
+
+[data-cui-radio] {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  margin-right: 5px;
+  position: relative;
+  border-radius: 50%;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
+  border: 2px solid #52ad36;
+}
+
+[data-cui-radio][data-cui-radio-selected='true'] {
+  background-color: #52ad36;
+}
+
+[data-cui-radio]::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+}
+
+[data-cui-radio-disabled='true'] {
+  opacity: 0.5;
+}
+
+[data-cui-radio-keyboard-focus='true'] {
+  outline: #52ad36 auto 2px;
+  box-shadow: 0 0 1px 3px cornflowerblue;
+}
+
+[data-cui-radio-input] {
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 1;
+  opacity: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  position: absolute;
+  box-sizing: border-box;
+}
+```
+
+</AccordionItem >
+
+</Accordion>

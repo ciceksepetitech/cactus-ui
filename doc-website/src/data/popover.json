@@ -1,0 +1,90 @@
+{
+  "name": "Popover",
+  "description": "A Popover can be used to display some content on top of another.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-popover",
+    "version": "1.0.0",
+    "importName": "Popover"
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/WAI/WCAG21/Techniques/client-side-script/SCR37"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/popover"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-popover"
+    }
+  },
+  "popoverProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of popover component which renders to DOM",
+      "required": false
+    },
+    "portal": {
+      "title": "portal",
+      "type": { "name": "boolean" },
+      "defaultValue": "true",
+      "description": "Changes html render position of popover component into DOM",
+      "required": false
+    },
+    "autoFlip": {
+      "title": "autoFlip",
+      "type": { "name": "boolean" },
+      "defaultValue": "true",
+      "description": "Changes visual position of popover component into page",
+      "required": false
+    },
+    "placement": {
+      "title": "placement",
+      "type": { "name": "string", "detail": "top | left | right | bottom" },
+      "defaultValue": "bottom",
+      "description": "Allows user to determine visual position of popover component into page",
+      "required": false
+    },
+    "targetRef": {
+      "title": "targetRef",
+      "type": { "name": "MutableRefObject" },
+      "defaultValue": "-",
+      "description": "Provides user to determine which element is going to bind to popover component",
+      "required": true
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.Node" },
+      "defaultValue": "-",
+      "description": "The element which is going to be rendered inside the pop-up component",
+      "required": true
+    }
+  },
+  "popoverEvents": {
+    "useRef": {
+      "title": "useRef",
+      "type": { "name": "() => {}", "detail": "React.MutableRefObject" },
+      "description": "useRef hook provides the user to create a connection between related HTMLElement and popover component",
+      "required": true
+    }
+  },
+  "popoverStylingTable": {
+    "data-cui-popover": {
+      "title": "[data-cui-popover]",
+      "type": { "name": "Element Selector" }
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/popover-ub3hs?fontsize=14&hidenavigation=1&theme=dark"
+  }
+}

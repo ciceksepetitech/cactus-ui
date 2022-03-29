@@ -1,0 +1,394 @@
+---
+sidebar_position: 10
+---
+
+import tabs from '/src/data/tabs.json';
+
+import AccessibilityTable from '/src/CUIComponents/AccessibilityTable/AccessibilityTable.tsx';
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import {
+  TabsItem,
+  TabPanel,
+} from '/src/CUIComponents/Containers/TabsItem/TabsItem.tsx';
+
+import CUITabsDefault from '/src/CUIComponents/Tabs/CUITabsDefault.tsx';
+import CUITabsRenderProps from '/src/CUIComponents/Tabs/CUITabsRenderProps.tsx';
+import CUITabsControlled from '/src/CUIComponents/Tabs/CUITabsControlled.tsx';
+
+# Tabs
+
+<HeaderTableContainer data={tabs} />
+
+## Content
+
+<InfoContainer>
+  The Tabs component consists of clickable tabs, that are aligned side by side.
+  Tabs make it easy to explore and switch between different views. Tabs organize
+  and allow navigation between groups of content that are related and at the
+  same level of hierarchy.
+</InfoContainer>
+
+## Examples
+
+### Default
+
+> Example of a default behavior of Tabs component. Renders as **'div'** by default
+
+```jsx
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanelList,
+  TabPanel,
+} from '@ciceksepeti/cui-tabs';
+import '@ciceksepeti/cui-tabs/styles.css';
+
+const Example = () => {
+  return (
+    <Tabs>
+      <TabList>
+        <Tab>Tab1</Tab>
+        <Tab disabled>Tab2</Tab>
+        <Tab disabled>Tab3</Tab>
+        <Tab>Tab4</Tab>
+        <Tab disabled>Tab5</Tab>
+      </TabList>
+      <TabPanelList>
+        <TabPanel>Panel1</TabPanel>
+        <TabPanel>Panel2</TabPanel>
+        <TabPanel>Panel3</TabPanel>
+        <TabPanel>Panel4</TabPanel>
+        <TabPanel>Panel5</TabPanel>
+      </TabPanelList>
+    </Tabs>
+  );
+};
+```
+
+<TabsItem title={['Horizontal','Horizontal - Manual']}>
+
+<TabPanel>
+  <PreviewContainer title="Default">
+    <CUITabsDefault />
+  </PreviewContainer>
+</TabPanel>
+
+<TabPanel>
+
+<ul>
+  <li>
+    Choose any tab button by hitting keyboard tab or clicking over to select tab
+    widget
+  </li>
+  <li>
+    Switch between tabs through <b>Left or Right Arrow Keys</b>
+  </li>
+  <li>Hit Enter or Spacebar to activate related tab panel</li>
+</ul>
+
+  <PreviewContainer title='Default'>
+    <CUITabsDefault activationType='manual' />
+  </PreviewContainer>
+</TabPanel>
+
+</TabsItem>
+
+<TabsItem title={['Vertical','Vertical - Manual']}>
+<TabPanel>
+  <PreviewContainer title="Default">
+    <CUITabsDefault orientation="vertical" />
+  </PreviewContainer>
+</TabPanel>
+
+<TabPanel>
+  <ul>
+    <li>
+      Choose any tab button by hitting keyboard tab or clicking over to select
+      tab widget
+    </li>
+    <li>
+      Switch between tabs through <b>Up or Down Arrow Keys</b>
+    </li>
+    <li>Hit Enter or Spacebar to activate related tab panel</li>
+  </ul>
+  <PreviewContainer title="Default">
+    <CUITabsDefault orientation="vertical" activationType="manual" />
+  </PreviewContainer>
+</TabPanel>
+</TabsItem>
+### Controlled
+
+<AdmonitionContainer type='caution'>
+  In order to use Tabs component as controlled, user have to give{' '}
+  <span style={{ fontWeight: '600' }}>index</span> and{' '}
+  <span style={{ fontWeight: '600' }}>onChange</span> properties at the same
+  time.
+  <br/>
+  <br/>
+  However, be sure that you have removed <span style={{ fontWeight: '600' }}>defaultIndex</span> prop while you are using controlled component.
+
+</AdmonitionContainer>
+
+```jsx
+import React, { useState } from 'react';
+
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanelList,
+  TabPanel,
+} from '@ciceksepeti/cui-tabs';
+import '@ciceksepeti/cui-tabs/styles.css';
+
+const Example = () => {
+  const [key, setKey] = useState(0);
+  return (
+    <Tabs index={key} onChange={(k) => setKey(k)}>
+      <TabList>
+        <Tab>Tab1</Tab>
+        <Tab disabled>Tab2</Tab>
+        <Tab disabled>Tab3</Tab>
+        <Tab>Tab4</Tab>
+        <Tab disabled>Tab5</Tab>
+      </TabList>
+      <TabPanelList>
+        <TabPanel>Panel1</TabPanel>
+        <TabPanel>Panel2</TabPanel>
+        <TabPanel>Panel3</TabPanel>
+        <TabPanel>Panel4</TabPanel>
+        <TabPanel>Panel5</TabPanel>
+      </TabPanelList>
+    </Tabs>
+  );
+};
+```
+
+<TabsItem title={['Controlled - Horizontal','Controlled - Vertical']}>
+
+<TabPanel>
+  <PreviewContainer title="Render Props">
+    <CUITabsControlled />
+  </PreviewContainer>
+</TabPanel>
+
+<TabPanel>
+  <PreviewContainer title="Render Props">
+    <CUITabsControlled orientation="vertical" />
+  </PreviewContainer>
+</TabPanel>
+
+</TabsItem>
+
+### Render Props
+
+> Example of a default behavior of Tabs component with render props pattern. Renders as **'div'** by default.
+
+```jsx
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanelList,
+  TabPanel,
+} from '@ciceksepeti/cui-tabs';
+import '@ciceksepeti/cui-tabs/styles.css';
+
+const Example = () => {
+  return (
+    <Tabs>
+      {({ selectedTabIndex, focusedTabIndex }) => {
+        return (
+          <>
+            <TabList>
+              <Tab>Tab1</Tab>
+              <Tab disabled>
+                {focusedTabIndex === 0 ? 'focus on left' : 'focus on right'}
+              </Tab>
+              <Tab>{selectedTabIndex === 2 ? 'selected' : 'not selected'}</Tab>
+            </TabList>
+            <TabPanelList>
+              <TabPanel>Panel1</TabPanel>
+              <TabPanel>Panel2</TabPanel>
+              <TabPanel>Panel3</TabPanel>
+            </TabPanelList>
+          </>
+        );
+      }}
+    </Tabs>
+  );
+};
+```
+
+<TabsItem title={['Horizontal','Vertical']}>
+
+<TabPanel>
+  <PreviewContainer title="Render Props">
+    <CUITabsRenderProps />
+  </PreviewContainer>
+</TabPanel>
+
+<TabPanel>
+  <PreviewContainer title="Render Props">
+    <CUITabsRenderProps orientation="vertical" />
+  </PreviewContainer>
+</TabPanel>
+
+</TabsItem>
+
+## Props
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Tabs Props {#tabs-props}
+
+<AccordionItem title={'Tabs-Props'}>
+
+  <PropTable tableData={tabs.tabsProps} />
+</AccordionItem >
+
+### Tabs Events {#tabs-events}
+
+<AccordionItem title={'Tabs-Events'}>
+
+  <EventTable tableData={tabs.tabsEvents} />
+</AccordionItem >
+
+### TabList Props {#TabList-Props}
+
+<AccordionItem title={'TabList-Props'}>
+
+  <PropTable tableData={tabs.tabListProps} />
+</AccordionItem >
+
+### TabList Events {#TabList-Events}
+
+<AccordionItem title={'TabList Events'}>
+
+  <EventTable tableData={tabs.tabListEvents} />
+</AccordionItem >
+
+### Keyboard Actions {#Keyboard-Actions}
+
+<AccordionItem title={'Keyboard-Actions'}>
+
+  <EventTable tableData={tabs.tabListKeyboardAction} />
+</AccordionItem >
+
+### Tab Props {#Tab-Props}
+
+<AccordionItem title={'Tab-Props'}>
+
+  <PropTable tableData={tabs.tabProps} />
+</AccordionItem >
+
+### TabPanelList Props {#TabPanelList-Props}
+
+<AccordionItem title={'TabPanelList-Props'}>
+
+  <PropTable tableData={tabs.tabPanelListProps} />
+</AccordionItem >
+
+### TabPanel Props {#TabPanel-Props}
+
+<AccordionItem title={'TabPanel-Props'}>
+
+  <PropTable tableData={tabs.tabPanelProps} />
+</AccordionItem >
+
+### TabPanel Accessibility {#TabPanel-Accessibility}
+
+<AccordionItem title={'TabPanel-Accessibility'}>
+
+  <AdmonitionContainer type="info">
+    <span style={{ fontWeight: '600' }}>Aria-labelledby</span> is not obligatory
+    accessibility tag. It gives an error in course of development, not during
+    production.
+  </AdmonitionContainer>
+  <AccessibilityTable tableData={tabs.tabPanelAccessibility} />
+</AccordionItem >
+
+</Accordion>
+
+## Styling
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Element Selectors {#Element-selectors}
+
+<AccordionItem title={'Element-Selectors'}>
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={tabs.tabsStylingTable} />
+
+</AccordionItem >
+
+### Default Selector Values {#Default-Selector-Values}
+
+<AccordionItem title={'Default-Selector-Values'} >
+
+```css
+[data-cui-tabs][data-orientation='vertical'] {
+  display: flex;
+}
+
+[data-cui-tab-list] {
+  display: flex;
+  background-color: #cce5ff;
+}
+
+[data-cui-tab-list][aria-orientation='vertical'] {
+  flex-direction: column;
+}
+
+[data-cui-tab] {
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+[data-cui-tab][aria-selected='true'] {
+  color: #004085;
+  border-bottom: 1px solid currentColor;
+}
+
+[data-cui-tab][aria-selected='true'][data-orientation='vertical'] {
+  border-bottom: none;
+  border-right: 1px solid currentColor;
+}
+
+[data-cui-tab][aria-disabled='true'] {
+  opacity: 0.4;
+  cursor: default;
+}
+```
+
+</AccordionItem >
+
+</Accordion>
+
+## Playground
+
+<Playground urls={tabs.sandboxUrls} />

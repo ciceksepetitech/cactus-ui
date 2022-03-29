@@ -1,0 +1,155 @@
+{
+  "name": "Accordion",
+  "description": "An accessible way for the user to expand and collapse content.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-accordion",
+    "version": "1.0.0",
+    "importName": "Accordion,\n AccordionHeader,\n AccordionButton,\n AccordionContent",
+    "hasDefaultStyle": false
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/TR/wai-aria-practices-1.2/#accordion"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/accordion"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-accordion"
+    }
+  },
+  "AccordionProps": {
+    "single": {
+      "title": "single",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "true",
+      "description": "Set to false to allow only multi section to be open at a time.",
+      "required": false
+    },
+
+    "collapsible": {
+      "title": "collapsible",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "true",
+      "description": "Set to false to disable collapsing of sections.",
+      "required": false
+    },
+    "disableOptionalArrowKeys": {
+      "title": "disableOptionalArrowKeys",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "false",
+      "description": "Set to true to disable the use of the arrow keys to navigate between sections.",
+      "required": false
+    },
+    "indexes": {
+      "title": "indexes",
+      "type": { "name": "number[]", "detail": null },
+      "defaultValue": "-",
+      "description": "An array of indexes of the sections that are open by default. This prop allows creating a controlled component and must be used with the onChange event.",
+      "required": false
+    },
+    "defaultIndexes": {
+      "title": "defaultIndexes",
+      "type": { "name": "number[]", "detail": null },
+      "defaultValue": "-",
+      "description": "An array of indexes of the sections that are open by default. This prop allows creating an uncontrolled component.",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "-",
+      "description": "Element shown as Accordion. As default, Accordion accepts AccordionHeader and AccordionContent as children.",
+      "required": true
+    },
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of accordion component which renders to DOM",
+      "required": false
+    }
+  },
+  "AccordionEvents": {
+    "onChange": {
+      "title": "onChange",
+      "type": { "name": "(index: number) => void" },
+      "description": "A callback function that is called when a section is opened or closed. This event must be used with the indexes prop to create a controlled accordion.",
+      "required": false
+    }
+  },
+  "AccordionHeaderProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "h3",
+      "description": "Changes html tag of accordion header component which renders to DOM",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "-",
+      "description": "Element shown as Accordion Header. As default, Accordion Header accepts AccordionButton as children.",
+      "required": true
+    }
+  },
+  "AccordionButtonProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "button",
+      "description": "Changes html tag of accordion button component which renders to DOM",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "-",
+      "description": "Element shown as Accordion Button.",
+      "required": true
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/proud-platform-4jvw62?fontsize=14&hidenavigation=1&theme=dark"
+  },
+  "accordionStylingTable": {
+    "data-cui-accordion": {
+      "title": "[data-cui-accordion]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-accordion-header": {
+      "title": "[data-cui-accordion-header]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-accordion-button": {
+      "title": "[data-cui-accordion-button]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-accordion-content": {
+      "title": "[data-cui-accordion-content]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-accordion-button-aria-expanded": {
+      "title": "[data-cui-accordion-button][aria-expanded='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-accordion-button-aria-disabled": {
+      "title": "[data-cui-accordion-button][aria-disabled='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-accordion-content-data-expanded": {
+      "title": "[data-cui-accordion-content][data-expanded='true']",
+      "type": { "name": "Element Selector" }
+    }
+  }
+}

@@ -1,0 +1,369 @@
+---
+sidebar_position: 1
+---
+
+import accordion from '/src/data/accordion.json';
+
+import AccessibilityTable from '/src/CUIComponents/AccessibilityTable/AccessibilityTable.tsx';
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUIAccordionCollapsible from '/src/CUIComponents/Accordion/CUIAccordionCollapsible.tsx';
+import CUIAccordionDefault from '/src/CUIComponents/Accordion/CUIAccordionDefault.tsx';
+import CUIAccordionDefaultIndexes from '/src/CUIComponents/Accordion/CUIAccordionDefaultIndexes.tsx';
+import CUIAccordionSingle from '/src/CUIComponents/Accordion/CUIAccordionSingle.tsx';
+import CUIAccordionIndexes from '/src/CUIComponents/Accordion/CUIAccordionIndexes.tsx';
+import CUIListboxPrefix from '/src/CUIComponents/Listbox/CUIListboxPrefix.tsx';
+import CUIListboxSearch from '/src/CUIComponents/Listbox/CUIListboxSearch.tsx';
+
+# Accordion
+
+<HeaderTableContainer data={accordion} />
+
+## Content
+
+<InfoContainer>
+  An accordion is a vertically stacked set of interactive headings that each
+  contain a title, content snippet, or thumbnail representing a section of
+  content. The headings function as controls that enable users to reveal or hide
+  their associated sections of content. Accordions are commonly used to reduce
+  the need to scroll when presenting multiple sections of content on a single
+  page.
+
+</InfoContainer>
+
+> An accordion element consists of an `AccordionHeader` that has `AccordionButton` inside itself and `AccordionContent` that keep your content. Cactus UI provides `Accordion` component to group them.
+
+## Examples
+
+### Default
+
+> Example of a default behavior of `Accordion` component.
+
+```jsx
+import React from 'react';
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionButton,
+  AccordionContent,
+} from '@ciceksepeti/cui-accordion';
+
+function Demo() {
+  return (
+    <Accordion>
+      <AccordionHeader>
+        <AccordionButton>Step 1</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 1: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton disabled>Step 2</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 2: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton>Step 3</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 3: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </AccordionContent>
+    </Accordion>
+  );
+}
+```
+
+<CUIAccordionDefault />
+
+### Single
+
+> Example of a single behavior of `Accordion` component.
+> `single={false}` means that you can open more than one section at a time.
+
+```jsx
+import React from 'react';
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionButton,
+  AccordionContent,
+} from '@ciceksepeti/cui-accordion';
+
+function Demo() {
+  return (
+    <Accordion single={false}>
+      <AccordionHeader>
+        <AccordionButton>Step 1</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 1: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton disabled>Step 2</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 2: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton>Step 3</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 3: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </AccordionContent>
+    </Accordion>
+  );
+}
+```
+
+<CUIAccordionSingle />
+
+### Collapsible
+
+> Example of a collapsible behavior of `Accordion` component.
+> `collapsible={false}` prevent the user from closing the section that is expanded.
+
+```jsx
+import React from 'react';
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionButton,
+  AccordionContent,
+} from '@ciceksepeti/cui-accordion';
+
+function Demo() {
+  return (
+    <Accordion collapsible={false}>
+      <AccordionHeader>
+        <AccordionButton>Step 1</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 1: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton disabled>Step 2</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 2: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton>Step 3</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 3: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </AccordionContent>
+    </Accordion>
+  );
+}
+```
+
+<CUIAccordionCollapsible />
+
+### Default Indexes
+
+> Example of a using indexes prop of `Accordion` component.
+> `defaultIndexes={[Some index here]}` allows users to set sections that expanded initially.
+> `defaultIndexes` prop is a way to create an **uncontrolled** accordion component.
+
+```jsx
+import React from 'react';
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionButton,
+  AccordionContent,
+} from '@ciceksepeti/cui-accordion';
+
+function Demo() {
+  return (
+    <Accordion defaultIndexes={[1, 3]}>
+      <AccordionHeader>
+        <AccordionButton>Step 1</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 1: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton disabled>Step 2</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 2: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton>Step 3</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 3: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton>Step 4</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 4: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton>Step 5</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 5: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+    </Accordion>
+  );
+}
+```
+
+<CUIAccordionDefaultIndexes />
+
+### Indexes
+
+> Example of a using indexes prop of `Accordion` component.
+> `indexes={[Some index here]}` allows users to set sections that expanded initially.
+> `Indexes` prop must be used with `onChange` event to accordion work properly.
+
+```jsx
+import React from 'react';
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionButton,
+  AccordionContent,
+} from '@ciceksepeti/cui-accordion';
+
+function Demo() {
+  return (
+    <Accordion indexes={[0, 2, 4]}>
+      <AccordionHeader>
+        <AccordionButton>Step 1</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 1: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton disabled>Step 2</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 2: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton>Step 3</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 3: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton>Step 4</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 4: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+      <AccordionHeader>
+        <AccordionButton>Step 5</AccordionButton>
+      </AccordionHeader>
+      <AccordionContent>
+        Step 5: Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </AccordionContent>
+    </Accordion>
+  );
+}
+```
+
+<CUIAccordionIndexes />
+
+## Props
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Accordion Props {#Accordion-Props}
+
+<AccordionItem title={'Accordion-Props'}>
+
+<PropTable tableData={accordion.AccordionProps} />
+
+</AccordionItem >
+
+### Accordion Events {#Accordion-Events}
+
+<AccordionItem title={'Accordion-Events'}>
+
+<EventTable tableData={accordion.AccordionEvents} />
+
+</AccordionItem >
+
+### AccordionHeader Props {#AccordionHeader-Props}
+
+<AccordionItem title={'AccordionHeader-Props'}>
+
+<PropTable tableData={accordion.AccordionHeaderProps} />
+  </AccordionItem >
+
+### AccordionButton Props {#AccordionButton-Props}
+
+<AccordionItem title={'AccordionButton-Props'}>
+
+<PropTable tableData={accordion.AccordionButtonProps} />
+</AccordionItem >
+</Accordion>
+
+## Playground
+
+<Playground urls={accordion.sandboxUrls} />
+
+## Styling
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={accordion.accordionStylingTable} />

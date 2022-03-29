@@ -1,0 +1,9 @@
+.admonition__heading {
+  & > p {
+    margin: 0;
+    padding: 5px 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+  }
+}

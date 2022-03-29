@@ -1,0 +1,43 @@
+---
+sidebar_position: 3
+---
+
+import IsCSR from '/src/CUIComponents/Hooks/IsCSR/IsCSR.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+
+# useIsCSR
+
+## Importing useIsCSR Hook
+
+```jsx
+import { useIsCSR } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+```jsx
+import React from 'react';
+import { useIsCSR } from '@ciceksepeti/cui-hooks';
+
+export const Example = () => {
+  const isCSR = useIsCSR();
+  return (
+    <div>
+      {isCSR
+        ? 'running in browser - client-side'
+        : 'not running in browser - server side'}
+    </div>
+  );
+};
+```
+
+## Preview
+
+<PreviewContainer title={'useIsCSR'} >
+
+- Checks if page is being rendered at client-side or server-side
+- If returns true, it is client-side otherwise server-side
+
+<IsCSR />
+
+</PreviewContainer>

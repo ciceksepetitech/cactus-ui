@@ -1,0 +1,276 @@
+---
+sidebar_position: 7
+---
+
+import popover from '/src/data/popover.json';
+
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUIPopoverDefault from '/src/CUIComponents/Popover/CUIPopoverDefault.tsx';
+
+# Popover
+
+<HeaderTableContainer data={popover} />
+
+## Content
+
+<InfoContainer>
+  The popover component provides the user to integrate an accessible pop-up
+  window to the appropriate application. When the user clicks or tabs between
+  buttons the popover applied button, pop up window appears. After that in
+  regards of accessibility, the next element becomes pop-up's content
+  respectively.
+</InfoContainer>
+
+## Examples
+
+> Example of a default behavior of Popover component. Renders as **'div'** by default.
+
+### Default
+
+```jsx
+import { useRef, useState } from 'react';
+import Popover from '@ciceksepeti/cui-popover';
+
+const Example = () => {
+  const targetRef = useRef();
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  return (
+    <div>
+      <p>
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum passage, and going through
+        the cites of the word in classical literature, discovered the
+        undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
+        of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
+        Cicero, written in 45 BC. This book is a treatise on the theory of
+        ethics, very popular during the Renaissance. The first line of Lorem
+        Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
+        1.10.32.
+      </p>
+      <p>
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum passage, and going through
+        the cites of the word in classical literature, discovered the
+        undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
+        of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
+        Cicero, written in 45 BC. This book is a treatise on the theory of
+        ethics, very popular during the Renaissance. The first line of Lorem
+        Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
+        1.10.32.
+      </p>
+      <p>
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum passage, and going through
+        the cites of the word in classical literature, discovered the
+        undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
+        of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
+        Cicero, written in 45 BC. This book is a treatise on the theory of
+        ethics, very popular during the Renaissance. The first line of Lorem
+        Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
+        1.10.32.
+      </p>
+      <div>
+        <button>some button</button>
+        <button>some button</button>
+        <button>some button</button>
+        <button>some button</button>
+        <button
+          ref={targetRef}
+          onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+        >
+          click me
+        </button>
+        <button>some button</button>
+        <button>some button</button>
+      </div>
+      {isPopoverOpen && (
+        <Popover
+          as="div"
+          targetRef={targetRef}
+          style={{
+            padding: '5px 10px',
+            borderRadius: '4px',
+            background: 'white',
+            border: '1px solid #eee',
+          }}
+        >
+          <p style={{ width: '250px' }}>
+            Aliqua consectetur non ut id nostrud sit ipsum consequat officia
+            adipisicing cillum aliquip ex. Ex est magna nostrud sit ad id minim
+            nulla. Culpa sunt dolore minim consequat consequat veniam ut. Ex
+            aliquip culpa aute sint consectetur ad. Quis nulla ad amet velit
+            consectetur velit cupidatat. Lorem eiusmod nulla ut qui irure
+            pariatur.
+          </p>
+          <button>inside</button>
+          <button>inside</button>
+        </Popover>
+      )}
+      <p>
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum passage, and going through
+        the cites of the word in classical literature, discovered the
+        undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
+        of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
+        Cicero, written in 45 BC. This book is a treatise on the theory of
+        ethics, very popular during the Renaissance. The first line of Lorem
+        Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
+        1.10.32.
+      </p>
+      <p>
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum passage, and going through
+        the cites of the word in classical literature, discovered the
+        undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
+        of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
+        Cicero, written in 45 BC. This book is a treatise on the theory of
+        ethics, very popular during the Renaissance. The first line of Lorem
+        Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
+        1.10.32.
+      </p>
+      <button>some button</button>
+      <button>some button</button>
+      <p>
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum passage, and going through
+        the cites of the word in classical literature, discovered the
+        undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
+        of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
+        Cicero, written in 45 BC. This book is a treatise on the theory of
+        ethics, very popular during the Renaissance. The first line of Lorem
+        Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
+        1.10.32.
+      </p>
+      <p>
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum passage, and going through
+        the cites of the word in classical literature, discovered the
+        undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
+        of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by
+        Cicero, written in 45 BC. This book is a treatise on the theory of
+        ethics, very popular during the Renaissance. The first line of Lorem
+        Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section
+        1.10.32.
+      </p>
+    </div>
+  );
+};
+```
+
+### How does popover work?
+
+<PreviewContainer title={"Popover Default"}>
+
+- Click inside of this preview area
+- Press the tab button until you reach the **'click me'** button or directly click to **'click me'** button
+- Pop up window will appear then your accessible tab button will directly jump into pop up window
+- Hit the tab button on your keyboard so that you are going to be able to discover the magic
+- As you scroll up and down the page pop up window will locate itself to the appropriate area
+
+<hr />
+
+  <CUIPopoverDefault />
+</PreviewContainer>
+
+## Props
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Popover Props {#Popover-Props}
+
+<AccordionItem title={'Popover-Props'}>
+
+  <PropTable tableData={popover.popoverProps} />
+</AccordionItem >
+
+### Popover Events {#Popover-Events}
+
+<AccordionItem title={'Popover Events'}>
+
+  <EventTable tableData={popover.popoverEvents} />
+</AccordionItem >
+
+</Accordion>
+
+## Playground
+
+<Playground urls={popover.sandboxUrls} />
+
+## Styling
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Element Selectors {#Element-Selectors}
+
+<AccordionItem title={'Element-Selectors'}>
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>
+  page.
+</AdmonitionContainer>
+<StylingTable tableData={popover.popoverStylingTable} />
+
+</AccordionItem >
+
+### Default Selector Values {#Default-Selector-Values}
+
+<AccordionItem title={'Default-Selector-Values'}>
+
+> Portal doesn't include default pop-up styling. You can override it however you like throught element selector.
+
+```css
+[data-cui-popover] {
+}
+```
+
+> Or you can simply use template structure which is shown inside the preview section that is similar to the example shown above.
+
+```css
+[data-cui-popover] {
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid #eee;
+}
+```
+
+</AccordionItem >
+
+</Accordion>

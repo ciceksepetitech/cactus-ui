@@ -1,0 +1,82 @@
+{
+  "name": "Focus Trap",
+  "description": "Component that traps focus within a DOM node. A focus trap ensures that tab and shift + tab keys will cycle through the focus trap's tabbable elements but not leave the focus trap. This is great for making accessible modals.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-focus-trap",
+    "version": "1.0.0",
+    "importName": "FocusTrap"
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": ""
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/focus-trap"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-focus-trap"
+    }
+  },
+  "focusTrapProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of focusTrap component which renders to DOM",
+      "required": false
+    },
+    "disabled": {
+      "title": "disabled",
+      "type": { "name": "boolean" },
+      "defaultValue": "false",
+      "description": "Disables all trap features",
+      "required": false
+    },
+    "autoFocusToFirst": {
+      "title": "autoFocusToFirst",
+      "type": { "name": "boolean" },
+      "defaultValue": "true",
+      "description": "Auto focuses to first focusable child of focus trap.",
+      "required": false
+    },
+    "autoFocusToLast": {
+      "title": "autoFocusToLast",
+      "type": { "name": "boolean" },
+      "defaultValue": "false",
+      "description": "auto focuses to last focusable child of focus trap.",
+      "required": false
+    },
+    "restoreFocusOnUnmount": {
+      "title": "restoreFocusOnUnmount",
+      "type": { "name": "boolean" },
+      "defaultValue": "true",
+      "description": "Refocuses to last focused element when focus trap is unmounted",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "",
+      "description": "The content you want to be wrapped by focus trap.",
+      "required": true
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/lucid-glitter-94q6v?fontsize=14&hidenavigation=1&theme=dark"
+  },
+  "focusTrapStylingTable": {
+    "data-cui-focus-wrapper": {
+      "title": "[data-cui-focus-wrapper]",
+      "type": { "name": "Element Selector" }
+    }
+  }
+}

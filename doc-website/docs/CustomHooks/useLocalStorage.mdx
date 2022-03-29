@@ -1,0 +1,54 @@
+---
+sidebar_position: 9
+---
+
+import LocalStorage from '/src/CUIComponents/Hooks/LocalStorage/LocalStorage.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+
+# useLocalStorage
+
+## Importing useLocalStorage Hook
+
+```jsx
+import { useLocalStorage } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+<AdmonitionContainer type='caution'>
+
+Users have to use <span style={{ fontWeight: '600' }}>setValue</span> and <span style={{ fontWeight: '600' }}>remove</span> functions inside the <span style={{ fontWeight: '600' }}>useEffect</span> hook.
+
+Otherwise ' Too many re-renders. React limits the number of renders to prevent an infinite loop. ' error will be inevitable.
+
+</AdmonitionContainer>
+
+```jsx
+import React, { useEffect } from 'react';
+import { useLocalStorage } from '@ciceksepeti/cui-hooks';
+
+export const Example = () => {
+  const { value, setValue, remove } = useLocalStorage('city', 'İstanbul');
+
+  useEffect(() => {
+    // SetValue() function takes only one argument and it changes value of given key property
+    setValue('Antalya');
+
+    // remove() function removes given key-value pair from LocalStorage
+    // remove();
+  }, [value]);
+
+  return (
+    <p>
+      The value that returns from Local Storage is <b>{value}</b>
+    </p>
+  );
+};
+```
+
+## Preview
+
+<PreviewContainer title={'useLocalStorage'}>
+  <LocalStorage />
+</PreviewContainer>

@@ -1,0 +1,136 @@
+{
+  "name": "Alert Dialog",
+  "description": "Informs the user about situations that require acknowledgement.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-alert-dialog",
+    "version": "1.0.0",
+    "importName": "AlertDialog",
+    "hasDefaultStyle": true
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/TR/wai-aria-practices/#alertdialog"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/alert-dialog"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-alert-dialog"
+    },
+    "sass": {
+      "title": "Style",
+      "subtitle": "Sass",
+      "logo": "https://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/blob/develop/packages/alert-dialog/styles.css"
+    }
+  },
+  "alertDialogProps": {
+    "open": {
+      "title": "open",
+      "type": { "name": "boolean" },
+      "defaultValue": "false",
+      "description": "Show/hide dialog component",
+      "required": true
+    },
+    "removeScrollBar": {
+      "title": "removeScrollBar",
+      "type": { "name": "boolean" },
+      "defaultValue": "true",
+      "description": "Removes scroll bar from UI",
+      "required": false
+    },
+    "autoFocusToLast": {
+      "title": "autoFocusToLast",
+      "type": { "name": "boolean" },
+      "defaultValue": "false",
+      "description": "Auto focus to last element of dialog",
+      "required": false
+    },
+    "autoFocusToFirst": {
+      "title": "autoFocusToFirst",
+      "type": { "name": "boolean" },
+      "defaultValue": "true",
+      "description": "Auto focus to first element of dialog",
+      "required": false
+    },
+    "disableFocusTrap": {
+      "title": "disableFocusTrap",
+      "type": { "name": "boolean" },
+      "defaultValue": "false",
+      "description": "Disables focus trap functionality",
+      "required": false
+    },
+    "enableRemoveScroll": {
+      "title": "enableRemoveScroll",
+      "type": { "name": "boolean" },
+      "defaultValue": "true",
+      "description": "Enables disabling scroll events when dialog is mounted",
+      "required": false
+    },
+    "restoreFocusOnUnmount": {
+      "title": "restoreFocusOnUnmount",
+      "type": { "name": "boolean" },
+      "defaultValue": "true",
+      "description": "Restores focus to the element that had focus before the dialog was opened",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode" },
+      "defaultValue": "-",
+      "description": "The element which shows content of an Alert Dialog",
+      "required": true
+    }
+  },
+  "alertDialogEvents": {
+    "onEscapeKey": {
+      "title": "onEscapeKey",
+      "type": { "name": "() => {}" },
+      "defaultValue": "() => {}",
+      "description": "Gets called when escape button is pressed",
+      "required": false
+    },
+    "onClickOutside": {
+      "title": "onClickOutside",
+      "type": { "name": "() => {}" },
+      "defaultValue": "() => {}",
+      "description": "Gets called when outside of dialog is clicked",
+      "required": false
+    }
+  },
+  "alertDialogAccessibility": {
+    "ariaLabel": {
+      "title": "aria-label",
+      "type": { "name": "string" },
+      "defaultValue": "",
+      "description": "To provide an accessible name when the native HTML labeling element is not supported by the control.",
+      "required": false
+    },
+    "ariaDescribedby": {
+      "title": "aria-describedby",
+      "type": { "name": "string" },
+      "defaultValue": "",
+      "description": "Gives the alert dialog an accessible description by referring to the alert dialog content that describes the primary message or purpose of the alert dialog.",
+      "required": false
+    }
+  },
+  "alertStylingTable": {
+    "data-cui-alert-dialog-content": {
+      "title": "[data-cui-alert-dialog-content]",
+      "type": { "name": "Element Selector" }
+    }
+  },
+
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/cui-alertdialog-jyji9?fontsize=14&hidenavigation=1&theme=dark"
+  }
+}

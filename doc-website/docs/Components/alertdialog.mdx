@@ -1,0 +1,143 @@
+---
+sidebar_position: 2
+---
+
+import alertdialog from '/src/data/alertdialog.json';
+
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import AccessibilityTable from '/src/CUIComponents/AccessibilityTable/AccessibilityTable.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUIAlertDialog from '/src/CUIComponents/AlertDialog/CUIAlertDialog.tsx';
+
+# Alert Dialog
+
+<HeaderTableContainer data={alertdialog} />
+
+## Content
+
+<InfoContainer>
+  Provides accessible alert dialog for situations like user confirmation is
+  needed
+</InfoContainer>
+
+## Examples
+
+> Example of a default behavior of AlertDialog component. Renders as **'div'** by default.
+
+```jsx
+import { AlertDialog } from '@ciceksepeti/cui-alert-dialog';
+import '@ciceksepeti/cui-alert-dialog/styles.css';
+
+const Example = () => {
+  return (
+    <AlertDialog
+      aria-label="alert-dialog"
+      aria-describedby="alert-desc"
+      open={true}
+      removeScrollBar={true}
+      autoFocusToLast={false}
+      autoFocusToFirst={false}
+      disableFocusTrap={false}
+      enableRemoveScroll={true}
+      restoreFocusOnUnmount={true}
+    >
+      <p id="alert-desc">
+        Lorem incididunt ipsum in nostrud. Nisi commodo aliqua magna
+        exercitation exercitation dolore minim commodo adipisicing veniam
+        eiusmod ut aute ad. Consectetur consectetur enim nostrud duis laboris ex
+        fugiat consequat veniam excepteur quis. Aute veniam voluptate deserunt
+        commodo aliquip amet enim cillum magna proident.
+      </p>
+      <button>Confirm</button>
+      <button autoFocus>Focused</button>
+    </AlertDialog>
+  );
+};
+```
+
+<PreviewContainer title={'Alert Dialog'}>
+  <CUIAlertDialog />
+</PreviewContainer>
+
+## Props
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Alert Dialog Props {#Alert-Dialog-Props}
+
+<AccordionItem title={'Alert-Dialog-Props'}>
+
+<PropTable tableData={alertdialog.alertDialogProps} />
+
+</AccordionItem >
+
+### Alert Dialog Events {#Alert-Dialog-Events}
+
+<AccordionItem title={'Alert-Dialog-Events'}>
+
+  <EventTable tableData={alertdialog.alertDialogEvents} />
+</AccordionItem >
+
+### Alert Dialog Accessibility {#Alert-Dialog-Accessibility}
+
+<AccordionItem title={'Alert-Dialog-Accessibility'}>
+
+  <AdmonitionContainer type="info">
+    Aria-label and aria-describedby are not obligatory accessibility tags. It
+    gives an error in course of development, not during production.
+  </AdmonitionContainer>
+  <AccessibilityTable tableData={alertdialog.alertDialogAccessibility} />
+</AccordionItem >
+
+</Accordion>
+
+## Playground
+
+<Playground urls={alertdialog.sandboxUrls} />
+
+## Styling
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Element Selector {#Element-Selector}
+
+<AccordionItem title={'Element Selector'} >
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={alertdialog.alertStylingTable} />
+</AccordionItem >
+
+### Default Selector Values {#Default-Selector-Values}
+
+<AccordionItem title={'Default-Selector-Values'} >
+
+```css
+[data-cui-alert-dialog-content] {
+  width: 50vw;
+  padding: 1rem;
+  margin: 10vh auto;
+  background-color: white;
+}
+```
+
+</AccordionItem >
+
+</Accordion >

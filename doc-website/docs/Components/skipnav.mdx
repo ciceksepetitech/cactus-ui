@@ -1,0 +1,172 @@
+---
+sidebar_position: 9
+---
+
+import skipnav from '/src/data/skipnav.json';
+
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUISkipNavDefault from '/src/CUIComponents/SkipNav/CUISkipNavDefault.tsx';
+
+# Skip Nav
+
+<HeaderTableContainer data={skipnav} />
+
+## Content
+
+<InfoContainer>
+  Enables skipping navigation or any other component when user tabs. Useful for
+  situations when there are lots of component when tab is pressed to pass them.
+</InfoContainer>
+
+## Example
+
+> Example of a default behavior of SkipNav component. Renders as 'a' by default.
+
+```jsx
+import React from 'react';
+import SkipNav from '@ciceksepeti/cui-skip-nav';
+import '@ciceksepeti/cui-skip-nav/styles.css';
+
+export const Example = () => {
+  return (
+    <div>
+      <div>
+        <SkipNav targetId="target-id">Skip Navigation Example</SkipNav>
+        <h2>Navbar</h2>
+        <ul>
+          <li>
+            <a href="#">Link 1</a>
+          </li>
+          <li>
+            <a href="#">Link 2</a>
+          </li>
+          <li>
+            <a href="#">Link 3</a>
+          </li>
+        </ul>
+      </div>
+
+      <h2>Some Content</h2>
+      <p>
+        Aute esse excepteur velit id nostrud in. Sint culpa eiusmod officia
+        labore cillum incididunt id. Occaecat sunt dolore culpa fugiat occaecat
+        ex. Aliquip voluptate anim laboris Lorem ex dolor laboris. Qui pariatur
+        in pariatur eiusmod id officia non anim tempor aliquip ut ad. Occaecat
+        consequat nisi sit officia eu sint cupidatat officia adipisicing
+        consectetur. Velit occaecat ullamco ex ullamco non mollit dolor qui
+        deserunt anim excepteur aliquip non. Quis in laboris laborum proident
+        Lorem irure qui sint eu ullamco.
+      </p>
+      <h2 id="target-id" className="skipnav-header">
+        Target Content
+      </h2>
+      <p>
+        Aute esse excepteur velit id nostrud in. Sint culpa eiusmod officia
+        labore cillum incididunt id. Occaecat sunt dolore culpa fugiat occaecat
+        ex. Aliquip voluptate anim laboris Lorem ex dolor laboris. Qui pariatur
+        in pariatur eiusmod id officia non anim tempor aliquip ut ad. Occaecat
+        consequat nisi sit officia eu sint cupidatat officia adipisicing
+        consectetur. Velit occaecat ullamco ex ullamco non mollit dolor qui
+        deserunt anim excepteur aliquip non. Quis in laboris laborum proident
+        Lorem irure qui sint eu ullamco.
+      </p>
+      <h2>Some Content</h2>
+      <p>
+        Aute esse excepteur velit id nostrud in. Sint culpa eiusmod officia
+        labore cillum incididunt id. Occaecat sunt dolore culpa fugiat occaecat
+        ex. Aliquip voluptate anim laboris Lorem ex dolor laboris. Qui pariatur
+        in pariatur eiusmod id officia non anim tempor aliquip ut ad. Occaecat
+        consequat nisi sit officia eu sint cupidatat officia adipisicing
+        consectetur. Velit occaecat ullamco ex ullamco non mollit dolor qui
+        deserunt anim excepteur aliquip non. Quis in laboris laborum proident
+        Lorem irure qui sint eu ullamco.
+      </p>
+    </div>
+  );
+};
+```
+
+<CUISkipNavDefault />
+
+## Props
+
+<PropTable tableData={skipnav.skipNavProps} />
+
+## Styling
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Element Selectors {#Element-selectors}
+
+<AccordionItem title={'Element-Selectors'}>
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={skipnav.skipNavStylingTable} />
+
+</AccordionItem >
+
+### Default Selector Values {#Default-Selector-Values}
+
+<AccordionItem title={'Default-Selector-Values'} >
+
+```css
+[data-cui-skip-nav] {
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+[data-cui-skip-nav]:not(:focus-within),
+[data-cui-skip-nav]:not(:focus) {
+  border: 0;
+  width: 1px;
+  height: 1px;
+  top: -10000px;
+  left: -10000px;
+  overflow: hidden;
+  word-wrap: normal;
+  position: absolute;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  transform: translate(-100%, -100%);
+}
+```
+
+</AccordionItem >
+
+</Accordion>
+
+## Playground
+
+<Playground urls={skipnav.sandboxUrls} />
+
+## Styling
+
+### Element Selector {#Element-Selector}
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={skipnav.skipnavStylingTable} />

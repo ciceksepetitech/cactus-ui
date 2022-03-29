@@ -1,0 +1,103 @@
+{
+  "hooksList": {
+    "useArray": {
+      "title": "useArray",
+      "type": {
+        "val": "value: T[]",
+        "clear": "clear: () => void",
+        "isEmpty": "isEmpty: () => boolean",
+        "push": "push: (value: T) => void",
+        "set": "set: (value: T[]) => void",
+        "includes": "includes: (value: T) => boolean",
+        "remove": "remove: (value: number) => void",
+        "map": "map: (fn: (value: T) => any) => any",
+        "find": "find: (fn: (value: T) => any) => any",
+        "filter": "filter: (fn: (value: T) => any) => any",
+        "findIndex": "findIndex: (fn: (value: T) => any) => any"
+      },
+      "description": "Provides shortcut for array functionalities"
+    },
+    "useIsCSR": {
+      "title": "useIsCSR",
+      "type": { "name": "() => {}" },
+      "description": "Checks if page is being rendered at client-side or server-side. If returns true, it is client-side otherwise server-side"
+    },
+    "usePrevious": {
+      "title": "usePrevious",
+      "type": { "name": "value: T" },
+      "description": "Holds a value with ref. Returns it every value change and updates with useEffect"
+    },
+    "useDebounce": {
+      "title": "useDebounce",
+      "type": {
+        "text": "text : string",
+        "delay": "delay : number"
+      },
+      "description": "Needed to limit component re-renders when a variable changes frequently returns debounced value after timeout"
+    },
+    "useIsMounted": {
+      "title": "useIsMounted",
+      "type": { "name": "() => {}" },
+      "description": "Returns a memoized callback function to retrieve isMounted boolean value. returns true if mounted, otherwise false"
+    },
+    "useLatestValue": {
+      "title": "useLatestValue",
+      "type": { "name": "value: MutableRefObject<T>" },
+      "description": "Stores latest value with ref. Useful to get access to the latest value of some props or state inside an async callback, instead of at the time the callback was created"
+    },
+    "useForceUpdate": {
+      "title": "useForceUpdate",
+      "type": { "name": "() => void" },
+      "description": "Force updates the component when needed. For example, setting some state to ref and need to update when ref changed"
+    },
+    "useLocalStorage": {
+      "title": "useLocalStorage",
+      "type": {
+        "value": "value: any",
+        "setValue": "setValue:() => {}",
+        "remove": "remove:() => {}"
+      },
+      "description": "Handles localstorage interactions. Supports server-side rendering"
+    },
+    "useCombinedRefs": {
+      "title": "useCombinedRefs",
+      "type": {
+        "forwardedRef": "forwardedRef : MutableRefObject<T>",
+        "internalRef": "internalRef : MutableRefObject<T>"
+      },
+      "description": "Combines all passed props. Usefull when React.forwardRef and internal ref is needed at the same time"
+    },
+    "useEventListener": {
+      "title": "useEventListener",
+      "type": {
+        "listener": "listener: (evt: Event): void",
+        "name": "name: keyof HTMLElementEventMap | string",
+        "target": "target: | Window | Document | EventTarget | HTMLElement | RefObject<any> | typeof globalThis| MutableRefObject<any>;"
+      },
+      "description": "Mounts and unmounts even listeners stores all params in refs to avoid re-running effect for every render"
+    },
+    "useOnClickOutside": {
+      "title": "useOnClickOutside",
+      "type": {
+        "specifiedNodeRef": "specifiedNodeRef: RefObject<T>",
+        "callback": "callback: (event: MouseEvent | TouchEvent) => void"
+      },
+      "description": "Captures outside click of specified area. Calls handler when outside of a specified area is clicked or touched"
+    },
+    "useFindTabbableElements": {
+      "title": "useFindTabbableElements",
+      "type": { "name": "node: HTMLElement[]" },
+      "description": "Gets tabbable elements inside of passed nodeRef. The element is keyboard focusable ('tabbable'), as it is part of the document's sequential focus navigation order. The element is also focusable by script and possibly the mouse (or pointer)"
+    },
+    "useFindFocusableElements": {
+      "title": "useFindFocusableElements",
+      "type": { "name": "node: HTMLElement[]" },
+      "description": "Gets focusable elements inside of passed nodeRef. The element can be focused by script (element.focus()) and possibly the mouse (or pointer), but not the keyboard"
+    },
+    "useIsomorphicLayoutEffect": {
+      "title": "useIsomorphicLayoutEffect",
+      "type": { "name": "() => {}" },
+      "description": "Interchanges between useLayoutEffect() and useEffect() hooks depending on typeof document. If typeof document returns 'undefined' useLayoutEffect() hook will be called, otherwise useEffect() hook will be called."
+    }
+  }
+}

@@ -1,0 +1,10 @@
+[data-cui-listbox-button],
+[data-cui-listbox-list] {
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-font-color-base) !important;
+  min-width: 250px;
+  max-width: 250px;
+  input {
+    width: 90%;
+  }
+}

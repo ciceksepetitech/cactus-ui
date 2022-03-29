@@ -1,0 +1,26 @@
+[data-cui-portal] {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 10px;
+  text-align: center;
+  background-color: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+}
+
+.portal__child {
+  position: absolute;
+  top: 130px;
+  right: 0;
+  border: 1px solid rgba(#fff, 0.25);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+}
+
+@media only screen and (min-width: 997px) {
+  .portal__child {
+    top: 100px;
+    right: 75px;
+    padding: 20px;
+  }
+}

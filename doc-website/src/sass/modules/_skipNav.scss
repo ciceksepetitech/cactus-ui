@@ -1,0 +1,9 @@
+/* To fix the header which is targeted staying under the main sticky navbar */
+.skipnav__target::before {
+  display: block;
+  content: ' ';
+  margin-top: -65px;
+  height: 65px;
+  visibility: hidden;
+  pointer-events: none;
+}

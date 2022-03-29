@@ -1,0 +1,30 @@
+---
+sidebar_position: 1
+---
+
+import hooks from '/src/data/hooks.json';
+
+import HookTable from '/src/CUIComponents/HookTable/HookTable.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+
+# Hooks
+
+## Content
+
+This page shows custom hooks used during the development of the Cactus UI Library. Besides UI components you can also import hooks and use them on your own project easily.
+
+If you are interested in learning more about custom hooks deeply, you can visit React JS's [Custom Hooks Page](https://reactjs.org/docs/hooks-custom.html).
+
+## Importing Hooks
+
+Custom Hooks can be imported as it shown below:
+
+```jsx
+import { use<HookName> } from '@ciceksepeti/cui-hooks';
+
+```
+
+## Custom Hooks List
+
+<HookTable tableData={hooks.hooksList} />

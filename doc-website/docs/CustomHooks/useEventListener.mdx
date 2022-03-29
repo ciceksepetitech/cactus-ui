@@ -1,0 +1,55 @@
+---
+sidebar_position: 10
+---
+
+import EventListener from '/src/CUIComponents/Hooks/EventListener/EventListener.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+
+# useEventListener
+
+## Importing useEventListener Hook
+
+```jsx
+import { useEventListener } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+```jsx
+import React, { useRef, useState } from 'react';
+import { useEventListener } from '@ciceksepeti/cui-hooks';
+
+export const Example = () => {
+  const [counter, setCounter] = useState(0);
+  const clickRef = useRef(null);
+
+  const clickHandler = () => {
+    setCounter((prevState) => prevState + 1);
+  };
+
+  useEventListener({
+    name: 'click',
+    target: clickRef,
+    listener: clickHandler,
+  });
+
+  return (
+    <div>
+      <button ref={clickRef}>click event</button>
+      <p>{counter}</p>
+    </div>
+  );
+};
+
+export default EventListener;
+```
+
+## Preview & Test
+
+<PreviewContainer title={'useEventListener'} contentType={'PREVIEW & TEST AREA'}>
+
+- Use buttons to see the magic
+
+<EventListener />
+
+</PreviewContainer>

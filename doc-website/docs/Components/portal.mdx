@@ -1,0 +1,173 @@
+---
+sidebar_position: 8
+---
+
+import portal from '/src/data/portal.json';
+
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUIPortalDefault from '/src/CUIComponents/Portal/CUIPortalDefault.tsx';
+import CUIPortalReference from '/src/CUIComponents/Portal/CUIPortalReference.tsx';
+import CUIPortalId from '/src/CUIComponents/Portal/CUIPortalId.tsx';
+
+# Portal
+
+<HeaderTableContainer data={portal} />
+
+## Content
+
+<InfoContainer>
+  Portal component mounts its content in a specific area of the DOM. Default
+  renders to end of the body tag. But the render area can be determined by ref
+  or id.
+</InfoContainer>
+
+## Examples
+
+> Example of a default behavior of Portal component. Renders as **'div'** by default.
+
+### Default
+
+```jsx
+import React from 'react';
+import { Portal } from '@ciceksepeti/cui-portal';
+
+const Example = () => {
+  return (
+    <div>
+      <div
+        style={{
+          padding: '10px',
+          borderRadius: '6px',
+          border: '3px solid #52AD36',
+        }}
+      >
+        <span>Container</span>
+      </div>
+      <Portal>This box is inside the default portal</Portal>
+    </div>
+  );
+};
+```
+
+<PreviewContainer title={'Portal Default'}>
+  <CUIPortalDefault />
+</PreviewContainer>
+
+### By Reference
+
+```jsx
+import React, { useRef } from 'react';
+import { Portal } from '@ciceksepeti/cui-portal';
+
+const Example = () => {
+  const ref = useRef(null);
+  return (
+    <div>
+      <div
+        ref={ref}
+        style={{
+          padding: '10px',
+          borderRadius: '6px',
+          border: '3px solid #52AD36',
+        }}
+      >
+        Container
+      </div>
+      <Portal containerRef={ref}>
+        I am in a portal appended next to Container by ref.
+      </Portal>
+    </div>
+  );
+};
+```
+
+<PreviewContainer title={'Portal by Reference'}>
+
+> Example rendering portal into a specified container by reference
+
+  <CUIPortalReference />
+</PreviewContainer>
+
+### By ID
+
+```jsx
+import React from 'react';
+import { Portal } from '@ciceksepeti/cui-portal';
+
+const Example = () => {
+  return (
+    <div>
+      <div
+        id="my-container"
+        style={{
+          padding: '10px',
+          borderRadius: '6px',
+          border: '3px solid #52AD36',
+        }}
+      >
+        <span>Container</span>
+      </div>
+      <Portal containerId="my-container">
+        I am in a portal appended next to Container by id.
+      </Portal>
+    </div>
+  );
+};
+```
+
+<PreviewContainer title={'Portal by ID'}>
+
+> Example rendering portal into a specified container by id
+
+  <CUIPortalId />
+</PreviewContainer>
+
+## Props
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Portal Props {#Portal-Props}
+
+<AccordionItem title={'Portal-Props'}>
+
+  <PropTable tableData={portal.portalProps} />
+</AccordionItem >
+
+### Portal Props {#Portal-Events}
+
+<AccordionItem title={'Portal Events'}>
+
+  <EventTable tableData={portal.portalEvents} />
+</AccordionItem >
+
+</Accordion>
+
+## Playground
+
+<Playground urls={portal.sandboxUrls} />
+
+## Styling
+
+### Element Selector {#Element-Selector}
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={portal.portalStylingTable} />

@@ -1,0 +1,97 @@
+---
+sidebar_position: 11
+---
+
+import CombinedRefs from '/src/CUIComponents/Hooks/CombinedRefs/CombinedRefs.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+
+# useCombinedRefs
+
+## Importing useCombinedRefs Hook
+
+```jsx
+import { useCombinedRefs } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+<AdmonitionContainer type="tip">
+  To use useCombinedRefs efficiently we highly recommend you to read{' '}
+  <a href="https://reactjs.org/docs/forwarding-refs.html">Forwarding Refs</a>{' '}
+  reference page from ReactJS Documentation Page.
+</AdmonitionContainer>
+
+### forwardRef Area
+
+```jsx
+import React from 'react';
+
+const ForwardedRefInput = ({ type, onKeyDown, placeholder }, ref) => {
+  return (
+    <input
+      ref={ref}
+      type={type}
+      onKeyDown={onKeyDown}
+      placeholder={placeholder}
+    />
+  );
+};
+
+const forwardedInput = React.forwardRef(ForwardedRefInput);
+
+export default forwardedInput;
+```
+
+### combinedRef Area
+
+```jsx
+import React, { useRef, useEffect } from 'react';
+import { useCombinedRefs } from '@ciceksepeti/cui-hooks';
+import ForwardedRefInput from './ForwardedRefInput';
+
+export const Example = () => {
+  const nameRef = useRef(null);
+  const submitRef = useRef(null);
+  const ref1 = useCombinedRefs(ForwardedRefInput, nameRef);
+
+  const firstKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      lastnameRef.current.focus();
+    }
+  };
+
+  const submitKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      alert('Submit button has been called!');
+    }
+  };
+  return (
+    <div>
+      <ForwardedRefInput
+        type="text"
+        ref={ref1}
+        onKeyDown={firstKeyDown}
+        placeholder="First Name"
+      />
+      <button ref={submitRef} onKeyDown={submitKeyDown}>
+        Submit
+      </button>
+    </div>
+  );
+};
+```
+
+## Preview & Test
+
+<PreviewContainer title={'useCombinedRefs'} contentType={'PREVIEW & TEST AREA'}>
+
+- Combines all passed props
+
+- Usefull when React.forwardRef and internal ref is needed at the same time
+
+- To skip next _input_ and _button_ elements please hit **Enter** on your keyboard.
+
+<CombinedRefs />
+
+</PreviewContainer>

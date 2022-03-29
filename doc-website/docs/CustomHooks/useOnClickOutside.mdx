@@ -1,0 +1,56 @@
+---
+sidebar_position: 12
+---
+
+import OnClickOutside from '/src/CUIComponents/Hooks/OnClickOutside/OnClickOutside.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+
+# useOnClickOutside
+
+## Importing useOnClickOutside Hook
+
+```jsx
+import { useOnClickOutside } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+```jsx
+import React, { useRef, useState } from 'react';
+import { useOnClickOutside } from '@ciceksepeti/cui-hooks';
+
+export const Example = () => {
+  const [counter, setCounter] = useState(0);
+  const insideRef = useRef(null);
+  const outsideRef = useRef(null);
+  const onOutsideClick = () => {
+    setCounter((prevState) => prevState + 1);
+  };
+
+  useOnClickOutside(insideRef, onOutsideClick);
+
+  return (
+    <>
+      <div ref={outsideRef}>
+        outside
+        <div ref={insideRef} style={{ border: '1px solid red' }}>
+          inside
+        </div>
+      </div>
+      <p>Counter: >{counter}</p>
+    </>
+  );
+};
+```
+
+## Preview & Test
+
+<PreviewContainer title={'useOnClickOutside'} contentType={'PREVIEW & TEST AREA'}>
+
+- Handler will be called when outside of a specified area is clicked. In this example specified area is inside area.
+
+- Each outside click will trigger increment on counter value
+
+<OnClickOutside />
+
+</PreviewContainer>
