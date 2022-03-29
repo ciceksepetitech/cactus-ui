@@ -56,16 +56,6 @@ jobs:
           npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
           yarn lerna:publish from-package --yes
 
-      - name: ⎔ Detect Doc Website Changes
-        uses: dorny/paths-filter@v2
-        id: doc-website
-        with:
-          working-directory: 'doc-website'
-          filters: |
-            src:
-              - 'src/**'
-
-      - name: ⎔ checking for deployment...
-        if: steps.doc-website.outputs.src == 'true'
+      - name: 🚀 Deploying Doc Website to Vercel
         run: cd doc-website && npx vercel --token ${VERCEL_TOKEN} --prod && echo ✅ doc-website deployed to vercel successfully!
 
