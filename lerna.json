@@ -9,6 +9,7 @@
       "verifyAccess": false,
       "ignoreChanges": [
         "**/*.md",
+        "website",
         "**/__tests__/**"
       ]  
     }
