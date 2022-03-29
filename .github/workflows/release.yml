@@ -14,6 +14,9 @@ jobs:
 
     env:
       NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
     steps:
       - name: 🛑 Cancel Previous Runs
@@ -48,13 +51,22 @@ jobs:
       - name: 🧪 Run Tests with Coverage
         run: yarn test:coverage:summary
 
-      # - name: 📗 Build Storybook
-      #   run: yarn storybook:build
-
-      # - name: 🚀  Deploy Storybook
-      # will be implemented in future
-
       - name: Publish Packages
         run: |
           npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
           yarn lerna:publish from-package --yes
+
+      - name: ⚙️ Check Website Folder Changes
+      - uses: dorny/paths-filter@v2
+        id: website
+        with:
+          working-directory: '/website'
+          filters: |
+            src:
+              - 'src/**'
+
+      - name: 🚀  Deploy Website
+      - if: steps.website.outputs.src == 'true'
+        run: cd website && npx vercel --token ${VERCEL_TOKEN} --prod && echo ✅ website deployed to vercel successfully!
+      - if: steps.website.outputs.src == 'false'
+        run: echo ⎔ no change detected under website folder, deploy abandoned!

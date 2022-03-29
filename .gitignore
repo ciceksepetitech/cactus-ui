@@ -54,3 +54,13 @@ Thumbs.db
 
 # storybook
 storybook-static
+
+# website
+website/.docusaurus
+website/.cache-loader
+website/build
+website/node_modules
+website/npm-debug.log*
+website/yarn-debug.log*
+website/yarn-error.log*
+website/.vercel
