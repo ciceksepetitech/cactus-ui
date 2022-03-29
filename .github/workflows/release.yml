@@ -60,7 +60,7 @@ jobs:
         uses: dorny/paths-filter@v2
         id: doc-website
         with:
-          working-directory: '/doc-website'
+          working-directory: 'doc-website'
           filters: |
             src:
               - 'src/**'
