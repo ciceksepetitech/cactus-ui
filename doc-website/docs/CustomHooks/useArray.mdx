@@ -1,0 +1,87 @@
+---
+sidebar_position: 2
+---
+
+import hooks from '/src/data/hooks.json';
+import Array from '/src/CUIComponents/Hooks/Array/Array.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+
+# useArray
+
+## Importing useArray Hook
+
+```jsx
+import { useArray } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+<AdmonitionContainer type="tip">
+  To learn more about array methods please visit the{' '}
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">
+    MDN Array Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+```jsx
+import React from 'react';
+import { useArray } from '@ciceksepeti/cui-hooks';
+
+export const Example = () => {
+  const {
+    set,
+    map,
+    push,
+    find,
+    clear,
+    value,
+    remove,
+    filter,
+    isEmpty,
+    includes,
+    findIndex,
+  } = useArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+  const isEmptyChecker = isEmpty();
+  const includesChecker = includes(5);
+
+  return (
+    <>
+      <span>{value}</span>
+
+      <button onClick={() => clear()}>Clear</button>
+
+      <span>
+        {isEmptyChecker ? 'Array list is empty' : 'Array list is NOT empty'}
+      </span>
+
+      <button onClick={() => push(100)}>Push</button>
+
+      <button onClick={() => set([99, 98, 97, 96, 95])}>Set</button>
+
+      <span>Does array includes 5 : {includesChecker ? 'True' : 'False'} </span>
+
+      <button onClick={() => remove(0)}>remove</button>
+
+      <span>{map((item) => item)}</span>
+
+      <span>{find((num) => num === 5) ? 'TRUE' : 'FALSE'}</span>
+
+      <span>{filter((num) => num > 7)}</span>
+
+      <span>{findIndex((num) => num === 9)}</span>
+    </>
+  );
+};
+
+export default Array;
+```
+
+## Preview & Test
+
+<PreviewContainer title={'Methods'} contentType={'PREVIEW & TEST AREA'}>
+  <Array />
+</PreviewContainer>

@@ -1,0 +1,225 @@
+{
+  "name": "Tabs",
+  "description": "Tabs component allows users to organize content into multiple sections which allow users to navigate between them. Each content under the tabs component should be related to a coherent unit.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-tabs",
+    "version": "1.0.0",
+    "importName": "Tabs, TabList, Tab, TabPanelList, TabPanel",
+    "hasDefaultStyle": true
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/TR/wai-aria-practices/#tabpanel"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/tabs"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-tabs"
+    },
+    "sass": {
+      "title": "Style",
+      "subtitle": "Sass",
+      "logo": "https://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/blob/develop/packages/tabs/styles.css"
+    }
+  },
+  "tabsProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "description": "Changes html tag of tabs component which renders to DOM",
+      "defaultValue": "div",
+      "required": false
+    },
+    "defaultIndex": {
+      "title": "defaultIndex",
+      "type": { "name": "number" },
+      "description": "Default selected tab",
+      "defaultValue": "0",
+      "required": false
+    },
+    "orientation": {
+      "title": "orientation",
+      "type": { "name": "horizontal | vertical" },
+      "description": "Orientation of tabs",
+      "defaultValue": "horizontal",
+      "required": false
+    },
+    "activationType": {
+      "title": "activationType",
+      "type": { "name": "auto | manual" },
+      "description": "Activation type of tabs",
+      "defaultValue": "auto",
+      "required": false
+    },
+    "index": {
+      "title": "index",
+      "type": { "name": "number" },
+      "description": "Allows a user to turn uncontrolled Tabs component into a controlled component",
+      "defaultValue": "-",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode" },
+      "defaultValue": "-",
+      "description": "The element which shows Tabs option. Tabs accept TabList, Tab, TabPanelList and TabPanel as children.",
+      "required": true
+    }
+  },
+  "tabsEvents": {
+    "onChange": {
+      "title": "onChange",
+      "type": { "name": "(index,id) => void" },
+      "description": "Gets called when tab changes",
+      "required": false
+    }
+  },
+  "tabListProps": {
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode" },
+      "defaultValue": "-",
+      "description": "The element which shows TabList option. TabList accepts Tab as children.",
+      "required": true
+    }
+  },
+  "tabListEvents": {
+    "onKeyDown": {
+      "title": "onKeyDown",
+      "type": { "name": "() => void" },
+      "description": "Gets called when accessibility keyboard actions are used.",
+      "required": false
+    }
+  },
+  "tabListKeyboardAction": {
+    "Enter": {
+      "title": "Enter, Spacebar",
+      "type": { "name": "Enter | Spacebar " },
+      "description": "A tabs widget where users activate a tab and display its panel by pressing Space or Enter when activationType setteled as 'manual'.",
+      "required": false
+    },
+    "ArrowRight": {
+      "title": "ArrowRight",
+      "type": { "name": "ArrowRight" },
+      "description": "Moves focus to the next tab, If focus is on the last tab, moves focus to the first tab when orientation is horizontal.",
+      "required": false
+    },
+    "ArrowLeft": {
+      "title": "ArrowLeft",
+      "type": { "name": "ArrowLeft" },
+      "description": "Moves focus to the previous tab, If focus is on the first tab, moves focus to the last tab when orientation is horizontal.",
+      "required": false
+    },
+    "ArrowUp": {
+      "title": "ArrowUp",
+      "type": { "name": "ArrowUp" },
+      "description": "Moves focus to the previous tab, If focus is on the first tab, moves focus to the last tab when orientation is vertical.",
+      "required": false
+    },
+    "ArrowDown": {
+      "title": "ArrowDown",
+      "type": { "name": "ArrowDown" },
+      "description": "Moves focus to the next tab, If focus is on the last tab, moves focus to the first tab when orientation is vertical.",
+      "required": false
+    },
+    "Home": {
+      "title": "Home",
+      "type": { "name": "Home" },
+      "description": "Moves focus to the first tab.",
+      "required": false
+    },
+    "End": {
+      "title": "End",
+      "type": { "name": "Home" },
+      "description": "Moves focus to the last tab.",
+      "required": false
+    }
+  },
+  "tabProps": {
+    "disabled": {
+      "title": "disabled",
+      "type": { "name": "boolean" },
+      "description": "Switches active state of tab",
+      "defaultValue": "false",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode" },
+      "defaultValue": "-",
+      "description": "Element shows content of Tab",
+      "required": true
+    }
+  },
+  "tabPanelListProps": {
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode" },
+      "defaultValue": "-",
+      "description": "The element which shows TabPanelList option.TabPanelList accepts TabPanel as children.",
+      "required": true
+    }
+  },
+  "tabPanelProps": {
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode" },
+      "defaultValue": "-",
+      "description": "Element shows content of TabPanel",
+      "required": true
+    }
+  },
+  "tabPanelAccessibility": {
+    "aria-labelledby": {
+      "title": "aria-labelledby",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Refers to the ( tab ) element that controls the panel and provides an accessible name for the tab panel.",
+      "required": false
+    }
+  },
+  "tabsStylingTable": {
+    "data-cui-tabs-data-orientation-vertical": {
+      "title": "[data-cui-tabs][data-orientation='vertical']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-tab-list": {
+      "title": "[data-cui-tab-list]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-tab-list-aria-orientation-vertical": {
+      "title": "[data-cui-tab-list][aria-orientation='vertical']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-tab": {
+      "title": "[data-cui-tab]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-tab-aria-selected-true": {
+      "title": "[data-cui-tab][aria-selected='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-tab-aria-selected-true-data-orientation-vertical": {
+      "title": "[data-cui-tab][aria-selected='true'][data-orientation='vertical']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-tab-aria-disabled-true": {
+      "title": "[data-cui-tab][aria-disabled='true']",
+      "type": { "name": "Element Selector" }
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/tabs-vjxyd0?fontsize=14&hidenavigation=1&theme=dark"
+  }
+}

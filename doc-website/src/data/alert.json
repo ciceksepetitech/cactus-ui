@@ -1,0 +1,62 @@
+{
+  "name": "Alert",
+  "description": "An alert is an element that displays a brief, important message in a way that attracts the user's attention without interrupting the user's task.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-alert",
+    "version": "1.0.0",
+    "importName": "Alert",
+    "hasDefaultStyle": true
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/TR/wai-aria-practices/#alert"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/alert"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-alert"
+    }
+  },
+  "alertProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of portal component which renders to DOM",
+      "required": false
+    },
+    "type": {
+      "title": "type",
+      "type": { "name": "polite | assertive | off" },
+      "defaultValue": "polite",
+      "description": "Type for accessibility",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode" },
+      "defaultValue": "-",
+      "description": "The element which shows content of an Alert",
+      "required": true
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/alertcomponentplayground-lzqtl?fontsize=14&hidenavigation=1&theme=dark"
+  },
+  "alertStylingTable": {
+    "data-cui-alert": {
+      "title": "[data-cui-alert]",
+      "type": { "name": "Element Selector" }
+    }
+  }
+}

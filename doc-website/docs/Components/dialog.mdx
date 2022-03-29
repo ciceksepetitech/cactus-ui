@@ -1,0 +1,247 @@
+---
+sidebar_position: 4
+---
+
+import dialog from '/src/data/dialog.json';
+
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import AccessibilityTable from '/src/CUIComponents/AccessibilityTable/AccessibilityTable.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUIDialogDefault from '/src/CUIComponents/Dialog/CUIDialogDefault.tsx';
+import CUIDialogTrapped from '/src/CUIComponents/Dialog/CUIDialogTrapped.tsx';
+import CUIDialogEscape from '/src/CUIComponents/Dialog/CUIDialogEscape.tsx';
+
+# Dialog
+
+<HeaderTableContainer data={dialog} />
+
+## Content
+
+<InfoContainer>
+  Shows the relevant content in a Dialog in accordance with accessibility rules.
+  Dialog is a polymorphic component. That's why can be rendered as any valid
+  HTML tag
+</InfoContainer>
+
+## Examples
+
+### Default
+
+> Example of a default behavior of Dialog component. Renders as **'div'** by default.<br/>Default one works as **sticky dialog** window there is **no close option**. You should refresh the page in order to clear dialog window or you can use [**_escape_**](#escape).
+
+```jsx
+import React, { useState } from 'react';
+import { Dialog } from '@ciceksepeti/cui-dialog';
+import '@ciceksepeti/cui-dialog/styles.css';
+
+const Example = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>show 'default' dialog</button>
+      <Dialog
+        removeScrollBar="false"
+        autoFocusToLast="false"
+        autoFocusToFirst="false"
+        disableFocusTrap="false"
+        enableRemoveScroll="false"
+        restoreFocusOnUnmount="true"
+        open={open}
+      >
+        I am a dialog
+      </Dialog>
+    </>
+  );
+};
+```
+
+<CUIDialogDefault />
+
+### Escape<a name="escape"></a>
+
+> Example of when escape is pressed, it should close dialog if onEscapeKey is
+> provided
+
+```jsx
+import React, { useState } from 'react';
+import { Dialog } from '@ciceksepeti/cui-dialog';
+import '@ciceksepeti/cui-dialog/styles.css';
+
+const Example = () => {
+  const [open, setOpen] = useState(false);
+
+  const onEscapeKey = () => {
+    setOpen(false);
+  };
+  const onClickOutside = () => {
+    setOpen(false);
+  };
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>show 'escape' dialog</button>
+      <Dialog
+        removeScrollBar="false"
+        autoFocusToLast="false"
+        autoFocusToFirst="false"
+        disableFocusTrap="false"
+        enableRemoveScroll="false"
+        restoreFocusOnUnmount="true"
+        open={open}
+        onEscapeKey={onEscapeKey}
+        onClickOutside={onClickOutside}
+      >
+        <p>I am a dialog</p>
+      </Dialog>
+    </>
+  );
+};
+```
+
+<CUIDialogEscape />
+
+### Trapped
+
+> Example of rendering Focus Trapped Dialog component and large height to
+> demonstrate scroll behavior when Dialog is open
+
+```jsx
+import React, { useState } from 'react';
+import { Dialog } from '@ciceksepeti/cui-dialog';
+import '@ciceksepeti/cui-dialog/styles.css';
+
+const Example = () => {
+  const [open, setOpen] = useState(false);
+
+  const dialogStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  return (
+    <div>
+      <button>unfocusable button1</button>
+      <button onClick={() => setOpen(true)}>show dialog</button>
+      <Dialog
+        removeScrollBar="true"
+        autoFocusToLast="false"
+        autoFocusToFirst="true"
+        disableFocusTrap="false"
+        enableRemoveScroll="true"
+        restoreFocusOnUnmount="true"
+        style={dialogStyles}
+        open={open}
+      >
+        <p>focusing with tab should not leave the dialog!</p>
+        <button>should be auto focused</button>
+        <button>second button</button>
+        <button onClick={() => setOpen(false)}>close button</button>
+      </Dialog>
+    </div>
+  );
+};
+```
+
+<CUIDialogTrapped />
+
+## Props
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Dialog Props {#Dialog-Props}
+
+<AccordionItem title={'Dialog-Props'}>
+
+  <PropTable tableData={dialog.dialogProps} />
+</AccordionItem >
+
+### Dialog Events {#Dialog-Events}
+
+<AccordionItem title={"Dialog-Events"}>
+
+  <EventTable tableData={dialog.dialogEvents} />
+</AccordionItem >
+
+### Dialog Accessibility {#Dialog-Accessibility}
+
+<AccordionItem title={'Dialog-Accessibility'}>
+
+  <AdmonitionContainer type="info">
+    <span style={{ fontWeight: '600' }}>Aria-label</span> and{' '}
+    <span style={{ fontWeight: '600' }}>aria-labelledby</span> are not
+    obligatory accessibility tags. It gives an error in course of development,
+    not during production. To use correctly, Accessibility tags should be
+    provided to describe the content of the dialog.{' '}
+    <a
+      href="https://www.w3.org/TR/wai-aria-practices-1.1/examples/dialog-modal/dialog.html"
+      target="_blank"
+    >
+      Wia-Aria
+    </a>
+  </AdmonitionContainer>
+  <AccessibilityTable tableData={dialog.dialogAccessibility} />
+</AccordionItem >
+
+</Accordion>
+
+## Playground
+
+<Playground urls={dialog.sandboxUrls} />
+
+## Styling
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Element Selectors {#Element-Selectors}
+
+<AccordionItem title={'Element-Selectors'}>
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={dialog.dialogStylingTable} />
+</AccordionItem >
+
+### Default Selector Values {#Default-Selector-Values}
+
+<AccordionItem title={'Default-Selector-Values'} >
+
+```css
+[data-cui-dialog-overlay] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+[data-cui-dialog-content] {
+  width: 50vw;
+  padding: 1rem;
+  margin: 10vh auto;
+  background-color: white;
+}
+```
+
+</AccordionItem >
+
+</Accordion>

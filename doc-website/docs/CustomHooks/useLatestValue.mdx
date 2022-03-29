@@ -1,0 +1,59 @@
+---
+sidebar_position: 7
+---
+
+import LatestValue from '/src/CUIComponents/Hooks/LatestValue/LatestValue.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+
+# useLatestValue
+
+## Importing useLatestValue Hook
+
+```jsx
+import { useLatestValue } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+```jsx
+import React, { useRef, useState } from 'react';
+import { useLatestValue } from '@ciceksepeti/cui-hooks';
+
+const LatestValue = () => {
+  const [text, setText] = useState('This text will change');
+
+  const ref = useRef(null);
+  const latest = useLatestValue(ref);
+
+  const onChangeHandler = () => {
+    const { value } = latest.current.current;
+    setText(value);
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        ref={ref}
+        onChange={onChangeHandler}
+        placeholder="Please type here..."
+      />
+      <p>{text}</p>
+    </div>
+  );
+};
+
+export default LatestValue;
+```
+
+## Preview & Test
+
+<PreviewContainer title={'useLatestValue'} contentType={'PREVIEW & TEST AREA'}>
+
+- Stores latest value with ref
+
+- Useful to get access to the latest value of some props or state inside an async callback, instead of at the time the callback was created.
+
+<LatestValue />
+
+</PreviewContainer>

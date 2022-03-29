@@ -1,0 +1,83 @@
+{
+  "name": "Skip Nav",
+  "description": "A \"skip navigation\" link is a technique for facilitating similarly efficient access for users with certain disabilities. Skips until to targetId.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-skip-nav",
+    "version": "1.0.0",
+    "importName": "SkipNav",
+    "hasDefaultStyle": true
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/TR/WCAG21/#bypass-blocks"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/skip-nav"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-skip-nav"
+    },
+    "sass": {
+      "title": "Style",
+      "subtitle": "Sass",
+      "logo": "https://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/blob/develop/packages/skip-nav/styles.css"
+    }
+  },
+  "skipNavProps": {
+    "targetId": {
+      "title": "targetId",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Target id of the element to skip to",
+      "required": true
+    },
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of portal component which renders to DOM",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.Node" },
+      "defaultValue": "",
+      "description": "Element which is going to be rendered inside the Skip Nav component",
+      "required": true
+    }
+  },
+  "skipNavStylingTable": {
+    "data-cui-skip-nav": {
+      "title": "[data-cui-skip-nav]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-skip-nav-not-focus-within": {
+      "title": "[data-cui-skip-nav]:not(:focus-within)",
+      "type": { "name": "Element and Pseudo Selectors" }
+    },
+    "data-cui-skip-nav-not-focus": {
+      "title": "[data-cui-skip-nav]:not(:focus)",
+      "type": { "name": "Element and Pseudo Selectors" }
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/funny-kate-65pb2?fontsize=14&hidenavigation=1&theme=dark",
+    "stackblitz": "https://stackblitz.com/edit/react-ts-de8t83?embed=1&file=Example.tsx&theme=dark"
+  },
+  "skipnavStylingTable": {
+    "data-cui-skip-nav": {
+      "title": "[data-cui-skip-nav]",
+      "type": { "name": "Element Selector" }
+    }
+  }
+}

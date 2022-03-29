@@ -1,0 +1,460 @@
+---
+sidebar_position: 6
+---
+
+import listbox from '/src/data/listbox.json';
+
+import AccessibilityTable from '/src/CUIComponents/AccessibilityTable/AccessibilityTable.tsx';
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import {
+  TabsItem,
+  TabPanel,
+} from '/src/CUIComponents/Containers/TabsItem/TabsItem.tsx';
+
+import CUIListboxCompoundControlled from '/src/CUIComponents/Listbox/CUIListboxCompoundControlled.tsx';
+import CUIListboxCompoundUncontrolled from '/src/CUIComponents/Listbox/CUIListboxCompoundUncontrolled.tsx';
+import CUIListboxDefaultControlled from '/src/CUIComponents/Listbox/CUIListboxDefaultControlled.tsx';
+import CUIListboxDefaultUncontrolled from '/src/CUIComponents/Listbox/CUIListboxDefaultUncontrolled.tsx';
+import CUIListboxPrefix from '/src/CUIComponents/Listbox/CUIListboxPrefix.tsx';
+import CUIListboxSearch from '/src/CUIComponents/Listbox/CUIListboxSearch.tsx';
+
+# Listbox
+
+<HeaderTableContainer data={listbox} />
+
+## Content
+
+<InfoContainer>
+  Renders list of elements. Listbox is a polymorphic component. That's why can
+  be rendered as any valid HTML tag
+</InfoContainer>
+
+## Examples
+
+### Default
+
+<TabsItem title={['Controlled','Uncontrolled']}>
+
+<TabPanel>
+
+> Example of the default behavior of Listbox component that controlled. Renders as 'button' by default.
+
+<AdmonitionContainer>
+  Listbox component must use with `onChange` and `value` props together to work
+  properly as controlled.
+</AdmonitionContainer>
+
+```jsx
+import React, { useState } from 'react';
+import { Listbox, ListboxItem } from '@ciceksepeti/cui-listbox';
+import '@ciceksepeti/cui-listbox/styles.css';
+
+export function CUIListboxDefaultControlled() {
+  let [value, setValue] = useState('apple');
+
+  return (
+    <>
+      <Listbox
+        value={value}
+        onChange={(value) => setValue(value)}
+        aria-labelledby="listbox1"
+      >
+        <ListboxItem value="apple">apple</ListboxItem>
+        <ListboxItem value="orange">orange</ListboxItem>
+        <ListboxItem value="cherry">cherry</ListboxItem>
+        <ListboxItem value="banana">banana</ListboxItem>
+      </Listbox>
+      <p>Current State: {value}</p>
+    </>
+  );
+}
+```
+
+<CUIListboxDefaultControlled />
+
+</TabPanel>
+
+<TabPanel>
+
+> Example of the default behavior of Listbox component that uncontrolled. Renders as 'button' by default.
+
+<AdmonitionContainer>
+  If you want to use the Listbox component as uncontrolled, should be used
+  ListboxInput component has ref to catch the selected value of the Listbox.
+</AdmonitionContainer>
+
+```jsx
+import React, { useRef } from 'react';
+import { Listbox, ListboxItem, ListboxInput } from '@ciceksepeti/cui-listbox';
+import '@ciceksepeti/cui-listbox/styles.css';
+
+export function CUIListboxDefaultUncontrolled() {
+  const inputRef = useRef(null);
+
+  return (
+      <Listbox aria-labelledby="listbox 10">
+        <ListboxInput ref={inputRef} />
+        <ListboxItem value="apple">apple</ListboxItem>
+        <ListboxItem value="orange">orange</ListboxItem>
+        <ListboxItem value="cherry">cherry</ListboxItem>
+        <ListboxItem value="banana">banana</ListboxItem>
+      </Listbox>
+      <button
+        onClick={() => alert(inputRef.current?.value)}
+        style={{ marginLeft: '1rem' }}
+      >
+        Submit
+      </button>
+  );
+}
+
+```
+
+<CUIListboxDefaultUncontrolled />
+
+</TabPanel>
+
+</TabsItem>
+
+### Prefix
+
+> Example of a Listbox component with prefix. Renders as 'button' by default.
+
+```jsx
+import React from 'react';
+import { Listbox, ListboxItem } from '@ciceksepeti/cui-listbox';
+import '@ciceksepeti/cui-listbox/styles.css';
+
+export function Example() {
+  return (
+    <Listbox
+      name="listbox1"
+      prefix={<span style={{ marginRight: 5 }}>#</span>}
+      style={{
+        width: 200,
+      }}
+      as="button"
+      aria-labelledby="listbox2"
+    >
+      <ListboxItem value="item1">item 1</ListboxItem>
+      <ListboxItem value="item2">item 2</ListboxItem>
+      <ListboxItem value="item3">item 3</ListboxItem>
+      <ListboxItem value="item4">item 4</ListboxItem>
+    </Listbox>
+  );
+}
+```
+
+<CUIListboxPrefix />
+
+### Search
+
+> Example of a searchable Listbox component. Renders as 'button' by default.
+
+```jsx
+import React, { useState } from 'react';
+import { Listbox, ListboxItem } from '@ciceksepeti/cui-listbox';
+import '@ciceksepeti/cui-listbox/styles.css';
+
+export function Example() {
+  return (
+    <Listbox
+      as="button"
+      aria-labelledby="listbox3"
+      name="listbox3"
+      style={{
+        width: 200,
+      }}
+    >
+      <input
+        onChange={(e) => {
+          setSearch(e.target.value);
+        }}
+        placeholder="Search"
+        style={{
+          margin: '10px 0 10px 10px',
+        }}
+        type="text"
+        value={search}
+      />
+      {items
+        .filter(({ label }) => label.includes(search))
+        .map(({ value, label }) => (
+          <ListboxItem key={value} value={value}>
+            {label}
+          </ListboxItem>
+        ))}
+    </Listbox>
+  );
+}
+```
+
+<CUIListboxSearch />
+
+### Compound
+
+> `Listbox` is a compound component. CactusUI provides `ListboxButton`, `ListboxInput` and `ListboxPopover` to user create own Listbox. Props and their required and default values of these subcomponents are described props section of the page.
+
+<TabsItem title={['Controlled','Uncontrolled']}>
+
+<TabPanel>
+
+```jsx
+import React, { useState } from 'react';
+import {
+  ListboxButton,
+  ListboxPopover,
+  ListboxInput,
+  ListboxItem,
+} from '@ciceksepeti/cui-listbox';
+import '@ciceksepeti/cui-listbox/styles.css';
+
+export function CUIListboxCompoundControlled() {
+  const [value, setValue] = useState('orange');
+  return (
+    <>
+      <ListboxButton
+        aria-labelledby="listbox4"
+        value={value}
+        onChange={(value) => setValue(value)}
+      >
+        <ListboxPopover>
+          <ListboxItem value="apple">apple</ListboxItem>
+          <ListboxItem value="orange">orange</ListboxItem>
+          <ListboxItem value="cherry">cherry</ListboxItem>
+          <ListboxItem value="banana">banana</ListboxItem>
+        </ListboxPopover>
+      </ListboxButton>
+      <span style={{ marginLeft: '1rem' }}>Current State : {value}</span>
+    </>
+  );
+}
+```
+
+<CUIListboxCompoundControlled />
+
+</TabPanel>
+
+<TabPanel>
+
+```jsx
+import React, { useRef } from 'react';
+import {
+  ListboxButton,
+  ListboxPopover,
+  ListboxItem,
+  ListboxInput,
+} from '@ciceksepeti/cui-listbox';
+import '@ciceksepeti/cui-listbox/styles.css';
+
+export function CUIListboxCompoundUncontrolled() {
+  const inputRef = useRef(null);
+  return (
+    <>
+      <ListboxButton aria-labelledby="listbox4" defaultValue="banana">
+        <ListboxInput ref={inputRef} />
+        <ListboxPopover>
+          <ListboxItem value="apple">apple</ListboxItem>
+          <ListboxItem value="orange">orange</ListboxItem>
+          <ListboxItem value="cherry">cherry</ListboxItem>
+          <ListboxItem value="banana">banana</ListboxItem>
+        </ListboxPopover>
+      </ListboxButton>
+      <button
+        onClick={() => alert(inputRef.current?.value)}
+        style={{ marginLeft: '1rem' }}
+      >
+        Submit
+      </button>
+  );
+  </>
+}
+
+```
+
+<CUIListboxCompoundUncontrolled />
+
+</TabPanel>
+
+</TabsItem>
+
+## Props
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Listbox Props {#listbox-props}
+
+<AccordionItem title={'listbox-props'}>
+
+  <PropTable tableData={listbox.listboxProps} />
+</AccordionItem >
+
+### Listbox Events {#listbox-events}
+
+<AccordionItem title={'listbox-events'}>
+
+  <EventTable tableData={listbox.listboxEvents} />
+</AccordionItem >
+
+### Listbox Accessibility {#listbox-Accessibility}
+
+<AccordionItem title={'listbox-Accessibility'}>
+
+  <AdmonitionContainer type="info">
+    <span style={{ fontWeight: '600' }}>Aria-label</span> and{' '}
+    <span style={{ fontWeight: '600' }}>aria-labelledby</span> are not
+    obligatory accessibility tags. It gives an error in course of development,
+    not during production. If label is visible, its id should be passed to
+    aria-labelledby, if it is not description should be passed to aria-label.
+  </AdmonitionContainer>
+  <AccessibilityTable tableData={listbox.listboxAccessibility} />
+</AccordionItem >
+
+### ListboxItem Props {#listbox-item-props}
+
+<AccordionItem title={'ListboxItem-Props'}>
+
+  <PropTable tableData={listbox.listboxItemProps} />
+</AccordionItem >
+
+### ListboxItem Events {#ListboxItem-Events}
+
+<AccordionItem title={'ListboxItem-Events'}>
+
+  <EventTable tableData={listbox.listboxItemEvents} />
+</AccordionItem >
+
+### ListboxButton Props {#ListboxButton-Props}
+
+<AccordionItem title={'ListboxButton-Props'}>
+
+  <PropTable tableData={listbox.listboxButtonProps} />
+</AccordionItem >
+
+### ListboxButton Events {#ListboxButton-Events}
+
+<AccordionItem title={'ListboxButton-Events'}>
+
+  <EventTable tableData={listbox.listboxButtonEvents} />
+</AccordionItem >
+
+### ListboxPopover Props {#ListboxPopover-Props}
+
+<AccordionItem title={'ListboxPopover-Props'}>
+
+  <PropTable tableData={listbox.listboxPopoverProps} />
+</AccordionItem >
+
+</Accordion>
+
+## Playground
+
+<Playground urls={listbox.sandboxUrls} />
+
+## Styling
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Element Selectors {#Element-selectors}
+
+<AccordionItem title={'Element-Selectors'}>
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={listbox.listBoxStylingTable} />
+</AccordionItem >
+
+### Default Selector Values {#Default-Selector-Values}
+
+<AccordionItem title={'Default-Selector-Values'} >
+
+```css
+[data-cui-listbox-popover][hidden] {
+  display: none;
+}
+
+[data-cui-listbox-button] {
+  color: black;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 4px;
+  align-items: center;
+  display: inline-flex;
+  background-color: white;
+  border: 1px solid #eee;
+  justify-content: space-between;
+}
+
+[data-cui-listbox-button][aria-disabled='true'] {
+  opacity: 0.5;
+}
+
+[data-cui-listbox-list] {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+[data-cui-listbox-popover] {
+  margin: 5px 0px;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  background-color: white;
+}
+
+[data-cui-listbox-arrow] {
+  font-size: 12px;
+  color: #6e6e6e;
+  display: inline-block;
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+}
+
+[data-cui-listbox-arrow][data-expanded='false']::before {
+  content: '\276F';
+}
+
+[data-cui-listbox-arrow][data-expanded='true']::before {
+  content: '\276E';
+}
+
+[data-cui-listbox-item] {
+  cursor: pointer;
+  padding: 5px 10px;
+  text-align: start;
+}
+
+[data-cui-listbox-item][aria-disabled='true'] {
+  opacity: 0.5;
+}
+
+[data-cui-listbox-item][aria-selected='true'] {
+  background-color: steelblue;
+}
+
+[data-cui-listbox-item][data-active='true'] {
+  font-weight: bold;
+}
+```
+
+</AccordionItem >
+
+</Accordion>

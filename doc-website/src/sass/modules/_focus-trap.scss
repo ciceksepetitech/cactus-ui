@@ -1,0 +1,6 @@
+.focus-trap {
+  button:focus,
+  button:focus-visible {
+    outline: blue auto 1px;
+  }
+}

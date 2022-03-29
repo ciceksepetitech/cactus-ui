@@ -1,0 +1,194 @@
+{
+  "name": "Radio Group",
+  "description": "Radio group allow users to select a single option from a set. Once a radio group is established, selecting any radio button in that group automatically deselects any currently-selected radio button in the same group",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-radio-group",
+    "version": "1.0.0",
+    "importName": "RadioGroup, Radio",
+    "hasDefaultStyle": true
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/TR/wai-aria-practices-1.2/#wai-aria-roles-states-and-properties-16"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/radio-group"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-radio-group"
+    },
+    "sass": {
+      "title": "Style",
+      "subtitle": "Sass",
+      "logo": "https://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/blob/develop/packages/radio-group/styles.css"
+    }
+  },
+  "radioGroupProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of visually hidden component which renders to DOM",
+      "required": false
+    },
+    "name": {
+      "title": "name",
+      "type": { "name": "string", "detail": null },
+      "defaultValue": "-",
+      "description": "Name of input element",
+      "required": false
+    },
+    "orientation": {
+      "title": "orientation",
+      "type": { "name": "string", "detail": "horizontal | vertical " },
+      "defaultValue": "horizontal",
+      "description": "Orientation of radios.",
+      "required": false
+    },
+    "defaultValue": {
+      "title": "defaultValue",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "defaultValue of input element",
+      "required": false
+    },
+    "value": {
+      "title": "value",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Value of input element",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "",
+      "description": "The content you want to be visually hidden..",
+      "required": true
+    }
+  },
+  "radioGroupEvents": {
+    "onChange": {
+      "title": "onChange",
+      "type": { "name": "(value: string, id?: string, name?: string) => void" },
+      "description": "Gets called when the user selects a radio button.",
+      "required": false
+    }
+  },
+  "radioGroupAccessibility": {
+    "aria-label": {
+      "title": "aria-label",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Defines a string value that labels the current element.",
+      "required": false
+    },
+    "aria-labelledby": {
+      "title": "aria-labelledby",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Identifies the element (or elements) that labels the current element.",
+      "required": false
+    }
+  },
+  "radioProps": {
+    "id": {
+      "title": "id",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Unique id of the radio button",
+      "required": true
+    },
+    "name": {
+      "title": "name",
+      "type": { "name": "string", "detail": null },
+      "defaultValue": "-",
+      "description": "Name of radio button",
+      "required": true
+    },
+    "value": {
+      "title": "value",
+      "type": { "name": "string", "detail": null },
+      "defaultValue": "-",
+      "description": "Value of radio button",
+      "required": true
+    },
+    "disabled": {
+      "title": "disabled",
+      "type": { "name": "React.MutableRefObject<HTMLInputElement>" },
+      "defaultValue": "-",
+      "description": "Disables the radio button",
+      "required": false
+    },
+    "ref": {
+      "title": "ref",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "false",
+      "description": "Reference to the radio button",
+      "required": true
+    }
+  },
+  "radioAccessibility": {
+    "aria-label": {
+      "title": "aria-label",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Defines a string value that labels the current element.",
+      "required": false
+    },
+    "aria-labelledby": {
+      "title": "aria-labelledby",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Identifies the element (or elements) that labels the current element.",
+      "required": false
+    }
+  },
+  "radioStylingTable": {
+    "data-cui-radio-group": {
+      "title": "[data-cui-radio-group]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-radio-group-aria-orientation-vertical": {
+      "title": "[data-cui-radio-group][aria-orientation='vertical']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-radio": {
+      "title": "[data-cui-radio]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-radio-data-cui-radio-selected-true": {
+      "title": "[data-cui-radio][data-cui-radio-selected='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-radio-after": {
+      "title": "[data-cui-radio]::after",
+      "type": { "name": "Element and Pseudo Selectors" }
+    },
+    "data-cui-radio-disabled-true": {
+      "title": "[data-cui-radio-disabled='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-radio-keyboard-focus-true": {
+      "title": "[data-cui-radio-disabled='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-radio-input": {
+      "title": "[data-cui-radio-input]",
+      "type": { "name": "Element Selector" }
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/ancient-lake-f5kzkl?fontsize=14&hidenavigation=1&theme=dark"
+  }
+}

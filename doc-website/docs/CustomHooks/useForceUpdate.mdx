@@ -1,0 +1,44 @@
+---
+sidebar_position: 8
+---
+
+import ForceUpdate from '/src/CUIComponents/Hooks/ForceUpdate/ForceUpdate.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+
+# useForceUpdate
+
+## Importing useForceUpdate Hook
+
+```jsx
+import { useForceUpdate } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+```jsx
+import React, { useRef } from 'react';
+import { useForceUpdate } from '@ciceksepeti/cui-hooks';
+
+export const Example = () => {
+  const ref = useRef({ count: 0 });
+  const forceUpdate = useForceUpdate();
+
+  return (
+    <div>
+      <p>Count: {ref.current.count}</p>
+      <button onClick={() => ref.current.count++}>increment</button>
+      <button onClick={() => forceUpdate()}>force update</button>
+    </div>
+  );
+};
+```
+
+## Preview & Test
+
+<PreviewContainer title={'useForceUpdate'} contentType={'PREVIEW & TEST AREA'}>
+
+- Increment or Decrement buttons will not update the referenced count number unless user use Force Update button.
+
+<ForceUpdate />
+
+</PreviewContainer>

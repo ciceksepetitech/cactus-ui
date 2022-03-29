@@ -1,0 +1,314 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+:root {
+  /* Colors */
+
+  --ifm-color-primary: #{$c-l-primary};
+  --ifm-color-primary-dark: #{$c-l-primary-dark};
+  --ifm-color-primary-darker: #{$c-l-primary-darker};
+  --ifm-color-primary-darkest: #{$c-l-primary-darkest};
+  --ifm-color-primary-light: #{$c-l-primary-light};
+  --ifm-color-primary-lighter: #{$c-l-primary-lighter};
+  --ifm-color-primary-lightest: #{$c-l-primary-lightest};
+  --cui-color-celery-400: #44b556;
+  --cui-color-celery-500: #3da74e;
+  --cui-color-celery-600: #379947;
+  --cui-color-celery-700: #318b40;
+  --cui-color-chartreuse-400: #85d044;
+  --cui-color-chartreuse-500: #7cc33f;
+  --cui-color-chartreuse-600: #73b53a;
+  --cui-color-chartreuse-700: #6aa834;
+  --cui-color-yellow-400: #dfbf00;
+  --cui-color-yellow-500: #d2b200;
+  --cui-color-yellow-600: #c4a600;
+  --cui-color-yellow-700: #b79900;
+  --cui-color-magenta-400: #d83790;
+  --cui-color-magenta-500: #ce2783;
+  --cui-color-magenta-600: #bc1c74;
+  --cui-color-magenta-700: #ae0e66;
+  --cui-color-fuchsia-400: #c038cc;
+  --cui-color-fuchsia-500: #b130bd;
+  --cui-color-fuchsia-600: #a228ad;
+  --cui-color-fuchsia-700: #93219e;
+  --cui-color-purple-400: #9256d9;
+  --cui-color-purple-500: #864ccc;
+  --cui-color-purple-600: #7a42bf;
+  --cui-color-purple-700: #6f38b1;
+  --cui-color-indigo-400: #6767ec;
+  --cui-color-indigo-500: #5c5ce0;
+  --cui-color-indigo-600: #5151d3;
+  --cui-color-indigo-700: #4646c6;
+  --cui-color-seafoam-400: #1b959a;
+  --cui-color-seafoam-500: #16878c;
+  --cui-color-seafoam-600: #0f797d;
+  --cui-color-seafoam-700: #096c6f;
+  --cui-color-red-400: #e34850;
+  --cui-color-red-500: #d7373f;
+  --cui-color-red-600: #c9252d;
+  --cui-color-red-700: #bb121a;
+  --cui-color-red-800: #faebeb;
+  --cui-color-orange-400: #e68619;
+  --cui-color-orange-500: #da7b11;
+  --cui-color-orange-600: #cb6f10;
+  --cui-color-orange-700: #bd640d;
+  --cui-color-green-400: #2d9d78;
+  --cui-color-green-500: #268e6c;
+  --cui-color-green-600: #12805c;
+  --cui-color-green-700: #107154;
+  --cui-color-green-800: #2d4b37;
+  --cui-color-blue-400: #2680eb;
+  --cui-color-blue-500: #1473e6;
+  --cui-color-blue-600: #0d66d0;
+  --cui-color-blue-700: #095aba;
+  --cui-color-gray-50: #fff;
+  --cui-color-gray-51: #080808; // Please do not change cui-color-gray-51 to lighter color code. It provides contrastable text color to popover component
+  --cui-color-gray-75: #fafafa;
+  --cui-color-gray-100: #f5f5f5;
+  --cui-color-gray-200: #eaeaea;
+  --cui-color-gray-300: #e1e1e1;
+  --cui-color-gray-400: #cacaca;
+  --cui-color-gray-500: #b3b3b3;
+  --cui-color-gray-600: #8e8e8e;
+  --cui-color-gray-700: #6e6e6e;
+  --cui-color-gray-800: #4b4b4b;
+  --cui-color-gray-900: #2c2c2c;
+  --cui-color-blue-green-1: #cce5ff;
+  --cui-color-blue-green-2: #004085;
+
+  /* Fonts */
+  --ifm-font-family-monospace: #{$f-secondary};
+  --ifm-code-font-size: #{$l-code-font-size};
+
+  /* Layouts */
+  --doc-sidebar-width: 240px !important;
+  --ifm-table-border-width: 0px !important;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+html[data-theme='dark'] {
+  /* Colors */
+  --ifm-color-primary: #{$c-d-primary};
+  --ifm-color-primary-dark: #{$c-d-primary-dark};
+  --ifm-color-primary-darker: #{$c-d-primary-darker};
+  --ifm-color-primary-darkest: #{$c-d-primary-darkest};
+  --ifm-color-primary-light: #{$c-d-primary-light};
+  --ifm-color-primary-lighter: #{$c-d-primary-lighter};
+  --ifm-color-primary-lightest: #{$c-d-primary-lightest};
+  --ifm-color-gray-100: var(--cui-color-gray-900);
+  --cui-color-celery-400: #3da74e;
+  --cui-color-celery-500: #44b556;
+  --cui-color-celery-600: #4bc35f;
+  --cui-color-celery-700: #51d267;
+  --cui-color-chartreuse-400: #7cc33f;
+  --cui-color-chartreuse-500: #85d044;
+  --cui-color-chartreuse-600: #8ede49;
+  --cui-color-chartreuse-700: #9bec54;
+  --cui-color-yellow-400: #d2b200;
+  --cui-color-yellow-500: #dfbf00;
+  --cui-color-yellow-600: #edcc00;
+  --cui-color-yellow-700: #fad900;
+  --cui-color-magenta-400: #ca2996;
+  --cui-color-magenta-500: #d83790;
+  --cui-color-magenta-600: #e2499d;
+  --cui-color-magenta-700: #ec5aaa;
+  --cui-color-fuchsia-400: #b130bd;
+  --cui-color-fuchsia-500: #c038cc;
+  --cui-color-fuchsia-600: #cf3edc;
+  --cui-color-fuchsia-700: #d951e5;
+  --cui-color-purple-400: #864ccc;
+  --cui-color-purple-500: #9256d9;
+  --cui-color-purple-600: #9d64e1;
+  --cui-color-purple-700: #a873df;
+  --cui-color-indigo-400: #5c5ce0;
+  --cui-color-indigo-500: #6767ec;
+  --cui-color-indigo-600: #7575f1;
+  --cui-color-indigo-700: #8282f6;
+  --cui-color-seafoam-400: #16878c;
+  --cui-color-seafoam-500: #1b959a;
+  --cui-color-seafoam-600: #20a3a8;
+  --cui-color-seafoam-700: #23b2b8;
+  --cui-color-red-400: #d7373f;
+  --cui-color-red-500: #e34850;
+  --cui-color-red-600: #ec5b62;
+  --cui-color-red-700: #f76d74;
+  --cui-color-red-800: #2c1d1d;
+  --cui-color-orange-400: #da7b11;
+  --cui-color-orange-500: #e68619;
+  --cui-color-orange-600: #f29423;
+  --cui-color-orange-700: #f9a43f;
+  --cui-color-green-400: #268e6c;
+  --cui-color-green-500: #2d9d78;
+  --cui-color-green-600: #33ab84;
+  --cui-color-green-700: #39b990;
+  --cui-color-green-800: #88ada5;
+  --cui-color-blue-400: #1473e6;
+  --cui-color-blue-500: #2680eb;
+  --cui-color-blue-600: #378ef0;
+  --cui-color-blue-700: #4b9cf5;
+  --cui-color-gray-50: #080808;
+  --cui-color-gray-51: #080808;
+  --cui-color-gray-75: #1a1a1a;
+  --cui-color-gray-100: #1e1e1e;
+  --cui-color-gray-200: #2c2c2c;
+  --cui-color-gray-300: #393939;
+  --cui-color-gray-400: #494949;
+  --cui-color-gray-500: #5c5c5c;
+  --cui-color-gray-600: #7c7c7c;
+  --cui-color-gray-700: #a2a2a2;
+  --cui-color-gray-800: #c8c8c8;
+  --cui-color-gray-900: #efefef;
+  --cui-color-blue-green-1: #096c6f;
+  --cui-color-blue-green-2: #a7f73f;
+}
+
+/* Global styles */
+
+html {
+  margin: 0;
+  font-family: $f-primary;
+  font-size: 16px;
+}
+
+main {
+  position: relative;
+
+  .container {
+    display: flex;
+    position: relative;
+
+    .row {
+      justify-content: space-between;
+      width: 100%;
+      margin: 0;
+
+      @include display-size('lg') {
+        margin-left: 2rem;
+      }
+    }
+  }
+}
+
+header {
+  position: unset !important;
+
+  &>.header__container {
+    margin: 0 auto;
+  }
+}
+
+h1 {
+  --ifm-h1-font-size: 2.9rem !important;
+
+  @include display-size('md') {
+    --ifm-h1-font-size: 3.2rem !important;
+  }
+}
+
+h2 {
+  --ifm-h2-font-size: 1.5rem !important;
+  line-height: 2.5rem;
+  border-bottom: 2px solid var(--ifm-color-content-secondary);
+  margin: 5rem 0 2rem 0 !important;
+
+  @include display-size('md') {
+    --ifm-h1-font-size: 1.8rem !important;
+  }
+}
+
+h3 {
+  --ifm-h3-font-size: 1.1rem !important;
+  line-height: 2.5rem;
+  margin: 1rem 0 !important;
+
+  @include display-size('md') {
+    --ifm-h1-font-size: 1.3rem !important;
+  }
+}
+
+p {
+  margin: 0 0 12px;
+}
+
+pre {
+  max-height: 350px;
+}
+
+button {
+  padding: 0.5rem;
+  background: var(--cui-color-gray-200);
+  border: 1px solid var(--cui-color-gray-600);
+  border-radius: 4px;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: var(--cui-color-gray-400);
+    color: var(--cui-color-emphasis-800);
+  }
+}
+
+.col {
+  padding-left: 1.8rem !important;
+}
+
+.row>.col--3 {
+  --ifm-col-width: calc(2 / 10 * 100%) !important;
+}
+
+.table-of-contents {
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+
+  @include display-size('lg') {
+    position: fixed;
+    right: 1vw;
+    top: 7rem;
+    max-width: 195px;
+    min-width: 195px;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+
+    .table-of-contents__link {
+      flex: 1;
+      padding-left: 0.5rem;
+      border-radius: 0.5rem;
+      transition: all 0.5s;
+
+      &--active {
+        background: var(--ifm-menu-color-background-active);
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.menu__link--active {
+  font-weight: 600;
+}
+
+.popover {
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.2rem;
+  border-radius: 4px;
+  font-size: 12px;
+  border: 1px solid var(--cui-color-gray-700);
+  background-color: var(--cui-color-gray-400);
+
+  &__context {
+    padding: 2px 2px;
+    font-size: 12px;
+  }
+}

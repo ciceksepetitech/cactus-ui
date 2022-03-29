@@ -1,0 +1,62 @@
+{
+  "name": "Visually Hidden",
+  "description": "Visually Hidden is used when an element needs to be available to assistive technology, but otherwise hidden. The visually hidden component hides text visually from screen, but keeps it available to assistive technologies, such as screen readers. The component shouldn't be used to hide interactive content.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-visually-hidden",
+    "version": "1.0.0",
+    "importName": "VisuallyHidden"
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://design-system.w3.org/styles/how-to-hide-and-show-things.html"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/visually-hidden"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-visually-hidden"
+    }
+  },
+  "visuallyHiddenProps": {
+    "disabled": {
+      "title": "disabled",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "false",
+      "description": "Enables disabling behavior of visually hidden component.",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "",
+      "description": "The content you want to be visually hidden..",
+      "required": true
+    },
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of visually hidden component which renders to DOM",
+      "required": false
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/angry-thompson-h1608?fontsize=14&hidenavigation=1&theme=dark",
+    "stackblitz": "https://stackblitz.com/edit/react-ts-v939cv?embed=1&file=Example.tsx&theme=dark"
+  },
+  "visuallyhiddenStylingTable": {
+    "data-cui-visually-hidden": {
+      "title": "[data-cui-visually-hidden]",
+      "type": { "name": "Element Selector" }
+    }
+  }
+}

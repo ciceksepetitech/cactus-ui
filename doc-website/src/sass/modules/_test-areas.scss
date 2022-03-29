@@ -1,0 +1,18 @@
+.useclick__outside {
+  border: 1px solid var(--cui-color-red-400);
+  padding: 50px;
+  text-align: center;
+
+  &--filter {
+    filter: blur(1px);
+  }
+}
+
+.useclick__inside {
+  border: 1px solid var(--cui-color-blue-400);
+  padding: 30px;
+}
+
+.useFindTabbable {
+  border: 1px solid $c-l-primary;
+}

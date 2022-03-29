@@ -1,0 +1,231 @@
+---
+sidebar_position: 3
+---
+
+import checkbox from '/src/data/checkbox.json';
+
+import {
+  Accordion,
+  AccordionItem,
+} from '/src/CUIComponents/Containers/AccordionItem/AccordionItem.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import EventTable from '/src/CUIComponents/EventTable/EventTable.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import {
+  TabsItem,
+  TabPanel,
+} from '/src/CUIComponents/Containers/TabsItem/TabsItem.tsx';
+
+import CUICheckboxDefault from '/src/CUIComponents/Checkbox/CUICheckboxDefault.tsx';
+
+# Checkbox
+
+<HeaderTableContainer data={checkbox} />
+
+## Content
+
+<InfoContainer>
+  Tri-state checkbox components allow a user to input true/false/indeterminate
+  states.
+</InfoContainer>
+
+## Examples
+
+> Example of a default behavior of **'Checkbox'** component.
+
+### Default
+
+```jsx
+import React, { useState } from 'react';
+import { Checkbox } from '@ciceksepeti/cui-checkbox';
+import '@ciceksepeti/cui-checkbox/styles.css';
+
+const Example = () => {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Checkbox
+        id="rose"
+        name="rose"
+        value="rose"
+        disabled={false}
+        checked={checked}
+        indeterminate={false}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setChecked(event.target.checked)
+        }
+      />
+      <label htmlFor="rose">rose</label>
+    </div>
+  );
+};
+```
+
+<PreviewContainer title={'Checkbox'}>
+  <CUICheckboxDefault disabled={false} indeterminate={false} />
+</PreviewContainer>
+
+## Checkbox Types
+
+<TabsItem title={['Active','Disabled','Indeterminate']}>
+ 
+ <TabPanel>
+  <PreviewContainer title={'Checkbox'}>
+    <CUICheckboxDefault
+      disabled={false}
+      indeterminate={false}
+      name="active"
+      value="Roses are red"
+      id="active"
+    />
+  </PreviewContainer>
+ </TabPanel>
+
+<TabPanel>
+  <PreviewContainer title={'Checkbox'}>
+    <CUICheckboxDefault
+      disabled={true}
+      indeterminate={false}
+      name="disabled"
+      value="Vilotes are blue"
+      id="disabled"
+    />
+  </PreviewContainer>
+</TabPanel>
+
+<TabPanel>
+  <PreviewContainer title={'Checkbox'}>
+    <CUICheckboxDefault
+      disabled={false}
+      indeterminate={true}
+      name="indeterminate"
+      value="Science rejects the indeterminate."
+      id="indeterminate"
+    />
+  </PreviewContainer>
+</TabPanel>
+
+</TabsItem>
+
+## Props
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Checkbox Props {#Checkbox-Props}
+
+<AccordionItem title={'Checkbox-Props'}>
+
+  <PropTable tableData={checkbox.checkboxProps} />
+</AccordionItem >
+
+### Checkbox Keyboard Actions {#Checkbox-Keyboard-Actions}
+
+<AccordionItem title={'Checkbox-Keyboard-Actions'}>
+
+  <EventTable tableData={checkbox.checkBoxKeyboardAction} />
+</AccordionItem >
+
+</Accordion>
+
+## Playground
+
+<Playground urls={checkbox.sandboxUrls} />
+
+## Styling
+
+<Accordion className="accordion" defaultIndexes={[0]} single={false}>
+
+### Element Selectors {#Element-Selectors}
+
+<AccordionItem title={'Element-Selectors'}>
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={checkbox.checkBoxStylingTable} />
+</AccordionItem >
+
+### Default Selectors Values {#Default-Selector-Values}
+
+<AccordionItem title={'Default-Selector-Values'}>
+
+```css
+[data-cui-checkbox] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin-right: 5px;
+  position: relative;
+  border-radius: 3px;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 2px solid #52ad36;
+}
+
+[data-cui-checkbox-disabled='true'] {
+  opacity: 0.5;
+}
+
+[data-cui-checkbox-keyboard-focus='true'] {
+  box-shadow: 0 0 1px 3px cornflowerblue;
+  outline: #52ad36 auto 2px;
+}
+
+[data-cui-checkbox-status='true'],
+[data-cui-checkbox-status='mixed'] {
+  background: #52ad36;
+}
+
+[data-cui-checkbox-status='true']::before {
+  top: 50%;
+  left: 50%;
+  content: '';
+  position: absolute;
+  border: solid #fff;
+  display: inline-block;
+  width: calc(45% - 2px);
+  height: calc(90% - 3px);
+  border-width: 0 2px 2px 0;
+  transform: translateY(-65%) translateX(-50%) rotate(45deg);
+}
+
+[data-cui-checkbox-status='mixed']::after {
+  top: 40%;
+  left: 28%;
+  width: 50%;
+  height: 15%;
+  content: '';
+  position: absolute;
+  display: inline-block;
+  background-color: #fff;
+}
+
+[data-cui-checkbox-input] {
+  top: 0;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  position: absolute;
+}
+```
+
+</AccordionItem >
+
+</Accordion>

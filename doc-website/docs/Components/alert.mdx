@@ -1,0 +1,129 @@
+---
+sidebar_position: 1
+---
+
+import alert from '/src/data/alert.json';
+
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUIAlertDefault from '/src/CUIComponents/Alert/CUIAlertDefault.tsx';
+import CUIAlertManual from '/src/CUIComponents/Alert/CUIAlertManual.tsx';
+import CUIAlertAsync from '/src/CUIComponents/Alert/CUIAlertAsync.tsx';
+import { args } from '/src/CUIComponents/Alert/args.ts';
+
+# Alert
+
+<HeaderTableContainer data={alert} />
+
+## Content
+
+<InfoContainer>
+  Alert component displays an important/unimportant message to get the user's
+  attention without interrupting the user. It is mainly focused on web
+  accessibility. Thus, with aria-live and role attributes, we try to ensure that
+  many assistive technologies announce the message to users according to the
+  notification level specified by the developer.
+</InfoContainer>
+
+## Examples
+
+> Example of a default behavior of AlertDialog component. Renders as **'div'** by default.
+
+### Default
+
+```jsx
+import { Alert } from '@ciceksepeti/cui-alert';
+
+const Example = () => {
+  return <Alert>I am an alert</Alert>;
+};
+```
+
+<CUIAlertDefault args={args} />
+
+### Manually Rendered
+
+```jsx
+import { useState } from 'react';
+import { Alert } from '@ciceksepeti/cui-alert';
+
+const Example = () => {
+  const [count, setCount] = useState(0);
+  return (
+    <section aria-label="alert component manually mounted">
+      <button onClick={() => setCount(count + 1)}>Add Alert</button>
+      {count > 0 && <Alert>{`I am an alert! (${count})`}</Alert>}
+    </section>
+  );
+};
+```
+
+<CUIAlertManual args={args} />
+
+### Async
+
+```jsx
+import { useState } from 'react';
+import { Alert } from '@ciceksepeti/cui-alert';
+
+const Example = () => {
+  const [alerts, setAlerts] = useState([]);
+  const onAddAlert = () => {
+    setTimeout(() => {
+      setAlerts((oldAlerts) => {
+        const updatedAlerts = [
+          ...oldAlerts,
+          `I am an alert (${oldAlerts.length + 1})`,
+        ];
+        return updatedAlerts;
+      });
+    }, 100);
+  };
+  const onRemoveAlert = () => {
+    setAlerts((oldAlerts) => {
+      const [, ...rest] = oldAlerts;
+      return rest;
+    });
+  };
+  return (
+    <section aria-label="alert component mounted with setTimeout, async">
+      <div>
+        <button onClick={onAddAlert}>Add Alert</button>
+        <button onClick={onRemoveAlert}>Remove Alert</button>
+      </div>
+      {alerts.map((each, index) => (
+        <Alert key={each + index}>{each}</Alert>
+      ))}
+    </section>
+  );
+};
+```
+
+<CUIAlertAsync args={args} />
+
+## Props
+
+<PropTable tableData={alert.alertProps} />
+
+## Playground
+
+<Playground urls={alert.sandboxUrls} />
+
+## Styling
+
+### Element Selector {#Element-Selector}
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={alert.alertStylingTable} />

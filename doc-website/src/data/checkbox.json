@@ -1,0 +1,131 @@
+{
+  "name": "Checkbox",
+  "description": "Checkbox provides users to select either multiple items from a list or to mark one individual item as selected.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-checkbox",
+    "version": "1.0.0",
+    "importName": "Checkbox",
+    "hasDefaultStyle": true
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/TR/wai-aria-practices/#checkbox"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/checkbox"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-checkbox"
+    },
+    "sass": {
+      "title": "Style",
+      "subtitle": "Sass",
+      "logo": "https://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/blob/develop/packages/checkbox/styles.css"
+    }
+  },
+  "checkboxProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of checkbox component which renders to DOM",
+      "required": false
+    },
+    "id": {
+      "title": "id",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "ID of input element",
+      "required": false
+    },
+    "name": {
+      "title": "name",
+      "type": { "name": "string" },
+      "description": "Name of input element",
+      "defaultValue": "-",
+      "required": false
+    },
+    "indeterminate": {
+      "title": "indeterminate",
+      "type": { "name": "boolean" },
+      "description": "Sets the indeterminate state",
+      "defaultValue": "false",
+      "required": false
+    },
+    "disabled": {
+      "title": "disabled",
+      "type": { "name": "boolean" },
+      "description": "Sets the disabled state",
+      "defaultValue": "false",
+      "required": false
+    },
+    "checked": {
+      "title": "checked",
+      "type": { "name": "boolean" },
+      "description": "Sets the check state",
+      "defaultValue": "undefined",
+      "required": false
+    }
+  },
+  "checkBoxKeyboardAction": {
+    "Tab": {
+      "title": "Tab",
+      "type": { "name": "Tab " },
+      "description": "A tab keyboard button switches between checkboxes.",
+      "required": false
+    },
+    "Spacebar": {
+      "title": "Spacebar",
+      "type": { "name": "Spacebar" },
+      "description": "Spacebar keyboard button changes the state of checkbox item as selected or unselected.",
+      "required": false
+    }
+  },
+  "checkBoxStylingTable": {
+    "data-cui-checkbox": {
+      "title": "[data-cui-checkbox]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-checkbox-disabled": {
+      "title": "[data-cui-checkbox-disabled='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-checkbox-keyboard-focus": {
+      "title": "[data-cui-checkbox-keyboard-focus='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-checkbox-status-true": {
+      "title": "[data-cui-checkbox-status='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-checkbox-status-mixed": {
+      "title": "[data-cui-checkbox-status='mixed']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-checkbox-status-true-before": {
+      "title": "[data-cui-checkbox-status='true']::before",
+      "type": { "name": "Element and Pseudo Selectors" }
+    },
+    "data-cui-checkbox-status-mixed-after": {
+      "title": "[data-cui-checkbox-status='mixed']::after",
+      "type": { "name": "Element and Pseudo Selectors" }
+    },
+    "data-cui-checkbox-input": {
+      "title": "[data-cui-checkbox-input]",
+      "type": { "name": "Element Selector" }
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/checkbox-cpgk7?fontsize=14&hidenavigation=1&theme=dark"
+  }
+}

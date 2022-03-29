@@ -1,0 +1,32 @@
+.introduction {
+  display: flex;
+  max-width: 75vw;
+  margin: -1rem auto 1rem auto;
+  padding: 2rem;
+  border-bottom: 1px solid rgba($c-l-primary, 0.2);
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    font-weight: 400;
+    line-height: 35px;
+    text-align: justify;
+  }
+
+  &__logo {
+    display: none;
+
+    @include display-size('lg') {
+      display: flex;
+      justify-content: center;
+      flex-basis: 200px;
+      margin: 0 0 0 25px;
+    }
+
+    & > img {
+      max-width: 100px;
+    }
+  }
+}

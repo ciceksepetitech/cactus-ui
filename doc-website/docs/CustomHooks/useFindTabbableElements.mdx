@@ -1,0 +1,55 @@
+---
+sidebar_position: 13
+---
+
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import FindTabbableElements from '/src/CUIComponents/Hooks/FindTabbableElements/FindTabbableElements.tsx';
+
+# useFindTabbableElements
+
+## Importing useFindTabbableElements Hook
+
+```jsx
+import { useFindTabbableElements } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+```jsx
+import React, { useCallback, useRef, useState } from 'react';
+import { useFindTabbableElements } from '@ciceksepeti/cui-hooks';
+
+export const FindTabbableElements = () => {
+  const ref = useRef(null);
+  const [refNode, setRefNode] = useState();
+  const { tabbableElements } = useFindTabbableElements(refNode);
+
+  const refCallback = useCallback((node) => {
+    ref.current = node;
+    setRefNode(node);
+  }, []);
+
+  return (
+    <div ref={refCallback}>
+      <button>button</button>
+      <button>button</button>
+      <p>text</p>
+      <span>text</span>
+    </div>
+  );
+};
+```
+
+## Preview & Test
+
+<PreviewContainer title={'useFindTabbableElements'} contentType={'PREVIEW & TEST AREA'}>
+
+- Gets tabbable elements inside of passed nodeRef
+- The element is keyboard "tabbable", as it is part of the document's sequential focus navigation order.
+
+- In this example, each tabbable text represents tabbable button elements which can be focused thorugh keyboard tab action.
+- As a result 2/4 elements are tabbable which are buttons.
+
+<FindTabbableElements />
+
+</PreviewContainer>

@@ -1,0 +1,75 @@
+{
+  "name": "Portal",
+  "description": "A first-class way to render child components into a DOM node outside of the parent DOM hierarchy defined by the component tree hierarchy.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-portal",
+    "version": "1.0.0",
+    "importName": "Portal"
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/TR/wai-aria-practices"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/portal"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-portal"
+    }
+  },
+  "portalProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string" },
+      "defaultValue": "div",
+      "description": "Changes html tag of portal component which renders to DOM",
+      "required": false
+    },
+    "containerRef": {
+      "title": "containerRef",
+      "type": { "name": "React.RefObject" },
+      "description": "Reference to a container element",
+      "defaultValue": "-",
+      "required": false
+    },
+    "containerId": {
+      "title": "containerId",
+      "type": { "name": "string" },
+      "description": "Element id of a container element",
+      "defaultValue": "-",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.Node" },
+      "defaultValue": "-",
+      "description": "Element which is going to be rendered inside the portal component",
+      "required": true
+    }
+  },
+  "portalEvents": {
+    "useRef": {
+      "title": "useRef",
+      "type": { "name": "() => {}", "detail": "React.MutableRefObject" },
+      "description": "useRef hook provides the user to create a connection between related HTMLElement and portal component"
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/portal-q2ij8?fontsize=14&hidenavigation=1&theme=dark"
+  },
+  "portalStylingTable": {
+    "data-cui-portal": {
+      "title": "[data-cui-portal]",
+      "type": { "name": "Element Selector" }
+    }
+  }
+}

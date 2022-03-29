@@ -1,0 +1,60 @@
+---
+sidebar_position: 15
+---
+
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import IsomorphicLayoutEffect from '/src/CUIComponents/Hooks/IsomorphicLayoutEffect/IsomorphicLayoutEffect.tsx';
+
+# useIsomorphicLayoutEffect
+
+## Importing useIsomorphicLayoutEffect Hook
+
+```jsx
+import { useIsomorphicLayoutEffect } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+<AdmonitionContainer type='info'>
+
+**useIsomorphicLayoutEffect()** hook interchanges between use **useLayoutEffect()** and **useEffect()** hooks depending on typeof document.
+
+If **typeof document** returns _'undefined'_ **useLayoutEffect()** hook will be called, otherwise **useEffect()** hook will be called.
+
+</AdmonitionContainer>
+
+<AdmonitionContainer type="tip">
+  To learn more about differences please visit React JS useEffect and{' '}
+  <a href="https://reactjs.org/docs/hooks-reference.html#useeffect">
+    useEffect
+  </a>{' '}
+  and{' '}
+  <a href="https://reactjs.org/docs/hooks-reference.html#useeffect">
+    useLayoutEffect
+  </a>{' '}
+  reference pages.
+</AdmonitionContainer>
+
+```jsx
+import React, { useState } from 'react';
+import { useIsomorphicLayoutEffect } from '@ciceksepeti/cui-hooks';
+
+export const IsomorphicLayoutEffect = () => {
+  const [text, setText] = useState('');
+
+  useIsomorphicLayoutEffect(() => {
+    setText('useIsomorphicLayoutEffect Called');
+  }, []);
+
+  return <div>{text}</div>;
+};
+```
+
+## Preview
+
+<PreviewContainer title={'useIsomorphicLayoutEffect'}>
+
+<IsomorphicLayoutEffect />
+
+</PreviewContainer>

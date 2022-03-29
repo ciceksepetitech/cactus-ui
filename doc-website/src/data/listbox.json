@@ -1,0 +1,297 @@
+{
+  "name": "List Box",
+  "description": "Renders list of options in a accessible way.",
+  "instruction": {
+    "packageName": "yarn add @ciceksepeti/cui-listbox",
+    "version": "1.0.0",
+    "importName": "Listbox, ListboxItem ",
+    "hasDefaultStyle": true
+  },
+  "links": {
+    "w3": {
+      "title": "Wai-Aria",
+      "subtitle": "W3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
+      "link": "https://www.w3.org/TR/wai-aria-practices-1.2/#Listbox"
+    },
+    "github": {
+      "title": "Repository",
+      "subtitle": "GitHub",
+      "logo": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/tree/develop/packages/listbox"
+    },
+    "npm": {
+      "title": "Package",
+      "subtitle": "NPM",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/2560px-Npm-logo.svg.png",
+      "link": "https://www.npmjs.com/package/@ciceksepeti/cui-listbox"
+    },
+    "sass": {
+      "title": "Style",
+      "subtitle": "Sass",
+      "logo": "https://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg",
+      "link": "https://github.com/ciceksepetitech/cactus-ui/blob/develop/packages/listbox/styles.css"
+    }
+  },
+  "listboxProps": {
+    "name": {
+      "title": "name",
+      "type": { "name": "string", "detail": null },
+      "defaultValue": "-",
+      "description": "Name of the listbox",
+      "required": false
+    },
+    "portal": {
+      "title": "portal",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "false",
+      "description": "Whether or not to render popover within a portal.",
+      "required": false
+    },
+    "required": {
+      "title": "required",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "false",
+      "description": "Whether or not the listbox input's form field is required.",
+      "required": false
+    },
+    "disabled": {
+      "title": "disabled",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "false",
+      "description": "Whether or not the listbox input is disabled.",
+      "required": false
+    },
+    "value": {
+      "title": "value",
+      "type": { "name": "string", "detail": null },
+      "defaultValue": "-",
+      "description": "Current value of the listbox input.",
+      "required": false
+    },
+    "defaultValue": {
+      "title": "defaultValue",
+      "type": { "name": "string", "detail": null },
+      "defaultValue": "-",
+      "description": "Default value of the listbox input.",
+      "required": false
+    },
+    "arrow": {
+      "title": "arrow",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "false",
+      "description": "Set arrow shown of listbox input's form field.",
+      "required": false
+    },
+    "prefix": {
+      "title": "prefix",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "false",
+      "description": "Set prefix shown of listbox input's form field.",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "-",
+      "description": "Element shown as Listbox Option. As default, Listbox accepts ListboxItem as children.",
+      "required": true
+    },
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of Listbox component which renders to DOM",
+      "required": false
+    }
+  },
+  "listboxEvents": {
+    "onChange": {
+      "title": "onChange",
+      "type": { "name": "(value:string) => void" },
+      "description": "Gets called when selected item changes.",
+      "required": false
+    }
+  },
+  "listboxItemProps": {
+    "value": {
+      "title": "value",
+      "type": { "name": "string", "detail": null },
+      "defaultValue": "-",
+      "description": "Value of the listbox item.",
+      "required": true
+    },
+    "disabled": {
+      "title": "disabled",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "false",
+      "description": "Whether or not the listbox item is disabled.",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "-",
+      "description": "Element shown as Listbox Item.",
+      "required": true
+    },
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of ListboxItem component which renders to DOM",
+      "required": false
+    }
+  },
+  "listboxItemEvents": {
+    "onMouseLeave": {
+      "title": "onMouseLeave",
+      "type": { "name": "(event: React.SyntheticEvent) => any" },
+      "description": "Gets called when cursor leaves the listbox item.",
+      "required": false
+    },
+    "onMouseEnter": {
+      "title": "onMouseEnter",
+      "type": { "name": "(event: React.SyntheticEvent) => any" },
+      "description": "Gets called when cursor enters the listbox item.",
+      "required": false
+    },
+    "onTouchStart": {
+      "title": "onTouchStart",
+      "type": { "name": "(event: React.SyntheticEvent) => any" },
+      "description": "Gets called when touch starts on the listbox item.",
+      "required": false
+    }
+  },
+  "listboxAccessibility": {
+    "aria-label": {
+      "title": "aria-label",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Defines a string value that labels the current element.",
+      "required": false
+    },
+    "aria-labelledby": {
+      "title": "aria-labelledby",
+      "type": { "name": "string" },
+      "defaultValue": "-",
+      "description": "Identifies the element (or elements) that labels the current element.",
+      "required": false
+    }
+  },
+  "listboxButtonProps": {
+    "value": {
+      "title": "value",
+      "type": { "name": "string", "detail": null },
+      "defaultValue": "-",
+      "description": "Current value of the listbox input.",
+      "required": false
+    },
+    "defaultValue": {
+      "title": "defaultValue",
+      "type": { "name": "string", "detail": null },
+      "defaultValue": "-",
+      "description": "Default value of the listbox.",
+      "required": false
+    },
+    "disabled": {
+      "title": "disabled",
+      "type": { "name": "boolean", "detail": null },
+      "defaultValue": "false",
+      "description": "Whether or not the listbox item is disabled.",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "-",
+      "description": "Element shown as Listbox Button.",
+      "required": true
+    },
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "button",
+      "description": "Changes html tag of ListboxButton component which renders to DOM",
+      "required": false
+    }
+  },
+  "listboxButtonEvents": {
+    "onChange": {
+      "title": "onChange",
+      "type": { "name": "(value:string) => void" },
+      "description": "Gets called when selected item changes.",
+      "required": false
+    }
+  },
+  "listboxPopoverProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of popover component which renders to DOM",
+      "required": false
+    },
+    "children": {
+      "title": "children",
+      "type": { "name": "React.ReactNode", "detail": null },
+      "defaultValue": "-",
+      "description": "Elements shown inside ListboxPopover.",
+      "required": true
+    }
+  },
+
+  "listBoxStylingTable": {
+    "data-cui-listbox-popover-hidden": {
+      "title": "[data-cui-listbox-popover][hidden]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-listbox-button": {
+      "title": "[data-cui-listbox-button]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-listbox-button-aria-disabled-true": {
+      "title": "[data-cui-listbox-button][aria-disabled='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-listbox-list": {
+      "title": "[data-cui-listbox-list]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-listbox-popover": {
+      "title": "[data-cui-listbox-popover]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-listbox-arrow": {
+      "title": "[data-cui-listbox-arrow]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-listbox-arrow-data-expanded-false": {
+      "title": "[data-cui-listbox-arrow][data-expanded='false']::before",
+      "type": { "name": "Element and Pseudo Selectors" }
+    },
+    "data-cui-listbox-arrow-data-expanded-true": {
+      "title": "[data-cui-listbox-arrow][data-expanded='true']::before",
+      "type": { "name": "Element and Pseudo Selectors" }
+    },
+    "data-cui-listbox-item": {
+      "title": "[data-cui-listbox-item]",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-listbox-item-aria-disabled-true": {
+      "title": "[data-cui-listbox-item][aria-disabled='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-listbox-item-aria-selected-true": {
+      "title": "[data-cui-listbox-item][aria-selected='true']",
+      "type": { "name": "Element Selector" }
+    },
+    "data-cui-listbox-item-data-active-true": {
+      "title": "[data-cui-listbox-item][data-active='true']",
+      "type": { "name": "Element Selector" }
+    }
+  },
+  "sandboxUrls": {
+    "codesandbox": "https://codesandbox.io/embed/purple-pond-xupym?fontsize=14&hidenavigation=1&theme=dark"
+  }
+}

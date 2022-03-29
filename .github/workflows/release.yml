@@ -56,17 +56,15 @@ jobs:
           npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
           yarn lerna:publish from-package --yes
 
-      - name: ⚙️ Check Website Folder Changes
       - uses: dorny/paths-filter@v2
-        id: website
+        id: doc-website
         with:
-          working-directory: '/website'
+          working-directory: '/doc-website'
           filters: |
             src:
               - 'src/**'
 
-      - name: 🚀  Deploy Website
-      - if: steps.website.outputs.src == 'true'
-        run: cd website && npx vercel --token ${VERCEL_TOKEN} --prod && echo ✅ website deployed to vercel successfully!
-      - if: steps.website.outputs.src == 'false'
-        run: echo ⎔ no change detected under website folder, deploy abandoned!
+      - name: ⎔ checking for deployment...
+      - if: steps.doc-website.outputs.src == 'true'
+        run: cd doc-website && npx vercel --token ${VERCEL_TOKEN} --prod && echo ✅ doc-website deployed to vercel successfully!
+

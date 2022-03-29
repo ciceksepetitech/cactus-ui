@@ -1,0 +1,72 @@
+---
+sidebar_position: 11
+---
+
+import visuallyhidden from '/src/data/visuallyhidden.json';
+
+import AdmonitionContainer from '/src/CUIComponents/Containers/AdmonitionContainer/AdmonitionContainer.tsx';
+import HeaderTableContainer from '/src/CUIComponents/HeaderTable/HeaderTableContainer.tsx';
+import InfoContainer from '/src/CUIComponents/Containers/InfoContainer/InfoContainer.tsx';
+import Playground from '/src/CUIComponents/Playground/Playground.tsx';
+import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
+import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
+
+import CUIVisuallyHiddenDefault from '/src/CUIComponents/VisuallyHidden/CUIVisuallyHiddenDefault.tsx';
+
+# Visually Hidden
+
+<HeaderTableContainer data={visuallyhidden} />
+
+## Content
+
+<InfoContainer>
+  Visually hides its content from UI without removing it from DOM. Assistive
+  technologies can still attract with the element but it will not take any space
+  at the DOM. VisuallyHidden is a polymorphic component. That's why can be
+  rendered as any valid HTML tag.
+</InfoContainer>
+
+## Example
+
+> Example of a default behavior of VisuallyHidden component. Renders as 'div' by default.
+
+```jsx
+import React, { useState } from 'react';
+import VisuallyHidden from '@ciceksepeti/cui-visually-hidden';
+
+export function CUIVisuallyHiddenDefault() {
+  const [disable, setDisable] = useState(false);
+  return (
+      <VisuallyHidden disabled={disable}>
+        Should not be seen! <hr />
+      </VisuallyHidden>
+      Disabled State : {disable.toString()} <br />
+      <button onClick={() => setDisable(!disable)}>Toggle Disable</button>
+  );
+}
+
+```
+
+<CUIVisuallyHiddenDefault />
+
+## Props
+
+<PropTable tableData={visuallyhidden.visuallyHiddenProps} />
+
+## Playground
+
+<Playground urls={visuallyhidden.sandboxUrls} />
+
+## Styling
+
+### Element Selector {#Element-Selector}
+
+<AdmonitionContainer type="tip">
+  To learn more about selectors please visit the{' '}
+  <a href="https://www.w3schools.com/cssref/css_selectors.asp">
+    CSS Selector Reference
+  </a>{' '}
+  page.
+</AdmonitionContainer>
+
+<StylingTable tableData={visuallyhidden.visuallyhiddenStylingTable} />

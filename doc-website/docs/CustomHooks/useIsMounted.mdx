@@ -1,0 +1,44 @@
+---
+sidebar_position: 6
+---
+
+import IsMounted from '/src/CUIComponents/Hooks/IsMounted/IsMounted.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+
+# useIsMounted
+
+## Importing useIsMounted Hook
+
+```jsx
+import { useIsMounted } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+```jsx
+import React, { useEffect, useState } from 'react';
+import { useIsMounted } from '@ciceksepeti/cui-hooks';
+
+export const IsMounted = () => {
+  const [text, setText] = useState('');
+  const isMounted = useIsMounted();
+
+  useEffect(() => {
+    if (isMounted()) setText('Mounted');
+    else setText('Not mounted');
+  }, [isMounted]);
+
+  return <div>{text}</div>;
+};
+```
+
+## Preview
+
+<PreviewContainer title={'useIsMounted'} >
+
+- Returns a memoized callback function to retrieve isMounted boolean value.
+- Returns true if mounted, otherwise false
+
+<IsMounted />
+
+</PreviewContainer>

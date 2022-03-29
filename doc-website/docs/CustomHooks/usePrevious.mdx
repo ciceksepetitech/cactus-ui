@@ -1,0 +1,44 @@
+---
+sidebar_position: 4
+---
+
+import Previous from '/src/CUIComponents/Hooks/Previous/Previous.tsx';
+import PreviewContainer from '/src/CUIComponents/Containers/PreviewContainer/PreviewContainer.tsx';
+
+# usePrevious
+
+## Importing usePrevious Hook
+
+```jsx
+import { usePrevious } from '@ciceksepeti/cui-hooks';
+```
+
+## Example
+
+```jsx
+import React, { useState } from 'react';
+import { usePrevious } from '@ciceksepeti/cui-hooks';
+
+export const Example = () => {
+  const [count, setCount] = useState(0);
+  const previousValue = usePrevious(count);
+
+  return (
+    <div>
+      <span>Previous Value: {previousValue}</span>
+      <span>Value: {count}</span>
+      <button onClick={() => setCount(count + 1)}>Update Value</button>
+    </div>
+  );
+};
+```
+
+## Preview & Test
+
+<PreviewContainer title={'usePrevious'} contentType={'PREVIEW & TEST AREA'}>
+
+- Holds and returns the previous value of a state.
+
+<Previous />
+
+</PreviewContainer>
