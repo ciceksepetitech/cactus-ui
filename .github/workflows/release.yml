@@ -57,5 +57,13 @@ jobs:
           yarn lerna:publish from-package --yes
 
       - name: 🚀 Deploying Doc Website to Vercel
-        run: cd doc-website && npx vercel --token ${VERCEL_TOKEN} --prod && echo ✅ doc-website deployed to vercel successfully!
+        uses: amondnet/vercel-action@v20
+        id: deploy-vercel-production
+        if: github.ref == 'refs/heads/main'
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          scope: ${{ secrets.VERCEL_ORG_ID }}
 

@@ -1,12 +1,15 @@
-# Cactus UI
-[![npm version](https://img.shields.io/npm/v/@ciceksepeti/cui.svg?style=flat)](https://www.npmjs.com/package/@ciceksepeti/cui) ![storybook](https://shields.io/badge/storybook-white?logo=storybook&style=flat) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ciceksepetitech/cactus-ui/blob/HEAD/LICENSE)
+# [Cactus-UI](https://cactus-ui-doc.vercel.app/)
+
+[![npm version](https://img.shields.io/npm/v/@ciceksepeti/cui.svg?style=flat)](https://www.npmjs.com/package/@ciceksepeti/cui) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ciceksepetitech/cactus-ui/blob/HEAD/LICENSE) [![Development](https://github.com/ciceksepetitech/cactus-ui/actions/workflows/development.yml/badge.svg?branch=develop)](https://github.com/ciceksepetitech/cactus-ui/actions/workflows/development.yml) [![Release](https://github.com/ciceksepetitech/cactus-ui/actions/workflows/release.yml/badge.svg)](https://github.com/ciceksepetitech/cactus-ui/actions/workflows/release.yml) ![storybook](https://shields.io/badge/storybook-white?logo=storybook&style=flat)
 
 ![cactus ui logo](assets/cactus-ui.png)
 
 Cactus UI is a library that exposes accessible react components besides some useful hooks and utility functions. Mostly focuses on the accessibility side of the components instead of the visualization. It is easy to customize and can be used together with other libraries like styled-components to style easily.
 
-Documentation Web App for Cactus UI is still in progress.
-Storybook can be used after cloning the project for documentation.
+---
+
+## Getting Started
+**Visit [cactus-ui-doc.vercel.app](https://cactus-ui-doc.vercel.app/) for docs, examples and styling!**
 
 ## Features
 * Accessible – Accessibility and behaviour is implemented according to [WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.2/), including full screen reader and keyboard navigation support.
