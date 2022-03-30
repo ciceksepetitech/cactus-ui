@@ -1,4 +1,4 @@
-# [Cactus-UI](https://cactus-ui-doc.vercel.app/)
+# [Cactus-UI](https://cactus-ui.ciceksepeti.dev/)
 
 [![npm version](https://img.shields.io/npm/v/@ciceksepeti/cui.svg?style=flat)](https://www.npmjs.com/package/@ciceksepeti/cui) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ciceksepetitech/cactus-ui/blob/HEAD/LICENSE) [![Development](https://github.com/ciceksepetitech/cactus-ui/actions/workflows/development.yml/badge.svg?branch=develop)](https://github.com/ciceksepetitech/cactus-ui/actions/workflows/development.yml) [![Release](https://github.com/ciceksepetitech/cactus-ui/actions/workflows/release.yml/badge.svg)](https://github.com/ciceksepetitech/cactus-ui/actions/workflows/release.yml) ![storybook](https://shields.io/badge/storybook-white?logo=storybook&style=flat)
 
@@ -9,7 +9,7 @@ Cactus UI is a library that exposes accessible react components besides some use
 ---
 
 ## Getting Started
-**Visit [cactus-ui-doc.vercel.app](https://cactus-ui-doc.vercel.app/) for docs, examples and styling!**
+**Visit [cactus-ui.ciceksepeti.dev](https://cactus-ui.ciceksepeti.dev/) for docs, examples and styling!**
 
 ## Features
 * Accessible – Accessibility and behaviour is implemented according to [WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.2/), including full screen reader and keyboard navigation support.
