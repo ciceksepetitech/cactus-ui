@@ -60,10 +60,12 @@ jobs:
         uses: amondnet/vercel-action@v20
         id: deploy-vercel-production
         with:
+          github-comment: false
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: '--prod'
           scope: ${{ secrets.VERCEL_ORG_ID }}
           working-directory: doc-website
+          alias-domains: cactus-ui.ciceksepeti.dev
 
