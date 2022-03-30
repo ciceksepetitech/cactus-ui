@@ -60,6 +60,7 @@ jobs:
         uses: amondnet/vercel-action@v20
         id: deploy-vercel-production
         if: github.ref == 'refs/heads/main'
+        working-directory: doc-website
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
