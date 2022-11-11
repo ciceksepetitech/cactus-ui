@@ -60,7 +60,7 @@ export default VisuallyHidden;
 
 /** Types and Interfaces */
 
-interface IVisuallyHiddenProps {
+export interface IVisuallyHiddenProps {
   disabled?: boolean;
   children: React.ReactNode;
 }

@@ -5,7 +5,10 @@
  * wraps children if condition is true
  *
  */
-export const ConditionalWrapper = (props: IConditionalWrapper) => {
+
+import React, { FC } from 'react';
+
+export const ConditionalWrapper: FC<IConditionalWrapper> = (props) => {
   const { children, condition, wrapper } = props;
   return condition ? wrapper(children) : children;
 };
@@ -14,7 +17,7 @@ export default ConditionalWrapper;
 
 /** Types and Interfaces */
 
-interface IConditionalWrapper {
+export interface IConditionalWrapper {
   condition: boolean;
   children: React.ReactElement;
   wrapper: (children: React.ReactElement) => JSX.Element;
