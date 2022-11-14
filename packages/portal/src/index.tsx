@@ -46,7 +46,7 @@ export const Portal: FC<IPortalProps> = (props) => {
 
 /** Types and Interfaces */
 
-interface IPortalProps {
+export interface IPortalProps {
   containerId?: string;
   children: React.ReactNode;
   containerRef?: React.RefObject<Node>;
