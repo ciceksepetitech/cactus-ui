@@ -39,7 +39,7 @@ export default SkipNav;
 
 /** Types and Interfaces */
 
-interface ISkipNavProps {
+export interface ISkipNavProps {
   targetId: string;
   children: React.ReactNode;
 }

@@ -270,7 +270,7 @@ export default FocusTrap;
 
 /** Types and Interfaces */
 
-interface IFocusTrapProps {
+export interface IFocusTrapProps {
   disabled?: boolean;
   autoFocusToLast?: boolean;
   autoFocusToFirst?: boolean;

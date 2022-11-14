@@ -201,7 +201,7 @@ type LiveRegionKeys = {
   [key in LiveRegionType]: number;
 };
 
-interface IAlertProps {
+export interface IAlertProps {
   type?: LiveRegionType;
   children: React.ReactNode;
 }

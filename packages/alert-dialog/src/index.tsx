@@ -154,11 +154,11 @@ const showContentWarnings = (
 
 /** Types and Interfaces */
 
-interface IAlertDialogProps extends IDialogProps {
+export interface IAlertDialogProps extends IDialogProps {
   children: React.ReactNode;
 }
 
-interface IAlertDialogContentProps {
+export interface IAlertDialogContentProps {
   children: React.ReactNode;
 }
 
