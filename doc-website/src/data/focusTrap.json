@@ -3,16 +3,10 @@
   "description": "Component that traps focus within a DOM node. A focus trap ensures that tab and shift + tab keys will cycle through the focus trap's tabbable elements but not leave the focus trap. This is great for making accessible modals.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-focus-trap",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "importName": "FocusTrap"
   },
   "links": {
-    "w3": {
-      "title": "Wai-Aria",
-      "subtitle": "W3",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
-      "link": ""
-    },
     "github": {
       "title": "Repository",
       "subtitle": "GitHub",

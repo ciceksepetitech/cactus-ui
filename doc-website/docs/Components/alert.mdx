@@ -12,6 +12,7 @@ import PropTable from '/src/CUIComponents/PropTable/PropTable.tsx';
 import StylingTable from '/src/CUIComponents/StylingTable/StylingTable.tsx';
 
 import CUIAlertDefault from '/src/CUIComponents/Alert/CUIAlertDefault.tsx';
+import CUIAlertWithType from '/src/CUIComponents/Alert/CUIAlertWithType.tsx';
 import CUIAlertManual from '/src/CUIComponents/Alert/CUIAlertManual.tsx';
 import CUIAlertAsync from '/src/CUIComponents/Alert/CUIAlertAsync.tsx';
 import { args } from '/src/CUIComponents/Alert/args.ts';
@@ -45,6 +46,27 @@ const Example = () => {
 ```
 
 <CUIAlertDefault args={args} />
+
+### Type injected
+
+<AdmonitionContainer type="info">
+  <code>type</code> definition affects aria-live accessibility attribute. The <code>aria-live=POLITENESS_SETTING</code> is used to set the priority with which screen reader should treat updates to live regions - the possible settings are: <code>off</code>, <code>polite</code> or <code>assertive</code>.
+  <br />
+  <br />
+  In order to learn more about aria-live attribute please visit the{' '}
+  <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live">
+    aria-live reference page.
+  </a>
+</AdmonitionContainer>
+
+```jsx
+import { Alert } from '@ciceksepeti/cui-alert';
+
+const Example = () => {
+  return <Alert type='assertive'>I am an alert with 'assertive' type</Alert>;
+};
+```
+<CUIAlertWithType args={args} />
 
 ### Manually Rendered
 

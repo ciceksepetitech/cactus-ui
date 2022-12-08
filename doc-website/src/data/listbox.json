@@ -3,7 +3,7 @@
   "description": "Renders list of options in a accessible way.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-listbox",
-    "version": "1.0.0",
+    "version": "0.0.13",
     "importName": "Listbox, ListboxItem ",
     "hasDefaultStyle": true
   },
@@ -12,7 +12,7 @@
       "title": "Wai-Aria",
       "subtitle": "W3",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
-      "link": "https://www.w3.org/TR/wai-aria-practices-1.2/#Listbox"
+      "link": "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/"
     },
     "github": {
       "title": "Repository",
