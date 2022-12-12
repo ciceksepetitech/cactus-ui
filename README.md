@@ -16,7 +16,7 @@ Cactus UI is a library that exposes accessible react components besides some use
 * Adaptable – All components are designed to work with mouse, touch, and keyboard interactions. They’re built with an accessibility first approach.
 * Customizable – Easy to customize with inline style, CSS files and libraries like styled-components.
 
-## How to Intract with Library
+## How to Interact with Library
 
 Cactus UI uses Yarn to install, build and test packages. To install Yarn please follow this link, [how to install yarn?](https://yarnpkg.com/getting-started/install).
 By running commands right below, you will be able to work with Cactus UI locally, 
@@ -28,7 +28,7 @@ yarn install
 yarn lerna:build
 ```
 
-## Script Definations
+## Script Definitions
 
 ```sh
 yarn lerna:build            # builds all packages via lerna
