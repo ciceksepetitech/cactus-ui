@@ -20,7 +20,7 @@ You can learn how from this _free_ series
 1.  `Fork` and `Clone` the repo
 2.  Run `yarn install` to install dependencies
 3.  Create a branch for your pull request (see
-    [PULL_REQUEST_TEMPLATE](https://github.com/ciceksepetitech/cactus-ui/blob/develop/.github/PULL_REQUEST_TEMPLATE.md))
+    [PULL_REQUEST_TEMPLATE](https://github.com/ciceksepetitech/cactus-ui/blob/HEAD/.github/PULL_REQUEST_TEMPLATE.md))
 
 > Tip: Keep your `main` branch pointing at the original repository and make pull
 > requests from branches on your fork. To do this, run:

@@ -122,14 +122,14 @@
   "dialogAccessibility": {
     "ariaLabel": {
       "title": "aria-label",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail":"Use aria-label when it is not possible to have the label visible on screen"},
       "defaultValue": "",
       "description": "To provide an accessible name when the native HTML labeling element is not supported by the control.",
       "required": false
     },
     "ariaLabelledby": {
       "title": "aria-labelledby",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail": "Use aria-labelledby if the text is visually on-screen" },
       "defaultValue": "",
       "description": "Gives the dialog an accessible name by referring to the element that provides the dialog title.",
       "required": false

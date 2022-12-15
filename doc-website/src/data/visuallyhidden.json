@@ -1,9 +1,9 @@
 {
   "name": "Visually Hidden",
-  "description": "Visually Hidden is used when an element needs to be available to assistive technology, but otherwise hidden. The visually hidden component hides text visually from screen, but keeps it available to assistive technologies, such as screen readers. The component shouldn't be used to hide interactive content.",
+  "description": "Visually Hidden is used when an element needs to be available to assistive technology, but otherwise hidden. The visually hidden component hides text visually from the screen, but keeps it available to assistive technologies, such as screen readers. The component shouldn't be used to hide interactive content.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-visually-hidden",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "importName": "VisuallyHidden"
   },
   "links": {

@@ -57,6 +57,7 @@ function CUIPopoverDefault() {
         <button
           ref={targetRef}
           onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+          style={{ background: '#12805c', color: 'white'}}
         >
           click me
         </button>

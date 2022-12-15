@@ -3,7 +3,7 @@
   "description": "A Popover can be used to display some content on top of another.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-popover",
-    "version": "1.0.0",
+    "version": "0.0.12",
     "importName": "Popover"
   },
   "links": {
@@ -31,35 +31,35 @@
       "title": "as",
       "type": { "name": "string", "detail": "Valid HTML Tags" },
       "defaultValue": "div",
-      "description": "Changes html tag of popover component which renders to DOM",
+      "description": "Changes HTML tag of popover component which renders to DOM",
       "required": false
     },
     "portal": {
       "title": "portal",
       "type": { "name": "boolean" },
       "defaultValue": "true",
-      "description": "Changes html render position of popover component into DOM",
+      "description": "Changes HTML renders the position of the popover component into DOM",
       "required": false
     },
     "autoFlip": {
       "title": "autoFlip",
       "type": { "name": "boolean" },
       "defaultValue": "true",
-      "description": "Changes visual position of popover component into page",
+      "description": "Changes the visual position of the popover component on the page",
       "required": false
     },
     "placement": {
       "title": "placement",
       "type": { "name": "string", "detail": "top | left | right | bottom" },
       "defaultValue": "bottom",
-      "description": "Allows user to determine visual position of popover component into page",
+      "description": "Allows a user to determine the visual position of the popover component on a page",
       "required": false
     },
     "targetRef": {
       "title": "targetRef",
       "type": { "name": "MutableRefObject" },
       "defaultValue": "-",
-      "description": "Provides user to determine which element is going to bind to popover component",
+      "description": "Provides the user to determine which element is going to bind to the popover component",
       "required": true
     },
     "children": {

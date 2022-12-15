@@ -7,7 +7,7 @@ import {TabsItem , TabPanel} from '/src/CUIComponents/Containers/TabsItem/TabsIt
 
 # Cactus UI
 
-Cactus UI is brand new **accessible** React-based design system.
+Cactus UI is a brand new **accessible** React-based design system.
 
 > You can install Cactus UI via:
 

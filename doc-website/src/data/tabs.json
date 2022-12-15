@@ -1,9 +1,9 @@
 {
   "name": "Tabs",
-  "description": "Tabs component allows users to organize content into multiple sections which allow users to navigate between them. Each content under the tabs component should be related to a coherent unit.",
+  "description": "Tabs component allows users to organize content into multiple sections which allows users to navigate between them. Each content under the tabs component should be related to a coherent unit.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-tabs",
-    "version": "1.0.0",
+    "version": "0.0.11",
     "importName": "Tabs, TabList, Tab, TabPanelList, TabPanel",
     "hasDefaultStyle": true
   },
@@ -12,7 +12,7 @@
       "title": "Wai-Aria",
       "subtitle": "W3",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
-      "link": "https://www.w3.org/TR/wai-aria-practices/#tabpanel"
+      "link": "https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/"
     },
     "github": {
       "title": "Repository",
@@ -45,7 +45,7 @@
       "title": "defaultIndex",
       "type": { "name": "number" },
       "description": "Default selected tab",
-      "defaultValue": "0",
+      "defaultValue": "-",
       "required": false
     },
     "orientation": {
@@ -80,7 +80,7 @@
   "tabsEvents": {
     "onChange": {
       "title": "onChange",
-      "type": { "name": "(index,id) => void" },
+      "type": { "name": "(index: number, id: string) => void" },
       "description": "Gets called when tab changes",
       "required": false
     }
@@ -146,11 +146,17 @@
       "required": false
     }
   },
-  "tabProps": {
+  "tabProps": {"as": {
+    "title": "as",
+    "type": { "name": "button" },
+    "description": "Controls the tab selection",
+    "defaultValue": "button",
+    "required": false
+  },
     "disabled": {
       "title": "disabled",
       "type": { "name": "boolean" },
-      "description": "Switches active state of tab",
+      "description": "Controls whether or not the Tab Button is disabled.",
       "defaultValue": "false",
       "required": false
     },
@@ -183,7 +189,7 @@
   "tabPanelAccessibility": {
     "aria-labelledby": {
       "title": "aria-labelledby",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail": "Use aria-labelledby if the text is visually on-screen" },
       "defaultValue": "-",
       "description": "Refers to the ( tab ) element that controls the panel and provides an accessible name for the tab panel.",
       "required": false

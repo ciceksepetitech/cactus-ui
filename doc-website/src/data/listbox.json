@@ -1,6 +1,6 @@
 {
   "name": "List Box",
-  "description": "Renders list of options in a accessible way.",
+  "description": "Renders a list of options in an accessible way. A Listbox widget presents a list of options and allows a user to select one of them.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-listbox",
     "version": "0.0.13",
@@ -166,14 +166,14 @@
   "listboxAccessibility": {
     "aria-label": {
       "title": "aria-label",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail":"Use aria-label when it is not possible to have the label visible on screen"},
       "defaultValue": "-",
       "description": "Defines a string value that labels the current element.",
       "required": false
     },
     "aria-labelledby": {
       "title": "aria-labelledby",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail": "Use aria-labelledby if the text is visually on-screen" },
       "defaultValue": "-",
       "description": "Identifies the element (or elements) that labels the current element.",
       "required": false

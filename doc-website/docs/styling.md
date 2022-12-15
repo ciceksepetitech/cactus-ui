@@ -10,9 +10,9 @@ AccordionItem,
 
 # Styling
 
-As CsTech, our main aim is accessibility for Cactus UI when we created the library. Therefore, each component comes with **minimum styling** that allows the component usable easily and as it's supposed to be. For a dev-friendly development experience, the styling of any Cactus UI component is kept simple and flexible as much as possible. You can style components the way using CSS, sass or styled-components etc.
+As CsTech, our main aim is accessibility for Cactus UI when we created the library. Therefore, each component comes with **minimum styling** that allows the component usable easily and as it is supposed to be. For a dev-friendly development experience, the styling of any Cactus UI component is kept simple and flexible as much as possible. You can style components the way using CSS, sass or styled-components, etc.
 
-We always will try to keep minimum default styling and as flexible as possible for all components.
+We always will try to keep minimum default styling and be as flexible as possible for all components.
 
 ## Importing Built-in Style
 
@@ -24,7 +24,7 @@ import '@ciceksepeti/cui-<componentName>/styles.css';
 ```
 
 <AdmonitionContainer type='info'>
-Every component page has examples about using the component and the examples show clearly which component needs its own built-in style importing.
+Every component page has examples about using the component and the examples show clearly which component needs its built-in style importing.
 </AdmonitionContainer>
 
 > Also, CSS bundle importing can be used to access all styling with one import.
@@ -43,7 +43,7 @@ You can style any component of Cactus UI like any other element in your app. Als
 
 <AccordionItem title='Using-Data-Attributes' expanded={true} style={{height:'1500px'}}>
 
-> Each component has a `data-cui-<componentName>` attribute to you can apply style easier.
+> Each component has a `data-cui-<componentName>` attribute which you can apply style easily.
 
 ```css
 [data-cui-listbox-button] {
@@ -65,7 +65,7 @@ You can style any component of Cactus UI like any other element in your app. Als
 }
 ```
 
-> To apply your style depending on the state of the component, Cactus UI provide pseudo attributes.
+> To apply your style depending on the state of the component, Cactus UI provides pseudo attributes.
 
 ```css
 [data-cui-listbox-button][aria-disabled='true'] {

@@ -1,6 +1,6 @@
 {
   "name": "Accordion",
-  "description": "An accessible way for the user to expand and collapse content.",
+  "description": "An accordion is a vertically stacked set of interactive headings that each contain a title, content snippet, or thumbnail representing a section of content.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-accordion",
     "version": "0.0.10",
