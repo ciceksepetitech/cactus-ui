@@ -129,6 +129,7 @@ const Example = () => {
   </PreviewContainer>
 </TabPanel>
 </TabsItem>
+
 ### Controlled
 
 <AdmonitionContainer type='caution'>
@@ -314,12 +315,19 @@ const Example = () => {
 <AccordionItem title={'TabPanel-Accessibility'}>
 
   <AdmonitionContainer type="info">
-    <span style={{ fontWeight: '600' }}>Aria-labelledby</span> is not obligatory
-    accessibility tag. It gives an error in course of development, not during
-    production.
+    <span style={{ fontWeight: '600' }}>Aria-labelledby</span> is not an obligatory accessibility tag. It gives an error in course of development, not during production. If the label is visible, its id should be passed to aria-labelledby.
+    <br/>
+    <br/>
+    In order to learn more about mentioned aria tag please visit the MDN {' '}
+  <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby">
+    <span style={{ fontWeight: '600' }}>aria-labelledby</span>
+  </a>
+  {' '} accessibility page.
   </AdmonitionContainer>
   <AccessibilityTable tableData={tabs.tabPanelAccessibility} />
 </AccordionItem >
+
+
 
 </Accordion>
 

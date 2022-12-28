@@ -3,7 +3,7 @@
   "description": "Checkbox provides users to select either multiple items from a list or to mark one individual item as selected.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-checkbox",
-    "version": "1.0.0",
+    "version": "0.0.12",
     "importName": "Checkbox",
     "hasDefaultStyle": true
   },
@@ -12,7 +12,7 @@
       "title": "Wai-Aria",
       "subtitle": "W3",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
-      "link": "https://www.w3.org/TR/wai-aria-practices/#checkbox"
+      "link": "https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/"
     },
     "github": {
       "title": "Repository",

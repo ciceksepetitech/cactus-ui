@@ -3,7 +3,7 @@
   "description": "An alert is an element that displays a brief, important message in a way that attracts the user's attention without interrupting the user's task.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-alert",
-    "version": "1.0.0",
+    "version": "0.11.0",
     "importName": "Alert",
     "hasDefaultStyle": true
   },
@@ -12,7 +12,7 @@
       "title": "Wai-Aria",
       "subtitle": "W3",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
-      "link": "https://www.w3.org/TR/wai-aria-practices/#alert"
+      "link": "https://www.w3.org/WAI/ARIA/apg/patterns/alert/"
     },
     "github": {
       "title": "Repository",
@@ -37,9 +37,9 @@
     },
     "type": {
       "title": "type",
-      "type": { "name": "polite | assertive | off" },
+      "type": { "name": "polite | assertive | off"},
       "defaultValue": "polite",
-      "description": "Type for accessibility",
+      "description": "Represents aria-live type for accessibility.",
       "required": false
     },
     "children": {

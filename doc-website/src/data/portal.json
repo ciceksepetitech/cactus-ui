@@ -1,9 +1,9 @@
 {
   "name": "Portal",
-  "description": "A first-class way to render child components into a DOM node outside of the parent DOM hierarchy defined by the component tree hierarchy.",
+  "description": "A first-class way to render child components into a DOM node outside of the parent DOM hierarchy is defined by the component tree hierarchy.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-portal",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "importName": "Portal"
   },
   "links": {
@@ -11,7 +11,7 @@
       "title": "Wai-Aria",
       "subtitle": "W3",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
-      "link": "https://www.w3.org/TR/wai-aria-practices"
+      "link": "https://wicg.github.io/portals/"
     },
     "github": {
       "title": "Repository",
@@ -31,7 +31,7 @@
       "title": "as",
       "type": { "name": "string" },
       "defaultValue": "div",
-      "description": "Changes html tag of portal component which renders to DOM",
+      "description": "Changes HTML tag of the portal component which renders to DOM",
       "required": false
     },
     "containerRef": {
@@ -52,7 +52,7 @@
       "title": "children",
       "type": { "name": "React.Node" },
       "defaultValue": "-",
-      "description": "Element which is going to be rendered inside the portal component",
+      "description": "An element which is going to be rendered inside the portal component",
       "required": true
     }
   },

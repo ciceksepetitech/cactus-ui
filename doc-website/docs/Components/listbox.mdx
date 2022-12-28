@@ -310,13 +310,23 @@ export function CUIListboxCompoundUncontrolled() {
 ### Listbox Accessibility {#listbox-Accessibility}
 
 <AccordionItem title={'listbox-Accessibility'}>
-
-  <AdmonitionContainer type="info">
+ <AdmonitionContainer type="info">
     <span style={{ fontWeight: '600' }}>Aria-label</span> and{' '}
     <span style={{ fontWeight: '600' }}>aria-labelledby</span> are not
     obligatory accessibility tags. It gives an error in course of development,
     not during production. If label is visible, its id should be passed to
-    aria-labelledby, if it is not description should be passed to aria-label.
+    aria-labelledby, if it is not description should be passed to aria-label. 
+    <br/>
+    <br/>
+    In order to learn more about mentioned aria tags please visit the MDN {' '}
+  <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label">
+    <span style={{ fontWeight: '600' }}>aria-label</span>
+  </a>
+  {' '} and {' '}
+  <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-labelledby">
+    <span style={{ fontWeight: '600' }}>aria-labelledby</span>
+  </a>
+  {' '} accessibility pages.
   </AdmonitionContainer>
   <AccessibilityTable tableData={listbox.listboxAccessibility} />
 </AccordionItem >

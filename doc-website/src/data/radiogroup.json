@@ -1,9 +1,9 @@
 {
   "name": "Radio Group",
-  "description": "Radio group allow users to select a single option from a set. Once a radio group is established, selecting any radio button in that group automatically deselects any currently-selected radio button in the same group",
+  "description": "Radio group allows users to select a single option from a set. Once a radio group is established, selecting any radio button in that group automatically deselects any currently-selected radio button in the same group",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-radio-group",
-    "version": "1.0.0",
+    "version": "0.0.11",
     "importName": "RadioGroup, Radio",
     "hasDefaultStyle": true
   },
@@ -12,7 +12,7 @@
       "title": "Wai-Aria",
       "subtitle": "W3",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
-      "link": "https://www.w3.org/TR/wai-aria-practices-1.2/#wai-aria-roles-states-and-properties-16"
+      "link": "https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/"
     },
     "github": {
       "title": "Repository",
@@ -38,42 +38,42 @@
       "title": "as",
       "type": { "name": "string", "detail": "Valid HTML Tags" },
       "defaultValue": "div",
-      "description": "Changes html tag of visually hidden component which renders to DOM",
+      "description": "Changes HTML tag of a visually hidden component which renders to DOM",
       "required": false
     },
     "name": {
       "title": "name",
       "type": { "name": "string", "detail": null },
       "defaultValue": "-",
-      "description": "Name of input element",
+      "description": "Represents the name of an input element",
       "required": false
     },
     "orientation": {
       "title": "orientation",
       "type": { "name": "string", "detail": "horizontal | vertical " },
       "defaultValue": "horizontal",
-      "description": "Orientation of radios.",
+      "description": "Dynamically controls the orientation of the radio group",
       "required": false
     },
     "defaultValue": {
       "title": "defaultValue",
       "type": { "name": "string" },
       "defaultValue": "-",
-      "description": "defaultValue of input element",
+      "description": "Represents the default value of an input element",
       "required": false
     },
     "value": {
       "title": "value",
       "type": { "name": "string" },
       "defaultValue": "-",
-      "description": "Value of input element",
+      "description": "Represents the value of an input element",
       "required": false
     },
     "children": {
       "title": "children",
       "type": { "name": "React.ReactNode", "detail": null },
       "defaultValue": "",
-      "description": "The content you want to be visually hidden..",
+      "description": "The element is shown as Radio Group children",
       "required": true
     }
   },
@@ -81,21 +81,21 @@
     "onChange": {
       "title": "onChange",
       "type": { "name": "(value: string, id?: string, name?: string) => void" },
-      "description": "Gets called when the user selects a radio button.",
+      "description": "Get's called when the user selects a radio button.",
       "required": false
     }
   },
   "radioGroupAccessibility": {
     "aria-label": {
       "title": "aria-label",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail":"Use aria-label when it is not possible to have the label visible on screen"},
       "defaultValue": "-",
-      "description": "Defines a string value that labels the current element.",
+      "description": "Defines a string value as an aria-label that represents the current element.",
       "required": false
     },
     "aria-labelledby": {
       "title": "aria-labelledby",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail": "Use aria-labelledby if the text is visually on-screen" },
       "defaultValue": "-",
       "description": "Identifies the element (or elements) that labels the current element.",
       "required": false
@@ -113,44 +113,37 @@
       "title": "name",
       "type": { "name": "string", "detail": null },
       "defaultValue": "-",
-      "description": "Name of radio button",
+      "description": "Represents the name of an input element",
       "required": true
     },
     "value": {
       "title": "value",
       "type": { "name": "string", "detail": null },
       "defaultValue": "-",
-      "description": "Value of radio button",
+      "description": "Represents the value of a radio button",
       "required": true
     },
     "disabled": {
       "title": "disabled",
-      "type": { "name": "React.MutableRefObject<HTMLInputElement>" },
-      "defaultValue": "-",
-      "description": "Disables the radio button",
-      "required": false
-    },
-    "ref": {
-      "title": "ref",
       "type": { "name": "boolean", "detail": null },
       "defaultValue": "false",
-      "description": "Reference to the radio button",
-      "required": true
+      "description": "Controls whether or not the radio item is disabled.",
+      "required": false
     }
   },
   "radioAccessibility": {
     "aria-label": {
       "title": "aria-label",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail":"Use aria-label when it is not possible to have the label visible on screen"},
       "defaultValue": "-",
-      "description": "Defines a string value that labels the current element.",
+      "description": "Defines a string value as an aria-label that represents the current element.",
       "required": false
     },
     "aria-labelledby": {
       "title": "aria-labelledby",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail": "Use aria-labelledby if the text is visually on-screen" },
       "defaultValue": "-",
-      "description": "Identifies the element (or elements) that labels the current element.",
+      "description": "Identifies the element that labels the current element.",
       "required": false
     }
   },

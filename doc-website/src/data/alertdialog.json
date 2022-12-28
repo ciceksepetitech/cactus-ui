@@ -1,9 +1,9 @@
 {
   "name": "Alert Dialog",
-  "description": "Informs the user about situations that require acknowledgement.",
+  "description": "An alert dialog is a modal dialog that interrupts the user's workflow to communicate an important message and acquire a response.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-alert-dialog",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "importName": "AlertDialog",
     "hasDefaultStyle": true
   },
@@ -12,7 +12,7 @@
       "title": "Wai-Aria",
       "subtitle": "W3",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/W3C%C2%AE_Icon.svg/2560px-W3C%C2%AE_Icon.svg.png",
-      "link": "https://www.w3.org/TR/wai-aria-practices/#alertdialog"
+      "link": "https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/"
     },
     "github": {
       "title": "Repository",
@@ -34,6 +34,13 @@
     }
   },
   "alertDialogProps": {
+    "as": {
+      "title": "as",
+      "type": { "name": "string", "detail": "Valid HTML Tags" },
+      "defaultValue": "div",
+      "description": "Changes html tag of Alert Dialog component which renders to DOM",
+      "required": false
+    },
     "open": {
       "title": "open",
       "type": { "name": "boolean" },
@@ -94,15 +101,13 @@
   "alertDialogEvents": {
     "onEscapeKey": {
       "title": "onEscapeKey",
-      "type": { "name": "() => {}" },
-      "defaultValue": "() => {}",
+      "type": { "name": "(event: KeyboardEvent | React.KeyboardEvent<HTMLElement>) => void" },
       "description": "Gets called when escape button is pressed",
       "required": false
     },
     "onClickOutside": {
       "title": "onClickOutside",
-      "type": { "name": "() => {}" },
-      "defaultValue": "() => {}",
+      "type": { "name": "(event: React.MouseEvent<HTMLElement, MouseEvent | TouchEvent>) => void;" },
       "description": "Gets called when outside of dialog is clicked",
       "required": false
     }
@@ -110,7 +115,7 @@
   "alertDialogAccessibility": {
     "ariaLabel": {
       "title": "aria-label",
-      "type": { "name": "string" },
+      "type": { "name": "string" ,"detail":"Use aria-label when it is not possible to have the label visible on screen"},
       "defaultValue": "",
       "description": "To provide an accessible name when the native HTML labeling element is not supported by the control.",
       "required": false

@@ -3,7 +3,7 @@
   "description": "A \"skip navigation\" link is a technique for facilitating similarly efficient access for users with certain disabilities. Skips until to targetId.",
   "instruction": {
     "packageName": "yarn add @ciceksepeti/cui-skip-nav",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "importName": "SkipNav",
     "hasDefaultStyle": true
   },
@@ -45,14 +45,14 @@
       "title": "as",
       "type": { "name": "string", "detail": "Valid HTML Tags" },
       "defaultValue": "div",
-      "description": "Changes html tag of portal component which renders to DOM",
+      "description": "Changes HTML tag of a portal component which renders to DOM",
       "required": false
     },
     "children": {
       "title": "children",
       "type": { "name": "React.Node" },
       "defaultValue": "",
-      "description": "Element which is going to be rendered inside the Skip Nav component",
+      "description": "The element which is going to be rendered inside the Skip Nav component",
       "required": true
     }
   },

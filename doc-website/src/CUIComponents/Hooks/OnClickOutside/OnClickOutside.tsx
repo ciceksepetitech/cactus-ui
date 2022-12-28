@@ -22,7 +22,7 @@ const OnClickOutside = () => {
       <div>
         <p>
           Testing area is{' '}
-          <span className="fw-800">{activate ? 'Active' : 'Deactive'}</span> now
+          <span className="fw-800">{activate ? 'Active' : 'Inactive'}</span> now
         </p>
         <button
           onClick={() => {
