@@ -202,3 +202,80 @@ import { useState, useRef } from 'react';
 </Description>
 
 <ArgsTable story="Default" />
+
+##### Dynamic Children
+
+<Canvas>
+  <Story name="Dynamic Children" inline={false}>
+    {(args) => {
+      const targetRef = useRef();
+      const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+      const popoverInnerText = 'Inside text';
+      const [popoverInnerTextList, setPopoverInnerTextList] = useState(
+        new Array(7).fill(popoverInnerText)
+      );
+      const addTextToPopover = () => {
+        setPopoverInnerTextList((prev) => [...prev, popoverInnerText]);
+      };
+      const removeLastChildFromPopover = () => {
+        setPopoverInnerTextList((prev) => [...prev].slice(0, -1));
+      };
+      return (
+        <div style={{ height: '100vh' }}>
+          <div
+            style={{
+              height: '100vh',
+              position: 'relative'
+            }}
+          >
+            <p>
+              Example of Popover with dynamic children. Popover respects the
+              children's changes. When children changed, Popover automatically
+              re-calculate its height and position in both cases that flipped or
+              not.
+            </p>
+            <p>
+              Click the button below and add/delete an item to the popover to
+              see the behavior for each child change.
+            </p>
+            <button
+              style={{
+                position: 'absolute',
+                top: '50%'
+              }}
+              ref={targetRef}
+              onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+            >
+              click me
+            </button>
+          </div>{' '}
+          {isPopoverOpen && (
+            <Popover
+              targetRef={targetRef}
+              style={{
+                padding: '5px 10px',
+                borderRadius: '4px',
+                background: 'white',
+                border: '1px solid #eee'
+              }}
+            >
+              <p>Test</p>
+              {popoverInnerTextList.map((item) => (
+                <p>Inside text</p>
+              ))}
+              <button onClick={addTextToPopover}>Add text</button>
+              <button onClick={removeLastChildFromPopover}>Remove Text</button>
+            </Popover>
+          )}
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<Description story="Dynamic Children">
+  Example of Popover with dynamic children. Popover automatically re-calculate
+  its own height and position.
+</Description>
+
+<ArgsTable story="Dynamic Children" />
