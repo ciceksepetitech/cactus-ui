@@ -41,7 +41,7 @@ const usePopover = ({
   popoverNode
 }: IUsePopoverProps) => {
   const [styles, setStyles] = useState<CSSProperties>(defaultPopoverStyles);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const isFlippedRef = useRef(false);
 
   const getAvailableSpaces = useCallback(
     (targetRect: DOMRect, popoverRect: DOMRect): Record<string, boolean> => {
@@ -146,9 +146,7 @@ const usePopover = ({
       ...getPlacement(targetRect, popoverRect)
     };
 
-    if (isFlipped !== shouldFlip) {
-      setIsFlipped(shouldFlip);
-    }
+    isFlippedRef.current = shouldFlip;
 
     setStyles((prev) => ({
       ...prev,
@@ -156,8 +154,8 @@ const usePopover = ({
     }));
   }, [
     hidden,
-    children,
     autoFlip,
+    children,
     placement,
     popoverNode,
     getAvailableSpaces,
@@ -181,7 +179,7 @@ const usePopover = ({
 
   return {
     styles,
-    isFlipped
+    isFlipped: isFlippedRef.current
   };
 };
 
