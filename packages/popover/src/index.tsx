@@ -35,11 +35,13 @@ const defaultPopoverStyles: CSSProperties = {
 const usePopover = ({
   hidden,
   autoFlip,
+  children,
   placement,
   targetRef,
   popoverNode
 }: IUsePopoverProps) => {
   const [styles, setStyles] = useState<CSSProperties>(defaultPopoverStyles);
+  const isFlippedRef = useRef(false);
 
   const getAvailableSpaces = useCallback(
     (targetRect: DOMRect, popoverRect: DOMRect): Record<string, boolean> => {
@@ -144,6 +146,8 @@ const usePopover = ({
       ...getPlacement(targetRect, popoverRect)
     };
 
+    isFlippedRef.current = shouldFlip;
+
     setStyles((prev) => ({
       ...prev,
       ...newPosition
@@ -151,6 +155,7 @@ const usePopover = ({
   }, [
     hidden,
     autoFlip,
+    children,
     placement,
     popoverNode,
     getAvailableSpaces,
@@ -173,7 +178,8 @@ const usePopover = ({
   });
 
   return {
-    styles
+    styles,
+    isFlipped: isFlippedRef.current
   };
 };
 
@@ -335,9 +341,10 @@ export const Popover = forwardRef(
 
     usePopoverTabIndexSyncing(refNode);
 
-    const { styles: popoverStyles } = usePopover({
+    const { styles: popoverStyles, isFlipped } = usePopover({
       hidden,
       autoFlip,
+      children,
       placement,
       targetRef,
       popoverNode: refNode
@@ -360,6 +367,7 @@ export const Popover = forwardRef(
           hidden={hidden}
           data-cui-popover
           ref={refCallback}
+          data-cui-popover-flipped={isFlipped}
           style={{ ...style, ...popoverStyles }}
         >
           {children}
@@ -397,8 +405,7 @@ export interface IPopoverProps {
 
 export type PlacementGetterType = Placements.Left | Placements.Top;
 
-export interface IUsePopoverProps
-  extends Pick<IPopoverProps, 'autoFlip' | 'placement' | 'targetRef'> {
+export interface IUsePopoverProps extends Omit<IPopoverProps, 'portal'> {
   hidden?: boolean;
   popoverNode: HTMLElement;
 }
