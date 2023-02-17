@@ -109,14 +109,23 @@ import '../../styles.css';
   <Story name="Search" inline={false}>
     {(args) => {
       const [search, setSearch] = useState('');
+      const [selectedValue, setSelectedValue] = useState('apple');
       const items = [
         { value: 'apple', label: 'apple' },
         { value: 'orange', label: 'orange' },
         { value: 'cherry', label: 'cherry' },
         { value: 'banana', label: 'banana' }
       ];
+      
       return (
-        <Listbox {...args} name="listbox1" style={{ width: 200 }}>
+        <div>
+        <Listbox
+          {...args}
+          name="listbox1"
+          value={selectedValue}
+          style={{ width: 200 }}
+          onChange={(value) => setSelectedValue(value)}
+        >
           <input
             type="text"
             value={search}
@@ -132,6 +141,8 @@ import '../../styles.css';
               </ListboxItem>
             ))}
         </Listbox>
+        <span>Selected Value: {selectedValue}</span>
+        </div>
       );
     }}
   </Story>

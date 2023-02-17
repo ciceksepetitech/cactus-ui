@@ -1557,41 +1557,6 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@ciceksepeti/cui-hooks@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@ciceksepeti/cui-hooks/-/cui-hooks-0.9.0.tgz#ad3e8b1dc43dc1c0280beed90f4c9453036617f0"
-  integrity sha512-kbC8KhG1xv029u5Kgsq0SlbyimF9V/j3DruJDdpHs9//ACdyObduo5fcGbFE3fpESN9NBTKIwgAFNYiEEZHlJg==
-  dependencies:
-    "@ciceksepeti/cui-utils" "0.9.0"
-
-"@ciceksepeti/cui-listbox@0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@ciceksepeti/cui-listbox/-/cui-listbox-0.0.10.tgz#0a94afb0f46c80d3afdb49e268b9b7001a273489"
-  integrity sha512-+PTte2iR9KPOC/PLhfl+SN67WC2OxdA6P3NdYhd11dmdxf7BEbFx+Cd3HqHxMde9rekqfv81pUThRRJiV5S9/A==
-  dependencies:
-    "@ciceksepeti/cui-hooks" "0.9.0"
-    "@ciceksepeti/cui-popover" "0.0.10"
-    "@ciceksepeti/cui-utils" "0.9.0"
-
-"@ciceksepeti/cui-popover@0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@ciceksepeti/cui-popover/-/cui-popover-0.0.10.tgz#dbf6495f9b3eee15efcab320fd4e115f3cb259bd"
-  integrity sha512-TLIGCk4L2pKlH4pcdy3NXFhuVi3v+6uLh0Giv7676d2tzbJXReyXEcrRTz9BTZmqKnVcDjMz79nrc9YJf9LG3w==
-  dependencies:
-    "@ciceksepeti/cui-hooks" "0.9.0"
-    "@ciceksepeti/cui-portal" "0.0.10"
-    "@ciceksepeti/cui-utils" "0.9.0"
-
-"@ciceksepeti/cui-portal@0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@ciceksepeti/cui-portal/-/cui-portal-0.0.10.tgz#a8436b699fcf928aad488b7142edb1e36b8f30d6"
-  integrity sha512-7fINKl510TLkdtwYCsbAE/frrFvN+hngatkJAsYNls9uRlW28A9hlpf5UFmZ+CP1TPKkxEvW91VFyCoAbv0AuA==
-
-"@ciceksepeti/cui-utils@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@ciceksepeti/cui-utils/-/cui-utils-0.9.0.tgz#cb22732949470f3cb1ba631c643869e6586a835b"
-  integrity sha512-oxXrmPdANLRWEBnpmY3MliccQq+OK0btEIv/vlJxS2UxGjZtESRqqNIi0Fo7mF0L/nFhe9HLKTLzCZ3EdHrg/A==
-
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"

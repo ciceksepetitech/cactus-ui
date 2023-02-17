@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-checkbox",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "ÇiçekSepeti Checkbox Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
