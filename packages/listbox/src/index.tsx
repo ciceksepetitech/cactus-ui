@@ -186,7 +186,7 @@ const useListboxItem = (props) => {
       setSelectedItem(item);
       setCursor(item);
     },
-    [options, isControlled]
+    [options, isControlled, onChange]
   );
 
   return {
@@ -422,8 +422,11 @@ export const ListboxList = forwardRef(
 
     useEffect(() => {
       if (isExpanded) setTimeout(() => refNode.focus(), 0);
+    }, [isExpanded, refNode]);
+
+    useEffect(() => {
       if (!isExpanded) setCursor(selectedItem);
-    }, [isExpanded, selectedItem, refNode]);
+    }, [isExpanded, selectedItem]);
 
     useEventListener({
       target: ref,
