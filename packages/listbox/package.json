@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-listbox",
-  "version": "0.0.15",
+  "version": "0.0.14",
   "description": "ÇiçekSepeti Listbox Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
