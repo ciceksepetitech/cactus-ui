@@ -86,7 +86,7 @@ describe('popover component tests', () => {
     expect(document.activeElement === toggler).toBeTruthy();
   });
 
-  test('expect popover tabbable elements to be in order event if not portalled', async () => {
+  test('expect popover tabbable elements to be in order even if not portalled', async () => {
     render(<Component portal={false} />);
 
     const autoFocused = screen.getByTestId(/autoFocused/i);
@@ -117,7 +117,7 @@ describe('popover component tests', () => {
 });
 
 const Component = ({ open, ...rest }: any) => {
-  const targetRef = useRef();
+  const targetRef = useRef(null);
   const [isPopoverOpen, setIsPopoverOpen] = useState(open);
 
   return (

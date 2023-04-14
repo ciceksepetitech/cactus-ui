@@ -24,7 +24,7 @@ By running commands right below, you will be able to work with Cactus UI locally
 ```
 git clone git@github.com:ciceksepetitech/cactus-ui.git
 cd cactus-ui
-yarn install
+yarn install --frozen-lockfile
 yarn lerna:build
 ```
 
