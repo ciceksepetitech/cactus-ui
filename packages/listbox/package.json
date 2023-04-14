@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-listbox",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "ÇiçekSepeti Listbox Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@ciceksepeti/cui-hooks": "^0.11.1",
-    "@ciceksepeti/cui-popover": "^0.0.13",
+    "@ciceksepeti/cui-popover": "0.1.0",
     "@ciceksepeti/cui-utils": "^0.11.1"
   },
   "peerDependencies": {
