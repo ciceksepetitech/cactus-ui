@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-popover@0.0.13...@ciceksepeti/cui-popover@0.1.0) (2023-04-14)
+
+
+### Features
+
+* popover prevent overflow feature added and storybook webpack config changes ([#49](https://github.com/ciceksepetitech/cactus-ui/issues/49)) ([7b6c01a](https://github.com/ciceksepetitech/cactus-ui/commit/7b6c01ad56ae1ab794b917efa3cc550af5bdd6d0))
+
+
+
+
+
 ## 0.0.12 (2022-11-11)
 
 
