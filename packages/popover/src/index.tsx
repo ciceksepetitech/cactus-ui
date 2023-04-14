@@ -102,6 +102,35 @@ const usePopover = ({
     []
   );
 
+  const preventOverflow = useCallback(
+    (
+      popoverNode: HTMLElement,
+      position: Pick<DOMRect, PlacementGetterType>
+    ) => {
+      const { left } = position;
+      const { scrollWidth } = popoverNode;
+      const documentBodyWidth = document.body.scrollWidth;
+      const popoverNodeStyles = window.getComputedStyle(popoverNode);
+      const { borderLeftWidth, borderRightWidth } = popoverNodeStyles;
+
+      const borderWidth =
+        parseFloat(borderLeftWidth) + parseFloat(borderRightWidth);
+
+      const horizontalOverflowAmount =
+        left + scrollWidth + borderWidth - documentBodyWidth;
+
+      const isHorizontalyOverflowed = horizontalOverflowAmount > 0;
+      const hasEnoughSpaceOnLeft = left - horizontalOverflowAmount >= 0;
+
+      if (isHorizontalyOverflowed && hasEnoughSpaceOnLeft) {
+        return { ...position, left: left - horizontalOverflowAmount };
+      }
+
+      return position;
+    },
+    []
+  );
+
   const getPlacementGetter = useCallback(
     (placement: OppositePlacements | Placements) => {
       switch (placement) {
@@ -143,7 +172,7 @@ const usePopover = ({
 
     const getPlacement = getPlacementGetter(certainPlacement);
     const newPosition: CSSProperties = {
-      ...getPlacement(targetRect, popoverRect)
+      ...preventOverflow(popoverNode, getPlacement(targetRect, popoverRect))
     };
 
     isFlippedRef.current = shouldFlip;
@@ -158,6 +187,7 @@ const usePopover = ({
     children,
     placement,
     popoverNode,
+    preventOverflow,
     getAvailableSpaces,
     getPlacementGetter
   ]);
