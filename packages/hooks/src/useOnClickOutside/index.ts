@@ -28,10 +28,4 @@ export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
     name: 'mousedown',
     ...listenerProps
   });
-
-  useEventListener({
-    listener,
-    name: 'touchstart',
-    ...listenerProps
-  });
 }
