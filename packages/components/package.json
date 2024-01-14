@@ -44,8 +44,8 @@
     "gulp-concat-css": "^3.1.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || 17.x",
-    "react-dom": "^16.8.0 || 17.x"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "scripts": {
     "build": "gulp build && scripty",

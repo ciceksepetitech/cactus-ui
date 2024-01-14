@@ -23,8 +23,8 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || 17.x",
-    "react-dom": "^16.8.0 || 17.x"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "scripts": {
     "build": "scripty",

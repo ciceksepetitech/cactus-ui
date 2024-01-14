@@ -32,8 +32,8 @@
     "react-remove-scroll": "^2.4.3"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || 17.x",
-    "react-dom": "^16.8.0 || 17.x"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "scripts": {
     "build": "scripty",
