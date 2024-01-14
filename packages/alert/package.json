@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-alert",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "ÇiçekSepeti Accessible Alert Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -20,9 +20,9 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-hooks": "^0.11.1",
-    "@ciceksepeti/cui-utils": "^0.11.1",
-    "@ciceksepeti/cui-visually-hidden": "^0.1.1"
+    "@ciceksepeti/cui-hooks": "0.11.2",
+    "@ciceksepeti/cui-utils": "0.11.2",
+    "@ciceksepeti/cui-visually-hidden": "0.1.2"
   },
   "peerDependencies": {
     "react": ">=16",

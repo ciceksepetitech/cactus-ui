@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-skip-nav",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "ÇiçekSepeti Skip Nav Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -24,7 +24,7 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-utils": "^0.11.1"
+    "@ciceksepeti/cui-utils": "0.11.2"
   },
   "peerDependencies": {
     "react": ">=16",

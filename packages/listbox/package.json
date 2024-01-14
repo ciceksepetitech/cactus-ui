@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-listbox",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "ÇiçekSepeti Listbox Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -24,9 +24,9 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-hooks": "^0.11.1",
-    "@ciceksepeti/cui-popover": "0.1.0",
-    "@ciceksepeti/cui-utils": "^0.11.1"
+    "@ciceksepeti/cui-hooks": "0.11.2",
+    "@ciceksepeti/cui-popover": "0.2.0",
+    "@ciceksepeti/cui-utils": "0.11.2"
   },
   "peerDependencies": {
     "react": ">=16",

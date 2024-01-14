@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-tabs",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "ÇiçekSepeti Tabs Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -24,8 +24,8 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-hooks": "^0.11.1",
-    "@ciceksepeti/cui-utils": "^0.11.1"
+    "@ciceksepeti/cui-hooks": "0.11.2",
+    "@ciceksepeti/cui-utils": "0.11.2"
   },
   "peerDependencies": {
     "react": ">=16",
