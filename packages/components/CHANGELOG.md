@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.5](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui@0.11.1...@ciceksepeti/cui@0.11.5) (2024-01-15)
+
+
+### Bug Fixes
+
+* listbox input search rerender trigger issue fix ([#47](https://github.com/ciceksepetitech/cactus-ui/issues/47)) ([d426f09](https://github.com/ciceksepetitech/cactus-ui/commit/d426f0918db2ef14614ed144b4713e2f80fa73c4))
+
+
+
+
+
 ## [0.11.4](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui@0.11.1...@ciceksepeti/cui@0.11.4) (2024-01-14)
 
 
