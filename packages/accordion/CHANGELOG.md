@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.12](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-accordion@0.0.11...@ciceksepeti/cui-accordion@0.0.12) (2024-01-14)
+
+**Note:** Version bump only for package @ciceksepeti/cui-accordion
+
+
+
+
+
 ## 0.0.10 (2022-11-11)
 
 
