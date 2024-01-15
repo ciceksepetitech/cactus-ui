@@ -67,10 +67,16 @@ export const DialogOverlay = forwardRef(
       }
     };
 
-    const clonedChildren = cloneElement(children, {
-      ref: childrenRef,
-      ...rest
-    });
+    const clonedChildren = cloneElement(
+      children as React.ReactElement<
+        any,
+        string | React.JSXElementConstructor<any>
+      >,
+      {
+        ref: childrenRef,
+        ...rest
+      }
+    );
 
     return (
       <Portal>
@@ -108,10 +114,16 @@ export const DialogContentWrapper = forwardRef(
       ...rest
     } = props;
 
-    const clonedChildren = cloneElement(children, {
-      ref: forwardedRef,
-      ...rest
-    });
+    const clonedChildren = cloneElement(
+      children as React.ReactElement<
+        any,
+        string | React.JSXElementConstructor<any>
+      >,
+      {
+        ref: forwardedRef,
+        ...rest
+      }
+    );
 
     return (
       <RemoveScroll

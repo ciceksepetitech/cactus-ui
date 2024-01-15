@@ -32,7 +32,7 @@ export type ExtendableProps<
 export type InheritableElementProps<
   C extends React.ElementType,
   Props = Record<string, unknown>
-> = ExtendableProps<PropsOf<C>, Props>;
+> = ExtendableProps<PropsOf<C>, Props & { children?: React.ReactNode }>;
 
 /**
  * A more sophisticated version of `InheritableElementProps` where

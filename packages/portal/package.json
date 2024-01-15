@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-portal",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "ÇiçekSepeti Portal Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -20,7 +20,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@ciceksepeti/cui-hooks": "0.11.2"
+    "@ciceksepeti/cui-hooks": "0.11.3"
   },
   "peerDependencies": {
     "react": ">=16",
