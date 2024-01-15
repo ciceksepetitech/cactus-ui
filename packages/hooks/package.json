@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-hooks",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "ÇiçekSepeti Component Hooks",
   "author": "cs",
   "main": "dist/src/index.js",
@@ -15,7 +15,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@ciceksepeti/cui-utils": "^0.11.1"
+    "@ciceksepeti/cui-utils": "0.11.2"
   },
   "repository": {
     "type": "git",
@@ -23,8 +23,8 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || 17.x",
-    "react-dom": "^16.8.0 || 17.x"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "scripts": {
     "build": "scripty",
