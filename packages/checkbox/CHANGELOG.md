@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.18](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-checkbox@0.0.13...@ciceksepeti/cui-checkbox@0.0.18) (2024-02-12)
+
+
+### Bug Fixes
+
+* listbox input search rerender trigger issue fix ([#47](https://github.com/ciceksepetitech/cactus-ui/issues/47)) ([d426f09](https://github.com/ciceksepetitech/cactus-ui/commit/d426f0918db2ef14614ed144b4713e2f80fa73c4))
+
+
+
+
+
 ## [0.0.17](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-checkbox@0.0.13...@ciceksepeti/cui-checkbox@0.0.17) (2024-01-15)
 
 
