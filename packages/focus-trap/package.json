@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-focus-trap",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "ÇiçekSepeti Focus Trap Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -20,8 +20,8 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-hooks": "0.11.3",
-    "@ciceksepeti/cui-utils": "0.11.3"
+    "@ciceksepeti/cui-hooks": "0.11.4",
+    "@ciceksepeti/cui-utils": "0.11.4"
   },
   "peerDependencies": {
     "react": ">=16",
