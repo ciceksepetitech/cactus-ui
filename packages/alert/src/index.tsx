@@ -15,7 +15,7 @@ import React, {
   forwardRef,
   cloneElement
 } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { useCombinedRefs } from '@ciceksepeti/cui-hooks';
 import VisuallyHidden from '@ciceksepeti/cui-visually-hidden';
 import { PolymorphicComponentProps } from '@ciceksepeti/cui-utils';
@@ -108,7 +108,9 @@ const renderAlertsToRegions = () => {
     const regionElements = liveRegionContainerElements[liveRegionType];
 
     if (container) {
-      ReactDOM.render(
+      const root = ReactDOM.createRoot(container as Element);
+
+      root.render(
         <VisuallyHidden as="div">
           <div
             aria-live={liveRegionType}
@@ -119,8 +121,7 @@ const renderAlertsToRegions = () => {
               cloneElement(regionElements[key], { key })
             )}
           </div>
-        </VisuallyHidden>,
-        container
+        </VisuallyHidden>
       );
     }
   });
