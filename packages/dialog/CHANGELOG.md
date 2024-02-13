@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.5](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-dialog@0.11.1...@ciceksepeti/cui-dialog@0.11.5) (2024-02-13)
+
+
+
+## 0.0.26 (2024-02-12)
+
+**Note:** Version bump only for package @ciceksepeti/cui-dialog
+
+
+
+
+
 ## [0.11.4](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-dialog@0.11.1...@ciceksepeti/cui-dialog@0.11.4) (2024-02-12)
 
 **Note:** Version bump only for package @ciceksepeti/cui-dialog

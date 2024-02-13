@@ -49,6 +49,15 @@ const liveRegionContainers: LiveRegionElementTypes = {
 };
 
 /**
+ * holds references to created live roots
+ */
+const liveRegionRoots: LiveRegionRoots = {
+  off: null,
+  polite: null,
+  assertive: null
+};
+
+/**
  * creates functions for a created alert
  * @param liveRegionType
  * @returns CloneRef
@@ -108,7 +117,13 @@ const renderAlertsToRegions = () => {
     const regionElements = liveRegionContainerElements[liveRegionType];
 
     if (container) {
-      const root = ReactDOM.createRoot(container as Element);
+      let root = liveRegionRoots[liveRegionType];
+
+      if (!root) {
+        const _root = ReactDOM.createRoot(container as Element);
+        liveRegionRoots[liveRegionType] = _root;
+        root = _root;
+      }
 
       root.render(
         <VisuallyHidden as="div">
@@ -196,6 +211,10 @@ type LiveRegionElements = {
 
 type LiveRegionElementTypes<T extends HTMLElement = HTMLDivElement> = {
   [key in LiveRegionType]: T | null;
+};
+
+type LiveRegionRoots = {
+  [key in LiveRegionType]: ReactDOM.Root | null;
 };
 
 type LiveRegionKeys = {
