@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui",
-  "version": "0.11.6",
+  "version": "0.11.7",
   "description": "ÇiçekSepeti Cactus UI All Packages",
   "author": "cs",
   "main": "dist/src/index.js",
@@ -23,21 +23,21 @@
     "styles.css"
   ],
   "dependencies": {
-    "@ciceksepeti/cui-accordion": "0.0.14",
-    "@ciceksepeti/cui-alert": "0.11.4",
-    "@ciceksepeti/cui-alert-dialog": "0.1.4",
-    "@ciceksepeti/cui-checkbox": "0.0.18",
-    "@ciceksepeti/cui-dialog": "0.11.4",
-    "@ciceksepeti/cui-focus-trap": "0.1.4",
-    "@ciceksepeti/cui-hooks": "0.11.4",
+    "@ciceksepeti/cui-accordion": "0.0.15",
+    "@ciceksepeti/cui-alert": "0.11.5",
+    "@ciceksepeti/cui-alert-dialog": "0.1.5",
+    "@ciceksepeti/cui-checkbox": "0.0.19",
+    "@ciceksepeti/cui-dialog": "0.11.5",
+    "@ciceksepeti/cui-focus-trap": "0.1.5",
+    "@ciceksepeti/cui-hooks": "0.11.5",
     "@ciceksepeti/cui-listbox": "0.0.10",
-    "@ciceksepeti/cui-popover": "0.4.0",
-    "@ciceksepeti/cui-portal": "0.1.4",
-    "@ciceksepeti/cui-radio-group": "0.0.15",
-    "@ciceksepeti/cui-skip-nav": "0.1.4",
-    "@ciceksepeti/cui-tabs": "0.0.15",
-    "@ciceksepeti/cui-utils": "0.11.4",
-    "@ciceksepeti/cui-visually-hidden": "0.1.4"
+    "@ciceksepeti/cui-popover": "0.5.0",
+    "@ciceksepeti/cui-portal": "0.1.5",
+    "@ciceksepeti/cui-radio-group": "0.0.16",
+    "@ciceksepeti/cui-skip-nav": "0.1.5",
+    "@ciceksepeti/cui-tabs": "0.0.16",
+    "@ciceksepeti/cui-utils": "0.11.5",
+    "@ciceksepeti/cui-visually-hidden": "0.1.5"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
