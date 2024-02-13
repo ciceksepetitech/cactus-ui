@@ -174,7 +174,7 @@ export const Alert = forwardRef(
     forwardedRef
   ) => {
     const { as, children, type = 'polite', ...rest } = props;
-    
+
     const Component = as || 'div';
     const internalRef = useRef(null);
     const ref = useCombinedRefs(forwardedRef, internalRef);
