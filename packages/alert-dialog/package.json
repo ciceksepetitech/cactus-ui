@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-alert-dialog",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "ÇiçekSepeti Alert Dialog Component",
   "author": "ciceksepeti",
   "sideEffects": [
@@ -24,9 +24,9 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-dialog": "0.11.5",
-    "@ciceksepeti/cui-hooks": "0.11.5",
-    "@ciceksepeti/cui-utils": "0.11.5"
+    "@ciceksepeti/cui-dialog": "0.11.6",
+    "@ciceksepeti/cui-hooks": "0.11.6",
+    "@ciceksepeti/cui-utils": "0.11.6"
   },
   "peerDependencies": {
     "react": ">=16",

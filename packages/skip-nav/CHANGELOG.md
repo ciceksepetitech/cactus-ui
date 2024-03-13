@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-skip-nav@0.1.1...@ciceksepeti/cui-skip-nav@0.2.0) (2024-03-13)
+
+
+### Features
+
+* skip-nav readme file change ([f650e7c](https://github.com/ciceksepetitech/cactus-ui/commit/f650e7c733d1c7fb9729ffe30219dc1db6704e29))
+
+
+
+
+
 ## [0.1.5](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-skip-nav@0.1.1...@ciceksepeti/cui-skip-nav@0.1.5) (2024-02-13)
 
 

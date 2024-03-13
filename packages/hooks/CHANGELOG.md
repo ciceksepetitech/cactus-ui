@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.6](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-hooks@0.11.1...@ciceksepeti/cui-hooks@0.11.6) (2024-03-13)
+
+**Note:** Version bump only for package @ciceksepeti/cui-hooks
+
+
+
+
+
 ## [0.11.5](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-hooks@0.11.1...@ciceksepeti/cui-hooks@0.11.5) (2024-02-13)
 
 
