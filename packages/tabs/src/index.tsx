@@ -350,6 +350,7 @@ export const Tab = forwardRef(
     const internalRef = useRef(null);
     const [tab, setTab] = useState<ITab>({} as ITab);
     const ref = useCombinedRefs(forwardedRef, internalRef);
+    const initialIndexRef = useRef<number | null>(null);
 
     const {
       panels,
@@ -362,7 +363,11 @@ export const Tab = forwardRef(
     } = useTabsContext();
 
     useIsomorphicLayoutEffect(() => {
-      const index = ++tabIdRef.current;
+      if (initialIndexRef.current === null) {
+        initialIndexRef.current = ++tabIdRef.current;
+      }
+
+      const index = initialIndexRef.current;
       const _id = id || `tab-${index}-${providerId}`;
       const tab = { id: _id, index, ref, disabled } as ITab;
 
@@ -438,9 +443,14 @@ export const TabPanel = forwardRef(
     const [panel, setPanel] = useState<IPanel>({} as IPanel);
     const { tabs, setPanels, providerId, tabPanelIdRef, selectedTabIndex } =
       useTabsContext();
+    const initialIndexRef = useRef<number | null>(null);
 
     useIsomorphicLayoutEffect(() => {
-      const index = ++tabPanelIdRef.current;
+      if (initialIndexRef.current === null) {
+        initialIndexRef.current = ++tabPanelIdRef.current;
+      }
+
+      const index = initialIndexRef.current;
       const _id = id || `tab-panel-${index}-${providerId}`;
       const panel = { id: _id, index } as IPanel;
 
