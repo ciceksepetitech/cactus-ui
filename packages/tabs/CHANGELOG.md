@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.18](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-tabs@0.0.12...@ciceksepeti/cui-tabs@0.0.18) (2024-10-24)
+
+
+
+## 0.0.29 (2024-03-13)
+
+
+
+## 0.0.28 (2024-02-13)
+
+
+
+## 0.0.26 (2024-02-12)
+
+**Note:** Version bump only for package @ciceksepeti/cui-tabs
+
+
+
+
+
 ## [0.0.17](https://github.com/ciceksepetitech/cactus-ui/compare/@ciceksepeti/cui-tabs@0.0.12...@ciceksepeti/cui-tabs@0.0.17) (2024-03-13)
 
 **Note:** Version bump only for package @ciceksepeti/cui-tabs
