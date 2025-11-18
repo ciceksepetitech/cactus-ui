@@ -49,12 +49,9 @@
     "react-dom": ">=19"
   },
   "scripts": {
-    "build": "yarn build:css && scripty",
+    "build": "yarn cache clean && yarn build:css && yarn compile",
     "build:css": "postcss src/styles.css -o styles.css",
-    "clean": "scripty",
-    "compile": "scripty"
-  },
-  "scripty": {
-    "path": "../../scripts/packages"
+    "clean": "rimraf ./dist && mkdirp ./dist",
+    "compile": "tsc"
   }
 }

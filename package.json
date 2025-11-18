@@ -20,9 +20,6 @@
     "lerna:version": "lerna version --conventional-commits --no-push --exact",
     "test:coverage:summary": "jest --coverage --coverageReporters='text-summary'"
   },
-  "scripty": {
-    "path": "./scripts/workspace"
-  },
   "workspaces": [
     "packages/*"
   ],
@@ -64,7 +61,6 @@
     "mkdirp": "^3.0.1",
     "prettier": "^3.6.2",
     "rimraf": "^6.1.0",
-    "scripty": "^3.0.0",
     "storybook": "^10.0.8",
     "ts-jest": "^29.4.5",
     "ts-loader": "9.5.4",

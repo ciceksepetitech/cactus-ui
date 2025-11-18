@@ -24,11 +24,8 @@
     "react-dom": ">=19"
   },
   "scripts": {
-    "build": "scripty",
-    "clean": "scripty",
-    "compile": "scripty"
-  },
-  "scripty": {
-    "path": "../../scripts/packages"
+    "build": "yarn cache clean && yarn compile",
+    "clean": "rimraf ./dist && mkdirp ./dist",
+    "compile": "tsc"
   }
 }
