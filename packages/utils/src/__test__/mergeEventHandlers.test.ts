@@ -19,13 +19,13 @@ describe('useIsCSR hook tests', () => {
 
   test('expect library provided function to be called', () => {
     mergeEventHandlers(undefined, libraryMockFn)(mockEvent);
-    expect(libraryMockFn).toBeCalledTimes(1);
+    expect(libraryMockFn).toHaveBeenCalledTimes(1);
   });
 
   test('expect both provided function to be called', () => {
     mergeEventHandlers(userMockFn, libraryMockFn)(mockEvent);
-    expect(userMockFn).toBeCalledTimes(1);
-    expect(libraryMockFn).toBeCalledTimes(1);
+    expect(userMockFn).toHaveBeenCalledTimes(1);
+    expect(libraryMockFn).toHaveBeenCalledTimes(1);
   });
 
   test('expect only user function to be called when event.preventDefaulted', () => {
@@ -34,7 +34,7 @@ describe('useIsCSR hook tests', () => {
       libraryMockFn
     )({ defaultPrevented: true } as Event | SyntheticEvent<Element, Event>);
 
-    expect(userMockFn).toBeCalledTimes(1);
-    expect(libraryMockFn).toBeCalledTimes(0);
+    expect(userMockFn).toHaveBeenCalledTimes(1);
+    expect(libraryMockFn).toHaveBeenCalledTimes(0);
   });
 });

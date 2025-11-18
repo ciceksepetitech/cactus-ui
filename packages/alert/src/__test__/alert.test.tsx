@@ -71,7 +71,7 @@ describe('alert component tests', () => {
 });
 
 const AlertRenderAsync = () => {
-  const [alerts, setAlerts] = useState([]);
+  const [alerts, setAlerts] = useState<string[]>([]);
 
   const onAddAlert = () => {
     setTimeout(() => {

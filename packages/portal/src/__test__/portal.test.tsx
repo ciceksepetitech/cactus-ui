@@ -39,7 +39,7 @@ const ById = (props) => (
 );
 
 const ByRef = (props) => {
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
 
   return (
     <div>

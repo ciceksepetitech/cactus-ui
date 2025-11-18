@@ -2,7 +2,7 @@ import React from 'react';
 import { axe } from 'jest-axe';
 import { RadioGroup, Radio } from '..';
 import userEvent from '@testing-library/user-event';
-import { render, screen, cleanup } from '../../../../utils/test-setup';
+import { render, screen, cleanup, waitFor } from '../../../../utils/test-setup';
 
 let consoleWarn;
 
@@ -18,17 +18,17 @@ describe('radio group component tests', () => {
 
   test('radio group component should warn when aria-label and aria-labelledby provided at the same time', () => {
     render(<Component aria-label="fruits" aria-labelledby="fruits" />);
-    expect(consoleWarn).toBeCalled();
+    expect(consoleWarn).toHaveBeenCalled();
   });
 
   test('radio component should warn when aria attributes are not provided', () => {
     render(<Component />);
-    expect(consoleWarn).toBeCalled();
+    expect(consoleWarn).toHaveBeenCalled();
   });
 
   test('radio component should warn when aria-label and aria-labelledby attributes are passed at the same time', () => {
     render(<Component />);
-    expect(consoleWarn).toBeCalled();
+    expect(consoleWarn).toHaveBeenCalled();
   });
 
   test('radio group component value should not change when disabled radio is clicked', () => {
@@ -57,44 +57,57 @@ describe('radio group component tests', () => {
     expect(radioGroup).toHaveAttribute('aria-orientation', 'vertical');
   });
 
-  test('radio group component value should change when undisabled radio is clicked', () => {
+  test('radio group component value should change when undisabled radio is clicked', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const banana = screen.getByText('banana');
-    userEvent.click(banana);
+    await user.click(banana);
 
     const radios = document.getElementsByName('fruits');
-    const checkedRadio = Array.from(radios).find((radio: any) => radio.checked);
-
-    expect(checkedRadio).not.toBeUndefined();
-    expect((checkedRadio as any).value).toBe('banana');
+    await waitFor(() => {
+      const checkedRadio = Array.from(radios).find(
+        (radio: any) => radio.checked
+      );
+      expect(checkedRadio).not.toBeUndefined();
+      expect((checkedRadio as any).value).toBe('banana');
+    });
   });
 
-  test('radio group component value should change when with arrow keys', () => {
+  test('radio group component value should change when with arrow keys', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const radios = document.getElementsByName('fruits');
 
     const banana = screen.getByText('banana');
-    userEvent.click(banana);
+    await user.click(banana);
 
-    let checkedRadio: any = getCheckedUncontrolledRadio(radios);
-    expect(checkedRadio.value).toBe('banana');
+    await waitFor(() => {
+      let checkedRadio: any = getCheckedUncontrolledRadio(radios);
+      expect(checkedRadio.value).toBe('banana');
+    });
 
+    banana.focus();
     const types = '{arrowleft}{arrowright}{arrowdown}{arrowup}{arrowleft}';
-    userEvent.type(banana, types);
-    checkedRadio = getCheckedUncontrolledRadio(radios);
-    expect(checkedRadio.value).toBe('cherry');
+    await user.type(banana, types);
+    await waitFor(() => {
+      const checkedRadio: any = getCheckedUncontrolledRadio(radios);
+      expect(checkedRadio.value).toBe('cherry');
+    });
   });
 
-  test('radio group component onchange should be called when provided with index prop', () => {
+  test('radio group component onchange should be called when provided with index prop', async () => {
+    const user = userEvent.setup();
     const onChangeMock = jest.fn();
     render(<Component value="cherry" onChange={onChangeMock} />);
 
     const banana = screen.getByText('banana');
-    userEvent.click(banana);
+    await user.click(banana);
 
-    expect(onChangeMock).toBeCalledTimes(1);
+    await waitFor(() => {
+      expect(onChangeMock).toHaveBeenCalledTimes(1);
+    });
     onChangeMock.mockClear();
   });
 
@@ -107,28 +120,35 @@ describe('radio group component tests', () => {
   });
 
   test('radio group should respect to space and enter', async () => {
+    const user = userEvent.setup();
     const onChangeMock = jest.fn();
     render(<Component value="cherry" onChange={onChangeMock} />);
 
     const banana = screen.getByText('banana');
-    userEvent.type(banana, '{arrowleft}{space}{enter}');
+    banana.focus();
+    await user.type(banana, '{arrowleft}{space}{enter}');
 
-    expect(onChangeMock).toBeCalled();
+    await waitFor(() => {
+      expect(onChangeMock).toHaveBeenCalled();
+    });
 
     onChangeMock.mockClear();
   });
 
   test('radio group component selected radio should be focused when tabbed from outside', async () => {
+    const user = userEvent.setup();
     const { container } = render(<Component defaultValue="cherry" />);
 
     const button1 = screen.getByText('button1');
-    userEvent.click(button1);
+    await user.click(button1);
 
-    userEvent.tab();
+    await user.tab();
 
-    expect(
-      container.querySelector('[data-cui-radio-keyboard-focus="true"]')
-    ).toBeTruthy();
+    await waitFor(() => {
+      expect(
+        container.querySelector('[data-cui-radio-keyboard-focus="true"]')
+      ).toBeTruthy();
+    });
   });
 
   test('radio group component selected radio should loose focus when tabbed', async () => {
@@ -159,26 +179,29 @@ describe('radio group component tests', () => {
   });
 
   test('radio group component value should be set when nothing is selected before and on first focus after arrow key type', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const button1 = screen.getByText('button1');
-    userEvent.click(button1);
+    await user.click(button1);
 
-    userEvent.tab();
+    await user.tab();
 
     const radios = document.getElementsByName('fruits');
     let checkedRadio: any = getCheckedUncontrolledRadio(radios);
     expect(checkedRadio).toBe(undefined);
 
-    userEvent.keyboard('{arrowright}');
+    await user.keyboard('{arrowright}');
 
-    checkedRadio = getCheckedUncontrolledRadio(radios);
-    expect(checkedRadio.value).toBe('banana');
+    await waitFor(() => {
+      checkedRadio = getCheckedUncontrolledRadio(radios);
+      expect(checkedRadio.value).toBe('banana');
+    });
   });
 
   test('value and defaultValue should not be provided at the same time', async () => {
     render(<Component value="banana" defaultValue="banana" />);
-    expect(consoleWarn).toBeCalled();
+    expect(consoleWarn).toHaveBeenCalled();
   });
 
   test('radio group should pass a11y', async () => {

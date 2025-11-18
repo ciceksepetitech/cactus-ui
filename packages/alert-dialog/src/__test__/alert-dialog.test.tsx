@@ -19,12 +19,12 @@ describe('alert dialog component tests', () => {
 
   test('alertDialog component should warn when aria attributes are not provided', () => {
     render(<Component open />);
-    expect(consoleWarn).toBeCalled();
+    expect(consoleWarn).toHaveBeenCalled();
   });
 
   test('alertDialog component should warn when aria-describedby is not provided', () => {
     render(<Component open aria-label="some label" />);
-    expect(consoleWarn).toBeCalled();
+    expect(consoleWarn).toHaveBeenCalled();
   });
 
   test('alertDialog component should log error when at least one focusable element is not provided', () => {
@@ -32,14 +32,14 @@ describe('alert dialog component tests', () => {
       <ComponentWithNoFocusableElement open aria-describedby="some desc" />
     );
 
-    expect(consoleError).toBeCalled();
+    expect(consoleError).toHaveBeenCalled();
   });
 
   test('alertDialog component should not warn in production', () => {
     process.env.NODE_ENV = 'production';
 
     render(<Component open />);
-    expect(consoleWarn).not.toBeCalled();
+    expect(consoleWarn).not.toHaveBeenCalled();
     process.env.NODE_ENV = 'test';
   });
 
@@ -48,7 +48,7 @@ describe('alert dialog component tests', () => {
       <Component open aria-labelledby="some label" aria-label="some label" />
     );
 
-    expect(consoleWarn).toBeCalled();
+    expect(consoleWarn).toHaveBeenCalled();
   });
 
   test('alertDialog should pass a11y', async () => {
