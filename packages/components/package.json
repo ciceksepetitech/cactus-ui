@@ -30,7 +30,7 @@
     "@ciceksepeti/cui-dialog": "0.11.7",
     "@ciceksepeti/cui-focus-trap": "0.1.7",
     "@ciceksepeti/cui-hooks": "0.11.7",
-    "@ciceksepeti/cui-listbox": "0.0.10",
+    "@ciceksepeti/cui-listbox": "0.0.22",
     "@ciceksepeti/cui-popover": "0.7.0",
     "@ciceksepeti/cui-portal": "0.1.7",
     "@ciceksepeti/cui-radio-group": "0.0.18",
@@ -40,15 +40,17 @@
     "@ciceksepeti/cui-visually-hidden": "0.1.7"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-concat-css": "^3.1.0"
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.1"
   },
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16"
   },
   "scripts": {
-    "build": "gulp build && scripty",
+    "build": "yarn build:css && scripty",
+    "build:css": "postcss src/styles.css -o styles.css",
     "clean": "scripty",
     "compile": "scripty"
   },

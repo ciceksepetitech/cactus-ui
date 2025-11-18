@@ -9,7 +9,7 @@ import { MutableRefObject, useEffect, LegacyRef, useRef } from 'react';
 export function useCombinedRefs<T = any>(
   ...refs: Array<MutableRefObject<T> | LegacyRef<T>>
 ): MutableRefObject<T> {
-  const internalRef = useRef<T>();
+  const internalRef = useRef<T>(null as T);
 
   useEffect(() => {
     refs.forEach((ref) => {

@@ -49,7 +49,7 @@ export const Portal: FC<IPortalProps> = (props) => {
 export interface IPortalProps {
   containerId?: string;
   children: React.ReactNode;
-  containerRef?: React.RefObject<Node>;
+  containerRef?: React.RefObject<Node | null>;
 }
 
 export default Portal;

@@ -51,7 +51,13 @@ const getLabel = (children: React.ReactNode) => {
 
   Children.map(childrenArray, (child: React.ReactElement) => {
     if (typeof child === 'string') label += child;
-    if (typeof child === 'object') label += getLabel(child.props.children);
+    if (
+      typeof child === 'object' &&
+      'props' in child &&
+      typeof child.props === 'object' &&
+      'children' in child.props
+    )
+      label += getLabel(child.props.children as React.ReactNode);
   });
 
   return label;

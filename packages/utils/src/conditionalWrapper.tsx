@@ -20,7 +20,7 @@ export default ConditionalWrapper;
 export interface IConditionalWrapper {
   condition: boolean;
   children: React.ReactElement;
-  wrapper: (children: React.ReactElement) => JSX.Element;
+  wrapper: (children: React.ReactElement) => React.ReactElement;
 }
 
 /** Display Names */

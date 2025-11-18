@@ -1,4 +1,4 @@
-import { addons } from '@storybook/addons';
+import { addons } from 'storybook/internal/manager-api';
 import theme from './theme';
 
 addons.setConfig({

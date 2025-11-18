@@ -29,7 +29,7 @@
     "@ciceksepeti/cui-portal": "0.1.7",
     "@ciceksepeti/cui-utils": "0.11.7",
     "@ciceksepeti/cui-visually-hidden": "0.1.7",
-    "react-remove-scroll": "^2.4.3"
+    "react-remove-scroll": "^2.7.1"
   },
   "peerDependencies": {
     "react": ">=16",

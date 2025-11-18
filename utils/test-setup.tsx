@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 
 import React from 'react';
+import '@testing-library/jest-dom';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 
 /**
@@ -26,6 +27,6 @@ const customRender = (
 ): RenderResult => render(ui, { wrapper: Wrapper, ...options });
 
 export * from '@testing-library/react';
-export * as reactHooks from '@testing-library/react-hooks/dom';
+export { renderHook, act } from '@testing-library/react';
 
 export { customRender as render };
