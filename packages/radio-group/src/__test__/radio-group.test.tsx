@@ -88,7 +88,6 @@ describe('radio group component tests', () => {
       expect(checkedRadio.value).toBe('banana');
     });
 
-    banana.focus();
     const types = '{arrowleft}{arrowright}{arrowdown}{arrowup}{arrowleft}';
     await user.type(banana, types);
     await waitFor(() => {
@@ -125,7 +124,6 @@ describe('radio group component tests', () => {
     render(<Component value="cherry" onChange={onChangeMock} />);
 
     const banana = screen.getByText('banana');
-    banana.focus();
     await user.type(banana, '{arrowleft}{space}{enter}');
 
     await waitFor(() => {
