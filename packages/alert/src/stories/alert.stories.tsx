@@ -21,7 +21,7 @@ const meta: Meta<typeof Alert> = {
     as: {
       name: 'as',
       control: { type: 'text' },
-      description: 'changes html tag of portal component which renders to DOM',
+      description: 'changes html tag of alert component which renders to DOM',
       table: {
         defaultValue: { summary: 'div' },
         type: { summary: 'Values', detail: 'Valid HTML Tags' }
