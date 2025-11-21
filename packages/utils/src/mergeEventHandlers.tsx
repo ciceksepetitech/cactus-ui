@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function mergeEventHandlers<
   EventType extends React.SyntheticEvent | Event
 >(

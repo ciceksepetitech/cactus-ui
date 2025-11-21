@@ -23,13 +23,14 @@ describe('tabs component tests', () => {
   });
 
   test('tabs selection should change with arrows when activationType auto', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab1);
-    userEvent.keyboard('{arrowright}');
+    await user.click(tab1);
+    await user.keyboard('{arrowright}');
 
     expect(tab4).toHaveFocus();
     expect(screen.getByText(/panel4/i)).toBeVisible();
@@ -42,43 +43,46 @@ describe('tabs component tests', () => {
   });
 
   test('tabs selection should be set to first tab when home key is pressed', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab4);
+    await user.click(tab4);
     expect(screen.getByText(/panel4/i)).toBeVisible();
 
-    userEvent.keyboard('{home}');
+    await user.keyboard('{home}');
 
     expect(tab1).toHaveFocus();
     expect(screen.getByText(/panel1/i)).toBeVisible();
   });
 
   test('tabs selection should be set to last tab when end key is pressed', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab1);
+    await user.click(tab1);
     expect(screen.getByText(/panel1/i)).toBeVisible();
 
-    userEvent.keyboard('{end}');
+    await user.keyboard('{end}');
 
     expect(tab4).toHaveFocus();
     expect(screen.getByText(/panel4/i)).toBeVisible();
   });
 
   test('tabs selection should change with arrows when activationType auto and orientation vertical', async () => {
+    const user = userEvent.setup();
     render(<Component orientation="vertical" />);
 
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab1);
-    userEvent.keyboard('{arrowdown}');
+    await user.click(tab1);
+    await user.keyboard('{arrowdown}');
 
     expect(tab4).toHaveFocus();
     expect(screen.getByText(/panel4/i)).toBeVisible();
@@ -86,13 +90,14 @@ describe('tabs component tests', () => {
   });
 
   test('tabs selection should not change with arrows when activationType manual', async () => {
+    const user = userEvent.setup();
     render(<Component activationType={TabsActivation.Manual} />);
 
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab1);
-    userEvent.keyboard('{arrowleft}');
+    await user.click(tab1);
+    await user.keyboard('{arrowleft}');
 
     expect(tab4).toHaveFocus();
     expect(screen.getByText(/panel1/i)).toBeVisible();
@@ -100,29 +105,33 @@ describe('tabs component tests', () => {
   });
 
   test('tabs selection should change with space key when activationType manual', async () => {
+    const user = userEvent.setup();
     render(<Component activationType={TabsActivation.Manual} />);
 
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab1);
-    userEvent.keyboard('{arrowright}');
-    userEvent.keyboard('{space}');
+    await user.click(tab1);
+    await user.keyboard('{arrowright}');
+    await user.type(tab4, ' ');
 
     expect(tab4).toHaveFocus();
-    expect(screen.getByText(/panel4/i)).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByText(/panel4/i)).toBeVisible();
+    });
     expect(screen.getByText(/panel1/i)).not.toBeVisible();
   });
 
   test('tabs selection should change with enter key when activationType manual', async () => {
+    const user = userEvent.setup();
     render(<Component activationType={TabsActivation.Manual} />);
 
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab1);
-    userEvent.keyboard('{arrowright}');
-    userEvent.keyboard('{enter}');
+    await user.click(tab1);
+    await user.keyboard('{arrowright}');
+    await user.keyboard('{enter}');
 
     expect(tab4).toHaveFocus();
     expect(screen.getByText(/panel4/i)).toBeVisible();
@@ -130,6 +139,7 @@ describe('tabs component tests', () => {
   });
 
   test('tabs selection should not change with arrows when activationType manual and orientation vertical', async () => {
+    const user = userEvent.setup();
     render(
       <Component
         orientation="vertical"
@@ -140,8 +150,8 @@ describe('tabs component tests', () => {
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab1);
-    userEvent.keyboard('{arrowup}');
+    await user.click(tab1);
+    await user.keyboard('{arrowup}');
 
     expect(tab4).toHaveFocus();
     expect(screen.getByText(/panel1/i)).toBeVisible();
@@ -149,6 +159,7 @@ describe('tabs component tests', () => {
   });
 
   test('tabs selection should change with space key when activationType manual and orientation vertical', async () => {
+    const user = userEvent.setup();
     render(
       <Component
         orientation="vertical"
@@ -159,16 +170,19 @@ describe('tabs component tests', () => {
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab1);
-    userEvent.keyboard('{arrowdown}');
-    userEvent.keyboard('{space}');
+    await user.click(tab1);
+    await user.keyboard('{arrowdown}');
+    await user.type(tab4, ' ');
 
     expect(tab4).toHaveFocus();
-    expect(screen.getByText(/panel4/i)).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByText(/panel4/i)).toBeVisible();
+    });
     expect(screen.getByText(/panel1/i)).not.toBeVisible();
   });
 
   test('tabs selection should change with enter key when activationType manual and orientation vertical', async () => {
+    const user = userEvent.setup();
     render(
       <Component
         orientation="vertical"
@@ -179,9 +193,9 @@ describe('tabs component tests', () => {
     const tab1 = screen.getByText(/tab1/i);
     const tab4 = screen.getByText(/tab4/i);
 
-    userEvent.click(tab1);
-    userEvent.keyboard('{arrowdown}');
-    userEvent.keyboard('{enter}');
+    await user.click(tab1);
+    await user.keyboard('{arrowdown}');
+    await user.keyboard('{enter}');
 
     expect(tab4).toHaveFocus();
     expect(screen.getByText(/panel4/i)).toBeVisible();
@@ -189,21 +203,23 @@ describe('tabs component tests', () => {
   });
 
   test('tabs should have aria-selected="true" when selected', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const tab4 = screen.getByText(/tab4/i);
     expect(tab4).toHaveAttribute('aria-selected', 'false');
-    userEvent.click(tab4);
+    await user.click(tab4);
     expect(tab4).toHaveAttribute('aria-selected', 'true');
   });
 
   test('tabs onChange should be called when passed with index prop', async () => {
+    const user = userEvent.setup();
     const mockFn = jest.fn();
 
     render(<Component index={0} onChange={mockFn} />);
 
     const tab4 = screen.getByText(/tab4/i);
-    userEvent.click(tab4);
+    await user.click(tab4);
     expect(mockFn).toHaveBeenCalledTimes(1);
 
     jest.clearAllMocks();

@@ -1,7 +1,5 @@
 import { useLocalStorage } from '..';
-import { cleanup, reactHooks } from '../../../../utils/test-setup';
-
-const { renderHook, act } = reactHooks;
+import { cleanup, renderHook, act } from '../../../../utils/test-setup';
 
 describe('useLocalStorage hook tests', () => {
   afterEach(() => {

@@ -11,23 +11,25 @@ describe('useOnClickOutside hook tests', () => {
     jest.clearAllMocks();
   });
 
-  test('expect listener to be called when outside of specified area is clicked', () => {
+  test('expect listener to be called when outside of specified area is clicked', async () => {
+    const user = userEvent.setup();
     render(<Component />);
-    userEvent.click(screen.getByTestId(/outside/i));
-    expect(fnMock).toBeCalledTimes(1);
+    await user.click(screen.getByTestId(/outside/i));
+    expect(fnMock).toHaveBeenCalledTimes(1);
   });
 
-  test('expect listener to not be called when specified area is clicked', () => {
+  test('expect listener to not be called when specified area is clicked', async () => {
+    const user = userEvent.setup();
     render(<Component />);
-    userEvent.click(screen.getByTestId(/inside/i));
-    expect(fnMock).toBeCalledTimes(0);
+    await user.click(screen.getByTestId(/inside/i));
+    expect(fnMock).toHaveBeenCalledTimes(0);
   });
 });
 
 const Component = () => {
-  const insideRef = useRef();
+  const insideRef = useRef<HTMLDivElement>(null);
 
-  useOnClickOutside(insideRef, fnMock);
+  useOnClickOutside(insideRef as React.RefObject<HTMLElement>, fnMock);
 
   return (
     <div data-testid="outside">

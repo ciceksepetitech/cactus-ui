@@ -156,8 +156,11 @@ const TabsProvider = (props) => {
 
           if (tab && !tab.disabled) {
             event.preventDefault();
-            !isControlled && setSelectedTabIndex(cursor);
-            isControlled && onChangeRef.current?.(cursor, tab.id);
+            if (!isControlled) {
+              setSelectedTabIndex(cursor);
+            } else {
+              onChangeRef.current?.(cursor, tab.id);
+            }
           }
 
           return;

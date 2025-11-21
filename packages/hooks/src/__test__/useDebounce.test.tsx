@@ -11,18 +11,20 @@ describe('useDebounce hook tests', () => {
     jest.clearAllMocks();
   });
 
-  test('expect debounced value to be set less', () => {
+  test('expect debounced value to be set less', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
-    userEvent.type(screen.getByTestId(/text/i), 'some input value');
-    expect(fnMock).toBeCalledTimes(1);
+    await user.type(screen.getByTestId(/text/i), 'some input value');
+    expect(fnMock).toHaveBeenCalledTimes(1);
   });
 
-  test('expect debounced delay to be set', () => {
+  test('expect debounced delay to be set', async () => {
+    const user = userEvent.setup();
     render(<Component delay={1000} />);
 
-    userEvent.type(screen.getByTestId(/text/i), 'some input value');
-    expect(fnMock).toBeCalledTimes(1);
+    await user.type(screen.getByTestId(/text/i), 'some input value');
+    expect(fnMock).toHaveBeenCalledTimes(1);
   });
 });
 

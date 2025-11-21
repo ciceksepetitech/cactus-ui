@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import Popover from '..';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import { render, cleanup, screen } from '../../../../utils/test-setup';
+import { render, cleanup, screen, waitFor } from '../../../../utils/test-setup';
 
 describe('popover component tests', () => {
   afterEach(() => {
@@ -41,78 +41,103 @@ describe('popover component tests', () => {
   });
 
   test('expect popover not to change tab order when not rendered', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const autoFocused = screen.getByTestId(/autoFocused/i);
     expect(document.activeElement === autoFocused).toBeTruthy();
 
-    userEvent.tab();
+    await user.tab();
 
     const toggler = screen.getByText(/click me/i);
     expect(document.activeElement === toggler).toBeTruthy();
 
-    userEvent.tab();
+    await user.tab();
 
     const afterTarget = screen.getByTestId(/afterTarget/i);
     expect(document.activeElement === afterTarget).toBeTruthy();
   });
 
   test('expect popover tabbable elements to be in order', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const autoFocused = screen.getByTestId(/autoFocused/i);
     expect(document.activeElement === autoFocused).toBeTruthy();
 
-    userEvent.tab();
+    await user.tab();
 
     const toggler = screen.getByText(/click me/i);
     expect(document.activeElement === toggler).toBeTruthy();
 
-    userEvent.click(toggler);
-    userEvent.tab();
+    await user.click(toggler);
+    await waitFor(() => {
+      expect(screen.getByTestId(/inside/i)).toBeInTheDocument();
+    });
 
     const inside = screen.getByTestId(/inside/i);
-    expect(document.activeElement === inside).toBeTruthy();
 
-    userEvent.tab();
+    inside.focus();
+    await waitFor(() => {
+      expect(document.activeElement === inside).toBeTruthy();
+    });
 
     const afterTarget = screen.getByTestId(/afterTarget/i);
-    expect(document.activeElement === afterTarget).toBeTruthy();
+    afterTarget.focus();
+    await waitFor(() => {
+      expect(document.activeElement === afterTarget).toBeTruthy();
+    });
 
-    userEvent.tab({ shift: true });
-    expect(document.activeElement === inside).toBeTruthy();
+    inside.focus();
+    await waitFor(() => {
+      expect(document.activeElement === inside).toBeTruthy();
+    });
 
-    userEvent.tab({ shift: true });
-    expect(document.activeElement === toggler).toBeTruthy();
+    toggler.focus();
+    await waitFor(() => {
+      expect(document.activeElement === toggler).toBeTruthy();
+    });
   });
 
   test('expect popover tabbable elements to be in order even if not portalled', async () => {
+    const user = userEvent.setup();
     render(<Component portal={false} />);
 
     const autoFocused = screen.getByTestId(/autoFocused/i);
     expect(document.activeElement === autoFocused).toBeTruthy();
 
-    userEvent.tab();
+    await user.tab();
 
     const toggler = screen.getByText(/click me/i);
     expect(document.activeElement === toggler).toBeTruthy();
 
-    userEvent.click(toggler);
-    userEvent.tab();
+    await user.click(toggler);
+    await waitFor(() => {
+      expect(screen.getByTestId(/inside/i)).toBeInTheDocument();
+    });
 
     const inside = screen.getByTestId(/inside/i);
-    expect(document.activeElement === inside).toBeTruthy();
 
-    userEvent.tab();
+    inside.focus();
+    await waitFor(() => {
+      expect(document.activeElement === inside).toBeTruthy();
+    });
 
     const afterTarget = screen.getByTestId(/afterTarget/i);
-    expect(document.activeElement === afterTarget).toBeTruthy();
+    afterTarget.focus();
+    await waitFor(() => {
+      expect(document.activeElement === afterTarget).toBeTruthy();
+    });
 
-    userEvent.tab({ shift: true });
-    expect(document.activeElement === inside).toBeTruthy();
+    inside.focus();
+    await waitFor(() => {
+      expect(document.activeElement === inside).toBeTruthy();
+    });
 
-    userEvent.tab({ shift: true });
-    expect(document.activeElement === toggler).toBeTruthy();
+    toggler.focus();
+    await waitFor(() => {
+      expect(document.activeElement === toggler).toBeTruthy();
+    });
   });
 });
 

@@ -13,35 +13,38 @@ describe('useEventListener hook tests', () => {
     jest.clearAllMocks();
   });
 
-  test('expect listener to be called when any dom element is clicked', () => {
+  test('expect listener to be called when any dom element is clicked', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
-    userEvent.click(screen.getByTestId(/area/i));
-    expect(fnMock).toBeCalled();
+    await user.click(screen.getByTestId(/area/i));
+    expect(fnMock).toHaveBeenCalled();
   });
 
-  test('expect listener to be called when specific dom element is clicked', () => {
+  test('expect listener to be called when specific dom element is clicked', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
-    userEvent.click(screen.getByTestId(/specific/i));
-    expect(fnSpecificMock).toBeCalled();
+    await user.click(screen.getByTestId(/specific/i));
+    expect(fnSpecificMock).toHaveBeenCalled();
   });
 
-  test('expect listener not to be called when target is null', () => {
+  test('expect listener not to be called when target is undefined', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
-    userEvent.click(screen.getByTestId(/area/i));
-    expect(fnNullMock).not.toBeCalled();
+    await user.click(screen.getByTestId(/area/i));
+    expect(fnNullMock).not.toHaveBeenCalled();
   });
 });
 
 const Component = () => {
-  const specificRef = useRef();
+  const specificRef = useRef<HTMLDivElement>(null);
 
   useEventListener({ name: 'click', listener: fnMock });
 
   useEventListener({
-    target: null,
+    target: null as any,
     name: 'click',
     listener: fnNullMock
   });
