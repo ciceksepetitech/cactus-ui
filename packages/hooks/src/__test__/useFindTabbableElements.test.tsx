@@ -31,7 +31,7 @@ describe('useFindTabbableElements hook tests', () => {
 const Component = () => {
   const ref = useRef(null);
   const [refNode, setRefNode] = useState<HTMLElement>();
-  const { tabbableElements } = useFindTabbableElements(refNode);
+  const { tabbableElements } = useFindTabbableElements(refNode as HTMLElement);
 
   const refCallback = useCallback((node: any) => {
     ref.current = node;
@@ -55,7 +55,7 @@ const Component = () => {
 };
 
 const ComponentWithNoNode = () => {
-  const { tabbableElements } = useFindTabbableElements(null);
+  const { tabbableElements } = useFindTabbableElements(null as any);
 
   return (
     <div>

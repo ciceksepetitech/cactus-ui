@@ -13,11 +13,14 @@ describe('isElementVisible utility tests', () => {
 
   test('expect isElementVisible to return boolean for visibility of an element', () => {
     const p = document.createElement('p');
+    document.body.appendChild(p);
 
     p.style.visibility = 'hidden';
     expect(isElementVisible(p)).toBe(false);
 
     p.style.visibility = 'visible';
     expect(isElementVisible(p)).toBe(true);
+
+    document.body.removeChild(p);
   });
 });

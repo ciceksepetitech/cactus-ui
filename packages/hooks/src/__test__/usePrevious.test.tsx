@@ -1,7 +1,5 @@
 import { usePrevious } from '..';
-import { cleanup, reactHooks } from '../../../../utils/test-setup';
-
-const { renderHook } = reactHooks;
+import { cleanup, renderHook } from '../../../../utils/test-setup';
 
 describe('usePrevious hook tests', () => {
   afterEach(() => {

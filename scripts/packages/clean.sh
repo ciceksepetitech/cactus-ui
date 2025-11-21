@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
-echo "┏━━━ 📦 Packages are cleaning ━━━━━━━━━━━━━━━━━━━"
+#!/bin/bash
 rimraf ./dist && mkdirp ./dist
+

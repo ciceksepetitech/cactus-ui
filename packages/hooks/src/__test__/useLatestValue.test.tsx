@@ -1,7 +1,5 @@
 import { useLatestValue } from '..';
-import { cleanup, reactHooks } from '../../../../utils/test-setup';
-
-const { renderHook } = reactHooks;
+import { cleanup, renderHook } from '../../../../utils/test-setup';
 
 describe('useLatestValue hook tests', () => {
   afterEach(() => {
