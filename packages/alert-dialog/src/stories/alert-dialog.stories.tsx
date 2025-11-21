@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import AlertDialog from '..';
 import '../../styles.css';
@@ -17,7 +17,7 @@ const meta: Meta<typeof AlertDialog> = {
   },
   args: {
     as: 'div',
-    open: true,
+    open: false,
     removeScrollBar: true,
     autoFocusToLast: false,
     autoFocusToFirst: true,
@@ -99,24 +99,35 @@ const buttonStyles = {
 
 export const Default: Story = {
   render: (args) => {
+    const [open, setOpen] = useState(args.open);
     return (
-      <AlertDialog
-        aria-label="alert-dialog"
-        aria-describedby="alert-desc"
-        {...args}
-      >
-        <p id="alert-desc">
-          Lorem incididunt ipsum in nostrud. Nisi commodo aliqua magna
-          exercitation exercitation dolore minim commodo adipisicing veniam
-          eiusmod ut aute ad. Consectetur consectetur enim nostrud duis laboris
-          ex fugiat consequat veniam excepteur quis. Aute veniam voluptate
-          deserunt commodo aliquip amet enim cillum magna proident.
-        </p>
-        <button style={buttonStyles}>Confirm</button>
-        <button style={buttonStyles} autoFocus>
-          Focused
+      <>
+        <button style={buttonStyles} onClick={() => setOpen(true)}>
+          Show Alert Dialog
         </button>
-      </AlertDialog>
+        <AlertDialog
+          aria-label="alert-dialog"
+          aria-describedby="alert-desc"
+          {...args}
+          open={open}
+          onEscapeKey={() => setOpen(false)}
+          onClickOutside={() => setOpen(false)}
+        >
+          <p id="alert-desc">
+            Lorem incididunt ipsum in nostrud. Nisi commodo aliqua magna
+            exercitation exercitation dolore minim commodo adipisicing veniam
+            eiusmod ut aute ad. Consectetur consectetur enim nostrud duis
+            laboris ex fugiat consequat veniam excepteur quis. Aute veniam
+            voluptate deserunt commodo aliquip amet enim cillum magna proident.
+          </p>
+          <button style={buttonStyles} onClick={() => setOpen(false)}>
+            Confirm
+          </button>
+          <button style={buttonStyles} autoFocus onClick={() => setOpen(false)}>
+            Cancel
+          </button>
+        </AlertDialog>
+      </>
     );
   }
 };
