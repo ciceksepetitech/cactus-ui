@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import Checkbox from '..';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import {
-  render,
-  screen,
-  cleanup,
-  waitFor,
-  fireEvent
-} from '../../../../utils/test-setup';
+import { render, screen, cleanup, waitFor } from '../../../../utils/test-setup';
 
 describe('checkbox component tests', () => {
   afterEach(() => {
@@ -57,7 +51,6 @@ describe('checkbox component tests', () => {
 
     await user.tab();
     expect(document.activeElement).toEqual(checkbox);
-    checkbox.focus();
     await user.keyboard(' ');
     await waitFor(() => {
       expect(checkbox).not.toBeChecked();

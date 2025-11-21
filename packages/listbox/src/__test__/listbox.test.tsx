@@ -241,7 +241,6 @@ describe('listbox component tests', () => {
     await user.click(button);
 
     const listbox = screen.getByRole('listbox', { hidden: true });
-    listbox.focus();
     await user.type(listbox, '{arrowdown}{arrowdown}');
     await user.type(listbox, ' ');
 

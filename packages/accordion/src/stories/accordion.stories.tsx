@@ -44,7 +44,7 @@ const meta: Meta<typeof Accordion> = {
     collapsible: {
       name: 'collapsible',
       control: { type: 'boolean' },
-      description: 'sets if accordion can collape or not',
+      description: 'sets if accordion can collapse or not',
       table: { defaultValue: { summary: 'true' } }
     },
     disableOptionalArrowKeys: {

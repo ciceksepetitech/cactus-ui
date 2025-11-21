@@ -113,7 +113,6 @@ describe('tabs component tests', () => {
 
     await user.click(tab1);
     await user.keyboard('{arrowright}');
-    tab4.focus();
     await user.type(tab4, ' ');
 
     expect(tab4).toHaveFocus();
@@ -173,7 +172,6 @@ describe('tabs component tests', () => {
 
     await user.click(tab1);
     await user.keyboard('{arrowdown}');
-    tab4.focus();
     await user.type(tab4, ' ');
 
     expect(tab4).toHaveFocus();

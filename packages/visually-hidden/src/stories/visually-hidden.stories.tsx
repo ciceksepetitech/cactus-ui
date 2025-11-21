@@ -10,7 +10,7 @@ const meta: Meta<typeof VisuallyHidden> = {
     docs: {
       description: {
         component:
-          "Visually hides its content from UI without removing it from DOM. Assistive technologies can still attract with the element but it will not take any space at the DOM. VisuallyHidden is a polymorphic component. That's why can be rendered as any valid HTML tag"
+          "Visually hides its content from UI without removing it from DOM. Assistive technologies can still interact with the element but it will not take any space at the DOM. VisuallyHidden is a polymorphic component. That's why can be rendered as any valid HTML tag"
       }
     }
   },
