@@ -24,8 +24,8 @@
     "react-dom": ">=19"
   },
   "scripts": {
-    "build": "yarn cache clean && yarn compile",
-    "clean": "rimraf ./dist && mkdirp ./dist",
-    "compile": "tsc"
+    "build": "../../scripts/packages/build.sh",
+    "clean": "../../scripts/packages/clean.sh",
+    "compile": "../../scripts/packages/compile.sh"
   }
 }

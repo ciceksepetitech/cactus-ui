@@ -51,7 +51,7 @@
   "scripts": {
     "build": "yarn cache clean && yarn build:css && yarn compile",
     "build:css": "postcss src/styles.css -o styles.css",
-    "clean": "rimraf ./dist && mkdirp ./dist",
-    "compile": "tsc"
+    "clean": "../../scripts/packages/clean.sh",
+    "compile": "../../scripts/packages/compile.sh"
   }
 }
