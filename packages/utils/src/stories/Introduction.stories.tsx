@@ -7,7 +7,8 @@ const IntroductionComponent = () => {
       <section aria-label="header">
         <h1>Welcome to Çiçeksepeti React Components</h1>
         <p>
-          This is a collection of accessible, reusable React components built with TypeScript.
+          This is a collection of accessible, reusable React components built
+          with TypeScript.
         </p>
       </section>
     </div>

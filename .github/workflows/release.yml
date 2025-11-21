@@ -9,7 +9,7 @@ jobs:
   release:
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [22.x]
     runs-on: ubuntu-latest
 
     env:

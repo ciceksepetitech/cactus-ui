@@ -1,3 +1,4 @@
+import React from 'react';
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
 // Source: https://github.com/emotion-js/emotion/blob/master/packages/styled-base/types/helper.d.ts

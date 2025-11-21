@@ -331,7 +331,7 @@ export const Radio = forwardRef(
     >,
     forwardedRef
   ) => {
-    const { as, id, value, disabled, children, ...rest } = props;
+    const { as, id, value, disabled, ...rest } = props;
 
     showRadioWarnings(Radio.displayName, props);
 

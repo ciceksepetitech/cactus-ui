@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
-echo "┏━━━ 📦 Packages are building ━━━━━━━━━━━━━━━━━━━"
+#!/bin/bash
 yarn cache clean && yarn compile
+
