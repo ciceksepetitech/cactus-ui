@@ -31,7 +31,9 @@ describe('useFindFocusableElements hook tests', () => {
 const Component = () => {
   const ref = useRef(null);
   const [refNode, setRefNode] = useState<HTMLElement>();
-  const { focusableElements } = useFindFocusableElements(refNode);
+  const { focusableElements } = useFindFocusableElements(
+    refNode as HTMLElement
+  );
 
   const refCallback = useCallback((node: any) => {
     ref.current = node;
@@ -55,7 +57,7 @@ const Component = () => {
 };
 
 const ComponentWithNoRef = () => {
-  const { focusableElements } = useFindFocusableElements(null);
+  const { focusableElements } = useFindFocusableElements(null as any);
 
   return (
     <div>

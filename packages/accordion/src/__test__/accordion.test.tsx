@@ -77,7 +77,6 @@ describe('accordion component tests', () => {
     await user.click(step1);
     expect(content1).toBeVisible();
 
-    step1.focus();
     await user.keyboard(' ');
     await waitFor(() => {
       expect(content1).not.toBeVisible();
@@ -250,7 +249,6 @@ describe('accordion component tests', () => {
     const step1 = screen.getByText(/step1/i);
     await user.click(step1);
 
-    step1.focus();
     await user.type(step1, '{arrowup}');
     await waitFor(() => {
       const step3 = screen.getByText(/step3/i);
@@ -258,7 +256,6 @@ describe('accordion component tests', () => {
     });
 
     const step3 = screen.getByText(/step3/i);
-    step3.focus();
     await user.keyboard(' ');
 
     const content3 = screen.getByText(/step three content/i);
@@ -266,13 +263,11 @@ describe('accordion component tests', () => {
       expect(content3).toBeVisible();
     });
 
-    step3.focus();
     await user.type(step3, '{arrowdown}');
     await waitFor(() => {
       expect(document.activeElement === step1).toBeTruthy();
     });
 
-    step1.focus();
     await user.keyboard(' ');
 
     const content1 = screen.getByText(/step one content/i);

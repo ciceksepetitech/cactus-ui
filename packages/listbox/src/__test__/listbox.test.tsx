@@ -70,7 +70,7 @@ describe('listbox component tests', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    const listbox = screen.getByRole('listbox', { hidden: true });
+    const listbox = screen.getByRole('listbox');
     await user.type(listbox, '{arrowdown}{enter}');
 
     const input = container.querySelector('[data-cui-listbox-input]');
@@ -86,7 +86,7 @@ describe('listbox component tests', () => {
 
     expect(button).toHaveAttribute('aria-expanded', 'true');
 
-    const listbox = screen.getByRole('listbox', { hidden: true });
+    const listbox = screen.getByRole('listbox');
     await user.type(listbox, '{arrowdown}{arrowdown}{enter}');
 
     expect(button).toHaveAttribute('aria-expanded', 'false');
@@ -108,7 +108,7 @@ describe('listbox component tests', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    const listbox = screen.getByRole('listbox', { hidden: true });
+    const listbox = screen.getByRole('listbox');
     await user.type(listbox, '{arrowdown}{arrowdown}{enter}');
 
     const input = container.querySelector('[data-cui-listbox-input]');
@@ -144,7 +144,7 @@ describe('listbox component tests', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    const listbox = screen.getByRole('listbox', { hidden: true });
+    const listbox = screen.getByRole('listbox');
     await user.type(listbox, '{escape}');
 
     expect(button).toHaveAttribute('aria-expanded', 'false');
@@ -198,7 +198,7 @@ describe('listbox component tests', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    const listbox = screen.getByRole('listbox', { hidden: true });
+    const listbox = screen.getByRole('listbox');
     await user.type(listbox, '{arrowup}{arrowup}');
 
     const option3 = screen.getByText(/item 3/i);
@@ -240,7 +240,7 @@ describe('listbox component tests', () => {
     const button = screen.getByRole('button');
     await user.click(button);
 
-    const listbox = screen.getByRole('listbox', { hidden: true });
+    const listbox = screen.getByRole('listbox');
     await user.type(listbox, '{arrowdown}{arrowdown}');
     await user.type(listbox, ' ');
 

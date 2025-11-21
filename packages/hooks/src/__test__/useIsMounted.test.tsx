@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useIsMounted } from '..';
 import { cleanup, screen, render } from '../../../../utils/test-setup';
 
-const fnMock = jest.fn();
-const fnSpecificMock = jest.fn();
-
 describe('useEventListener hook tests', () => {
   afterEach(() => {
     cleanup();
