@@ -13,8 +13,9 @@ export function useLocalStorage(key: string, defaultValue?: any) {
       const item = localStorage.getItem(key);
       if (item) return JSON.parse(item);
 
-      defaultValueRef.current &&
+      if (defaultValueRef.current) {
         localStorage.setItem(key, JSON.stringify(defaultValueRef.current));
+      }
 
       return defaultValueRef.current;
     } catch {

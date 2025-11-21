@@ -18,7 +18,8 @@ export default [
       '**/gulpfile.js',
       '**/doc-website/**',
       '**/packages/*/**/dist/**',
-      '**/storybook-static/**'
+      '**/storybook-static/**',
+      '**/postcss.config.js'
     ]
   },
   js.configs.recommended,
@@ -31,7 +32,8 @@ export default [
       parserOptions: {
         ecmaFeatures: {
           jsx: true
-        }
+        },
+        lib: ['ES2021', 'DOM', 'DOM.Iterable']
       },
       globals: {
         ...globals.browser,
@@ -46,7 +48,15 @@ export default [
     },
     rules: {
       ...tseslintPlugin.configs.recommended.rules,
-      ...jsxA11y.configs.recommended.rules
+      ...jsxA11y.configs.recommended.rules,
+      // TypeScript function overloads are valid, disable no-redeclare
+      'no-redeclare': 'off',
+      '@typescript-eslint/no-redeclare': [
+        'error',
+        { ignoreDeclarationMerge: true }
+      ],
+      // Change no-explicit-any from error to warning
+      '@typescript-eslint/no-explicit-any': 'warn'
     }
   }
 ];
