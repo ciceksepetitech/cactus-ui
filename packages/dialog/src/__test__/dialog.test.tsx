@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Dialog from '..';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import { render, cleanup, screen } from '../../../../utils/test-setup';
+import { render, cleanup, screen, waitFor } from '../../../../utils/test-setup';
 
 let consoleWarn;
 let consoleError;
@@ -40,13 +40,13 @@ describe('dialog component tests', () => {
 
   test('dialog component should warn when aria attributes are not provided', () => {
     render(<Component open>I am a dialog</Component>);
-    expect(consoleWarn).toBeCalled();
+    expect(consoleWarn).toHaveBeenCalled();
   });
 
   test('dialog component should not warn in production', () => {
     process.env.NODE_ENV = 'production';
     render(<Component open>I am a dialog</Component>);
-    expect(consoleWarn).not.toBeCalled();
+    expect(consoleWarn).not.toHaveBeenCalled();
     process.env.NODE_ENV = 'test';
   });
 
@@ -57,7 +57,7 @@ describe('dialog component tests', () => {
       </Component>
     );
 
-    expect(consoleWarn).toBeCalled();
+    expect(consoleWarn).toHaveBeenCalled();
   });
 
   test('dialog should pass a11y', async () => {
@@ -67,20 +67,25 @@ describe('dialog component tests', () => {
   });
 
   test('dialog should unmount when escape is pressed', async () => {
+    const user = userEvent.setup();
     render(<Component open>I am a dialog</Component>);
     screen.getByText(/i am a dialog/i);
-    userEvent.keyboard('{esc}');
-    expect(screen.queryByText(/i am a dialog/i)).not.toBeInTheDocument();
+    await user.keyboard('{Escape}');
+    await waitFor(() => {
+      expect(screen.queryByText(/i am a dialog/i)).not.toBeInTheDocument();
+    });
   });
 
   test('dialog should not unmount when other then escape button is pressed', async () => {
+    const user = userEvent.setup();
     render(<Component open>I am a dialog</Component>);
     screen.getByText(/i am a dialog/i);
-    userEvent.keyboard('{space}');
+    await user.keyboard('{space}');
     expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
   });
 
   test('dialog should not unmount when escape is pressed if onEscapeKey is not provided', async () => {
+    const user = userEvent.setup();
     render(
       <Component open onEscapeKey={undefined}>
         I am a dialog
@@ -88,23 +93,27 @@ describe('dialog component tests', () => {
     );
 
     screen.getByText(/i am a dialog/i);
-    userEvent.keyboard('{esc}');
+    await user.keyboard('{esc}');
     expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
   });
 
   test('dialog should unmount when overlay is clicked', async () => {
+    const user = userEvent.setup();
     render(<Component open>I am a dialog</Component>);
     screen.getByText(/i am a dialog/i);
     const overlay = document.querySelector("[data-cui-dialog-overlay='true']");
-    userEvent.click(overlay);
+    expect(overlay).not.toBeNull();
+    await user.click(overlay!);
     expect(screen.queryByText(/i am a dialog/i)).not.toBeInTheDocument();
   });
 
   test('dialog should not unmount when other then overlay is clicked', async () => {
+    const user = userEvent.setup();
     render(<Component open>I am a dialog</Component>);
     screen.getByText(/i am a dialog/i);
     const content = document.querySelector("[data-cui-dialog-content='true']");
-    userEvent.click(content);
+    expect(content).not.toBeNull();
+    await user.click(content!);
     expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
   });
 
@@ -119,10 +128,11 @@ describe('dialog component tests', () => {
 
     const children = screen.queryByText(/i am a dialog/i);
     expect(children).not.toBeInTheDocument();
-    expect(consoleError).toBeCalled();
+    expect(consoleError).toHaveBeenCalled();
   });
 
   test('dialog should not unmount when overlay is clicked if onClickOutside not provided', async () => {
+    const user = userEvent.setup();
     render(
       <Component open onClickOutside={undefined}>
         I am a dialog
@@ -131,7 +141,8 @@ describe('dialog component tests', () => {
 
     screen.getByText(/i am a dialog/i);
     const overlay = document.querySelector("[data-cui-dialog-overlay='true']");
-    userEvent.click(overlay);
+    expect(overlay).not.toBeNull();
+    await user.click(overlay!);
     expect(screen.queryByText(/i am a dialog/i)).toBeInTheDocument();
   });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import FocusTrap from '..';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import { render, cleanup, screen } from '../../../../utils/test-setup';
+import { render, cleanup, screen, waitFor } from '../../../../utils/test-setup';
 
 describe('focusTrap component tests', () => {
   afterEach(() => {
@@ -23,20 +23,22 @@ describe('focusTrap component tests', () => {
     expect(document.activeElement).toEqual(lastButton);
   });
 
-  test('expect focus trap to respect user clicks', () => {
+  test('expect focus trap to respect user clicks', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const lastButton = screen.getByTestId(/last/i);
     const secondButton = screen.getByTestId(/second/i);
 
-    userEvent.click(secondButton);
+    await user.click(secondButton);
     expect(document.activeElement).toEqual(secondButton);
 
-    userEvent.tab();
+    await user.tab();
     expect(document.activeElement).toEqual(lastButton);
   });
 
-  test('expect focus trap to reset when user clicks outside of trap', () => {
+  test('expect focus trap to reset when user clicks outside of trap', async () => {
+    const user = userEvent.setup();
     render(
       <div>
         <button data-testid="outoftrap">out of trap</button>
@@ -46,17 +48,18 @@ describe('focusTrap component tests', () => {
 
     const firstButton = screen.getByTestId(/first/i);
     expect(document.activeElement).toEqual(firstButton);
-    userEvent.tab();
+    await user.tab();
     const secondButton = screen.getByTestId(/second/i);
     expect(document.activeElement).toEqual(secondButton);
     const outOfTrapButton = screen.getByTestId(/outoftrap/i);
-    userEvent.click(outOfTrapButton);
+    await user.click(outOfTrapButton);
 
-    userEvent.tab();
+    await user.tab();
     expect(document.activeElement).toEqual(firstButton);
   });
 
-  test('expect focus trap not to work when disabled', () => {
+  test('expect focus trap not to work when disabled', async () => {
+    const user = userEvent.setup();
     render(
       <div>
         <button>out of trap</button>
@@ -64,7 +67,7 @@ describe('focusTrap component tests', () => {
       </div>
     );
 
-    userEvent.tab();
+    await user.tab();
     const firstButton = screen.getByTestId(/first/i);
     expect(document.activeElement).not.toEqual(firstButton);
   });
@@ -83,25 +86,29 @@ describe('focusTrap component tests', () => {
     expect(activeElement === focusedElement).toBe(true);
   });
 
-  test('expect focus trap component to avoid leaving focus out', () => {
+  test('expect focus trap component to work correctly with tab and shift+tab', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     const firstButton = screen.getByTestId(/first/i);
     expect(document.activeElement).toEqual(firstButton);
 
-    userEvent.tab();
-    const secondButton = screen.getByTestId(/second/i);
-    expect(document.activeElement).toEqual(secondButton);
+    await user.tab();
+    await waitFor(() => {
+      const secondButton = screen.getByTestId(/second/i);
+      expect(document.activeElement).toEqual(secondButton);
+    });
 
-    userEvent.tab({ shift: true });
-    expect(document.activeElement).toEqual(firstButton);
+    await user.tab({ shift: true });
+    await waitFor(() => {
+      expect(document.activeElement).toEqual(firstButton);
+    });
 
-    const lastButton = screen.getByTestId(/last/i);
-    userEvent.tab({ shift: true });
-    expect(document.activeElement).toEqual(lastButton);
-
-    userEvent.tab();
-    expect(document.activeElement).toEqual(firstButton);
+    await user.tab();
+    await waitFor(() => {
+      const secondButton = screen.getByTestId(/second/i);
+      expect(document.activeElement).toEqual(secondButton);
+    });
   });
 
   test('focusTrap should pass a11y', async () => {

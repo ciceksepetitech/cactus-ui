@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-checkbox",
-  "version": "0.0.21",
+  "version": "1.0.0",
   "description": "ÇiçekSepeti Checkbox Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -24,19 +24,16 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-hooks": "0.11.7",
-    "@ciceksepeti/cui-utils": "0.11.7"
+    "@ciceksepeti/cui-hooks": "1.0.0",
+    "@ciceksepeti/cui-utils": "1.0.0"
   },
   "peerDependencies": {
-    "react": ">=16",
-    "react-dom": ">=16"
+    "react": ">=19",
+    "react-dom": ">=19"
   },
   "scripts": {
-    "build": "scripty",
-    "clean": "scripty",
-    "compile": "scripty"
-  },
-  "scripty": {
-    "path": "../../scripts/packages"
+    "build": "../../scripts/packages/build.sh",
+    "clean": "../../scripts/packages/clean.sh",
+    "compile": "../../scripts/packages/compile.sh"
   }
 }

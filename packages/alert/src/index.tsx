@@ -71,7 +71,7 @@ const createCloneFunctions = (liveRegionType: LiveRegionType): CloneRef => {
    * than re-renders alerts
    * @param element
    */
-  const addToLiveRegion = (element: JSX.Element) => {
+  const addToLiveRegion = (element: React.ReactElement) => {
     regionElements[key] = element;
     renderAlertsToRegions();
   };
@@ -81,7 +81,7 @@ const createCloneFunctions = (liveRegionType: LiveRegionType): CloneRef => {
    * @param element
    * @returns
    */
-  const clone = (element: JSX.Element) => {
+  const clone = (element: React.ReactElement) => {
     if (liveRegionContainers[liveRegionType]) {
       addToLiveRegion(element);
       return;
@@ -150,7 +150,7 @@ const renderAlertsToRegions = () => {
  * @param ref
  */
 const useLiveRegionClone = (
-  element: JSX.Element,
+  element: React.ReactElement,
   liveRegionType: LiveRegionType,
   ref: React.RefObject<Element>
 ) => {
@@ -200,12 +200,12 @@ type LiveRegionType = 'assertive' | 'polite' | 'off';
 
 type CloneRef = {
   remove: () => void;
-  clone: (element: JSX.Element) => void;
+  clone: (element: React.ReactElement) => void;
 };
 
 type LiveRegionElements = {
   [key in LiveRegionType]: {
-    [key: string]: JSX.Element;
+    [key: string]: React.ReactElement;
   };
 };
 

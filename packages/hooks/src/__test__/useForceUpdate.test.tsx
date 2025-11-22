@@ -8,14 +8,15 @@ describe('useForceUpdate hook tests', () => {
     cleanup();
   });
 
-  test('expect useForceUpdate to update UI', () => {
+  test('expect useForceUpdate to update UI', async () => {
+    const user = userEvent.setup();
     render(<Component />);
 
     screen.getByText(/count: 0/i);
-    userEvent.click(screen.getByText(/increment/i));
+    await user.click(screen.getByText(/increment/i));
     screen.getByText(/count: 0/i);
 
-    userEvent.click(screen.getByText(/force update/i));
+    await user.click(screen.getByText(/force update/i));
     screen.getByText(/count: 1/i);
   });
 });

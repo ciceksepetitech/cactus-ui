@@ -1,7 +1,5 @@
 import { useId } from '..';
-import { cleanup, reactHooks } from '../../../../utils/test-setup';
-
-const { renderHook } = reactHooks;
+import { cleanup, renderHook } from '../../../../utils/test-setup';
 
 describe('useId hook tests', () => {
   afterEach(() => {
@@ -15,7 +13,7 @@ describe('useId hook tests', () => {
     });
 
     expect(result.current).toBe('1');
-    rerender();
+    rerender({ value: null });
     expect(result.current).toBe('1');
   });
 
@@ -28,7 +26,7 @@ describe('useId hook tests', () => {
     });
 
     expect(result.current).toBe(value);
-    rerender();
+    rerender({ value });
     expect(result.current).toBe(value);
   });
 });
