@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-accordion",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ÇiçekSepeti Accordion Component",
   "author": "ciceksepeti",
   "main": "dist/src/index.js",
@@ -20,8 +20,8 @@
     "url": "git+https://github.com/ciceksepetitech/cactus-ui.git"
   },
   "dependencies": {
-    "@ciceksepeti/cui-hooks": "1.0.0",
-    "@ciceksepeti/cui-utils": "1.0.0"
+    "@ciceksepeti/cui-hooks": "1.0.1",
+    "@ciceksepeti/cui-utils": "1.0.1"
   },
   "peerDependencies": {
     "react": ">=19",

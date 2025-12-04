@@ -1,6 +1,6 @@
 {
   "name": "@ciceksepeti/cui-hooks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ÇiçekSepeti Component Hooks",
   "author": "cs",
   "main": "dist/src/index.js",
@@ -15,7 +15,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@ciceksepeti/cui-utils": "1.0.0"
+    "@ciceksepeti/cui-utils": "1.0.1"
   },
   "repository": {
     "type": "git",
