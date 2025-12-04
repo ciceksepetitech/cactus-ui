@@ -197,8 +197,7 @@ export default Checkbox;
 
 /** Types and Interfaces */
 
-export interface ICheckBoxProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface ICheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   indeterminate?: boolean;
 }
 
