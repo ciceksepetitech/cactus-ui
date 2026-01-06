@@ -5,7 +5,7 @@ Thank you for your time in interest in Reactlib. Please take a look at the pull 
 ##### First of all:
 
 - [ ] Choose a name suits for the implementation
-- [ ] Prefix your pull request name with [feat], [fix], [refactor], [ci], [chore], [docs], [test], [style], [refactor], [perf], [build] or [revert]
+- [ ] Prefix your pull request name with feat, fix, refactor, ci, chore, docs, test, style, refactor, perf, build or revert
 - [ ] Add description about the pull request
 - [ ] Add or edit tests and make sure it covers all the implementation
 - [ ] Add or edit Storybook
