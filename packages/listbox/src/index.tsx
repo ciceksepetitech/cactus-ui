@@ -681,8 +681,10 @@ const showContentWarnings = (componentName: string, props: IListboxProps) => {
 
 export type ListboxValue = string | number | readonly string[];
 
-export interface IListboxProps
-  extends Omit<React.ComponentProps<'select'>, 'prefix' | 'onChange'> {
+export interface IListboxProps extends Omit<
+  React.ComponentProps<'select'>,
+  'prefix' | 'onChange'
+> {
   name?: string;
   portal?: boolean;
   required?: boolean;
