@@ -1,5 +1,5 @@
 import { getTabbableElements } from '..';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 /**
  * gets tabbable elements inside of passed nodeRef
@@ -13,14 +13,28 @@ export function useFindTabbableElements(node: HTMLElement): {
   const [tabbableElements, setTabbableElements] =
     useState<Array<HTMLElement>>();
 
-  /**
-   * creates node list
-   */
-  useEffect(() => {
+  const updateTabbableElements = useCallback(() => {
     if (!node) return;
     const _tabbableElements = getTabbableElements(node);
     setTabbableElements(_tabbableElements);
   }, [node]);
+
+  /**
+   * creates node list and adds mutation observer to update tabbable elements when there is a change in attributes
+   */
+  useEffect(() => {
+    if (!node) return;
+    updateTabbableElements();
+    const observer = new MutationObserver(updateTabbableElements);
+
+    observer.observe(node, {
+      subtree: true,
+      childList: true,
+      attributeFilter: ['disabled'],
+    });
+
+    return () => observer.disconnect();
+  }, [node, updateTabbableElements]);
 
   return { tabbableElements };
 }
